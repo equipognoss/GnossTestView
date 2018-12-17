@@ -1,0 +1,106 @@
+﻿
+<form id="formulario" action="javascript:void(0)" method="post">
+    <p> Elige el tipo de petición que quieres hacer</p>
+    <div>
+        <span>Nombre de la rama que quieres <strong>Crear</strong></span><input type="text" id="TxtCrear" value=""/> 
+        <input type="button" class="guardarTodo" id="Crear" value="Crear" />
+    </div>
+     <br />
+
+    <div>
+        <span>Nombre de la rama que quieres <strong>Vincular</strong></span><input type="text" id="TxtVincular" value=""/> 
+        <input type="button" class="guardarTodo" id="Vincular" value="Vincular" />
+    </div>
+</form>
+<script>
+    var OperativaAcciones = {
+        init: function () {
+            this.config();
+            this.engancharComportamiento();
+        },
+        config: function () {
+            this.urlPagina = document.location.href;
+            return;
+        },
+        mostrarErrorGuardado: function (data) {
+            if (data)
+            {
+                $('#formulario').after('<div class="error general">'+data+'</div>');
+            } else
+            {
+                $('#formulario').after('<div class="error general">Ha habido errores en el guardado</div>');
+            }
+        },
+        guardar: function () {
+            var that = this;
+            MostrarUpdateProgress();
+            GnossPeticionAjax(
+            that.urlPagina + '/Guardar',
+            that.Options,
+            true
+            ).fail(function (data) {
+                that.mostrarErrorGuardado(data);
+            }).always(function () {
+                OcultarUpdateProgress();
+            });
+        },
+        engancharComportamiento: function () {
+            var that = this;
+            $('#Crear').click(function () {
+                that.guardarTodo(true);
+            });
+            $('#Vincular').click(function () {
+                that.guardarTodo(false);
+            });
+            return;
+        },    
+        guardarTodo: function () {
+            var that = this;
+            $('.ok.general').remove();
+            $('.error').remove();
+            if (!that.comprobarErroresGuardado(arguments[0])) {
+                that.Options = {};
+                that.obtenerDatos(arguments[0]);
+                that.guardar();
+            }
+            else {
+                that.mostrarErrorNombreRama();
+            }
+        },
+        mostrarErrorNombreRama: function(){
+            $('#formulario').after('<div class="error general">Introduce el nombre de la rama que quieres crear</div>');
+        },
+        obtenerDatos: function () {
+            var that = this;
+            if (arguments[0])
+            {
+                that.Options['pNombreRama'] = $("#TxtCrear").val();
+                that.Options['pTipoPeticion'] = 0;
+            }else
+            {
+                that.Options['pNombreRama'] = $("#TxtVincular").val();
+                that.Options['pTipoPeticion'] = 1;
+            }
+        
+        },
+        comprobarErroresGuardado: function () {
+            return arguments[0] ? $("#TxtCrear").val() == '' : $("#TxtVincular").val() == '';
+        },
+    }
+
+    $(document).ready(function () {
+        OperativaAcciones.init();
+    });
+</script>
+<style>
+    input[type=text] {
+        width: 20%;
+        margin-left: 10px;
+    }
+    input[type=button]{
+        float:initial;
+    }
+
+</style>
+
+

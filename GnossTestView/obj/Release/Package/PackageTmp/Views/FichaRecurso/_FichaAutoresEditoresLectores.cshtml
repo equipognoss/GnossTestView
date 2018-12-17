@@ -1,0 +1,72 @@
+﻿@model ResourceModel
+
+@if (Model.Authors != null && Model.Authors.Count > 0)
+{
+    <div class="group categorias">
+        <p>@Html.GetText("COMMON", "AUTORES"): </p>
+        @{
+            int numAutores = 0;
+        }
+        <ul>
+            @foreach (string autor in Model.Authors.Keys)
+            {
+                <li>
+                    @if (numAutores > 0)
+                    {
+                        <text>,</text>
+                    }
+                    <a href="@Model.Authors[autor]" property="dc:creator">@autor</a>
+                </li>
+                numAutores++;
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Editors != null && Model.Editors.Count > 0)
+{
+    int numEditores = 0;
+    <p id="parrafoEditores">
+        @Html.GetText("USUARIOS", "EDITORES"): 
+        @foreach (string editor in Model.Editors.Keys)
+        {
+            if (numEditores > 0)
+            {
+                <text>,</text>
+            }
+            if (Model.Editors[editor] != "")
+            {
+                <a href="@Model.Editors[editor]">@editor</a>
+            }
+            else
+            {
+                <span>@editor</span>
+            }
+            numEditores++;
+        }
+    </p>
+}
+
+@if (Model.Readers != null && Model.Readers.Count > 0)
+{
+    int numLectores = 0;
+    <p id="parrafoLectores">
+        @Html.GetText("USUARIOS", "LECTORES"): 
+        @foreach (string lector in Model.Readers.Keys)
+        {
+            if (numLectores > 0)
+            {
+                <text>,</text>
+            }
+            if (Model.Readers[lector] != "")
+            {
+                <a href="@Model.Readers[lector]">@lector</a>
+            }
+            else
+            {
+                <span>@lector</span>
+            }
+            numLectores++;
+        }
+    </p>
+}

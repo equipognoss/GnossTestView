@@ -1,0 +1,2737 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+Este archivo es utilizado por el proceso de paquete/publicación de nuestro proyecto Web. Puede personalizar el comportamiento de este proceso
+editando este archivo MSBuild. Para conocer más acerca de esto, visite http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\Publicacion\Compilador vistas-Vistas nuevas</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>02/22/2013 08:43:40</publishTime>
+    </File>
+    <File Include="bin/Es.Riam.Gnoss.Web.MVC.Models.dll">
+      <publishTime>12/13/2018 14:54:50</publishTime>
+    </File>
+    <File Include="bin/Es.Riam.Interfaces.dll">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="bin/Es.Riam.Semantica.dll">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="bin/Es.Riam.Util.dll">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="bin/Es.Riam.Web.Util.dll">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Helpers.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Mvc.resources.dll">
+      <publishTime>01/28/2015 04:02:24</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Razor.resources.dll">
+      <publishTime>01/28/2015 04:02:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Webpages.Deployment.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Webpages.Razor.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/es/System.Web.Webpages.resources.dll">
+      <publishTime>01/28/2015 04:04:36</publishTime>
+    </File>
+    <File Include="bin/GnossTestView.dll">
+      <publishTime>12/17/2018 09:15:18</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>06/15/2015 02:06:24</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/13/2016 23:06:14</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/18/2015 20:19:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/18/2015 20:19:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/28/2015 04:02:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>02/11/2014 15:26:04</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/28/2015 04:02:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Deployment.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.Webpages.Razor.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>07/17/2013 17:03:52</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Libraries/Es.Riam.Gnoss.Web.MVC.Models.dll">
+      <publishTime>12/13/2018 14:54:50</publishTime>
+    </File>
+    <File Include="Libraries/Es.Riam.Interfaces.dll">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="Libraries/Es.Riam.Semantica.dll">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="Libraries/Es.Riam.Util.dll">
+      <publishTime>12/14/2018 13:15:26</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>12/14/2018 13:15:27</publishTime>
+    </File>
+    <File Include="theme/libraries/bootstrap/bootstrap.min.css">
+      <publishTime>12/13/2018 17:03:43</publishTime>
+    </File>
+    <File Include="theme/libraries/bootstrap/bootstrap.min.js">
+      <publishTime>12/13/2018 16:37:31</publishTime>
+    </File>
+    <File Include="theme/libraries/jquery.autocomplete.js">
+      <publishTime>12/13/2018 16:43:02</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/css/propeller.min.css">
+      <publishTime>12/13/2018 17:06:27</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Black-webfont.eot">
+      <publishTime>12/14/2018 09:25:41</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Black-webfont.ttf">
+      <publishTime>12/14/2018 09:25:49</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Black-webfont.woff">
+      <publishTime>12/14/2018 09:25:49</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-BlackItalic-webfont.eot">
+      <publishTime>12/14/2018 09:25:50</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-BlackItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:25:55</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-BlackItalic-webfont.woff">
+      <publishTime>12/14/2018 09:25:56</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Bold-webfont.eot">
+      <publishTime>12/14/2018 09:25:57</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Bold-webfont.ttf">
+      <publishTime>12/14/2018 09:25:58</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Bold-webfont.woff">
+      <publishTime>12/14/2018 09:25:58</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-BoldItalic-webfont.eot">
+      <publishTime>12/14/2018 09:25:59</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-BoldItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:02</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-BoldItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:03</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Italic-webfont.eot">
+      <publishTime>12/14/2018 09:26:03</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Italic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:04</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Italic-webfont.woff">
+      <publishTime>12/14/2018 09:26:05</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Light-webfont.eot">
+      <publishTime>12/14/2018 09:26:06</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Light-webfont.ttf">
+      <publishTime>12/14/2018 09:26:08</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Light-webfont.woff">
+      <publishTime>12/14/2018 09:26:09</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-LightItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:10</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-LightItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:12</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-LightItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:14</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Medium-webfont.eot">
+      <publishTime>12/14/2018 09:26:14</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Medium-webfont.ttf">
+      <publishTime>12/14/2018 09:26:15</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Medium-webfont.woff">
+      <publishTime>12/14/2018 09:23:20</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-MediumItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:16</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-MediumItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:17</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-MediumItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:18</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Regular-webfont.eot">
+      <publishTime>12/14/2018 09:26:19</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Regular-webfont.ttf">
+      <publishTime>12/14/2018 09:26:20</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Regular-webfont.woff">
+      <publishTime>12/14/2018 09:26:21</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Thin-webfont.eot">
+      <publishTime>12/14/2018 09:26:21</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Thin-webfont.ttf">
+      <publishTime>12/14/2018 09:26:24</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-Thin-webfont.woff">
+      <publishTime>12/14/2018 09:26:24</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-ThinItalic-webfont %281%29.eot">
+      <publishTime>12/14/2018 09:26:29</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-ThinItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:25</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/Roboto-ThinItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:33</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Bold-webfont.eot">
+      <publishTime>12/14/2018 09:26:34</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Bold-webfont.ttf">
+      <publishTime>12/14/2018 09:26:37</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Bold-webfont.woff">
+      <publishTime>12/14/2018 09:26:35</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-BoldItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:37</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-BoldItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:39</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-BoldItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:39</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Italic-webfont.eot">
+      <publishTime>12/14/2018 09:26:40</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Italic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:41</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Italic-webfont.woff">
+      <publishTime>12/14/2018 09:26:41</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Light-webfont.eot">
+      <publishTime>12/14/2018 09:26:42</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Light-webfont.ttf">
+      <publishTime>12/14/2018 09:26:43</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Light-webfont.woff">
+      <publishTime>12/14/2018 09:26:43</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-LightItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:44</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-LightItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:45</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-LightItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:46</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Regular-webfont.eot">
+      <publishTime>12/14/2018 09:26:46</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Regular-webfont.ttf">
+      <publishTime>12/14/2018 09:26:48</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/fonts/roboto/RobotoCondensed-Regular-webfont.woff">
+      <publishTime>12/14/2018 09:26:48</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/js/propeller.js">
+      <publishTime>12/13/2018 16:40:07</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Black-webfont.eot">
+      <publishTime>12/14/2018 09:25:41</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Black-webfont.ttf">
+      <publishTime>12/14/2018 09:25:49</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Black-webfont.woff">
+      <publishTime>12/14/2018 09:25:49</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-BlackItalic-webfont.eot">
+      <publishTime>12/14/2018 09:25:50</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-BlackItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:25:55</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-BlackItalic-webfont.woff">
+      <publishTime>12/14/2018 09:25:56</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Bold-webfont.eot">
+      <publishTime>12/14/2018 09:25:57</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Bold-webfont.ttf">
+      <publishTime>12/14/2018 09:25:58</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Bold-webfont.woff">
+      <publishTime>12/14/2018 09:25:58</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-BoldItalic-webfont.eot">
+      <publishTime>12/14/2018 09:25:59</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-BoldItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:02</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-BoldItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:03</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Italic-webfont.eot">
+      <publishTime>12/14/2018 09:26:03</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Italic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:04</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Italic-webfont.woff">
+      <publishTime>12/14/2018 09:26:05</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Light-webfont.eot">
+      <publishTime>12/14/2018 09:26:06</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Light-webfont.ttf">
+      <publishTime>12/14/2018 09:26:08</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Light-webfont.woff">
+      <publishTime>12/14/2018 09:26:09</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-LightItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:10</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-LightItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:12</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-LightItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:14</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Medium-webfont.eot">
+      <publishTime>12/14/2018 09:26:14</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Medium-webfont.ttf">
+      <publishTime>12/14/2018 09:26:15</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Medium-webfont.woff">
+      <publishTime>12/14/2018 09:23:20</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-MediumItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:16</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-MediumItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:17</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-MediumItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:18</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Regular-webfont.eot">
+      <publishTime>12/14/2018 09:26:19</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Regular-webfont.ttf">
+      <publishTime>12/14/2018 09:26:20</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Regular-webfont.woff">
+      <publishTime>12/14/2018 09:26:21</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Thin-webfont.eot">
+      <publishTime>12/14/2018 09:26:21</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Thin-webfont.ttf">
+      <publishTime>12/14/2018 09:26:24</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-Thin-webfont.woff">
+      <publishTime>12/14/2018 09:26:24</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-ThinItalic-webfont %281%29.eot">
+      <publishTime>12/14/2018 09:26:29</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-ThinItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:25</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/Roboto-ThinItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:33</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Bold-webfont.eot">
+      <publishTime>12/14/2018 09:26:34</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Bold-webfont.ttf">
+      <publishTime>12/14/2018 09:26:37</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Bold-webfont.woff">
+      <publishTime>12/14/2018 09:26:35</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-BoldItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:37</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-BoldItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:39</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-BoldItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:39</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Italic-webfont.eot">
+      <publishTime>12/14/2018 09:26:40</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Italic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:41</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Italic-webfont.woff">
+      <publishTime>12/14/2018 09:26:41</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Light-webfont.eot">
+      <publishTime>12/14/2018 09:26:42</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Light-webfont.ttf">
+      <publishTime>12/14/2018 09:26:43</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Light-webfont.woff">
+      <publishTime>12/14/2018 09:26:43</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-LightItalic-webfont.eot">
+      <publishTime>12/14/2018 09:26:44</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-LightItalic-webfont.ttf">
+      <publishTime>12/14/2018 09:26:45</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-LightItalic-webfont.woff">
+      <publishTime>12/14/2018 09:26:46</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Regular-webfont.eot">
+      <publishTime>12/14/2018 09:26:46</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Regular-webfont.ttf">
+      <publishTime>12/14/2018 09:26:48</publishTime>
+    </File>
+    <File Include="theme/libraries/propeller/roboto/RobotoCondensed-Regular-webfont.woff">
+      <publishTime>12/14/2018 09:26:48</publishTime>
+    </File>
+    <File Include="theme/resources/icos/icn-usuario.png">
+      <publishTime>12/14/2018 10:30:57</publishTime>
+    </File>
+    <File Include="theme/resources/logo_gnoss.png">
+      <publishTime>12/14/2018 10:30:35</publishTime>
+    </File>
+    <File Include="theme/resources/persona-default.png">
+      <publishTime>12/14/2018 10:30:48</publishTime>
+    </File>
+    <File Include="theme/theme-autocompletar.css">
+      <publishTime>12/13/2018 17:11:31</publishTime>
+    </File>
+    <File Include="theme/theme-buscador.css">
+      <publishTime>12/13/2018 17:12:28</publishTime>
+    </File>
+    <File Include="theme/theme-cabecera.css">
+      <publishTime>12/13/2018 17:10:48</publishTime>
+    </File>
+    <File Include="theme/theme-comunidades.css">
+      <publishTime>12/14/2018 08:19:03</publishTime>
+    </File>
+    <File Include="theme/theme-contextos.css">
+      <publishTime>12/13/2018 17:16:23</publishTime>
+    </File>
+    <File Include="theme/theme-facetas.css">
+      <publishTime>12/14/2018 08:13:44</publishTime>
+    </File>
+    <File Include="theme/theme-fichas.css">
+      <publishTime>12/14/2018 08:16:30</publishTime>
+    </File>
+    <File Include="theme/theme-filtros.css">
+      <publishTime>12/14/2018 08:15:34</publishTime>
+    </File>
+    <File Include="theme/theme-general.css">
+      <publishTime>12/13/2018 17:07:50</publishTime>
+    </File>
+    <File Include="theme/theme-listados.css">
+      <publishTime>12/14/2018 08:12:06</publishTime>
+    </File>
+    <File Include="theme/theme-main.css">
+      <publishTime>12/13/2018 17:13:12</publishTime>
+    </File>
+    <File Include="theme/theme-modales.css">
+      <publishTime>12/14/2018 08:14:37</publishTime>
+    </File>
+    <File Include="theme/theme-paneles.css">
+      <publishTime>12/14/2018 12:23:09</publishTime>
+    </File>
+    <File Include="theme/theme-resources.css">
+      <publishTime>12/14/2018 08:09:59</publishTime>
+    </File>
+    <File Include="theme/theme.css">
+      <publishTime>12/14/2018 08:19:33</publishTime>
+    </File>
+    <File Include="theme/theme.js">
+      <publishTime>12/13/2018 16:44:48</publishTime>
+    </File>
+    <File Include="Views/AbandonarComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/AcercaDeComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/AdminCatEspacioPersonal/Index.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/AdminCatEspacioPersonal/_AdminTesauro.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarAplicaciones/Editar.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarAplicaciones/Index.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarAplicaciones/Informe.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarCategorias/Index.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarCategorias/_Acciones.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarCategorias/_Tesauro.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarClausulasRegistro/Index.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarClausulasRegistro/_EdicionClausulaRegistro.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarComunidadGeneral/AdministrarComunidadCategoriasMetaproyecto.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarComunidadGeneral/EstadoComunidad.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarComunidadGeneral/ImagenCabecera.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarComunidadGeneral/ImagenLogo.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarComunidadGeneral/Index.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarComunidadGeneral/_SeleccionarCategoriasMetaproyecto.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarConsultasSPARQL/index.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarContextos/Index.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarContextos/_EdicionContexto.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarCredenciales/Index.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarCredenciales/_Registro.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarDespliegues/index.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarDespliegues/VersionDesalineada.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarDespliegues/_CrearVersion.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarDespliegues/_Desplegar.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarDisenio/Index.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarDisenio/_Historial.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarEstilos/ActualizarEstilos.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarEstilos/CrearVersion.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarEstilos/Historial.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarEstilos/Index.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarEstilos/_Historial.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarEventos/Index.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarEventos/_EdicionEvento.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFacetas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFacetas/_EdicionFaceta.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFuentesRSS/Edit.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFuentesRSS/Index.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFuentesRSS/New.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFuentesRSS/_PanelEdicion.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFusionCambios/Index.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarFusionCambios/ListaCambios.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarIntegracionContinua/index.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarIntegracionContinua/_CrearConfiguracion.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarMapasCharts/_EditarChart.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarMapasCharts/_EditarCharts.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarMapasCharts/_EditarMapa.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarObjetosConocimiento/Index.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarObjetosConocimiento/_EdicionObjetoConocimiento.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarObjetosConocimiento/_FichaPresentacion.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarObjetosConocimiento/_FichaPropiedad.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarObjetosConocimiento/_FichaSubTipo.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarOpcionesAvanzadas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarOpcionesAvanzadasPlataforma/Index.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarOpcionesMetaAdministrador/Index.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPaginasCMS/Index.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPermisosPaginas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/_EdicionPestanya.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/_ExportarBusqueda.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/_FichaExportacion.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/_FichaExportacionPropiedad.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/_FichaFiltroOrden.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/_NuevaPestanya.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPestanyas/_OpcionesBusqueda.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPlantillasOntologicas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPlantillasOntologicas/_EdicionDatos.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPlantillasOntologicas/_EdicionFicheros.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPlantillasOntologicas/_Historial.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarPlantillasOntologicas/_ListaPlantillas.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarRamas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarRamas/_CrearRama.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarRamas/_SubirCambiosRama.cshtml">
+      <publishTime>12/14/2018 13:15:44</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarRedirecciones/Index.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarRedirecciones/_EdicionRedireccion.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarTraducciones/Editar.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarTraducciones/Index.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarUtilidades/Index.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarUtilidades/_NivelesCertificacion.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarUtilidades/_PermisosRecursos.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarVistas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarVistas/_CMS.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarVistas/_Facetas.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarVistas/_Resultados.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/AdministrarVistas/_Web.cshtml">
+      <publishTime>12/14/2018 13:15:39</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/Index.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_Booleano.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_Select.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_TextArea.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_TextBox.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_Imagen.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_ListaCamposEnvioCorreo.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_ListaIDs.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminComponenteEditar/_Propiedad_ListaOpcionesMenu.cshtml">
+      <publishTime>12/14/2018 13:15:42</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminDisenio/Index.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Administracion/CMSAdminListadoComponentes/Index.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/ConfigurarIntegracionContinua/Index.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/ConfigurarIntegracionContinua/_ConfigParameters.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/ConfigurarIntegracionContinua/_FichaPropiedad.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/ConfigurarIntegracionContinuaInicial/index.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/ConfigurarIntegracionContinuaInicial/_Mensaje.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/ConfigurarIntegracionContinuaRepositorio/index.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/ConfigurarIntegracionContinuaRepositorio/_Mensaje.cshtml">
+      <publishTime>12/14/2018 13:15:43</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccion/Index.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccion/_ConfigParameters.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccion/_FichaPropiedad.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccion/_Historial.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccion/_SeleccionarConfig.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccionVistas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccionVistas/_Historial.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/PasarAProduccionVistas/_VistasCambiadas.cshtml">
+      <publishTime>12/14/2018 13:15:40</publishTime>
+    </File>
+    <File Include="Views/Administracion/ProcesandoTareas/index.cshtml">
+      <publishTime>12/14/2018 13:15:41</publishTime>
+    </File>
+    <File Include="Views/AdministrarNewsletter/Index.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/AdminSolicitudGrupo/Index.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/BandejaComentarios/Index.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/BandejaInvitaciones/Index.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/BandejaMensajes/EdicionMensaje.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/BandejaMensajes/Listado.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/BandejaMensajes/Mensaje.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/BandejaNotificaciones/Index.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/BandejaSuscripciones/Index.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/BandejaSuscripciones/Manage.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Busqueda/Index.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/CambiarPassword/Index.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/CambiarPasswordPeticion/Index.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/CambiarPasswordPeticion/NoPeticion.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/CambiarPasswordPeticion/NoUsuario.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/CargadorFacetas/CargarFacetas.cshtml">
+      <publishTime>12/14/2018 13:15:35</publishTime>
+    </File>
+    <File Include="Views/CargadorFacetas/LimpiarCache.cshtml">
+      <publishTime>12/14/2018 13:15:35</publishTime>
+    </File>
+    <File Include="Views/CargadorFacetas/_CajaBusqueda.cshtml">
+      <publishTime>12/14/2018 13:15:35</publishTime>
+    </File>
+    <File Include="Views/CargadorFacetas/_CajaBusquedaSimple.cshtml">
+      <publishTime>12/14/2018 13:15:35</publishTime>
+    </File>
+    <File Include="Views/CargadorFacetas/_Faceta.cshtml">
+      <publishTime>12/14/2018 13:15:35</publishTime>
+    </File>
+    <File Include="Views/CargadorFacetas/_ItemFaceta.cshtml">
+      <publishTime>12/14/2018 13:15:35</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/CargarResultados.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/CargarResultadosGadget.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/LimpiarCache.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoBlog.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoComentario.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoComentarioContribuciones.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoComunidad.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoContacto.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoGrupo.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoInvitacion.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoMensaje.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoPaginaCMS.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoPerfil.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoRecurso.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoRecursoContribuciones.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoRecursoGadget.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CargadorResultados/_ResultadoRecursoMisRecursos.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/CMSAdminMultimedia/Index.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ActividadReciente/_ActividadReciente.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/Buscador/_Buscador.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/BuscadorSPARQL/_BuscadorSPARQL.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/CajaBuscador/_CajaBuscador.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ConsultaSPARQL/_ConsultaSPARQL.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ConsultaSQLSERVER/_ConsultaSQLSERVER.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/DatosComunidad/_DatosComunidad.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/Destacado/_Destacado.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/EnvioCorreo/_EnvioCorreo.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/Faceta/_Faceta.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/FichaDescripcionDocumento/_FichaDescripcionDocumento.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/GrupoComponentes/_Paginacion.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/GrupoComponentes/_PestanyasHorizontales.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/GrupoComponentes/_PestanyasPersonalizadas.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/GrupoComponentes/_PestanyasVerticales.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/HTML/_HTML.cshtml">
+      <publishTime>12/14/2018 15:38:29</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/HTML/_HTML_630ad0cf-78cb-42a3-9bfb-aeefca5c8a55.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/Index.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoProyectos/_ListadoProyectos.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_BreveConFoto.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_BreveConFotoAUnParrafo.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_Completa.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_DescripcionCompleta.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_Destacado.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_ListadoSinFoto.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_SoloIconoYTitulo.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/_UltimosRecursos.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/__040cfd3e-a55e-4916-b5b1-3747894cece8_28da1ff4-cff0-44ea-89df-5169ec8fd76d.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/Vistas/__d1f53bee-6e62-406a-95b0-caa71b4934d1_cc30f064-d1f1-4058-8604-706ade6ed7be.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/_ListadoDestacados.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/_ListadoRecursosNormal.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/_ListadoRecursosPaginacion.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoRecursos/_ListadoRecursosPestanyas.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ListadoUsuarios/_ListadoUsuarios.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/MasVistos/_MasVistos.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/Menu/_Menu.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/ResumenPerfil/_ResumenPerfil.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/Tesauro/_Tesauro.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/UsuariosRecomendados/_UsuariosRecomendados.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/_BloqueCMS.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CMSPagina/_ComponenteCMS.cshtml">
+      <publishTime>12/14/2018 13:15:32</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/Index.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_AccionesTesSem.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_EditarEntSecInstancias.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_EditarEntSecundarias.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_EditarGrafosSimples.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_EditarGrafosSimplesInstancias.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_EditarTesSem.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_EditarTesSemFicha.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/ComAdminElemSemanticos/_Menu.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/CondicionesUso/Index.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/Contactos/Index.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/CrearGrupo/Index.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/CrearWidget/Buscador.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/CrearWidget/Index.cshtml">
+      <publishTime>12/14/2018 13:15:31</publishTime>
+    </File>
+    <File Include="Views/EditarBioComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/_CVRapido.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/_PerfilOrganizacion.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/_PerfilPersonal.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/_PerfilProfesional.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/_PerfilProfesor.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/_Provincia.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarPerfilComunidad/_RedesSociales.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/EditarRecurso/Index.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/EditarRecurso/_EditorLicencia.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/EditarRecurso/_ModificarRecurso.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/EditarRecurso/_RespuestasEncuesta.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/EditarRecurso/_SelectorUsuarios.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/EditarRecurso/_SubirRecurso.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/EditarRecurso/_SubirRecurso_PanelRepeticion.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/EditarSuscripcionComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/EditarSuscripcionComunidad/_FichaCategoriaTesauroArbol.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/EditarSuscripcionComunidad/_FichaCategoriaTesauroLista.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/EnviarEnlace/Index.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/EnviarInvitacionCom/Index.cshtml">
+      <publishTime>12/14/2018 13:15:35</publishTime>
+    </File>
+    <File Include="Views/EnviarInvitacionOrg/Index.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/Error/Error404.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/Error/Error500.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/EspacioPersonal/Index.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/ExampleView.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/FichaGrupoComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaGrupoComunidad/_ContenedorPerfiles.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaGrupoComunidad/_FichaPerfilGrupo.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaGrupoComunidad/_Paginador.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfil/Index.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfil/_ContenidoPagina.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfil/_ContextoFichaPerfil.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfil/_FichaInvitado.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfil/_GruposPerfil.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfil/_PersonasContactosSeguidores.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfil/_SummaryBio.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/FichaPerfilSeguidores/Index.cshtml">
+      <publishTime>12/14/2018 13:15:33</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/asignatura.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/course.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/Index.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/notebook.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/tema.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/temausuario.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaAcciones.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaAccionesMenu.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaAutoresEditoresLectores.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaCategorias.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaCategoriaTesauroArbol.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaCategoriaTesauroLista.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaComentario.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaCompartidos.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaDescripcion.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaEncuesta.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaEtiquetas.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaPublicador.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaVinculados.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaVotantes.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/FichaRecurso/_FichaVotos.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/FichaRecursoHistorial/Index.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/FichaRecursoHistorial/_Comparador.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/GnossTestView/AskURL.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/GnossTestView/_LayoutAskUrl.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/Herramientas/Index.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/Home/HomeConectado.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/Home/HomeDesconectado.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/HomeComunidad/Catalogo.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/HomeComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/HomeComunidad/_ResourceCatalogo.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/Indice/Index.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/Loading/Index.cshtml">
+      <publishTime>12/14/2018 13:15:46</publishTime>
+    </File>
+    <File Include="Views/Logout/Index.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/MisComunidades/Index.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/OlvidePassword/Confirmado.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/OlvidePassword/Index.cshtml">
+      <publishTime>12/14/2018 13:15:45</publishTime>
+    </File>
+    <File Include="Views/PoliticaCertificados/Index.cshtml">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/PoliticaCookies/Index.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/PoliticaPrivacidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:38</publishTime>
+    </File>
+    <File Include="Views/Registro/ErrorDominioEmailLoginRedSocial.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/Registro/Index.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/Registro/RegistroCompleto.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/Registro/_ClosePopUpRedesSociales.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/Registro/_FormularioLogin.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/Registro/_FormularioRegistro.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/Registro/_InvitacionUsada.cshtml">
+      <publishTime>12/14/2018 13:15:29</publishTime>
+    </File>
+    <File Include="Views/RegistroDatos/Index.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/RegistroDatos/_Conectate.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/RegistroDatos/_Datos.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/RegistroDatos/_Preferencias.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/RSSEditarRecurso/Index.cshtml">
+      <publishTime>12/14/2018 13:15:48</publishTime>
+    </File>
+    <File Include="Views/RSSListadoRecursos/Index.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/RSSListadoRecursos/_FichaRecursoRSS.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/RSSListadoRecursos/_ResultadosRecursosRSS.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_AccionesPerfil.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_AccionesRecurso.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_ActividadReciente.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_ActividadRecientePerfil.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_AutoCompletarCampoExtra.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_FichaGadget.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_FichaPerfilMini.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_FichaRecursoGadget.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_FichaRecursoMini.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_Novedades.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/ControlesMVC/_UsuariosRecomendados.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTesauro/_EditorTesauro.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTesauro/_EditorTesauro_CatArbol.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/EditorTesauro/_EditorTesauro_CatLista.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/Head/_FicherosJavascript.cshtml">
+      <publishTime>12/17/2018 08:33:00</publishTime>
+    </File>
+    <File Include="Views/Shared/Head/_HojasDeEstilo.cshtml">
+      <publishTime>12/17/2018 08:32:32</publishTime>
+    </File>
+    <File Include="Views/Shared/Head/_Metas.cshtml">
+      <publishTime>12/14/2018 14:25:34</publishTime>
+    </File>
+    <File Include="Views/Shared/IndexHTMLLibre.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/IndexNoIdioma.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/Layout/_Layout.cshtml">
+      <publishTime>12/14/2018 09:56:56</publishTime>
+    </File>
+    <File Include="Views/Shared/ProyectoElementoHTML.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_Entidad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_GeneradorSemCms.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_JcropSemCms.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_Propiedad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadDatoEspecial.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadGrupo.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadLiteral.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadOntoData.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadOntologica.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadOntoObject.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadOntoSelectorEntidad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadOntoSelectorEntidadLectura.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_PropiedadSelectorGrupo.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_SelectorFechaDual.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_TituloEntidad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/SemCms/_TituloPropiedad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/_Cabecera.cshtml">
+      <publishTime>12/14/2018 12:40:02</publishTime>
+    </File>
+    <File Include="Views/Shared/_FormularioRegistroShared.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views/Shared/_MenuAdministracion.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/_PanelQueHacer.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/Shared/_Pie.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views/SolicitarComunidad/Index.cshtml">
+      <publishTime>12/14/2018 13:15:36</publishTime>
+    </File>
+    <File Include="Views/UsuariosOrganizacion/Index.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/UsuariosOrganizacion/_AccionesProyOrg.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/UsuariosOrganizacion/_AccionesUsuOrg.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/UsuariosOrganizacion/_Comunidades.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/UsuariosOrganizacion/_Grupos.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/UsuariosOrganizacion/_Paginador.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/UsuariosOrganizacion/_Usuarios.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views/Version/Index.cshtml">
+      <publishTime>12/14/2018 13:15:28</publishTime>
+    </File>
+    <File Include="Views/web.config">
+      <publishTime>12/14/2018 13:15:37</publishTime>
+    </File>
+    <File Include="Views/Widget/Comunidad.cshtml">
+      <publishTime>12/14/2018 13:15:30</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>12/14/2018 13:15:47</publishTime>
+    </File>
+    <File Include="Views3/AbandonarComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/AcercaDeComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/AdminCatEspacioPersonal/Index.cshtml">
+      <publishTime>12/13/2018 13:24:09</publishTime>
+    </File>
+    <File Include="Views3/AdminCatEspacioPersonal/_AdminTesauro.cshtml">
+      <publishTime>12/13/2018 13:24:09</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarAplicaciones/Editar.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarAplicaciones/Index.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarAplicaciones/Informe.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarCategorias/Index.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarCategorias/_Acciones.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarCategorias/_Tesauro.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarClausulasRegistro/Index.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarClausulasRegistro/_EdicionClausulaRegistro.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarComunidadGeneral/AdministrarComunidadCategoriasMetaproyecto.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarComunidadGeneral/EstadoComunidad.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarComunidadGeneral/ImagenCabecera.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarComunidadGeneral/ImagenLogo.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarComunidadGeneral/Index.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarComunidadGeneral/_SeleccionarCategoriasMetaproyecto.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarConsultasSPARQL/index.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarContextos/Index.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarContextos/_EdicionContexto.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarCredenciales/Index.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarCredenciales/_Registro.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarDespliegues/index.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarDespliegues/VersionDesalineada.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarDespliegues/_CrearVersion.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarDespliegues/_Desplegar.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarDisenio/Index.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarDisenio/_Historial.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEstilos/ActualizarEstilos.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEstilos/CrearVersion.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEstilos/Historial.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEstilos/Index.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEstilos/_Historial.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEstilosFTP/Index.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEventos/Index.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarEventos/_EdicionEvento.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFacetas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFacetas/_EdicionFaceta.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFacetas/_EdicionFiltro.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFacetas/_FichaFiltro.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFuentesRSS/Edit.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFuentesRSS/Index.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFuentesRSS/New.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFuentesRSS/_PanelEdicion.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFusionCambios/Index.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarFusionCambios/ListaCambios.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarIntegracionContinua/index.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarIntegracionContinua/_CrearConfiguracion.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarMapasCharts/_EditarChart.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarMapasCharts/_EditarCharts.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarMapasCharts/_EditarMapa.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarObjetosConocimiento/Index.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarObjetosConocimiento/_EdicionObjetoConocimiento.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarObjetosConocimiento/_FichaPresentacion.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarObjetosConocimiento/_FichaPropiedad.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarObjetosConocimiento/_FichaSubTipo.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarOpcionesAvanzadas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarOpcionesAvanzadasPlataforma/Index.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarOpcionesMetaAdministrador/Index.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPaginasCMS/Index.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPermisosPaginas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/_EdicionPestanya.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/_ExportarBusqueda.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/_FichaExportacion.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/_FichaExportacionPropiedad.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/_FichaFiltroOrden.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/_NuevaPestanya.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPestanyas/_OpcionesBusqueda.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPlantillasOntologicas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPlantillasOntologicas/_EdicionDatos.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPlantillasOntologicas/_EdicionFicheros.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPlantillasOntologicas/_Historial.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarPlantillasOntologicas/_ListaPlantillas.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarRamas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarRamas/_CrearRama.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarRamas/_SubirCambiosRama.cshtml">
+      <publishTime>12/13/2018 13:24:15</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarRedirecciones/Index.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarRedirecciones/_EdicionRedireccion.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarServiciosWeb/Index.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarServiciosWeb/_EdicionServicio.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarServiciosWeb/_NuevoServicio.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarTraducciones/Editar.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarTraducciones/Index.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarUtilidades/Index.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarUtilidades/_NivelesCertificacion.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarUtilidades/_PermisosRecursos.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarVistas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarVistas/_CMS.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarVistas/_Facetas.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarVistas/_Resultados.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/AdministrarVistas/_Web.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/Index.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_Booleano.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_Select.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_TextArea.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_Generico_TextBox.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_Imagen.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_ListaCamposEnvioCorreo.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_ListaIDs.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminComponenteEditar/_Propiedad_ListaOpcionesMenu.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminDisenio/Index.cshtml">
+      <publishTime>12/13/2018 13:24:19</publishTime>
+    </File>
+    <File Include="Views3/Administracion/CMSAdminListadoComponentes/Index.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ConfigurarIntegracionContinua/Index.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ConfigurarIntegracionContinua/_ConfigParameters.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ConfigurarIntegracionContinua/_FichaPropiedad.cshtml">
+      <publishTime>12/13/2018 13:24:16</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ConfigurarIntegracionContinuaInicial/index.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ConfigurarIntegracionContinuaInicial/_Mensaje.cshtml">
+      <publishTime>12/13/2018 13:24:20</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ConfigurarIntegracionContinuaRepositorio/index.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ConfigurarIntegracionContinuaRepositorio/_Mensaje.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccion/Index.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccion/_ConfigParameters.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccion/_FichaPropiedad.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccion/_Historial.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccion/_SeleccionarConfig.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccionVistas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccionVistas/_Historial.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/PasarAProduccionVistas/_VistasCambiadas.cshtml">
+      <publishTime>12/13/2018 13:24:17</publishTime>
+    </File>
+    <File Include="Views3/Administracion/ProcesandoTareas/index.cshtml">
+      <publishTime>12/13/2018 13:24:18</publishTime>
+    </File>
+    <File Include="Views3/AdministrarNewsletter/Index.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/AdminSolicitudGrupo/Index.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/BandejaComentarios/Index.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/BandejaInvitaciones/Index.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/BandejaMensajes/EdicionMensaje.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/BandejaMensajes/Listado.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/BandejaMensajes/Mensaje.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/BandejaNotificaciones/Index.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/BandejaSuscripciones/Index.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/BandejaSuscripciones/Manage.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/Busqueda/Index.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/CambiarPassword/Index.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/CambiarPasswordPeticion/Index.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/CambiarPasswordPeticion/NoPeticion.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/CambiarPasswordPeticion/NoUsuario.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/CargadorFacetas/CargarFacetas.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorFacetas/LimpiarCache.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorFacetas/_CajaBusqueda.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorFacetas/_CajaBusquedaSimple.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorFacetas/_Faceta.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorFacetas/_ItemFaceta.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/CargarResultados.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/CargarResultadosGadget.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/LimpiarCache.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoBlog.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoComentario.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoComentarioContribuciones.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoComunidad.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoContacto.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoGrupo.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoInvitacion.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoMensaje.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoPaginaCMS.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoPerfil.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoRecurso.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoRecursoContribuciones.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoRecursoGadget.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CargadorResultados/_ResultadoRecursoMisRecursos.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/CMSAdminMultimedia/Index.cshtml">
+      <publishTime>12/13/2018 13:24:25</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ActividadReciente/_ActividadReciente.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/Buscador/_Buscador.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/BuscadorSPARQL/_BuscadorSPARQL.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/CajaBuscador/_CajaBuscador.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ConsultaSPARQL/_ConsultaSPARQL.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ConsultaSQLSERVER/_ConsultaSQLSERVER.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/DatosComunidad/_DatosComunidad.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/Destacado/_Destacado.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/EnvioCorreo/_EnvioCorreo.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/Faceta/_Faceta.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/FichaDescripcionDocumento/_FichaDescripcionDocumento.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/GrupoComponentes/_Paginacion.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/GrupoComponentes/_PestanyasHorizontales.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/GrupoComponentes/_PestanyasPersonalizadas.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/GrupoComponentes/_PestanyasVerticales.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/HTML/_HTML.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/HTML/_HTML_630ad0cf-78cb-42a3-9bfb-aeefca5c8a55.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/Index.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoProyectos/_ListadoProyectos.cshtml">
+      <publishTime>12/13/2018 13:24:14</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_BreveConFoto.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_BreveConFotoAUnParrafo.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_Completa.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_DescripcionCompleta.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_Destacado.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_ListadoSinFoto.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_SoloIconoYTitulo.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/_UltimosRecursos.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/__040cfd3e-a55e-4916-b5b1-3747894cece8_28da1ff4-cff0-44ea-89df-5169ec8fd76d.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/Vistas/__d1f53bee-6e62-406a-95b0-caa71b4934d1_cc30f064-d1f1-4058-8604-706ade6ed7be.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/_ListadoDestacados.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/_ListadoRecursosNormal.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/_ListadoRecursosPaginacion.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoRecursos/_ListadoRecursosPestanyas.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ListadoUsuarios/_ListadoUsuarios.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/MasVistos/_MasVistos.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/Menu/_Menu.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/ResumenPerfil/_ResumenPerfil.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/Tesauro/_Tesauro.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/UsuariosRecomendados/_UsuariosRecomendados.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/_BloqueCMS.cshtml">
+      <publishTime>12/13/2018 13:24:12</publishTime>
+    </File>
+    <File Include="Views3/CMSPagina/_ComponenteCMS.cshtml">
+      <publishTime>12/13/2018 13:24:13</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/Index.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_AccionesTesSem.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_EditarEntSecInstancias.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_EditarEntSecundarias.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_EditarGrafosSimples.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_EditarGrafosSimplesInstancias.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_EditarTesSem.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_EditarTesSemFicha.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/ComAdminElemSemanticos/_Menu.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/CondicionesUso/Index.cshtml">
+      <publishTime>12/13/2018 13:24:09</publishTime>
+    </File>
+    <File Include="Views3/Contactos/Index.cshtml">
+      <publishTime>12/13/2018 13:24:25</publishTime>
+    </File>
+    <File Include="Views3/CrearGrupo/Index.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/CrearWidget/Buscador.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/CrearWidget/Index.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/EditarBioComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:09</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/_CVRapido.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/_PerfilOrganizacion.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/_PerfilPersonal.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/_PerfilProfesional.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/_PerfilProfesor.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/_Provincia.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/EditarPerfilComunidad/_RedesSociales.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/EditarRecurso/Index.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarRecurso/_EditorLicencia.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarRecurso/_ModificarRecurso.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarRecurso/_RespuestasEncuesta.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarRecurso/_SelectorUsuarios.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarRecurso/_SubirRecurso.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarRecurso/_SubirRecurso_PanelRepeticion.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarSuscripcionComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarSuscripcionComunidad/_FichaCategoriaTesauroArbol.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EditarSuscripcionComunidad/_FichaCategoriaTesauroLista.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/EnviarEnlace/Index.cshtml">
+      <publishTime>12/13/2018 13:24:25</publishTime>
+    </File>
+    <File Include="Views3/EnviarInvitacionCom/Index.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/EnviarInvitacionOrg/Index.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/Error/Error404.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/Error/Error500.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/EspacioPersonal/Index.cshtml">
+      <publishTime>12/13/2018 13:24:09</publishTime>
+    </File>
+    <File Include="Views3/ExampleView.cshtml">
+      <publishTime>12/14/2018 13:00:30</publishTime>
+    </File>
+    <File Include="Views3/FichaGrupoComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaGrupoComunidad/_ContenedorPerfiles.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaGrupoComunidad/_FichaPerfilGrupo.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaGrupoComunidad/_Paginador.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfil/Index.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfil/_ContenidoPagina.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfil/_ContextoFichaPerfil.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfil/_FichaInvitado.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfil/_GruposPerfil.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfil/_PersonasContactosSeguidores.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfil/_SummaryBio.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaPerfilSeguidores/Index.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/asignatura.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/course.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/Index.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/notebook.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/tema.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/temausuario.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaAcciones.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaAccionesMenu.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaAutoresEditoresLectores.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaCategorias.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaCategoriaTesauroArbol.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaCategoriaTesauroLista.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaComentario.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaCompartidos.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaDescripcion.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaEncuesta.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaEtiquetas.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaPublicador.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaVinculados.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaVotantes.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecurso/_FichaVotos.cshtml">
+      <publishTime>12/13/2018 13:24:23</publishTime>
+    </File>
+    <File Include="Views3/FichaRecursoHistorial/Index.cshtml">
+      <publishTime>12/13/2018 13:24:25</publishTime>
+    </File>
+    <File Include="Views3/FichaRecursoHistorial/_Comparador.cshtml">
+      <publishTime>12/13/2018 13:24:25</publishTime>
+    </File>
+    <File Include="Views3/GnossTestView/AskURL.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/GnossTestView/_LayoutAskUrl.cshtml">
+      <publishTime>12/14/2018 13:00:31</publishTime>
+    </File>
+    <File Include="Views3/Herramientas/Index.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/Home/HomeConectado.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/Home/HomeDesconectado.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/HomeComunidad/Catalogo.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/HomeComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/HomeComunidad/_ResourceCatalogo.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/Indice/Index.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/Loading/Index.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/Logout/Index.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/MisComunidades/Index.cshtml">
+      <publishTime>12/13/2018 13:24:25</publishTime>
+    </File>
+    <File Include="Views3/OlvidePassword/Confirmado.cshtml">
+      <publishTime>12/13/2018 13:24:22</publishTime>
+    </File>
+    <File Include="Views3/OlvidePassword/Index.cshtml">
+      <publishTime>12/13/2018 13:24:21</publishTime>
+    </File>
+    <File Include="Views3/PoliticaCertificados/Index.cshtml">
+      <publishTime>12/13/2018 13:24:09</publishTime>
+    </File>
+    <File Include="Views3/PoliticaCookies/Index.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Views3/PoliticaPrivacidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/Registro/ErrorDominioEmailLoginRedSocial.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/Registro/Index.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/Registro/RegistroCompleto.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/Registro/_ClosePopUpRedesSociales.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/Registro/_FormularioLogin.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/Registro/_FormularioRegistro.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/Registro/_InvitacionUsada.cshtml">
+      <publishTime>12/13/2018 13:24:11</publishTime>
+    </File>
+    <File Include="Views3/RegistroDatos/Index.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/RegistroDatos/_Conectate.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/RegistroDatos/_Datos.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/RegistroDatos/_Preferencias.cshtml">
+      <publishTime>12/13/2018 13:24:10</publishTime>
+    </File>
+    <File Include="Views3/RSSEditarRecurso/Index.cshtml">
+      <publishTime>12/13/2018 13:24:25</publishTime>
+    </File>
+    <File Include="Views3/RSSListadoRecursos/Index.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/RSSListadoRecursos/_FichaRecursoRSS.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/RSSListadoRecursos/_ResultadosRecursosRSS.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_AccionesPerfil.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_AccionesRecurso.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_ActividadReciente.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_ActividadRecientePerfil.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_AutoCompletarCampoExtra.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_FichaGadget.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_FichaPerfilMini.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_FichaRecursoGadget.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_FichaRecursoMini.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_Novedades.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/ControlesMVC/_UsuariosRecomendados.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/EditorTesauro/_EditorTesauro.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/EditorTesauro/_EditorTesauro_CatArbol.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/EditorTesauro/_EditorTesauro_CatLista.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/Head/_FicherosJavascript.cshtml">
+      <publishTime>12/13/2018 16:50:56</publishTime>
+    </File>
+    <File Include="Views3/Shared/Head/_HojasDeEstilo.cshtml">
+      <publishTime>12/14/2018 10:06:57</publishTime>
+    </File>
+    <File Include="Views3/Shared/Head/_Metas.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/IndexHTMLLibre.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/IndexNoIdioma.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/Layout/_Layout.cshtml">
+      <publishTime>12/14/2018 09:56:56</publishTime>
+    </File>
+    <File Include="Views3/Shared/ProyectoElementoHTML.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_Entidad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_GeneradorSemCms.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_JcropSemCms.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_Propiedad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadDatoEspecial.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadGrupo.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadLiteral.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadOntoData.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadOntologica.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadOntoObject.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadOntoSelectorEntidad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadOntoSelectorEntidadLectura.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_PropiedadSelectorGrupo.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_SelectorFechaDual.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_TituloEntidad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/SemCms/_TituloPropiedad.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/_Cabecera.cshtml">
+      <publishTime>12/14/2018 12:40:02</publishTime>
+    </File>
+    <File Include="Views3/Shared/_FormularioRegistroShared.cshtml">
+      <publishTime>12/13/2018 13:24:26</publishTime>
+    </File>
+    <File Include="Views3/Shared/_MenuAdministracion.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/_MenuLateralPrincipal.cshtml">
+      <publishTime>12/14/2018 08:59:35</publishTime>
+    </File>
+    <File Include="Views3/Shared/_MenuLateralUsuario.cshtml">
+      <publishTime>12/14/2018 12:49:58</publishTime>
+    </File>
+    <File Include="Views3/Shared/_PanelQueHacer.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/Shared/_Pie.cshtml">
+      <publishTime>12/13/2018 13:24:27</publishTime>
+    </File>
+    <File Include="Views3/SolicitarComunidad/Index.cshtml">
+      <publishTime>12/13/2018 13:24:28</publishTime>
+    </File>
+    <File Include="Views3/UsuariosOrganizacion/Index.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/UsuariosOrganizacion/_AccionesProyOrg.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/UsuariosOrganizacion/_AccionesUsuOrg.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/UsuariosOrganizacion/_Comunidades.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/UsuariosOrganizacion/_Grupos.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/UsuariosOrganizacion/_Paginador.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/UsuariosOrganizacion/_Usuarios.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/Version/Index.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/web.config">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/Widget/Comunidad.cshtml">
+      <publishTime>12/13/2018 13:24:24</publishTime>
+    </File>
+    <File Include="Views3/_ViewStart.cshtml">
+      <publishTime>12/13/2018 13:24:29</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>12/17/2018 09:15:28</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

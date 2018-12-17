@@ -1,0 +1,40 @@
+﻿@model ResourceModel
+
+@if (Model.Shareds != null && Model.Shareds.Count > 0)
+{
+    <p>@Html.GetText("LISTARECURSOS", "COMPARTIDOCON") </p>
+    <ul>
+        @foreach (ResourceModel.SharedBRModel baseRecursos in Model.Shareds)
+        {
+        <li> 
+            @if(baseRecursos.Private)
+            {
+                <img alt="privado" src="@Html.GetBaseUrlStatic()/img/iconos/privado16.gif" style="vertical-align:top;" />
+            }
+            <a href="@baseRecursos.Url" rel="sioc:has_space">
+                <span resource="@baseRecursos.Url" property="dcterms:title" typeof="sioc:Space">@baseRecursos.Name</span>
+            </a>
+            @if (baseRecursos.DeleteAvailable)
+            {
+                <a class="remove" onclick="AccionRecurso_Descompartir('@Model.ListActions.UrlUnshare', this, '@baseRecursos.Key', '@baseRecursos.ProyectKey', '@baseRecursos.OrganizationKey')">@Html.GetText("COMMON", "ELIMINAR")</a>
+            }
+        </li>if (!baseRecursos.Key.Equals(Model.Shareds.Last().Key)) {@(" · ")}
+        }
+    </ul>
+    
+    @*    
+    <script type="text/javascript">
+        function DescompartirRecurso(that, docID, brID, orgID) {
+            EnviarAccGogAnac('Acciones sociales', 'Descompartir', '@Html.GetUrlPagina()');
+            var datosPost = {
+                callback: 'Compartidos|Descompartir|' + docID + '|' + brID + '|' + orgID
+            };
+            $.post('@Html.GetUrlPagina()', datosPost);
+            var ul =$(that).parent().parent();
+            $(that).parent().remove();
+            if (ul.children().length == 0) { 
+                ul.parent().html(''); 
+            }
+        }
+    </script>*@
+}

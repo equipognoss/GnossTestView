@@ -1,0 +1,91 @@
+@using Es.Riam.Util;
+@model ResourceModel
+@if (Model != null)
+{    
+   <div class="resource" >
+        <div class="box description">
+            <div class="wrapDescription">           
+
+                <div class="wrapDescription">
+                    <div class="imagenPrincipal">
+                        @if (!string.IsNullOrEmpty(Model.UrlPreview))
+                        {
+                            <p class="miniatura">
+                                <a href="@Model.CompletCardLink">
+                                    <img title="@Model.Title" alt="@Model.Title" src="@Model.UrlPreview">
+                                </a>
+                            </p>
+                        }
+                    </div>
+                    <div class="contenidoPrincipal">
+                        <h2><a href="@Model.CompletCardLink">@Model.Title</a></h2>
+                        <div  class="imagenPublicador">
+                                @{
+                                    string userType = "";                                        
+                                    string urlPublicador = "";
+                                    string nombrePublicador = "";
+
+                                    if (Model.Publisher.TypeProfile == ProfileType.ProfessionalCorporate || Model.Publisher.TypeProfile == ProfileType.Organization)
+                                    {
+                                        userType = "Organizacion";
+                                        urlPublicador = Model.Publisher.UrlOrganization;
+                                        nombrePublicador = Model.Publisher.NameOrganization;
+                                    }
+                                    else
+                                    {
+                                        userType = "Persona";
+                                        urlPublicador = Model.Publisher.UrlPerson;
+                                        nombrePublicador = Model.Publisher.NamePerson;
+                                    }
+                                }
+                                @if (string.IsNullOrEmpty(Model.Publisher.UrlFoto)){
+                                    <span class="imagenIcono personaSinImagen">
+                                        <a href="@urlPublicador"></a>
+                                    </span>
+                                }
+                                else{
+                                    <span class="imagenIcono">
+                                        <a href="@urlPublicador">
+                                            <img alt="@nombrePublicador" src="@ViewBag.BaseUrlContent@Model.Publisher.UrlFoto" />
+                                        </a>
+                                    </span>
+                                }
+                        </div>
+                        <div class="nombrePublicador">
+                            <p>
+                                @if (Model.TypePublication == ResourceModel.PublicationType.Published)
+                                {
+                                    @Html.GetText("BASERECURSOS", "PUBLICADOPORCUANDO", Model.PublishDate.Day.ToString(), Model.PublishDate.Month.ToString(), Model.PublishDate.Year.ToString())
+                                }
+                                else
+                                {
+                                    @Html.GetText("BASERECURSOS", "COMPARTIDOPORCUANDO", Model.PublishDate.Day.ToString(), Model.PublishDate.Month.ToString(), Model.PublishDate.Year.ToString())
+                                }
+
+
+                                @if (Model.Publisher.TypeProfile == ProfileType.Personal || Model.Publisher.TypeProfile == ProfileType.Teacher)
+                                {
+                                    <span><a property="foaf:name" typeof="foaf:Person" href="@Model.Publisher.UrlPerson">@Model.Publisher.NamePerson</a></span>
+                                }
+                                else if (Model.Publisher.TypeProfile == ProfileType.ProfessionalPersonal)
+                                {
+                                    <span><a property="foaf:name" typeof="foaf:Group" href="@Model.Publisher.UrlPerson">@Model.Publisher.NamePerson · @Model.Publisher.NameOrganization</a></span>
+                                }
+                                else if (Model.Publisher.TypeProfile == ProfileType.ProfessionalCorporate && !string.IsNullOrEmpty(Model.Publisher.NamePerson))
+                                {
+                                    string idTemp = Guid.NewGuid().ToString();
+                                    <span><a property="foaf:name" typeof="foaf:Group" href="@Model.Publisher.UrlOrganization">@Model.Publisher.NameOrganization</a><span class="userAuthor"><span style="display:none;" id="@idTemp"> (@Model.Publisher.NamePerson) </span><a onclick="javascript:DesplegarImgMas(this, '@idTemp');" style="cursor:pointer;">
+                                        <img src="@Html.GetBaseUrlStatic()/img/verMas.gif" alt="+"></a></span></span>
+                                }
+                                else
+                                {
+                                    <span><a property="foaf:name" typeof="foaf:Group" href="@Model.Publisher.UrlOrganization">@Model.Publisher.NameOrganization</a></span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

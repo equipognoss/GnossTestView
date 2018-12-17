@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xmlns:og="http://ogp.me/ns#">
+<head>
+
+
+
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+
+    <title>Home - GNOSS</title>
+
+    <link id="IMGfavicon" rel="shortcut icon" type="image/ico" />
+
+                <link rel="alternate" hreflang="es" href="http://pruebas.gnoss.net/home" />
+                <link rel="alternate" hreflang="en" href="http://pruebas.gnoss.net/en/home" />
+                <link rel="alternate" hreflang="en-uk" href="http://pruebas.gnoss.net/en-uk/home" />
+                <link rel="alternate" hreflang="pt" href="http://pruebas.gnoss.net/pt/home" />
+                <link rel="alternate" hreflang="ca" href="http://pruebas.gnoss.net/ca/inici" />
+                <link rel="alternate" hreflang="eu" href="http://pruebas.gnoss.net/eu/home" />
+                <link rel="alternate" hreflang="gl" href="http://pruebas.gnoss.net/gl/home" />
+                <link rel="alternate" hreflang="fr" href="http://pruebas.gnoss.net/fr/accueil" />
+                <link rel="alternate" hreflang="de" href="http://pruebas.gnoss.net/de/home" />
+    
+            <meta name="robots" content="noindex,nofollow" />
+
+
+    
+
+    <link media="screen" type="text/css" rel="stylesheet" href="http://serviciospruebas.gnoss.net/static/cssNuevo/unificado.css?v=2.3.1760prea20170601" />
+
+
+    <link media="screen" type="text/css" rel="stylesheet" href="http://serviciospruebas.gnoss.net/static/cssNuevo/mygnoss.css?v=2.3.1760prea20170601" /> 
+
+<link media="screen" type="text/css" rel="stylesheet" href="http://serviciospruebas.gnoss.net/static/lang/es/idioma.css?v=2.3.1760prea20170601" />
+<link media="screen" type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link media="screen" type="text/css" rel="stylesheet" href="//fonts.googleapis.com/css?family=Nunito|Open Sans:300,400,600,700&amp;subset=latin" />
+
+
+
+    
+
+<script type="text/javascript" src="http://serviciospruebas.gnoss.net/static/jsUnificar/jquery.min.js?v=2.3.1760prea20170601"></script>
+
+    <script type="text/javascript" src="http://serviciospruebas.gnoss.net/static/js/unificado.js?v=2.3.1760prea20170601"></script>
+
+
+<script type="text/javascript" src="http://serviciospruebas.gnoss.net/static/lang/es/text.js?v=2.3.1760prea20170601"></script>
+
+
+
+
+    <script type="text/javascript">var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">try{var pageTracker = _gat._getTracker("UA-10859712-1");pageTracker._trackPageview();pageTracker._setDomainName('.gnoss.com');} catch(err) {}</script>
+
+<script type="text/javascript" src="http://serviciospruebas.gnoss.net/static/jsNuevo/jquery.autocomplete.js?v=2.3.1760prea20170601"></script>
+
+
+
+
+
+</head>
+
+<body class=" ">
+    
+
+
+
+    <form method="post" target="_blank" action="" name="formularioHidden" id="formularioHidden">
+        <fieldset style="display: none">
+            <legend class="nota">formularioHidden</legend>
+                <input type="hidden" id="inpt_proyID" class="inpt_proyID" value="11111111-1111-1111-1111-111111111111"/>
+                <input type="hidden" id="inpt_usuarioID" class="inpt_usuarioID" value="c0682bd1-8e45-4d9f-ac78-e34f80c3ac07"/>
+                <input type="hidden" id="inpt_bool_esMyGnoss" class="inpt_bool_esMyGnoss" value="True"/>
+                <input type="hidden" id="inpt_bool_estaEnProyecto" class="inpt_bool_estaEnProyecto" value="True"/>
+                <input type="hidden" id="inpt_bool_esUsuarioInvitado" class="inpt_bool_esUsuarioInvitado" value="False"/>
+                <input type="hidden" id="inpt_perfilID" class="inpt_perfilID" value="ef07276c-1a5d-46ac-b0e0-4437c8296378"/>
+                <input type="hidden" id="inpt_identidadID" class="inpt_identidadID" value="8FA78C5F-AF79-4D1C-B4AD-D7265EA10360"/>
+                <input type="hidden" id="inpt_perfilOrgID" class="inpt_perfilOrgID" value="00000000-0000-0000-0000-000000000000"/>
+                <input type="hidden" id="inpt_Cookies" class="inpt_Cookies" value="True"/>
+                <input type="hidden" id="inpt_Idioma" class="inpt_Idioma" value="es"/>
+                <input type="hidden" id="inpt_baseUrlBusqueda" class="inpt_baseUrlBusqueda" value="http://pruebas.gnoss.net"/>
+                <input type="hidden" id="inpt_baseURL" class="inpt_baseURL" value="http://pruebas.gnoss.net"/>
+                <input type="hidden" id="inpt_baseURLContent" class="inpt_baseURLContent" value="http://serviciospruebas.gnoss.net"/>
+                <input type="hidden" id="inpt_baseURLStatic" class="inpt_baseURLStatic" value="http://serviciospruebas.gnoss.net/static"/>
+                <input type="hidden" id="inpt_tablaPropiaAutoCompletar" class="inpt_tablaPropiaAutoCompletar" value="False"/>
+                <input type="hidden" id="inpt_organizacionID" class="inpt_organizacionID" value="11111111-1111-1111-1111-111111111111"/>
+                <input type="hidden" id="inpt_AdministradorOrg" class="inpt_AdministradorOrg" value="False"/>
+                <input type="hidden" id="inpt_UrlLogin" class="inpt_UrlLogin" value="http://serviciospruebas.gnoss.net/login/login.aspx?token=9N7oLftZpg15Yuv8XwX80feMUdrhoCQ8JJr3CHbzAl0%253d&amp;esProyectoPrivado=true"/>
+                <input type="hidden" id="inpt_FacetasProyAutoCompBuscadorCom" class="inpt_FacetasProyAutoCompBuscadorCom" value="sioc_t:Tag|gnoss:hasnombrecompleto|foaf:firstName"/>
+                <input type="hidden" id="inpt_tipoBusquedaAutoCompl" class="inpt_tipoBusquedaAutoCompl" value=""/>
+                <input type="hidden" id="inpt_usarMasterParaLectura" class="inpt_usarMasterParaLectura" value="True"/>
+                <input type="hidden" id="inpt_UrlServicioFacetas" class="inpt_UrlServicioFacetas" value="http://serviciospruebas.gnoss.net/facetas/CargadorFacetas"/>
+                <input type="hidden" id="inpt_UrlServicioResultados" class="inpt_UrlServicioResultados" value="http://serviciospruebas.gnoss.net/resultados/CargadorResultados"/>
+                <input type="hidden" id="inpt_UrlServicioContextos" class="inpt_UrlServicioContextos" value="http://serviciospruebas.gnoss.net/resultados/CargadorContextoMensajes"/>
+                <input type="hidden" id="inpt_urlServicioAutocompletar" class="inpt_urlServicioAutocompletar" value="http://serviciospruebas.gnoss.net/autocompletar/AutoCompletar.asmx"/>
+                <input type="hidden" id="inpt_urlServicioAutocompletarEtiquetas" class="inpt_urlServicioAutocompletarEtiquetas" value="http://serviciospruebas.gnoss.net/autocompletaretiquetas/AutoCompletarEtiquetas.asmx"/>
+                <input type="hidden" id="inpt_urlEtiquetadoAutomatico" class="inpt_urlEtiquetadoAutomatico" value="http://serviciospruebas.gnoss.net/etiquetado/EtiquetadoAutomatico.asmx"/>
+                <input type="hidden" id="inpt_serverTime" class="inpt_serverTime" value="2018/12/17 10:47"/>
+                <input type="hidden" id="inpt_tipo" class="inpt_tipo" value="tipoBusquedaAutoCompl"/>
+                <input type="hidden" id="inpt_MantenerSesionActiva" class="inpt_MantenerSesionActiva" value="True"/>
+            <input type="submit" style="display: none;" id="enviarHidden" value="enviar" title="enviar" />
+        </fieldset>
+    </form>
+
+    <form method="post" target="_blank" action="" name="formularioRDF" id="formularioRDF">
+        <fieldset style="display: none">
+            <legend class="nota">formularioRDF</legend>
+            <input type="text" style="display: none;" title="query" name="query" id="query" />
+            <input type="text" style="display: none;" title="pagina" name="pagina" id="pagina" />
+            <input type="submit" style="display: none;" id="rdfHack" value="enviar" title="enviar" />
+        </fieldset>
+    </form>
+
+    <div style="width: 100px; height: 100px; position: absolute; display: none; left: 0px; top: 0px; z-index: 2000" class="popup">
+        <img style="border-width: 0px;" alt="Cargando..." src="http://serviciospruebas.gnoss.net/static/img/espera.gif" />
+        <p><strong>Cargando...</strong></p>
+    </div>
+    <div style="display: none; z-index: 1999; width: 100%; top: 0px; left: 0px; position: absolute; height: 2900px;" id="mascaraBlanca"></div>
+
+        <div class="aaCabecera">
+
+            <div class="perfilUsuarioGnoss perfilPersonal" id="perfilUsuarioGnoss">
+                <div class="wrapper">
+                    <div>
+                        <div id="usuarioConectado" class="usuarioConectado">
+                            <p class="usuario enlaceDesplegable menuDesplegable">
+                                <a href="http://pruebas.gnoss.net/home" title="Juan V" rel="listado-herramientas">
+
+                                    <img alt="fotoPerfil" src="http://serviciospruebas.gnoss.net/imagenes/personas/ad252861-d1c9-49af-9e4f-005237f110e3_peque.png?18" /><strong>Juan V</strong></a>
+                            </p>
+
+                                <div id="novedades" class="novedades">
+                                    <p class="indentado">Novedades usuario conectado</p>
+                                    <ul>
+                                            <li class="usuarioHome">
+                                                <a title="Home" href="http://pruebas.gnoss.net/home">Home</a>
+                                            </li>
+                                        <li class="usuarioMensajes">
+                                            <a title="Mensajes" href="http://pruebas.gnoss.net/mensajes">Mensajes</a>
+                                            <span style="display: none;" class="novedades" id="infoNumMensajes"><span class="indentado">nuevos</span></span>
+                                            <span style="display: none" class="avisos" id="infNumMensajesSinLeer"><span class="indentado">sin leer</span></span>
+                                        </li>
+                                        <li class="usuarioComentarios">
+                                            <a title="Comentarios" href="http://pruebas.gnoss.net/comentarios">Comentarios</a>
+                                            <span style="display: none;" class="novedades" id="infoNumComentarios"><span class="indentado">nuevos</span></span>
+                                            <span style="display: none" class="avisos" id="infNumComentariosSinLeer"><span class="indentado">sin leer</span></span>
+                                        </li>
+                                        <li class="usuarioInvitaciones">
+                                            <a title="Invitaciones" href="http://pruebas.gnoss.net/invitaciones">Invitaciones</a>
+                                            <span style="display: none;" class="novedades" id="infoNumInvitaciones"><span class="indentado">nuevos</span></span>
+                                            <span style="display: none;" class="avisos" id="infNumInvitacionesSinLeer"><span class="indentado">sin leer</span></span>
+                                        </li>
+                                            <li class="usuarioSuscripciones">
+                                                <a title="Suscripciones" href="http://pruebas.gnoss.net/suscripciones">Suscripciones</a>
+                                                <span style="display: none;" class="novedades" id="infoNumSuscriopciones"><span class="indentado">nuevos</span></span>
+                                                <span style="display: none;" class="avisos" id="infNumSuscripcionesSinLeer"><span class="indentado">sin leer</span></span>
+                                            </li>
+                                                                                    <li class="usuarioContactos">
+                                                <a title="Contactos" href="http://pruebas.gnoss.net/contactos">Contactos</a>
+                                            </li>
+                                    </ul>
+                                </div>
+                            <div class="desplegable listado-herramientas">
+                                <p class="indentado">Herramientas</p>
+                                <ul class="listado">
+                                        <li>
+                                            <a href="http://pruebas.gnoss.net/editar-perfil">Editar perfil</a>
+                                        </li>
+                                        <li>
+                                            <a href="http://pruebas.gnoss.net/perfil/juan/">Ver perfil</a>
+                                        </li>
+                                            <li>
+                                                <a href="http://pruebas.gnoss.net/cambiar-password">Cambiar contrase&#241;a</a>
+                                            </li>
+                                    <li class="salir">
+                                        <a href="http://pruebas.gnoss.net/desconectar">Salir / desconectar</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                            <div id="espacios" class="espacios">
+                                <p class="indentado">Espacios de participaci&#243;n del usuario conectado</p>
+                                <ul>
+
+
+                                    <li class="usuarioComunidades"><a class="enlaceDesplegable menuDesplegable" rel="listado-comunidades" href="http://pruebas.gnoss.net/mis-comunidades">Comunidades</a><div class="desplegable listado-comunidades">
+                                        <ul class="listado listadoMisContribuciones">
+                                            <li class="usuarioContribuciones"><a href="http://pruebas.gnoss.net/mis-contribuciones">Mis contribuciones</a></li>
+                                            <li class="usuarioBorradores"><a href="http://pruebas.gnoss.net/borradores">Mis borradores</a></li>
+                                        </ul>
+                                        <ul class="listado">
+                                                        <li class="abierta"><a href="http://pruebas.gnoss.net/comunidad/ayudayfaqs" title=" * GNOSS Ayuda y FAQs *"><span class="icono"></span> * GNOSS Ayuda y FAQs *</a></li>
+                                                        <li class="abierta"><a href="http://pruebas.gnoss.net/comunidad/gnossnoticias" title=" * GNOSS Noticias *"><span class="icono"></span> * GNOSS Noticias *</a></li>
+                                                        <li class="abierta"><a href="http://pruebas.gnoss.net/comunidad/creabusinessidea" title="Crea Net 2.0  EmprendeRioja"><span class="icono"></span>Crea Net 2.0  EmprendeRioja</a></li>
+                                                        <li class="cerrada"><a href="http://pruebas.gnoss.net/comunidad/gnossclub" title="GNOSS club"><span class="icono"></span>GNOSS club</a></li>
+                                                        <li class="abierta"><a href="http://pruebas.gnoss.net/comunidad/democraciadeliberativa" title="Pol&#237;tica 2.0: democracia deliberativa"><span class="icono"></span>Pol&#237;tica 2.0: democracia deli ...</a></li>
+                                                        <li class="abierta"><a href="http://pruebas.gnoss.net/comunidad/prospectivatecnologica" title="Prospects and Trends"><span class="icono"></span>Prospects and Trends</a></li>
+                                                        <li class="abierta"><a href="http://pruebas.gnoss.net/comunidad/Seguridad" title="Seguridad en Sistemas de Informaci&#243;n"><span class="icono"></span>Seguridad en Sistemas de Info ...</a></li>
+
+                                        </ul>
+                                        <p class="mostrarListadoAmpliado"><a rel="Contraer -">Ampliar +</a></p>
+                                        <p style="display: none;" class="mostrarListadoTodos"><a href="http://pruebas.gnoss.net/mis-comunidades">Ver todas</a></p>
+                                    </div>
+                                    </li>
+                                    <li class="usuarioContribuciones"><a href="http://pruebas.gnoss.net/mis-recursos">Mi espacio personal</a></li>
+                                </ul>
+                            </div>
+                            <div id="otrasIdentidades" class="otrasIdentidades">
+                                <p class="indentado">Otras identidades</p>
+                                <ul>
+                                    <li class="masIdentidades"><a href="" class="enlaceDesplegable menuDesplegable" title="Otras identidades">Otras identidades</a></li>
+                                </ul>
+                                <div class="panelMasIdentidades desplegable">
+                                    <ul>
+                                            <li>
+                                                <a class="organizacion" href="http://pruebas.gnoss.net/identidad/equipoGNOSS/home" title="Equipo GNOSS">
+                                                        <img alt="Equipo GNOSS" src="http://serviciospruebas.gnoss.net/imagenes/organizaciones/9c34af94-978d-45e2-822b-422394dba3c5_peque.png?3" />
+                                                    <span>Equipo GNOSS</span>
+                                                </a>
+                                                <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent" id="infoNov_60bb86ef-3d91-4d44-ad0d-3f4009b7f317">
+                                                    <span class="indentado">nuevos</span>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <a class="organizacion" href="http://pruebas.gnoss.net/identidad/metamedio/home" title="Metamedio">
+                                                    <span>Metamedio</span>
+                                                </a>
+                                                <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent" id="infoNov_01c6ddb7-4c3a-4f73-b4fa-735132be75af">
+                                                    <span class="indentado">nuevos</span>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <a class="organizacion" href="http://pruebas.gnoss.net/identidad/DBS-1A-EDS-2012-13/home" title="DBS 1A EDS 2012-13">
+                                                    <span>DBS 1A EDS 2012-13</span>
+                                                </a>
+                                                <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent" id="infoNov_32daeed3-7ec6-4d0c-80db-f1b219bd399b">
+                                                    <span class="indentado">nuevos</span>
+                                                </span>
+                                            </li>
+                                            <li>
+                                                <a class="organizacion" href="http://pruebas.gnoss.net/identidad/ur-1-obl-2010-11/home" title="ur 1 obl 2010-11">
+                                                    <span>ur 1 obl 2010-11</span>
+                                                </a>
+                                                <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent" id="infoNov_e004f40e-bb27-4c8a-984a-ed93fe0cb884">
+                                                    <span class="indentado">nuevos</span>
+                                                </span>
+                                            </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                        <div id="identidadGNOSS" class="identidadGNOSS">
+
+                                <li class="beta">beta GNOSS</li>
+
+                            <ul id="gnoss">
+                                    <li>
+                                        <a class="activo" lang="es" href="http://pruebas.gnoss.net/home" title="Espa&#241;ol" ><span>es</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="en" href="http://pruebas.gnoss.net/en/home" title="English" ><span>en</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="en-uk" href="http://pruebas.gnoss.net/en-uk/home" title="EnglishUK" ><span>en-uk</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="pt" href="http://pruebas.gnoss.net/pt/home" title="Portuguese" ><span>pt</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="ca" href="http://pruebas.gnoss.net/ca/inici" title="Catal&#224;" ><span>ca</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="eu" href="http://pruebas.gnoss.net/eu/home" title="Euskera" ><span>eu</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="gl" href="http://pruebas.gnoss.net/gl/home" title="Galego" ><span>gl</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="fr" href="http://pruebas.gnoss.net/fr/accueil" title="Fran&#231;ais" ><span>fr</span></a>
+                                    </li>
+                                    <li>
+                                        <a lang="de" href="http://pruebas.gnoss.net/de/home" title="Deutsch" ><span>de</span></a>
+                                    </li>
+
+
+                                <li class="logo">
+                                    <a rel="listado-gnoss" class="enlaceDesplegable" href="http://pruebas.gnoss.net/home">Explora</a>
+                                    <div class="desplegable listado-gnoss">
+                                        <ul class="listado">
+                                            <li><a href="http://pruebas.gnoss.net/home">Home</a></li>
+                                            <li><a href="http://pruebas.gnoss.net/indice">&#205;ndice</a></li>
+                                            <li><a href="http://pruebas.gnoss.net/comunidades">Comunidades</a></li>
+                                            <li><a href="http://pruebas.gnoss.net/blogs">Blogs</a></li>
+                                            <li><a href="http://pruebas.gnoss.net/personas-y-organizaciones">Personas y organizaciones</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+
+        <div id="header">
+            <div class="wrapper">
+                <p class="indentado"><a>Ir al contenido principal</a></p>
+                <div id="corporativo">
+                    <div class="content" style="display: block; margin-top: 10px;">
+                        <div class="logo">
+                            <div>
+                                <h1>
+                                    <a href="http://pruebas.gnoss.net/home"><img alt="Gnoss" title="Gnoss" src="http://serviciospruebas.gnoss.net/static/img/logo_gnoss.png" /></a>                 
+                                </h1>
+	                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="buscador">
+                    <form method="post" id="formBuscador" action="http://pruebas.gnoss.net/home">
+                        <fieldset style="display: block">
+                        <legend class="nota">buscador</legend>
+                        <div class="fieldsetGroup">
+                            <label for="ddlCategorias">Encuentra en</label>
+                            <select class="ddlCategorias" id="ddlCategorias">
+                            <option value="MyGNOSSMeta" selected="selected">Todo GNOSS</option>
+                            <option value="Blog">Blogs</option>
+                            <option value="Comunidad">Comunidades</option>
+                            <option value="PerYOrg">Personas y organizaciones</option>
+                            </select>
+                                <input type="hidden" value="ub_MyGNOSSMeta@http://pruebas.gnoss.net/busqueda?search=" class="inpt_tipo_busqueda" />
+                                <input type="hidden" value="ub_Blog@http://pruebas.gnoss.net/blogs?search=" class="inpt_tipo_busqueda" />
+                                <input type="hidden" value="ub_Comunidad@http://pruebas.gnoss.net/comunidades?search=" class="inpt_tipo_busqueda" />
+                                <input type="hidden" value="ub_PerYOrg@http://pruebas.gnoss.net/personas-y-organizaciones?search=" class="inpt_tipo_busqueda" />
+                                                                <input type="hidden" value="oa_PerYOrg@PerYOrg" class="inpt_OrigenAutocompletar" />
+                        </div>
+                        <!-- #buscador //-->
+                        <div class="fieldsetGroup searchGroup">
+                            <label for="criterio" class="nota">Buscar en &nbsp;</label>
+                            <input type="text" id="txtBusquedaPrincipal" class="text txtBusqueda autocompletar" />
+                            <input type="button" title="Encontrar" class="encontrar" id="btnBuscarPrincipal" />
+                        </div>
+
+                        <!-- #buscador //-->
+                        <div class="botonBuscar"></div>
+                        <input type="submit" style="display: none;" id="enviarFormBuscador" value="enviar" title="enviar" />
+                        </fieldset>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="wrap">
+        <div id="page">
+                        
+            <div id="section">
+                <div id="content">
+                    <div class="info columms" id="info">
+    <p class="title-panel-info">P&#225;gina no disponible</p>
+    <div id="col03">
+                <div>
+                    <p>ERROR:</p>
+                    <p>The given key was not present in the dictionary.</p>
+                    <p>TRAZA:</p>
+                    <p>   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at Es.Riam.Gnoss.Web.MVC.Controles.Controladores.ActividadReciente.ObtenerItemsActividadReciente(List`1 pListaResultados, Boolean pEsPaginaSuscripciones)
+   at Es.Riam.Gnoss.Web.MVC.Controles.Controladores.ActividadReciente.ObtenerActividadReciente(Int32 pNumPagina, Int32 pNumElementos, TipoActividadReciente pTipo, Nullable`1 pPerfilIDPagina, Boolean pEsOrganizacion, Guid pComponenteID)
+   at Es.Riam.Gnoss.Web.MVC.Controles.Controladores.ActividadReciente.ObtenerActividadReciente(Int32 pNumPagina, Int32 pNumElementos, TipoActividadReciente pTipo, Nullable`1 pPerfilIDPagina, Boolean pEsOrganizacion)
+   at Es.Riam.Gnoss.Web.MVC.Controllers.HomeController.Index()
+   at lambda_method(Closure , ControllerBase , Object[] )
+   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;BeginInvokeSynchronousActionMethod&gt;b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.&lt;InvokeActionMethodFilterAsynchronouslyRecursive&gt;b__3d()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.&lt;&gt;c__DisplayClass46.&lt;InvokeActionMethodFilterAsynchronouslyRecursive&gt;b__3f()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass33.&lt;BeginInvokeActionMethodWithFilters&gt;b__32(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;&gt;c__DisplayClass2b.&lt;BeginInvokeAction&gt;b__1c()
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;BeginInvokeAction&gt;b__1e(IAsyncResult asyncResult)</p>
+                </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+<div id="footer">
+        <div class="cols-5">
+            <div class="col-1">
+                <div class="box">
+                    <p class="footer-title">
+                        Acerca de Gnoss
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="http://products.gnoss.com/comunidad/gnossproducts/recurso/GNOSS-Semantics--Social-Business-Platform/d27efdca-7e2f-4cde-b869-3813d0a006bb">&#191;Qu&#233; es Gnoss?</a>
+                        </li>
+                        <li>
+                            <a href="http://products.gnoss.com/comunidad/gnossproducts/recurso/Why-GNOSS/47603dc7-1c8f-4992-ac07-d53953788347">Ventajas de la tecnolog&#237;a GNOSS</a>
+                        </li>
+                        <li>
+                            <a href="http://products.gnoss.com/comunidad/gnossproducts/solutions">Soluciones</a>
+                        </li>
+                        <li>
+                            <a href="http://products.gnoss.com/comunidad/gnossproducts/recurso/Servicios-de-consultoria-y-soporte/eafb8972-7591-481e-82b1-a5d183515846">Servicios</a>
+                        </li>
+                        <li>
+                            <a href="http://products.gnoss.com/comunidad/gnossproducts/busqueda-avanzada#skos:ConceptID=gnoss:4AC05978-54EC-417B-B397-37128C3A3A59">Casos de uso</a>
+                        </li>
+                        <li>
+                            <a href="http://didactalia.net/comunidad/materialeducativo/didactalia/sobre-didactalia">Didactalia: proyecto educativo</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="box">
+                    <p class="footer-title">
+                        &#191;C&#243;mo usar gnoss.com?
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="http://101.gnoss.com">GNOSS 101</a>
+                        </li>
+                        <li>
+                            <a href="http://red.gnoss.com/comunidad/ayudayfaqs">Ayuda y FAQs</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="box">
+                    <p class="footer-title">
+                        Newsroom
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="http://noticias.gnoss.com">Noticias</a>
+                        </li>
+                        <li>
+                            <a href="http://www.gnoss.com/blog/gnosslife">GNOSS Official Blog</a>
+                        </li>
+                        <li>
+                            <a href="http://www.gnoss.com/comunidad/watermelon/recursos">Watermelon Blog</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="box">
+                    <p class="footer-title">
+                        Herramientas
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="http://www.gnoss.com/herramientas-gnoss">A&#241;adir a GNOSS</a>
+                        </li>
+                        <li>
+                            <a href="http://www.gnoss.com/widgets-gnoss">Widgets</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-1 last">
+                <div class="box">
+                    <p>
+
+                        Comunidad integrada en el espacio
+                        <a href="http://gnoss.com/home">
+                            <img style="width: 180px;" alt="GNOSS" src="http://serviciospruebas.gnoss.net/static/img/logo_gnoss.png"></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    <div class="cols-1">
+        <div class="cols-1">
+            <div class="box">
+                <ul>
+                    <li>
+                        <strong>
+                                © RIAM I+L Lab  2018                        </strong>
+                    </li>
+
+
+                        <li>
+                                <a href="http://pruebas.gnoss.net//politica-privacidad">Privacidad</a>
+                        </li>
+
+                    <li>
+                            <a href="http://pruebas.gnoss.net//condiciones-uso">Condiciones de uso de GNOSS</a>
+                    </li>
+
+
+
+                        <li>
+                                <a href="http://pruebas.gnoss.net/politica-de-cookies" target="_blank">Pol&#237;tica de cookies</a>
+                        </li>
+
+
+
+
+                        <li>
+
+                            <a href="http://gnoss.com/identidad/equipoGNOSS/contacto" class="fin">Contacto</a>
+                        </li>
+
+                </ul>
+
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            EjecutarScriptsIniciales2();
+        });
+    </script>
+    
+
+
+
+
+
+
+</body>
+</html>

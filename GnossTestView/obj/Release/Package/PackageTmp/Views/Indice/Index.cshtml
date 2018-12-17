@@ -1,0 +1,177 @@
+﻿@model IndexViewModel
+
+@{
+    Html.SetBodyClass("layout03 comGnoss");
+
+    CommunityModel Comunidad = Html.GetComunidad();
+    UserIdentityModel IdentidadActual = Html.GetIdentidadActual();
+}
+
+@section breadcrumb{
+    @if (Comunidad.Key != ProyectoAD.MetaProyecto)
+    {
+    <div class="breadcrumb" id="breadcrumb">
+        <div class="box">
+            <p>@Html.GetText("COMMON", "ESTASEN")</p>
+            <ol>
+                <li><a href="@Comunidad.Url"><strong>@Html.GetText("COMMON", "HOME")</strong></a></li>
+                <li>@Html.GetText("COMMON", "INDICE")</li>
+            </ol>
+        </div>
+    </div>
+    }
+}
+
+<div id="col02">
+    <div>
+        <div>
+            <div class="indiceCat">
+                @if (Comunidad.Key != ProyectoAD.MetaProyecto && !IdentidadActual.IsGuestIdentity)
+                {
+                <ul class="tools">
+                    <li><a onclick="Categorias_DesplegarSolicitarCategoria();">@Html.GetText("TESAURO", "SOLICITARCATEGORIA")</a></li>
+                </ul>
+                <div style="display: none;" id="despSolicCat">
+                    <div style="display: block;" class="stateShowForm" id="panels">
+                        <div id="menssages">
+                            <div class="ok"></div>
+                            <div class="ko"></div>
+                        </div>
+                        <div class="box form activeForm" id="action">
+                            <div>
+                                <fieldset>
+                                    <p>
+                                        <label>@Html.GetText("TESAURO", "OPCIONESSOLICITARCATEGORIA")</label></p>
+                                </fieldset>
+                                <fieldset>
+                                    <p>
+                                        <label>@Html.GetText("TESAURO", "NOMBRE") </label>
+                                        <input type="text" onkeydown="if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {return false;}}" class="text big" id="txtBoxNombreNuevaCategoria" />
+                                    </p>
+                                    <p>
+                                        <label>@Html.GetText("TESAURO", "CREAREN") </label>
+                                        <select id="cboPadreNuevaCategoria">
+                                            <option value="@Guid.Empty">@Html.GetText("TESAURO", "INDICE")</option>
+                                            @helper PintarOptionCategoria(CategoryModel pCategoriaTesauro)
+{
+                                                bool tieneHijos = ((List<CategoryModel>)Model.Categories).Count(cat => cat.ParentCategoryKey == pCategoriaTesauro.Key) > 0;
+                                                
+                                                <option value="@pCategoriaTesauro.Key">@pCategoriaTesauro.Name</option>
+
+                                                if (tieneHijos)
+                                                {
+                                                    foreach (CategoryModel categoria in Model.Categories.Where(cat => cat.ParentCategoryKey == pCategoriaTesauro.Key).OrderBy(cat => cat.Order))
+                                                    {
+                                                        @PintarOptionCategoria(categoria)
+                                                    }
+                                                }
+                                            }
+                                            
+                                            @foreach (CategoryModel categoria in Model.Categories.Where(cat => cat.ParentCategoryKey == Guid.Empty).OrderBy(cat => cat.Order))
+                                            {
+                                                @PintarOptionCategoria(categoria)
+                                            }
+                                            
+                                        </select>
+                                    </p>
+
+                                    @{
+                                        string funcion_Categorias_SolicitarCategoria = "Categorias_SolicitarCategoria('" + Html.GetUrlPagina() + "')";
+                                    }
+                                    <input type="button" onclick="@funcion_Categorias_SolicitarCategoria" value="@Html.GetText("TESAURO", "SOLICITAR")" />
+                                    
+                                </fieldset>
+                            </div>
+                        </div>
+                        <p class="cerrar"><a onclick="$('#despSolicCat').hide()" title="@Html.GetText("CONTROLDESPLEGAR", "CERRARFORM")">@Html.GetText("CONTROLDESPLEGAR", "CERRARX")</a></p>
+                    </div>
+                </div>
+                }
+                <h2>@Html.GetText("TESAURO", "INDICE")</h2>
+                <div class="box">
+                    <div class="indice">
+                        <ul>
+                            @helper PintarCategoria(CategoryModel pCategoriaTesauro)
+                            {
+                                CommunityModel Comunidad = Html.GetComunidad();
+                                bool tieneHijos = Model.Categories.Count(cat => cat.ParentCategoryKey == pCategoriaTesauro.Key) > 0;
+                                string urlCategoria = Model.UrlBaseCategories + Html.EliminarCaracteresUrlSem(pCategoriaTesauro.Name) + "/" + pCategoriaTesauro.Key;
+                                
+                                <li>    
+                                    <a href="@urlCategoria">@pCategoriaTesauro.Name @(Comunidad.Key != ProyectoAD.MetaProyecto?"(" + pCategoriaTesauro.NumResources + ")":"") </a>
+        
+                                    @if (tieneHijos)
+                                    {
+                                        <ul>
+                                            @foreach (CategoryModel categoria in Model.Categories.Where(cat => cat.ParentCategoryKey == pCategoriaTesauro.Key).OrderBy(cat => cat.Order))
+                                            {
+                                                @PintarCategoria(categoria)
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+
+                            @foreach (CategoryModel categoriaSup in Model.Categories.Where(cat => cat.ParentCategoryKey == Guid.Empty).OrderBy(cat => cat.Order))
+                            {
+                                bool tieneHijos = ((List<CategoryModel>)Model.Categories).Count(cat => cat.ParentCategoryKey == categoriaSup.Key) > 0;
+                                                
+                                <li>
+                                    <h3><a href="@Model.UrlBaseCategories@Html.EliminarCaracteresUrlSem((string)categoriaSup.Name)/@categoriaSup.Key/">@categoriaSup.Name @(Comunidad.Key != ProyectoAD.MetaProyecto?"(" + categoriaSup.NumResources + ")":"") </a></h3>
+
+                                    @if (tieneHijos)
+                                    {
+                                        <ul>
+                                            @foreach (CategoryModel categoria in Model.Categories.Where(cat => cat.ParentCategoryKey == categoriaSup.Key).OrderBy(cat => cat.Order))
+                                            {
+                                                @PintarCategoria(categoria)
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>                                           
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section javascript
+{
+    <script type="text/javascript">
+        function Categorias_DesplegarSolicitarCategoria()
+        {
+            $('#txtBoxNombreNuevaCategoria').val('');
+            $('#cboPadreNuevaCategoria option:eq(0)').prop('selected', true);
+
+            DesplegarPanelMVC('despSolicCat');
+        }
+
+        function Categorias_SolicitarCategoria(urlPagina)
+        {
+            MostrarUpdateProgress();
+            var datosPost = {
+                callback: "Categorias|SolicitarCategoria",
+                nombreCategoria: $('#txtBoxNombreNuevaCategoria').val(),
+                categoriaSupID: $('#cboPadreNuevaCategoria option:selected').val(),
+            };
+            $.post(urlPagina, datosPost, function (data) {
+                var html = "";
+                var ok = true;
+                if (data != "OK") {
+                    ok = false;
+                    html = textoRecursos.SolicitarCatFALLO;
+                }
+                else {
+                    html = textoRecursos.SolicitarCatOK;
+                    ok = true;
+                }
+                DesplegarResultadoAccionMVC("despSolicCat", ok, html);
+
+                OcultarUpdateProgress();
+            });
+        }
+    </script>    
+}

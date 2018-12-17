@@ -1,0 +1,197 @@
+﻿@using Es.Riam.Gnoss.Web.MVC.Models;
+@if (Html.GetComunidad() != null)
+{
+    <header>
+        @{
+            HeaderModel cabecera = Html.GetCabecera();
+            UserProfileModel perfil = Html.GetPerfil();
+            CommunityModel Comunidad = Html.GetComunidad();
+            UserIdentityModel IdentidadActual = Html.GetIdentidadActual();
+            CommunityModel.PermissionsModel permisosComunidad = Comunidad.Permissions;
+        }
+        <div class="container">
+            <div class="row">
+                <div class="col col01">
+                    <div class="menu-toggle">
+                        <a href="javascript:void(0);" data-target="menuLateralPrincipal" data-placement="left" data-position="slidepush" class="pmd-sidebar-toggle">
+                            <span class="material-icons">menu</span>
+                        </a>
+                    </div>
+                    <div class="logo">
+                        <a href="javascript: void(0);">
+                            <i>my</i><span>GNOSS</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col col02">
+                    <div id="buscador" class="buscador">
+                        <form method="post" id="formBuscador" action="http://prered.gnoss.com/comunidad/nextweb/">
+                            <div class="fieldsetGroup searchGroup">
+                                <div id="selector" style=""><p class="seleccionado"><a href="#">Toda la comunidad</a><span></span></p><div id="opciones"><ul><li><a href="#" rel="0">Todo GNOSS</a></li><li><a href="#" rel="1">Toda la comunidad</a></li><li><a href="#" rel="2">Recursos</a></li><li><a href="#" rel="3">Debates</a></li><li><a href="#" rel="4">Preguntas</a></li><li><a href="#" rel="5">Encuestas</a></li><li><a href="#" rel="6">Personas y organizaciones</a></li><li><a href="#" rel="7">Prueba juan</a></li></ul></div></div>
+                                <div id="selector">
+                                    <div class="dropdown pmd-dropdown">
+                                        <span class="dropdown-toggle seleccionado" id="dropdown-explora" data-toggle="dropdown" aria-expanded="true">Explora</span>
+                                        <div class="pmd-dropdown-menu-container">
+                                            <div class="pmd-dropdown-menu-bg"></div><div class="dropdown-menu pm-ini" aria-labelledby="dropdown-explora" id="opciones" style="">
+                                                <ul role="menu">
+                                                    <li role="presentation"><a href="javascript:void(0);" tabindex="-1" role="menuitem">Recursos</a></li>
+                                                    <li role="presentation"><a href="javascript:void(0);" tabindex="-1" role="menuitem">Personas y organizaciones</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fieldsetGroup ambitoBusqueda">
+                                    <select class="ddlCategorias custom" id="ddlCategorias">
+                                        <option value="MyGNOSSMeta">Todo GNOSS</option>
+                                        <option value="ef805a49-b5bf-4a21-9348-c965bbbc1420" selected="selected">Toda la comunidad</option>
+                                        <option value="db6fdb1b-b432-4f77-99cc-8544f51c671d">Recursos</option>
+                                        <option value="06af0575-0760-4643-aa3c-b528a92a3118">Debates</option>
+                                        <option value="e6899cb6-7a3f-45a2-abe2-dbe2636cc7d6">Preguntas</option>
+                                        <option value="cf775922-d947-4839-8336-eb96c95a6d27">Encuestas</option>
+                                        <option value="e37cc965-dd27-4ace-a0d1-2c7a4eef9efa">Personas y organizaciones</option>
+                                        <option value="6de64614-ff24-46cb-8db8-4767ac43b6a3">Prueba juan</option>
+                                    </select>
+                                    <input type="hidden" value="ub_MyGNOSSMeta@http://prered.gnoss.com/comunidad/nextweb/busqueda?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="ub_ef805a49-b5bf-4a21-9348-c965bbbc1420@http://prered.gnoss.com/comunidad/nextweb/busqueda?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="ub_db6fdb1b-b432-4f77-99cc-8544f51c671d@http://prered.gnoss.com/comunidad/nextweb/recursos?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="ub_06af0575-0760-4643-aa3c-b528a92a3118@http://prered.gnoss.com/comunidad/nextweb/debates?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="ub_e6899cb6-7a3f-45a2-abe2-dbe2636cc7d6@http://prered.gnoss.com/comunidad/nextweb/preguntas?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="ub_cf775922-d947-4839-8336-eb96c95a6d27@http://prered.gnoss.com/comunidad/nextweb/encuestas?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="ub_e37cc965-dd27-4ace-a0d1-2c7a4eef9efa@http://prered.gnoss.com/comunidad/nextweb/personas-y-organizaciones?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="ub_6de64614-ff24-46cb-8db8-4767ac43b6a3@http://prered.gnoss.com/comunidad/nextweb/pruebajuan?search=" class="inpt_tipo_busqueda">
+                                    <input type="hidden" value="oa_db6fdb1b-b432-4f77-99cc-8544f51c671d@Recursos" class="inpt_OrigenAutocompletar">
+                                    <input type="hidden" value="oa_06af0575-0760-4643-aa3c-b528a92a3118@Debates" class="inpt_OrigenAutocompletar">
+                                    <input type="hidden" value="oa_e6899cb6-7a3f-45a2-abe2-dbe2636cc7d6@Preguntas" class="inpt_OrigenAutocompletar">
+                                    <input type="hidden" value="oa_cf775922-d947-4839-8336-eb96c95a6d27@Encuestas" class="inpt_OrigenAutocompletar">
+                                    <input type="hidden" value="oa_e37cc965-dd27-4ace-a0d1-2c7a4eef9efa@PerYOrg" class="inpt_OrigenAutocompletar">
+                                    <input type="hidden" value="oa_6de64614-ff24-46cb-8db8-4767ac43b6a3@pruebajuan@en|||" class="inpt_OrigenAutocompletar">
+                                </div>
+                                <div class="textoBusquedaPrincipalInput">
+                                    <input type="text" id="txtBusquedaPrincipal" class="text txtBusqueda autocompletar ac_input defaultText" placeholder="Busca entre 4634 recursos" autocomplete="off" style="width: 109px;" value="">
+                                    <input type="button" title="Encontrar" class="encontrar" id="btnBuscarPrincipal">
+                                    <span class="botonSearch">
+                                        <i class="material-icons">search</i>
+                                    </span>
+                                    <span class="cerrarBusqueda"></span>
+                                    <div class="ac_results autocomplete" style="display: none;">
+                                        <ul>
+                                            <li>
+                                                <a href="javascript: void(0);">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript: void(0);">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript: void(0);">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript: void(0);">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="botonBuscar"></div>
+                            <input type="submit" style="display: none;" id="enviarFormBuscador" value="enviar" title="enviar">
+                        </form>
+                    </div>
+                </div>
+                <div class="col col03">
+                    @if (IdentidadActual.IsGuestUser)
+                    {
+                        <div class="desconectado">
+                        <ul>
+                            <li class="iniciar-sesion">
+                                <a href="javascript: void(0);"><span class="material-icons">exit_to_app</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    }
+                    else if (!IdentidadActual.IsGuestUser)
+                    {
+                        string urlFoto = "theme/resources/persona-default.png";
+                        if (string.IsNullOrEmpty(perfil.Foto))
+                        {
+                            if (perfil.TypeProfile == ProfileType.ProfessionalCorporate)
+                            {
+                                urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesOrganizaciones + "/" + "anonimo_peque.png";
+                            }
+                            else
+                            {
+                                urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesPersonas + "/" + "anonimo_peque.png";
+                            }
+                        }
+                        else
+                        {
+                            urlFoto = @Html.GetBaseUrlContent() + perfil.Foto;
+                        }
+                       <div class="conectado">
+                        <ul>
+                            <li class="comunidades">
+                                <a href="javascript: void(0);" data-target="menuLateralComunidades" data-placement="right" data-position="slidepush" class="pmd-sidebar-toggle">
+                                    <span class="material-icons">vpn_lock</span>
+                                </a>
+                            </li>
+                            <li class="usuario">
+                                <div class="img-usuario">
+                                    <a href="javascript: void(0);" data-target="menuLateralUsuario" data-placement="right" data-position="slidepush" class="pmd-sidebar-toggle">
+                                        <span style="background: url(@urlFoto) no-repeat center"></span>
+                                    </a>
+                                </div>
+                                <span class="novedades" id="infoNumSuscriopciones">6<span class="indentado">nuevos</span></span>
+                            </li>
+                        </ul>
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="row row-menu">
+                <div class="col">
+                    <ul>
+                        <li>
+                            <a href="javascript: void(0)">Home</a>
+                        </li>
+                        <li class="parent">
+                            <a href="javascript: void(0)">Recursos</a>
+                            <ul>
+                                <li class="parent">
+                                    <a href="javascript: void(0)">Categoría</a>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript: void(0)">Categoría</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript: void(0)">Categoría</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0)">Categoría</a>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0)">Categoría</a>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0)">Categoría</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0)">Debates</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0)">Personas</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+       
+    </header>
+            if (!IdentidadActual.IsGuestUser)
+            {
+                @Html.PartialView("../Shared/_MenuLateralUsuario")
+                }
+            }

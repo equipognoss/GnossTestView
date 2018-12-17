@@ -1,0 +1,57 @@
+﻿@model ResourceModel
+
+@if (Model.RelatedResources.Count > 0)
+{
+    <div class="group resources resource-list">
+        <div class="group-title">
+            <h2>@Html.GetText("VINCULACIONDOCUMENTACION", "RECVINCOMUNIDAD")</h2>
+        </div>
+        @if (Model.NumRelatedResources > 5)
+        {
+            <div class="paginadorSiguienteAnterior">
+                <ul>
+                    <li class="anterior desactivado" id="btnAnterior_vinc">
+                        <a onclick="paginadorVinculados_Anterior('@Html.GetUrlPagina()')"></a>
+                    </li>
+                    <li class="siguiente" id="btnSiguiente_vinc">
+                        <a onclick="paginadorVinculados_Siguiente('@Html.GetUrlPagina()')"></a>
+                    </li>
+                </ul>
+            </div>
+        }
+        <div class="resource-list vinculados activo">
+            <div>
+                @{	 
+        int i = 0;
+        foreach (ResourceModel fichaVinculado in Model.RelatedResources)
+        {       
+                    @Html.PartialView("ControlesMVC/_FichaRecursoMini", fichaVinculado)
+            i++;
+            if (i == 5)
+            {
+                break;
+            }
+        }           
+                }
+            </div>
+        </div>
+        @if (Model.NumRelatedResources > 5)
+        {
+            <div class="resource-list vinculados " style="display: none">
+                <div>
+                    @{	 
+            i = 0;
+            foreach (ResourceModel fichaVinculado in Model.RelatedResources)
+            {
+                i++;
+                if (i > 5)
+                {
+                        @Html.PartialView("ControlesMVC/_FichaRecursoMini", fichaVinculado)
+                }
+            }           
+                    }
+                </div>
+            </div>
+        }
+    </div>
+}

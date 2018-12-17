@@ -1,0 +1,96 @@
+﻿@model ChartViewModel
+@{
+    KeyValuePair<string, string> nombreChartIdiomaUsuario = (KeyValuePair<string, string>)ViewData["0"];
+    Dictionary<string, string> Idiomas = (Dictionary<string, string>)ViewData["1"];
+    string[] stringSeparatorIdiomas = new string[] { "|||" };
+    string[] stringSeparatorTextosLenguajes = new string[] { "@" };
+    string[] splitIdiomasTexto = new string[Idiomas.Count-1];
+    Dictionary<string, string> diccionarioNombres = new Dictionary<string, string>();
+    if (!string.IsNullOrEmpty(Model.Nombre))
+    {
+        splitIdiomasTexto = Model.Nombre.Split(stringSeparatorIdiomas, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var idiomaTexto in splitIdiomasTexto)
+        {
+            string[] splitTextosLenguages = idiomaTexto.Split(stringSeparatorTextosLenguajes, StringSplitOptions.RemoveEmptyEntries);
+            diccionarioNombres.Add(splitTextosLenguages[1], splitTextosLenguages[0]);
+        }
+    }
+}
+@functions
+{
+        private int Contador = 1;
+}
+@helper PintarNombresIdiomasCharts(KeyValuePair<string, string> idioma, KeyValuePair<string, string> nombreChartIdiomaUsuario, string chartID)
+{
+if (string.Compare(idioma.Key, nombreChartIdiomaUsuario.Key, true) == 0)
+{
+        <li class="active"><a rel="0" name="@chartID" href="javascript:void(0)">@idioma.Value *</a></li>
+}
+else
+{
+        <li class=""><a rel="@Contador" name="@chartID" href="javascript:void(0)">@idioma.Value</a></li>
+    Contador++;
+}
+}
+@helper PintarTextoNombresIdiomasCharts(KeyValuePair<string, string> idioma, KeyValuePair<string, string> nombreChartIdiomaUsuario, Dictionary<string, string> diccionarioNombres, string chartID)
+{
+if (string.Compare(idioma.Key, nombreChartIdiomaUsuario.Key, true) == 0)
+{
+        <div rel="0" class="block" id="@chartID|||edicion|||@idioma.Key" style="display: block;">
+            <p><input type="text" id="@chartID|||texto|||@idioma.Key" class="text big" value="@(diccionarioNombres.ContainsKey(idioma.Key) ? diccionarioNombres[idioma.Key] : "")"></p>
+        </div>
+}
+else
+{
+        <div rel="@Contador" class="block" id="@chartID|||edicion|||@idioma.Key" style="display: none;">
+            <p><input type="text" id="@chartID|||texto|||@idioma.Key" class="text big" value="@(diccionarioNombres.ContainsKey(idioma.Key) ? diccionarioNombres[idioma.Key] : "")"></p>
+        </div>
+    Contador++;
+}
+}
+<li class="row" id="@Model.ChartID">
+    <span class="handle ui-sortable-handle">:::</span>
+    <section class="header">
+        <span class="nombre">@diccionarioNombres[nombreChartIdiomaUsuario.Key]</span>
+        <span class="action eliminar">Eliminar</span>
+        <span class="action editar">Editar</span>
+    </section>
+    <section class="panEdicion">
+        <div class="tipo" name="tabName">Nombre<span class="conToolTip" title="Nombre del Model">?</span></div><br />
+        <div class="block tabsGroup">
+            <div class="acciones tabspresentation">
+                <ul>
+                    @foreach (KeyValuePair<string, string> idioma in Idiomas)
+                    {
+                        @PintarNombresIdiomasCharts(idioma, nombreChartIdiomaUsuario, Model.ChartID);
+                    }
+                </ul>
+            </div>
+        </div>
+        @{
+            Contador = 1;
+        }
+        <div class="clases textos">
+            @foreach (KeyValuePair<string, string> idioma in Idiomas)
+            {
+                @PintarTextoNombresIdiomasCharts(idioma, nombreChartIdiomaUsuario, diccionarioNombres, Model.ChartID);
+            }
+        </div>
+        <p>
+            <span class="tipo">Texto del select</span>
+            <input type="text" id="pSelect|||@Model.ChartID" value="@Model.Select">
+        </p>
+        <p>
+            <span class="tipo">Texto del where</span>
+            <textarea id="pTextWhere|||@Model.ChartID">@Model.Where</textarea>
+        </p>
+        <p>
+            <span class="tipo">Javascript para pintar Model</span>
+            <textarea rows="6" id="pTextJavascript|||@Model.ChartID">@Model.Javascript</textarea>
+        </p>
+        <p>
+            <span class="tipo">Nombre de la función JS</span>
+            <input type="text" id="pNombreFuncionJS|||@Model.ChartID" value="@Model.FuncionJS">
+        </p>
+    </section>
+</li>

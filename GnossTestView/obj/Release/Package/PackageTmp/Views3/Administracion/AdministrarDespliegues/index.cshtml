@@ -1,0 +1,232 @@
+﻿@model AdministrarDesplieguesViewModel
+@{
+    Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/cssNuevo/administracion.css?v=" + Html.GetVersion());
+    CommunityModel Comunidad = Html.GetComunidad();
+}
+<div class="content">
+    <h1>Panel de control de despliegues</h1>
+    <br />
+    <h2 id="Principal">Estado del entorno</h2>
+    <br />
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <div>Error en la petición de la versiones</div>
+        <div class="alert">@Model.Error</div>
+    }
+    else if (string.IsNullOrEmpty(Model.VersionActualEntornoActual))
+    {
+        <div for="CrearVersion">No existe ninguna version, crea una</div>
+        @Html.PartialView("_CrearVersion")
+    }
+    else
+    {
+        <div>Estás en la versión <b>@Model.VersionActualEntornoActual</b></div>
+        if (Model.EsDesplegable)
+        {
+            @Html.PartialView("_Desplegar")
+        }
+        else
+        {
+            <div for="CrearVersion">Existen cambios en la rama principal, crea una version</div>
+            @Html.PartialView("_CrearVersion")
+        }
+    }
+</div>
+
+<style>
+    .alert {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+    }
+
+    p {
+        color: inherit;
+    }
+</style>
+<script>
+    var OperativaAcciones = {
+        init: function () {
+            this.config();
+            this.engancharComportamiento();
+        },
+        config: function () {
+            this.urlPagina = document.location.href;
+            return;
+        },
+        mostrarMasVersiones: function (data) {
+            if (numElementos==$("#MyList li").length)
+            {
+                var mapa = jQuery.parseJSON(data);
+                var list = $("#MyList");
+                for (const [key, entry] of mapa.entries()) {
+                    list.append('<li><label for="CambiarVersion">Version <b>' + entry.Value + '</b> creada el ' + entry.Key + '<input type="button" name="CambiarVersion" placeholder="' + entry.Value + '" id="CambiarVersion" value="Cambiar Versión"></li>');
+            }
+            if (mapa.length<5)
+            {
+                $("#MostrarMasVersiones").remove();
+            }
+        }
+    },
+        mostrarInformacion: function (data) {
+            $('#errorSpam').remove();
+            $('#okGeneral').remove();
+            $('#Principal').after(" <div id=\"okGeneral\" class=\"ok general\">" + data + "</div>");
+        },
+    mostrarErrorGuardado: function () {
+        $('#errorSpam').remove();
+        $('#okGeneral').remove();
+        $('#Principal').after("<div id=\"errorSpam\" class=\"alert\"> <p>" + arguments[0] + "</p></div>");
+    },
+    Desplegar: function () {
+        var that = this;
+        that.Options = {};
+        that.Options['pNombreVersion'] = $('#Desplegar').attr("placeholder");
+        MostrarUpdateProgress();
+        GnossPeticionAjax(
+        that.urlPagina + '/deploy',
+        that.Options,
+        true
+        ).done(function (data) {
+            that.mostrarInformacion(data);
+        }).fail(function (data) {
+            if (data) {
+                that.mostrarErrorGuardado(data);
+            } else {
+                that.mostrarErrorGuardado("Error al ejecutar la consulta de despliegue");
+            }
+        }).always(function () {
+            OcultarUpdateProgress();
+        });
+    },
+    CambiarVersion: function () {
+        var that = this;
+        that.Options = {};
+        that.Options['pNombreVersion'] = event.currentTarget.placeholder;
+        MostrarUpdateProgress();
+        GnossPeticionAjax(
+        that.urlPagina + '/change',
+        that.Options,
+        true
+        ).done(function (data) {
+            that.mostrarInformacion(data);
+        }).fail(function (data) {
+            if (data) {
+                that.mostrarErrorGuardado(data);
+            } else {
+                that.mostrarErrorGuardado("Error al ejecutar la consulta de cambio");
+            }
+        }).always(function () {
+            OcultarUpdateProgress();
+        });
+    },
+    CrearVersion: function () {
+        var that = this;
+        that.Options = {};
+        const valor=$('#textoNombreVesion').val();
+        if (valor && that.ComprobarValor(valor))
+        {
+            that.Options['pNombreVersion'] = $('#textoNombreVesion').val();
+            MostrarUpdateProgress();
+            GnossPeticionAjax(
+            that.urlPagina + '/create',
+            that.Options,
+            true
+            ).done(function (data) {
+                that.mostrarInformacion(data);
+            }).fail(function (data) {
+                if (data) {
+                    that.mostrarErrorGuardado(data);
+                } else {
+                    that.mostrarErrorGuardado("Error al ejecutar la consulta de crear version");
+                }
+            }).always(function () {
+                OcultarUpdateProgress();
+            });
+        }else
+        {
+            that.mostrarErrorGuardado("El tag tiene formato incorrecto");
+        }
+
+    },
+    MostrarMasVersiones: function () {
+        var that = this;
+        numElementos=$("#MyList li").length;
+        that.Options = {};
+        that.Options['pNumeroActual'] = numElementos;
+        MostrarUpdateProgress();
+        GnossPeticionAjax(
+        that.urlPagina + '/more',
+        that.Options,
+        true
+        ).done(function (data) {
+            that.mostrarMasVersiones(data);
+        }).fail(function (data) {
+            if (data) {
+                that.mostrarErrorGuardado(data);
+            } else {
+                that.mostrarErrorGuardado("Error al pedir mas versiones");
+            }
+        }).always(function () {
+            OcultarUpdateProgress();
+        });
+    },
+    ComprobarValor: function(data)
+    {
+        let resultado=true;
+        if (data && $.isNumeric(data.charAt(0)) && $.isNumeric(data.charAt(data.length-1)))
+        {
+            const numeros=data.split(".");
+            if (numeros.length<=3)
+            {
+                numeros.forEach( function(valor, indice, array) {
+                    if (!$.isNumeric(valor))
+                    {
+                        resultado=false;
+                        return
+                    }
+                });
+            }else
+            {
+                resultado=false;
+            }
+           
+        }else
+        {
+            resultado=false;
+        }
+        return resultado;
+    },
+    engancharComportamiento: function () {
+        var that = this;
+        $('#CrearVersion').click(function () {
+            that.CrearVersion();
+        });
+        $('#Desplegar').click(function () {
+            that.Desplegar();
+        });
+        $('input[name="CambiarVersion"]').each(function(i){
+            $(this).on("click", function(){
+                that.CambiarVersion();
+            });
+        });
+        $('#MostrarMasVersiones').click(function () {
+            that.MostrarMasVersiones();
+        });
+        $('#CambiarVersion').click(function () {
+            that.CambiarVersion();
+        });
+        $("#select").change(function() {
+            $("#Desplegar").attr("placeholder",$(this).val());
+        });
+        return;
+    }
+    }
+
+    $(document).ready(function () {
+        OperativaAcciones.init();
+    });
+</script>

@@ -1,0 +1,79 @@
+﻿@using Es.Riam.Gnoss.Web.MVC.Models;
+@using Es.Riam.Gnoss.Web.MVC.Controllers.Administracion;
+@using System.Collections.Generic;
+@model IEnumerable<ChangeInProductionModel>
+
+@functions{
+
+    public string ObtenerParametrosUrl(Dictionary<string, string> pParametros)
+    {
+        string parametros = "";
+
+        foreach (string parametro in pParametros.Keys)
+        {
+            parametros += "&" + parametro + "=" + HttpUtility.UrlEncode(pParametros[parametro]);
+        }
+        
+        return parametros;
+    }
+}
+
+
+@if (Model != null && Model.Count() > 0)
+{     
+        <div class="fieldsetContent" tipo="@((short)Model.First().ChangeType)">
+            <div>
+                <p>Selecciona los cambios que quieres pasar a producción:</p>
+                <a class="seleccionarTodos" tipo="@((short)Model.First().ChangeType)" accion="check">Seleccionar todo</a>
+                @{
+                    List<ChangeInProductionModel> vistasNuevas = Model.Where(cambio => cambio.ActionType == MoveToProductionActionType.New).ToList();
+                    List<ChangeInProductionModel> vistasEditadas = Model.Where(cambio => cambio.ActionType == MoveToProductionActionType.Modified).ToList();
+                    List<ChangeInProductionModel> vistasEliminadas = Model.Where(cambio => cambio.ActionType == MoveToProductionActionType.Deleted).ToList();
+                            
+                }
+                @if(vistasNuevas.Count > 0)
+                {
+                <div>
+                    <span>Nuevas</span>
+                    @foreach (ChangeInProductionModel cambio in vistasNuevas)
+                    {
+                        string parametrosDescargaRemoto = ObtenerParametrosUrl(cambio.ParametersDownloadRemote);
+
+                        <p>
+                            <input type="checkbox" name="@cambio.Name.Replace("/Views/", "")" value="@cambio.Key" /> @cambio.Name.Replace("/Views/", "") <a class="downloadVersion" tipo="@((short)cambio.ChangeType)" version="remoto" urlAction="/download?version=remoto&type=@((short)cambio.ChangeType + "&clave=" + HttpUtility.UrlEncode(cambio.Key) + parametrosDescargaRemoto)">descargar remoto</a>
+                        </p>
+                    }
+                </div>
+                }
+                @if(vistasEditadas.Count > 0)
+                {
+                <div>
+                    <span>Editadas</span>
+                    @foreach (ChangeInProductionModel cambio in vistasEditadas)
+                    {
+                        string parametrosDescargaLocal = ObtenerParametrosUrl(cambio.ParametersDownloadLocal);
+                        string parametrosDescargaRemoto = ObtenerParametrosUrl(cambio.ParametersDownloadRemote);
+                        
+                        <p>
+                            <input type="checkbox" name="@cambio.Name.Replace("/Views/", "")" value="@cambio.Key" /> @cambio.Name.Replace("/Views/", "") <a class="downloadVersion" version="local" tipo="@((short)cambio.ChangeType)" urlAction="/download?version=local&type=@((short)cambio.ChangeType + "&clave=" + HttpUtility.UrlEncode(cambio.Key) + parametrosDescargaLocal)">descargar local</a> <a class="downloadVersion" tipo="@((short)cambio.ChangeType)" version="remoto" urlAction="/download?version=remoto&type=@((short)cambio.ChangeType + "&clave=" + HttpUtility.UrlEncode(cambio.Key) + parametrosDescargaRemoto)">descargar remoto</a>
+                        </p>
+                    }
+                </div>
+                }
+                @if(vistasEliminadas.Count > 0)
+                {
+                <div>
+                    <span>Eliminadas</span>
+                    @foreach (ChangeInProductionModel cambio in vistasEliminadas)
+                    {
+                        string parametrosDescargaLocal = ObtenerParametrosUrl(cambio.ParametersDownloadLocal);
+                        <p>
+                            <input type="checkbox" name="@cambio.Name.Replace("/Views/", "")" value="@cambio.Key" /> @cambio.Name.Replace("/Views/", "") <a class="downloadVersion" version="local" tipo="@((short)cambio.ChangeType)" urlAction="/download?version=local&type=@((short)cambio.ChangeType + "&clave=" + HttpUtility.UrlEncode(cambio.Key) + parametrosDescargaLocal)">descargar local</a> 
+                        </p>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+}
+

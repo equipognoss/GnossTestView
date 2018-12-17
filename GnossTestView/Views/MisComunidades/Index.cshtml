@@ -1,0 +1,60 @@
+﻿@model MyCommunitiesViewModel
+@{
+    Html.SetBodyClass("layout02 listadoMyGnoss ");
+}
+
+@helper PintarComunidad(MyCommunitiesViewModel.MyCommunityModel comunidad)
+{
+    <div class="resource ">
+        <div class="box description">
+            <div class="group title">
+                <h4>
+                    <a href="@comunidad.Url">@comunidad.Name</a>
+                </h4>
+                <div class="logoComunidad">
+                    <a href="@comunidad.Url">
+                        <img src="@comunidad.Logo" alt="@comunidad.Name" />
+                    </a>
+                </div>
+            </div>
+            <div class="group content">
+                <p>
+                @switch ((CommunityModel.TypeAccessProject)comunidad.AccessType)
+                {
+                    case CommunityModel.TypeAccessProject.Private:
+                    @Html.Raw(Html.GetText("COMUNIDADES", "COMUNIDADPRIVADA"))
+                        break;
+                    case CommunityModel.TypeAccessProject.Public:
+                    @Html.Raw(Html.GetText("COMUNIDADES", "COMUNIDADPUBLICA"))
+                        break;
+                    case CommunityModel.TypeAccessProject.Reserved:
+                    @Html.Raw(Html.GetText("COMUNIDADES", "COMUNIDADRESERVADA"))
+                        break;
+                    case CommunityModel.TypeAccessProject.Restricted:
+                    @Html.Raw(Html.GetText("COMUNIDADES", "COMUNIDADRESTRINGIDA"))
+                        break;
+                }
+                </p>
+            </div>
+        </div>
+        @foreach (MyCommunitiesViewModel.MyCommunityModel comunidadHija in Model.Communities.Where(com => com.ParentKey == comunidad.Key))
+        {
+            @PintarComunidad(comunidadHija);
+        }
+    </div>
+}
+<div id="col01">
+</div>
+<div id="col02">
+    <h3><span>Mis comunidades</span></h3>
+    <div>
+        <div>
+            <div class="proyectos-list">
+                @foreach (MyCommunitiesViewModel.MyCommunityModel comunidad in Model.Communities.Where(com => com.ParentKey == Guid.Empty))
+                {
+                    @PintarComunidad(comunidad)
+                }
+            </div>
+        </div>
+    </div>
+</div>

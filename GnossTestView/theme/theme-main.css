@@ -1,0 +1,20 @@
+﻿/* MAIN */
+  main[role="main"] { padding-top: 80px; }
+  .esComunidad main[role="main"] { padding-top: 140px; }
+
+  main[role="main"] > .container > .row { display: flex; align-items: stretch; justify-content: space-between; background: var(--c-blanco); }
+
+
+  @media (max-width: 991px){
+
+  }
+
+  @media (max-width: 767px){
+    
+  }
+
+  @media (max-width: 575px){
+    
+  }
+
+/**/

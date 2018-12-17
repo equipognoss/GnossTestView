@@ -1,0 +1,137 @@
+﻿@{ 
+    CommunityModel Comunidad = Html.GetComunidad();
+}
+
+
+@if (!string.IsNullOrEmpty(Request.Params["EntornoOrigen"]) && !string.IsNullOrEmpty(Request.Params["Accion"]))
+{
+    <span>Para terminar con la Integracion Continua solo tiene que dar al botón de Crear</span>
+    <form id="formulario" action="javascript:void(0)" method="post">
+        <div id="copiado" style="visibility:hidden">
+            <select id="repositorios" style="display:block">
+                <option value="develop" selected>develop</option>
+            </select>
+        </div>
+    </form>
+    <input type="button" class="guardarTodo" id="Crear" value="Crear" />
+}
+else
+{
+    <form id="formulario" action="javascript:void(0)" method="post">
+        <div id="copiado" style="display:block">
+            <p>Elige cual ha sido el entorno en el que has estado desarrollando.</p>
+            <select id="repositorios" onchange="entornosChange()">
+                <option value="develop" selected>develop</option>
+                <option value="release">release</option>
+                <option value="master">master</option>
+            </select>
+        </div>
+        <br />
+        <input type="checkbox" id="checkboxcopiado" value="copiado_checkbox" onclick="ocultar()"> <label>Si ya has subido todas las configuraciones al repositorio marca esta opción (Las configuraciones deben estar en la rama mas baja, p.e: Develop)</label>
+        <input type="button" class="guardarTodo" id="Crear" value="Crear" />
+
+    </form>
+}
+
+
+
+
+
+
+<script>
+    function ocultar() {
+        var checkBox = $("#checkboxcopiado");
+        if (checkBox.prop('checked')) {
+            $('#copiado').hide();
+        } else{
+            $('#copiado').show();
+        }
+    }
+</script>
+<script>
+    var OperativaAcciones = {
+        init: function () {
+            this.config();
+            this.engancharComportamiento();
+        },
+        config: function () {
+            this.urlPagina = document.location.href;
+            return;
+        },
+        mostrarErrorGuardado: function (data) {
+            if (data)
+            {
+                $('#formulario').after('<div class="error general">'+data+'</div>');
+            } else
+            {
+                $('#formulario').after('<div class="error general">Ha habido errores en el guardado</div>');
+            }
+
+        },
+        guardar: function () {
+            var that = this;
+            var urlPagina = that.urlPagina;
+            if (urlPagina.indexOf('?') != -1)
+            {
+                urlPagina = urlPagina.substring(0, urlPagina.indexOf('?'));
+                var extra = window.location.search;
+                urlPagina = urlPagina + '/Guardar' + extra
+            }
+            else
+            {
+                urlPagina = that.urlPagina + '/Guardar'
+            }
+            
+            MostrarUpdateProgress();
+            GnossPeticionAjax(
+            urlPagina,
+            that.Options,
+            true
+            ).fail(function (data) {
+                that.mostrarErrorGuardado(data);
+            }).always(function () {
+                OcultarUpdateProgress();
+            });
+        },
+        engancharComportamiento: function () {
+            var that = this;
+            $('#Crear').click(function () {
+                that.guardarTodo();
+            });
+            return;
+        },
+        guardarTodo: function () {
+            var that = this;
+            $('.ok.general').remove();
+            $('.error').remove();
+            that.Options = {};
+            that.obtenerDatos();
+            that.guardar();
+
+        },
+        obtenerDatos: function () {
+            var that = this;
+            var repositorios = $('#repositorios').val();
+            var noCopiado = $("#checkboxcopiado").prop('checked');
+            var noDesarrollo = $("#checkboxdevelop").prop('checked');
+            that.Options['Repositorio'] = repositorios;
+            that.Options['RepositorioActualizado'] = noCopiado;
+            that.Options['NoDesarrollo'] = noDesarrollo;
+        },
+    }
+    $(document).ready(function () {
+        OperativaAcciones.init();
+    });
+</script>
+<style>
+    input[type=text] {
+        width: 20%;
+        margin-left: 10px;
+    }
+    input[type=button]{
+        float:initial;
+    }
+
+</style>
+
+

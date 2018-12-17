@@ -1,0 +1,118 @@
+﻿@model ResourceModel
+
+@{
+    ProfileModel fichaPublicador = Model.Publisher;  
+}
+
+@if (fichaPublicador != null)
+{
+    if (Model.Version > 0)
+    {
+        @Html.GetText("COMMON", "VERSIONADO") 
+    }
+    else if (Model.TypePublication == ResourceModel.PublicationType.Published)
+    {
+        @Html.GetText("COMMON", "PUBLICADO") 
+    }
+    else
+    {
+        @Html.GetText("COMMON", "COMPARTIDO") 
+    }
+
+    if (fichaPublicador.TypeProfile == ProfileType.Personal || fichaPublicador.TypeProfile == ProfileType.Teacher)
+    {                        
+        if(fichaPublicador.UrlFoto != null)
+        {
+            <span id="imagenIconoPublicador" class="imagenIcono Persona">
+                <a href="@fichaPublicador.UrlPerson">
+                    <img alt="@fichaPublicador.NamePerson" src="@Html.GetBaseUrlContent()@fichaPublicador.UrlFoto" />
+                </a>
+            </span>
+        }
+        else
+        {    
+            <span id="imagenIconoPublicador" class="imagenIcono personaSinImagen">
+                <a href="@fichaPublicador.UrlPerson"></a>
+            </span>
+        }
+        <span class="by" id="spanByFichaRec" rel="sioc:has_creator">Por 
+            <a href="@fichaPublicador.UrlPerson" typeof="foaf:Person">
+				<span property="foaf:name">@fichaPublicador.NamePerson</span>
+            </a>
+        </span>
+    }
+    else if (fichaPublicador.TypeProfile == ProfileType.ProfessionalPersonal)
+    {
+        if(fichaPublicador.UrlFoto != null)
+        {
+            <span id="imagenIconoPublicador" class="imagenIcono Persona">
+                <a href="@fichaPublicador.UrlPerson">
+                    <img alt="@fichaPublicador.NamePerson · @fichaPublicador.NameOrganization" src="@Html.GetBaseUrlContent()@fichaPublicador.UrlFoto" />
+                </a>
+            </span>
+        }
+        else
+        {
+            <span id="imagenIconoPublicador" class="imagenIcono personaSinImagen">
+                <a href="@fichaPublicador.UrlPerson"></a>
+            </span>
+        }
+        <span class="by" id="spanByFichaRec" rel="sioc:has_creator">Por 
+            <a href="@fichaPublicador.UrlPerson" typeof="foaf:Person">
+                <span property="foaf:name">@fichaPublicador.NamePerson · @fichaPublicador.NameOrganization</span>
+            </a>
+        </span>
+    }
+    else if (fichaPublicador.TypeProfile == ProfileType.ProfessionalCorporate && !string.IsNullOrEmpty(fichaPublicador.NamePerson))
+    {
+        if(fichaPublicador.UrlFoto != null)
+        {
+            <span id="imagenIconoPublicador" class="imagenIcono Organizacion">
+                <a href="@fichaPublicador.UrlOrganization">
+                    <img alt="@fichaPublicador.NameOrganization" src="@Html.GetBaseUrlContent()@fichaPublicador.UrlFoto" />
+                </a>
+            </span>
+        }
+        else
+        {
+            <span id="imagenIconoPublicador" class="imagenIcono organizacionSinImagen">
+                <a href="@fichaPublicador.UrlOrganization"></a>
+            </span>
+        }
+                
+        <span class="by" id="spanByFichaRec" rel="sioc:has_creator">Por 
+            <a href="@fichaPublicador.UrlOrganization" typeof="foaf:Group">
+                <span property="foaf:name">@fichaPublicador.NameOrganization</span>
+            </a>
+            <span class="userAuthor">
+                <span style="display:none">(@fichaPublicador.NamePerson)</span>
+                <a style="cursor:pointer" onclick="javascript:DesplegarImgMasMVC(this, $(this).prev());">
+                    <img alt="+" src="@Html.GetBaseUrlStatic()/img/verMas.gif"/>
+                </a>
+            </span>
+        </span>
+    }
+    else
+    {
+        if(fichaPublicador.UrlFoto != null)
+        {
+            <span id="imagenIconoPublicador" class="imagenIcono Organizacion">
+                <a href="@fichaPublicador.UrlOrganization">
+                    <img alt="@fichaPublicador.NameOrganization" src="@Html.GetBaseUrlContent()@fichaPublicador.UrlFoto" />
+                </a>
+            </span>
+        }
+        else
+        {
+            <span id="imagenIconoPublicador" class="imagenIcono organizacionSinImagen">
+                <a href="@fichaPublicador.UrlOrganization"></a>
+            </span>
+        }
+                
+        <span class="by" id="spanByFichaRec" rel="sioc:has_creator">Por 
+            <a href="@fichaPublicador.UrlOrganization" typeof="foaf:Group">
+                <span property="foaf:name">@fichaPublicador.NameOrganization</span>
+            </a>
+        </span>
+    }
+}

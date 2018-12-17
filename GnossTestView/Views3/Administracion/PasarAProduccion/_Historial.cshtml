@@ -1,0 +1,12 @@
+﻿@model Dictionary<string, string>
+
+@if (Model != null)
+{
+    <p>Selecciona la configuración que deseas restaurar.</p>
+    <ul>
+    @foreach (string key in Model.Keys)
+    {
+        <li>@Model[key] (<a class="restoreVersion" urlAction="/restore?copyName=@HttpUtility.UrlEncode(key)">restaurar</a>)</li>    
+    }
+    </ul>
+}

@@ -1,0 +1,76 @@
+﻿@{ 
+    CommunityModel Comunidad = Html.GetComunidad();
+}
+<form id="formulario" action="javascript:void(0)" method="post">
+    <p>Se ha creado toda la configuración inicial del proyecto.</p>
+    <p>Para continuar se tendra que logear en el repositorio escogido con las credenciales del usuario con el que se creo el repositorio.</p>
+    
+    <a href="@Html.Raw(Model.UrlLogin)" class="button">Loguearme en bitbucket</a>
+    <input type="button" onclick="cambia_de_pagina()" id="Log" value="Loguearme en bitbucket" />
+</form>
+
+<script>
+    function cambia_de_pagina() {
+        var that = this;
+        alert("Gracias por visitar nuestra pagina")
+        location.href = "@Html.Raw(Model.UrlLogin)"
+    }
+</script>
+
+<script>
+    var OperativaAcciones = {
+        init: function () {
+            this.config();
+            this.engancharComportamiento();
+        },
+        config: function () {
+            this.urlPagina = document.location.href;
+            return;
+        },
+        mostrarErrorGuardado: function (data) {
+            if (data)
+            {
+                $('#formulario').after('<div class="error general">'+data+'</div>');
+            } else
+            {
+                $('#formulario').after('<div class="error general">Ha habido errores en el guardado</div>');
+            }
+
+        },
+        guardar: function () {
+            var that = this;
+            MostrarUpdateProgress();
+            GnossPeticionAjax(
+            that.urlPagina + '/Login',
+            "",
+            true
+            ).fail(function (data) {
+                that.mostrarErrorGuardado(data);
+            }).always(function () {
+                OcultarUpdateProgress();
+            });
+        },
+        engancharComportamiento: function () {
+            var that = this;
+            $('#Crear').click(function () {
+                that.guardar();
+            });
+            return;
+        },
+    }
+    $(document).ready(function () {
+        OperativaAcciones.init();
+    });
+</script>
+<style>
+    input[type=text] {
+        width: 20%;
+        margin-left: 10px;
+    }
+    input[type=button]{
+        float:initial;
+    }
+
+</style>
+
+
