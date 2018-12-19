@@ -16,6 +16,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GnossTestView.Controllers
 {
@@ -123,9 +124,13 @@ namespace GnossTestView.Controllers
                 int to = jsonModel.IndexOf(",", from);
                 modelType = (jsonModel.Substring(from, to - from)).Split('.').Last();
             }
-            else if(jsonModel.Equals("false")|| jsonModel.Equals("true"))
+            else if (jsonModel.Equals("false") || jsonModel.Equals("true"))
             {
                 modelType = "bool";
+            }
+            else if (ViewData.ContainsKey("ControllerName") && ViewData["ControllerName"].Equals("FichaRecurso"))
+            {
+                modelType = "ResourceViewModel";
             }
 
             switch (modelType) 
@@ -145,7 +150,7 @@ namespace GnossTestView.Controllers
                     
                     if (ficheroLeido == false)
                     {
-                        jsonModel = ChangeIdJson(jsonModel);
+                        //jsonModel = ChangeIdJson(jsonModel);
 
                         // volvemos a formar el fichero, pero con los ids cambiados para guardarlo
                         responseFromServer =  jsonModel + "{ComienzoJsonViewData}" + jsonViewData;
@@ -155,19 +160,23 @@ namespace GnossTestView.Controllers
                     }
 
                     // Asignación de propiedades estáticas (NamespaceOntologia y UrlOntología también pierden su valor)
-                    GestionOWL.URLIntragnoss = "http://didactalia.net/";  
+                    //GestionOWL.URLIntragnoss = "http://didactalia.net/";  
 
-                    // Deserializamos ResourceViewModel
-                    JsonSerializerSettings jsonSerializerSettingsRM = new JsonSerializerSettings
-                    {
-                        ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                        ObjectCreationHandling = ObjectCreationHandling.Replace,
-                        ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
-                        PreserveReferencesHandling = PreserveReferencesHandling.All,
-                        TypeNameHandling = TypeNameHandling.All
-                    };
-                    ResourceViewModel modelRM = JsonConvert.DeserializeObject<ResourceViewModel>(jsonModel, jsonSerializerSettingsRM);
-                    
+                    //// Deserializamos ResourceViewModel
+                    //JsonSerializerSettings jsonSerializerSettingsRM = new JsonSerializerSettings
+                    //{
+                    //    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+                    //    ObjectCreationHandling = ObjectCreationHandling.Replace,
+                    //    ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+                    //    PreserveReferencesHandling = PreserveReferencesHandling.All,
+                    //    TypeNameHandling = TypeNameHandling.All
+                    //};
+                    //ResourceViewModel modelRM = JsonConvert.DeserializeObject<ResourceViewModel>(jsonModel, jsonSerializerSettingsRM);
+
+                    MemoryStream mStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(jsonModel));
+                    BinaryFormatter deserializer = new BinaryFormatter();
+                    ResourceViewModel modelRM = (ResourceViewModel)deserializer.Deserialize(mStream);
+
                     // Comprobamos si el modelo contiene RdfType y mostramos la vista correspondiente
                     string rdfType = modelRM.Resource.RdfType;
                     if (!String.IsNullOrEmpty(rdfType))

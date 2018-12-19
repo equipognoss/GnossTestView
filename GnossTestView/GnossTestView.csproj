@@ -1030,6 +1030,7 @@
     <Content Include="Views\CargadorFacetas\CargarFacetas.cshtml" />
     <Content Include="Views\CargadorFacetas\LimpiarCache.cshtml" />
     <Content Include="Views\CMSPagina\HTML\_HTML.cshtml" />
+    <Content Include="Views\FichaRecurso\LearningOpportunitySpecification.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
