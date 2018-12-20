@@ -24,230 +24,155 @@
         Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/cssNuevo/administracion.css?v=" + Html.GetVersion());
     }
 
-    
-}
-@section breadcrumb{
-    @if (Comunidad.Key != ProyectoAD.MetaProyecto)
-    {
-        <div class="breadcrumb" id="breadcrumb">
-            <div class="box">
-                <p>Estás en:</p>
-                <ol>
-                    <li><a href="@Comunidad.Url"><strong>Home</strong></a></li>
-                    <li>@nombrePestanyaActual</li>
-                </ol>
-            </div>
-        </div>
-    }
+
 }
 
-    <div class="container">
-        <div class="row">
-            <div class="col col-12 col-md-4">
-                <div class="header-facetas">
-                    <a href="javascript: void(0)">Filtrar</a>
-                </div>
-                <div id="panFacetas">
-                    @if (Model.FacetedVisible)
-                    {
-                        if (string.IsNullOrEmpty(htmlFacetas) && Model.JSONFaceted != null)
-                        {
-                            @Html.PartialView("../CargadorFacetas/CargarFacetas", Model.JSONFaceted);
-                        }
-                        else
-                        {
-                            @Html.Raw(htmlFacetas);
-                        }
-                    }
-                </div>
 
-
-
-                <div id="modal-resultados" class="modal fade modal-resultados" tabindex="-1" role="dialog" style="">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="wrapContent">
-                                <h2>Categorías</h2>
-                                <span class="material-icons cerrar" data-dismiss="modal" aria-label="Close">close</span>
-                                <div class="buscador-coleccion">
-                                    <form>
-                                        <div>
-                                            <span class="buscar lupa">
-                                                <input type="text" value="XXXXXXX" valueaux="XXXXXX" class="texto">
-                                                <a>Buscar</a>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="indice-lista no-letra">
-                                    <div class="box " id="adveo_productCountry---adveo_productPath---adveo_productNode" faceta="adveo_productCountry---adveo_productPath---adveo_productNode">
-                                        <span class="faceta-title">Niveles educativos</span>
-
-                                        <ul class="listadoFacetas ">
-                                            <li class="">
-                                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                    <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b59" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b59" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                    <a rel="nofollow" href="" class="faceta" name="">
-                                                        <span class="textoFaceta">Infantil</span>
-                                                        <span class="num-resultados">2400</span>
-                                                    </a>
-                                                </label>
-                                            </li>
-
-                                            <li class="">
-                                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                    <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b60" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b60" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                    <a rel="nofollow" href="" class="faceta" name="">
-                                                        <span class="textoFaceta">Primaria</span>
-                                                        <span class="num-resultados">2400</span>
-                                                    </a>
-                                                </label>
-                                            </li>
-
-                                            <li class="">
-                                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                    <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b61" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b61" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                    <a rel="nofollow" href="" class="faceta" name="">
-                                                        <span class="textoFaceta">ESO</span>
-                                                        <span class="num-resultados">2400</span>
-                                                    </a>
-                                                </label>
-                                            </li>
-
-                                            <li class="">
-                                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                    <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b62" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b62" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                    <a rel="nofollow" href="" class="faceta" name="">
-                                                        <span class="textoFaceta">Bachillerato</span>
-                                                        <span class="num-resultados">2400</span>
-                                                    </a>
-                                                </label>
-                                            </li>
-
-                                            <li class="">
-                                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                    <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b63" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b63" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                    <a rel="nofollow" href="" class="faceta" name="">
-                                                        <span class="textoFaceta">FP</span>
-                                                        <span class="icono-desplegar"></span>
-                                                        <span class="num-resultados">2400</span>
-                                                    </a>
-                                                </label>
-                                                <ul>
-                                                    <li>
-                                                        <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                            <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b631" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b631" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                            <a rel="nofollow" href="" class="faceta" name="">
-                                                                <span class="textoFaceta">Grado Medio</span>
-                                                                <span class="num-resultados">2400</span>
-                                                            </a>
-                                                        </label>
-                                                    </li>
-                                                    <li>
-                                                        <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                            <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b632" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b632" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                            <a rel="nofollow" href="" class="faceta" name="">
-                                                                <span class="textoFaceta">Grado Superior</span>
-                                                                <span class="num-resultados">2400</span>
-                                                            </a>
-                                                        </label>
-                                                    </li>
-                                                </ul>
-                                            </li>
-
-                                            <li class="">
-                                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                    <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b700" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b700" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                    <a rel="nofollow" href="" class="faceta" name="">
-                                                        <span class="textoFaceta">Necesidades Educativas Especiales</span>
-                                                        <span class="num-resultados">2400</span>
-                                                    </a>
-                                                </label>
-                                            </li>
-
-                                            <li class="">
-                                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                    <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b711" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b711" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                    <a rel="nofollow" href="" class="faceta" name="">
-                                                        <span class="textoFaceta">Estudios superiores</span>
-                                                        <span class="num-resultados">2400</span>
-                                                    </a>
-                                                </label>
-                                                <ul>
-                                                    <li>
-                                                        <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                                            <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b6311" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b6311" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
-                                                            <a rel="nofollow" href="" class="faceta" name="">
-                                                                <span class="textoFaceta">Grado Medio</span>
-                                                                <span class="num-resultados">2400</span>
-                                                            </a>
-                                                        </label>
-                                                    </li>
-                                                </ul>
-                                            </li>
-
-                                        </ul>
-
-                                        <p class="moreResults">
-                                            <a class="no-close open-popup-link-categorias" data-toggle="modal" faceta="0" data-target="#modal-resultados">Ver todas</a>
-                                        </p>
-
-                                    </div>
-                                </div>
+<div class="col col-12 col-md-4">
+    <div class="header-facetas">
+        <a href="#">Filtrar</a>
+    </div>
+    <div id="panFacetas">
+        @if (Model.FacetedVisible)
+        {
+            if (string.IsNullOrEmpty(htmlFacetas) && Model.JSONFaceted != null)
+            {
+                @Html.PartialView("../CargadorFacetas/CargarFacetas", Model.JSONFaceted);
+            }
+            else
+            {
+                @Html.Raw(htmlFacetas);
+            }
+        }
+    </div>
+    <div id="modal-resultados" class="modal fade modal-resultados" tabindex="-1" role="dialog" style="">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="wrapContent">
+                    <h2>Categorías</h2>
+                    <span class="material-icons cerrar" data-dismiss="modal" aria-label="Close">close</span>
+                    <div class="buscador-coleccion">
+                        <form>
+                            <div>
+                                <span class="buscar lupa">
+                                    <input type="text" value="XXXXXXX" valueaux="XXXXXX" class="texto">
+                                    <a>Buscar</a>
+                                </span>
                             </div>
-                        </div>
+                        </form>
                     </div>
-                </div>
-            </div>
-            <div class="col col-12 col-md-8">
-                <div class="wrap-col">
-                    @*<div class="h1-container">
-                        <h1>Recursos</h1>
-                        <span class="num-resultados">42.000</span>  etiquetas
-                    </div>*@
-                    <div class="group filterSpace">
-                        <div  style="display: none;" id="panFiltros">
-                            <ul class="facetedSearch tags" id="panListadoFiltros">
-                                <li style="display: none;"></li>
-                            </ul>
-                            <a class="borrarFiltros limpiarFiltros" href="@Html.GetUrlPagina()">@Html.GetText("COMBUSQUEDAAVANZADA", "LIMPIARFILTROS")</a>
-                        </div>
-                    </div>							
-                    <div class="acciones-listado">
-                        <div class="wrap">
-                            <div class="ordenar">
-                                <a href="javascript: void(0);">Ordenar</a>
-                            </div>
-                            <div class="descargar dropdown">
-                                <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown">Descargar</a>
-                                <div class="dropdown-menu">
-                                    <a href="javascript: void(0)" class="item-dropdown">Item 1</a>
-                                    <a href="javascript: void(0)" class="item-dropdown">Item 2</a>
-                                </div>
-                            </div>
-                            <div class="visualizacion">
-                                <ul>
-                                    <li class="liListView" data-class-resource-list="listView">
-                                        <a href="javascript: void(0);">Listado</a>
-                                    </li>
-                                    <li class="liCompacView activeView" data-class-resource-list="compacView">
-                                        <a href="javascript: void(0);">Compacto</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>							
-                    <div class="resource-list compacView">
-                        <div class="wrap">
-                            @if (string.IsNullOrEmpty(htmlResultados) && Model.JSONResourceList != null)
-                            {
-                                Html.PartialView("../CargadorResultados/CargarResultados", Model.JSONResourceList);
-                            }
-                            else
-                            {
-                                @MvcHtmlString.Create(htmlResultados)
-                            }
+                    <div class="indice-lista no-letra">
+                        <div class="box " id="adveo_productCountry---adveo_productPath---adveo_productNode" faceta="adveo_productCountry---adveo_productPath---adveo_productNode">
+                            <span class="faceta-title">Niveles educativos</span>
 
+                            <ul class="listadoFacetas ">
+                                <li class="">
+                                    <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b59" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b59" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                        <a rel="nofollow" href="" class="faceta" name="">
+                                            <span class="textoFaceta">Infantil</span>
+                                            <span class="num-resultados">2400</span>
+                                        </a>
+                                    </label>
+                                </li>
+
+                                <li class="">
+                                    <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b60" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b60" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                        <a rel="nofollow" href="" class="faceta" name="">
+                                            <span class="textoFaceta">Primaria</span>
+                                            <span class="num-resultados">2400</span>
+                                        </a>
+                                    </label>
+                                </li>
+
+                                <li class="">
+                                    <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b61" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b61" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                        <a rel="nofollow" href="" class="faceta" name="">
+                                            <span class="textoFaceta">ESO</span>
+                                            <span class="num-resultados">2400</span>
+                                        </a>
+                                    </label>
+                                </li>
+
+                                <li class="">
+                                    <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b62" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b62" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                        <a rel="nofollow" href="" class="faceta" name="">
+                                            <span class="textoFaceta">Bachillerato</span>
+                                            <span class="num-resultados">2400</span>
+                                        </a>
+                                    </label>
+                                </li>
+
+                                <li class="">
+                                    <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b63" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b63" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                        <a rel="nofollow" href="" class="faceta" name="">
+                                            <span class="textoFaceta">FP</span>
+                                            <span class="icono-desplegar"></span>
+                                            <span class="num-resultados">2400</span>
+                                        </a>
+                                    </label>
+                                    <ul>
+                                        <li>
+                                            <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                                <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b631" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b631" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                                <a rel="nofollow" href="" class="faceta" name="">
+                                                    <span class="textoFaceta">Grado Medio</span>
+                                                    <span class="num-resultados">2400</span>
+                                                </a>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                                <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b632" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b632" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                                <a rel="nofollow" href="" class="faceta" name="">
+                                                    <span class="textoFaceta">Grado Superior</span>
+                                                    <span class="num-resultados">2400</span>
+                                                </a>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="">
+                                    <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b700" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b700" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                        <a rel="nofollow" href="" class="faceta" name="">
+                                            <span class="textoFaceta">Necesidades Educativas Especiales</span>
+                                            <span class="num-resultados">2400</span>
+                                        </a>
+                                    </label>
+                                </li>
+
+                                <li class="">
+                                    <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b711" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b711" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                        <a rel="nofollow" href="" class="faceta" name="">
+                                            <span class="textoFaceta">Estudios superiores</span>
+                                            <span class="num-resultados">2400</span>
+                                        </a>
+                                    </label>
+                                    <ul>
+                                        <li>
+                                            <label class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                                <input type="checkbox" name="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b6311" id="chkFaceta_7b05fbda-668e-4a91-a566-61b5f3266b6311" class="pm-ini" style="border: 0px; padding: 0px; margin-top: 0px;"><span class="pmd-checkbox-label">&nbsp;</span>
+                                                <a rel="nofollow" href="" class="faceta" name="">
+                                                    <span class="textoFaceta">Grado Medio</span>
+                                                    <span class="num-resultados">2400</span>
+                                                </a>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+
+                            <p class="moreResults">
+                                <a class="no-close open-popup-link-categorias" data-toggle="modal" faceta="0" data-target="#modal-resultados">Ver todas</a>
+                            </p>
 
                         </div>
                     </div>
@@ -255,12 +180,65 @@
             </div>
         </div>
     </div>
+</div>
+<div class="col col-12 col-md-8">
+    <div class="wrap-col">
+        @*<div class="h1-container">
+                <h1>Recursos</h1>
+                <span class="num-resultados">42.000</span>  etiquetas
+            </div>*@
+        <div class="group filterSpace">
+            <div style="display: none;" id="panFiltros">
+                <ul class="facetedSearch tags" id="panListadoFiltros">
+                    <li style="display: none;"></li>
+                </ul>
+                <a class="borrarFiltros limpiarFiltros" href="@Html.GetUrlPagina()">@Html.GetText("COMBUSQUEDAAVANZADA", "LIMPIARFILTROS")</a>
+            </div>
+        </div>
+        <div class="acciones-listado">
+            <div class="wrap">
+                <div class="ordenar">
+                    <a href="javascript: void(0);">Ordenar</a>
+                </div>
+                <div class="descargar dropdown">
+                    <a href="javascript: void(0);" class="dropdown-toggle" data-toggle="dropdown">Descargar</a>
+                    <div class="dropdown-menu">
+                        <a href="javascript: void(0)" class="item-dropdown">Item 1</a>
+                        <a href="javascript: void(0)" class="item-dropdown">Item 2</a>
+                    </div>
+                </div>
+                <div class="visualizacion">
+                    <ul>
+                        <li class="liListView" data-class-resource-list="listView">
+                            <a href="javascript: void(0);">Listado</a>
+                        </li>
+                        <li class="liCompacView activeView" data-class-resource-list="compacView">
+                            <a href="javascript: void(0);">Compacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="resource-list compacView">
+            <div class="wrap" id="panResultados">
+                @if (string.IsNullOrEmpty(htmlResultados) && Model.JSONResourceList != null)
+                {
+                    Html.PartialView("../CargadorResultados/CargarResultados", Model.JSONResourceList);
+                }
+                else
+                {
+                    @MvcHtmlString.Create(htmlResultados)
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @*@if (mostrarPreviewMapa)
-    {
-        <div id="listing-preview-map"></div>
-    }*@
+{
+    <div id="listing-preview-map"></div>
+}*@
 
 @section javascript{
     <script type="text/javascript">
@@ -269,9 +247,9 @@
         @if (htmlFacetas == null && htmlResultados == null)
         {
             <text>
-                $(document).ready(function () {
-                    FiltrarPorFacetas(filtrosDeInicio);
-                });
+        $(document).ready(function () {
+            FiltrarPorFacetas(filtrosDeInicio);
+        });
         </text>
         }
 
