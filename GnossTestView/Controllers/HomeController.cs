@@ -214,8 +214,11 @@ namespace GnossTestView.Controllers
                 case "Error404ViewModel":
                     return View("~/Views/Error/Error404.cshtml", (Error404ViewModel)DeserializeObject(jsonModel));
                 default:
-                    Type type = (Type.GetType(modelType));
-                    return View("~/Views/" + ViewData["ControllerName"] + "/Index.cshtml", DeserializeObject(jsonModel, type));
+                    //Type type = (Type.GetType(modelType));
+                    //return View("~/Views/" + ViewData["ControllerName"] + "/Index.cshtml", DeserializeObject(jsonModel, type));
+
+                    ViewBag.ErrorAskURL = "No se ha podido pintar la página de tipo '" + ViewData["ControllerName"] + "' con el Modelo de tipo '" + modelType + "'";
+                    return View("~/Views/GnossTestView/AskURL.cshtml");
             }
         }
 
