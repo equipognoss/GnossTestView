@@ -139,104 +139,97 @@
 
     <main role="main">
         <div class="container">
-            <div class="row">
-                <div class="col col-12" style="min-height: 1000px;">
-                    @if (!string.IsNullOrEmpty(avisoCookies))
-                    {
-                        <div id="phAvisoCookie">
-                            <div class="info columms cookies" id="info">
-	                            <p class="title-panel-info"><span>Panel </span>@Html.GetText("COMMON", "INFORMACION")</p>
-	                            <div class="col-4">
-		                            <div class="box" id="divAvisoCookie">@Html.Raw(avisoCookies)</div>	
-	                            </div>			
-                            </div>
-                        </div>
-                    }
-                    @if (Comunidad != null && string.IsNullOrEmpty(Request.Params["new-community-wizard"]) && (IdentidadActual.IsExpelled || Comunidad.ProjectState == CommunityModel.StateProject.Close || Comunidad.ProjectState == CommunityModel.StateProject.CloseTemporaly || Comunidad.ProjectState == CommunityModel.StateProject.Definition))
-                    {
-                        <div class="aviso columms" id="info">
-                            <h3><span>Panel </span>Aviso</h3>
-                            <div class="col-4">
-                                <div class="box">
-                                @if (IdentidadActual.IsExpelled)
-                                {
-                                    @*Usuario expulsado*@
-                                    <p>@Html.Raw(Html.GetText("COMINICIOLOGIN", "ADVERTENCIAEXPULSADO1"))</p> 
-                                    <p>@Html.GetText("COMMON", "MUCHASGRACIAS")</p> 
-                                }
-                                else if (Comunidad.ProjectState == CommunityModel.StateProject.Close)
-                                {
-                                    <p>@Html.GetText("COMADMIN", "EXPLICACIONCERRADA", Html.GetNombreProyectoEcosistema())</p>  
-                                }
-                                else if (Comunidad.ProjectState == CommunityModel.StateProject.CloseTemporaly)
-                                {
-                                    <p>@Html.GetText("COMADMIN", "EXPLICACIONCERRADATMP")</p>  
-                                }
-                                else if (Comunidad.ProjectState == CommunityModel.StateProject.Definition)
-                                {
-                                    if (IdentidadActual.IsProyectAdmin)
-                                    {
-                                        string urlAdmin = GnossUrlsSemanticas.ObtenerURLAdministracionComunidad(Html.GetUtilIdiomas(), Html.GetBaseUrlIdioma(), Comunidad.ShortName, "ADMINISTRARCOMUNIDADGENERAL");
-                                        //Sacamos el mensaje al administrador:
-                                        switch (Comunidad.AccessType)
-                                        {
-                                            case CommunityModel.TypeAccessProject.Public:
-                                                @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINPUBLICA", urlAdmin))
-                                                                                                                            break;
-                                            case CommunityModel.TypeAccessProject.Private:
-                                                @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINPRIVADA", urlAdmin))
-                                                                                                                            break;
-                                            case CommunityModel.TypeAccessProject.Reserved:
-                                                @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINRESERVADA", urlAdmin))
-                                                                                                                                break;
-                                            case CommunityModel.TypeAccessProject.Restricted:
-                                                @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINRESTRINGIDA", urlAdmin))
-                                                                                                                                break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <p>@Html.GetText("COMINICIOLOGIN", "COMUNIDADDEFINICION")</p>  
-                                        <p>@Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICION")</p>  
-                                        foreach (ProfileModel admin in Comunidad.Administrators)
-                                        { 
-                                            <p>@Html.ObtenerNombrePerfil(admin)</p>
-                                        }
-                                    }
-                                }      
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    @RenderSection("breadcrumb", required: false)
-                    <div id="section">
-                        @if (Comunidad != null && (IdentidadActual.IsProyectAdmin || (Comunidad.ProjectState != CommunityModel.StateProject.Close && Comunidad.ProjectState != CommunityModel.StateProject.CloseTemporaly && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || !IdentidadActual.IsGuestIdentity))))
-                        {
-                            if (Comunidad.Key != ProyectoAD.MetaProyecto && (!IdentidadActual.IsGuestIdentity || (Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocial && Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocialConUnTipoDeRecurso)) && (!Html.GetOcultarMenusComunidad().HasValue || !Html.GetOcultarMenusComunidad().Value))
-                            { 
-                                @Html.PartialView("../Shared/_PanelQueHacer")
-                            }
-                        }
-                        <div id="content">
-                            @RenderBody()
+            @if (!string.IsNullOrEmpty(avisoCookies))
+            {
+                <div id="phAvisoCookie">
+                    <div class="info columms cookies" id="info">
+                        <p class="title-panel-info"><span>Panel </span>@Html.GetText("COMMON", "INFORMACION")</p>
+                        <div class="col-4">
+                            <div class="box" id="divAvisoCookie">@Html.Raw(avisoCookies)</div>
                         </div>
                     </div>
                 </div>
+            }
+            @if (Comunidad != null && string.IsNullOrEmpty(Request.Params["new-community-wizard"]) && (IdentidadActual.IsExpelled || Comunidad.ProjectState == CommunityModel.StateProject.Close || Comunidad.ProjectState == CommunityModel.StateProject.CloseTemporaly || Comunidad.ProjectState == CommunityModel.StateProject.Definition))
+            {
+                <div class="aviso columms" id="info">
+                    <h3><span>Panel </span>Aviso</h3>
+                    <div class="col-4">
+                        <div class="box">
+                            @if (IdentidadActual.IsExpelled)
+                            {
+                                @*Usuario expulsado*@
+                                <p>@Html.Raw(Html.GetText("COMINICIOLOGIN", "ADVERTENCIAEXPULSADO1"))</p>
+                                    <p>@Html.GetText("COMMON", "MUCHASGRACIAS")</p>
+                            }
+                            else if (Comunidad.ProjectState == CommunityModel.StateProject.Close)
+                            {
+                                <p>@Html.GetText("COMADMIN", "EXPLICACIONCERRADA", Html.GetNombreProyectoEcosistema())</p>
+                            }
+                            else if (Comunidad.ProjectState == CommunityModel.StateProject.CloseTemporaly)
+                            {
+                                <p>@Html.GetText("COMADMIN", "EXPLICACIONCERRADATMP")</p>
+                            }
+                            else if (Comunidad.ProjectState == CommunityModel.StateProject.Definition)
+                            {
+                                if (IdentidadActual.IsProyectAdmin)
+                                {
+                                    string urlAdmin = GnossUrlsSemanticas.ObtenerURLAdministracionComunidad(Html.GetUtilIdiomas(), Html.GetBaseUrlIdioma(), Comunidad.ShortName, "ADMINISTRARCOMUNIDADGENERAL");
+                                    //Sacamos el mensaje al administrador:
+                                    switch (Comunidad.AccessType)
+                                    {
+                                        case CommunityModel.TypeAccessProject.Public:
+                                            @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINPUBLICA", urlAdmin))
+                                            break;
+                                        case CommunityModel.TypeAccessProject.Private:
+                                            @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINPRIVADA", urlAdmin))
+                                            break;
+                                        case CommunityModel.TypeAccessProject.Reserved:
+                                            @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINRESERVADA", urlAdmin))
+                                            break;
+                                        case CommunityModel.TypeAccessProject.Restricted:
+                                            @Html.Raw(Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICIONADMINRESTRINGIDA", urlAdmin))
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    <p>@Html.GetText("COMINICIOLOGIN", "COMUNIDADDEFINICION")</p>
+                                        <p>@Html.GetText("COMINICIOLOGIN", "NOACCESODEFINICION")</p>
+                                    foreach (ProfileModel admin in Comunidad.Administrators)
+                                    {
+                                        <p>@Html.ObtenerNombrePerfil(admin)</p>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Comunidad != null && (IdentidadActual.IsProyectAdmin || (Comunidad.ProjectState != CommunityModel.StateProject.Close && Comunidad.ProjectState != CommunityModel.StateProject.CloseTemporaly && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || !IdentidadActual.IsGuestIdentity))))
+            {
+                if (Comunidad.Key != ProyectoAD.MetaProyecto && (!IdentidadActual.IsGuestIdentity || (Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocial && Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocialConUnTipoDeRecurso)) && (!Html.GetOcultarMenusComunidad().HasValue || !Html.GetOcultarMenusComunidad().Value))
+                {
+                    @*@Html.PartialView("../Shared/_PanelQueHacer")*@
+                }
+            }
+            <div class="row">
+                @RenderBody()
             </div>
         </div>
     </main>
 
     @Html.PartialView("../Shared/_Pie")
 
+    @Html.PartialView("../Shared/Head/_FicherosJavascript")
+
     <script type="text/javascript">
         $(document).ready(function () {
             EjecutarScriptsIniciales2();
         });
     </script>
+
     @RenderSection("javascript", required: false)
-
-
-
 
     @if (Comunidad != null )
     {
@@ -311,6 +304,5 @@
             @Html.PartialView("../Shared/ProyectoElementoHTML", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.EndBody).ToList());
         }
     }    
-    @Html.PartialView("../Shared/Head/_FicherosJavascript")
 </body>
 </html>
