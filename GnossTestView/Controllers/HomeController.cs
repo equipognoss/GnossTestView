@@ -68,20 +68,30 @@ namespace GnossTestView.Controllers
                 {
                     myHttpWebRequest.CookieContainer.Add(new Cookie("ASP.NET_SessionId", sessionID, "/", myHttpWebRequest.RequestUri.Host));
                 }
-                HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
 
-                Stream dataStream = myHttpWebResponse.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
-                // Leemos el contenido de la respuesta
-                responseFromServer = reader.ReadToEnd();
-                reader.Close();
-                dataStream.Close();
-                myHttpWebResponse.Close();
+                try
+                {
+                    HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
 
-                // Guardamos el json obtenido en App_Data
-                FileInfo file = new FileInfo(Server.MapPath(jsonURL));
-                file.Directory.Create();
-                System.IO.File.WriteAllText(file.FullName, responseFromServer);
+                    Stream dataStream = myHttpWebResponse.GetResponseStream();
+                    StreamReader reader = new StreamReader(dataStream);
+                    // Leemos el contenido de la respuesta
+                    responseFromServer = reader.ReadToEnd();
+                    reader.Close();
+                    dataStream.Close();
+                    myHttpWebResponse.Close();
+
+                    // Guardamos el json obtenido en App_Data
+                    FileInfo file = new FileInfo(Server.MapPath(jsonURL));
+                    file.Directory.Create();
+                    System.IO.File.WriteAllText(file.FullName, responseFromServer);
+                }
+                catch (Exception ex)
+                {
+                    string error = ex.Message;
+                    ViewBag.ErrorAskURL = error;
+                    return View("~/Views/GnossTestView/AskURL.cshtml");
+                }
             }
             else
             {
@@ -138,11 +148,9 @@ namespace GnossTestView.Controllers
                 case "CMSBlock":
                     List<CMSBlock> modelCB = (List<CMSBlock>)DeserializeObject(jsonModel);
                     return View("~/Views/CMSPagina/Index.cshtml", modelCB);
-
                 case "SearchViewModel":
                     SearchViewModel modelSM = (SearchViewModel)DeserializeObject(jsonModel);
                     return View("~/Views/Busqueda/Index.cshtml", modelSM);
-
                 case "AutenticationModel":
                     AutenticationModel modelAM = (AutenticationModel)DeserializeObject(jsonModel);
                     return View("~/Views/Registro/Index.cshtml", modelAM);
@@ -203,8 +211,11 @@ namespace GnossTestView.Controllers
                     {
                         return View("~/Views/BandejaMensajes/Mensaje.cshtml", mensajeModel);
                     }
+                case "Error404ViewModel":
+                    return View("~/Views/Error/Error404.cshtml", (Error404ViewModel)DeserializeObject(jsonModel));
                 default:
-                    return View("~/Views/GnossTestView/AskURL.cshtml");
+                    Type type = (Type.GetType(modelType));
+                    return View("~/Views/" + ViewData["ControllerName"] + "/Index.cshtml", DeserializeObject(jsonModel, type));
             }
         }
 
@@ -223,12 +234,25 @@ namespace GnossTestView.Controllers
         /// </summary>
         private object DeserializeObject(string json)
         {
-            JsonSerializerSettings jsonSerializerSettingsSM = new JsonSerializerSettings 
+            JsonSerializerSettings jsonSerializerSettingsSM = new JsonSerializerSettings
             {
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 TypeNameHandling = TypeNameHandling.All
             };
-            return JsonConvert.DeserializeObject(json, jsonSerializerSettingsSM); 
+            return JsonConvert.DeserializeObject(json, jsonSerializerSettingsSM);
+        }
+
+        /// <summary>
+        /// Obtenemos un objeto deserializado con las opciones de deserialización PreserveReferencesHandling.Objects y TypeNameHandling.All
+        /// </summary>
+        private object DeserializeObject(string json, Type type)
+        {
+            JsonSerializerSettings jsonSerializerSettingsSM = new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return JsonConvert.DeserializeObject(json, type, jsonSerializerSettingsSM);
         }
 
         /// <summary>

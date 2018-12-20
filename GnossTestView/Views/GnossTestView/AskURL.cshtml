@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AskURL";
     Layout = "~/Views/GnossTestView/_LayoutAskUrl.cshtml";
 }
@@ -45,6 +44,13 @@
                 </div>
             </div>
         </div>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorAskURL))
+        {
+        <div class="panel panel-danger">
+            <div class="panel-heading">Error</div>
+            <div class="panel-body">@ViewBag.ErrorAskURL</div>
+        </div>
+        }
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input name="submit" type="submit" value="Cargar página" class="btn btn-default">
