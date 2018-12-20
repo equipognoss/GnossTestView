@@ -1,6 +1,6 @@
 ﻿@model CommentSearchModel
 @if (Model != null)
-{
+{   
     <div class="resource comment" id="comment_@Model.Key">
         <div class="box description">
             <div class="group title">
@@ -22,16 +22,22 @@
                 </p>
                 <p class="fechaLive">@Model.DateComment.ToString("yyyy/MM/dd HH:mm")</p>
             </div>
-            @if (!Model.Readed)
+            @if(!Model.Readed)
             {
-                <div class="group acciones">
-                    <ul>
-                        <li><a onclick="MarcarComentarioLeidoPorID('@Model.Key')">@Html.GetText("COMENTARIOS", "MARCARLEIDO") </a></li>
-                    </ul>
-                </div>
+            <div class="group acciones">
+                <ul>
+                    <li><a onclick="MarcarComentarioLeidoPorID('@Model.Key')" >@Html.GetText("COMENTARIOS", "MARCARLEIDO") </a></li>
+                </ul>
+            </div>
             }
         </div>
     </div>
 }
+
+
+
+
+
+
 
 

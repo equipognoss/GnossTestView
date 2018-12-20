@@ -1,12 +1,13 @@
 ﻿@{ 
     CommunityModel Comunidad = Html.GetComunidad();
-    string ruta = "./.";
-    //@Html.GetBaseUrlStatic()
 }
 
-
-    <!--<link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/unificado.css?v=@Html.GetVersion()" />-->
-
+@if (Html.GetJSYCSSunificado().HasValue && Html.GetJSYCSSunificado().Value)
+{
+    <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/unificado.css?v=@Html.GetVersion()" />
+}
+else
+{
 
     		<!-- FUENTES -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
@@ -44,15 +45,15 @@
 
 
     <!--<link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/reset.css?v=@Html.GetVersion()" />-->
-    <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/header.css?v=@Html.GetVersion()" />
+    <!--<link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/header.css?v=@Html.GetVersion()" />-->
    <!--<link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/theme.css?v=@Html.GetVersion()" />--> 
-    <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/layout.css?v=@Html.GetVersion()" />
-    <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/gnoss.css?v=@Html.GetVersion()" />
+    <!--<link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/layout.css?v=@Html.GetVersion()" />-->
+    <!--<link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/gnoss.css?v=@Html.GetVersion()" />
     <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/print.css?v=@Html.GetVersion()" />
     <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/jquery.autocomplete.css?v=@Html.GetVersion()" />
     
-    <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/riam.css?v=@Html.GetVersion()" />
-
+    <link media="screen" type="text/css" rel="stylesheet" href="@Html.GetBaseUrlStatic()/cssNuevo/riam.css?v=@Html.GetVersion()" />-->
+}
 
 @if (Html.GetListaCSS() != null)
 {

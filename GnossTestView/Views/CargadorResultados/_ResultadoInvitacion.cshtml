@@ -3,19 +3,19 @@
 {
     string nombreIdentidadOrigen = Html.ObtenerNombrePerfil(Model.Sender);
     string urlIdentidadOrigen = Html.ObtenerUrlPerfil(Model.Sender);
-
+    
     <div id="invitation_@Model.Key" class="resource ">
         <div class="box description">
             <div class="group title">
                 <h3><a href="@urlIdentidadOrigen">@Model.Subject</a></h3>
-                <p class="resourceType persona @(!string.IsNullOrEmpty(Model.Sender.UrlFoto)?"conImagenPerfil":"")">
-                    <a href="@urlIdentidadOrigen">
-                        @if (!string.IsNullOrEmpty(Model.Sender.UrlFoto))
-                        {
-                            <img alt="@nombreIdentidadOrigen" src="@ViewBag.BaseUrlContent@Model.Sender.UrlFoto" />
-                        }
-                    </a>
-                </p>
+				<p class="resourceType persona @(!string.IsNullOrEmpty(Model.Sender.UrlFoto)?"conImagenPerfil":"")">
+					<a href="@urlIdentidadOrigen">
+                    @if(!string.IsNullOrEmpty(Model.Sender.UrlFoto))
+                    {
+                        <img alt="@nombreIdentidadOrigen" src="@ViewBag.BaseUrlContent@Model.Sender.UrlFoto" />
+                    }
+					</a>
+				</p>
             </div>
             <div class="group content">
                 <div class="descripcionResumida">
@@ -24,8 +24,8 @@
             </div>
             <div class="group utils-2">
                 <p>
-                    Enviado por
-                    <a href="@urlIdentidadOrigen">@nombreIdentidadOrigen</a>
+                    Enviado por 
+					<a href="@urlIdentidadOrigen">@nombreIdentidadOrigen</a>
                 </p>
             </div>
             <div class="group acciones">

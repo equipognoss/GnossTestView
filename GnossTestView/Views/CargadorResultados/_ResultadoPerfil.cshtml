@@ -1,14 +1,14 @@
 ﻿@model ProfileModel
 @if (Model != null)
-{
+{   
     <div style="height: auto;" class="resource">
         <div class="box description">
-
+            
             @{
                 string nombrePerfil = "";
                 string urlPerfil = "";
                 string urlFoto = "";
-                string tipoPerfil = "";
+                string tipoPerfil = "";    
             }
 
             @if (Model.TypeProfile == ProfileType.Personal || Model.TypeProfile == ProfileType.Teacher)
@@ -31,8 +31,8 @@
                 tipoPerfil = "persona conImagenPerfil";
                 nombrePerfil = Model.NamePerson + " · " + Model.NameOrganization;
                 urlPerfil = Model.UrlPerson;
-
-                if (Model.UrlFoto != null)
+                                      
+                if(Model.UrlFoto != null)
                 {
                     urlFoto = Model.UrlFoto;
                 }
@@ -47,7 +47,7 @@
                 nombrePerfil = Model.NameOrganization;
                 urlPerfil = Model.UrlOrganization;
 
-                if (Model.UrlFoto != null)
+                if(Model.UrlFoto != null)
                 {
                     urlFoto = Model.UrlFoto;
                 }
@@ -61,7 +61,7 @@
                 <h2><a href="@urlPerfil">@nombrePerfil</a></h2>
                 <p class="resourceType @tipoPerfil">
                     <a href="@urlPerfil">
-                        @if (!string.IsNullOrEmpty(urlFoto))
+                        @if(!string.IsNullOrEmpty(urlFoto))
                         {
                             <img src="@ViewBag.BaseUrlContent@urlFoto" alt="@nombrePerfil" />
                         }
@@ -69,51 +69,48 @@
                 </p>
             </div>
             <div class="group content">
-                @if (Model.ExtraInfo != null)
+                @if(Model.ExtraInfo != null)
                 {
-                    if (!string.IsNullOrEmpty(Model.ExtraInfo.ProvinceOrState) || !string.IsNullOrEmpty(Model.ExtraInfo.Country))
+                    if(!string.IsNullOrEmpty(Model.ExtraInfo.ProvinceOrState) || !string.IsNullOrEmpty(Model.ExtraInfo.Country))
                     {
                         <p>
-                            @if (!string.IsNullOrEmpty(Model.ExtraInfo.ProvinceOrState))
-                            {
+                            @if(!string.IsNullOrEmpty(Model.ExtraInfo.ProvinceOrState)){
                                 string separador = "";
-                                if (!string.IsNullOrEmpty(Model.ExtraInfo.Country))
-                                {
+                                if(!string.IsNullOrEmpty(Model.ExtraInfo.Country)){
                                     separador = ",";
                                 }
                                 @Model.ExtraInfo.ProvinceOrState@separador
                             }
-                            @if (!string.IsNullOrEmpty(Model.ExtraInfo.Country))
-                            {
+                            @if(!string.IsNullOrEmpty(Model.ExtraInfo.Country)){
                                 @Model.ExtraInfo.Country
                             }
                         </p>
-
+                        
                     }
                     @*
-                        if (!string.IsNullOrEmpty(Model.ExtraInfo.Cargo))
-                        {
-                            <p>@Model.ExtraInfo.Cargo en <img /></p>
-                        }
+                    if (!string.IsNullOrEmpty(Model.ExtraInfo.Cargo))
+                    {
+                        <p>@Model.ExtraInfo.Cargo en <img /></p>
+                    } 
                     *@
 
-                if (Model.ExtraInfo.ExtraData != null && Model.ExtraInfo.ExtraData.Count > 0)
-                {
-                    foreach (string DatoExtra in Model.ExtraInfo.ExtraData.Keys)
+                    if (Model.ExtraInfo.ExtraData != null && Model.ExtraInfo.ExtraData.Count > 0)
                     {
-                        <p><span class="clave">@DatoExtra:</span> <span class="valor">@Model.ExtraInfo.ExtraData[DatoExtra]</span></p>
-                    }
-                }
-
-                if (Model.ExtraInfo.Puestos != null && Model.ExtraInfo.Puestos.Count > 0)
-                {
-                    foreach (string puesto in Model.ExtraInfo.Puestos)
-                    {
-                        <p>@puesto</p>
+                        foreach (string DatoExtra in Model.ExtraInfo.ExtraData.Keys)
+                        {
+                           <p><span class="clave">@DatoExtra:</span> <span class="valor">@Model.ExtraInfo.ExtraData[DatoExtra]</span></p>
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(Model.ExtraInfo.Description))
+                    if (Model.ExtraInfo.Puestos != null && Model.ExtraInfo.Puestos.Count > 0)
+                    {
+                        foreach (string puesto in Model.ExtraInfo.Puestos)
+                        {
+                            <p>@puesto</p>
+                        }
+                    }
+                    
+                    if(!string.IsNullOrEmpty(Model.ExtraInfo.Description))
                     {
                         <div class="TextoTiny">
                             @Html.AcortarTexto(Model.ExtraInfo.Description, 300)
@@ -125,23 +122,30 @@
             @if (Model.ExtraInfo != null && Model.ExtraInfo.Tags != null && Model.ExtraInfo.Tags.Count > 0)
             {
                 string separador = ",";
-                <div class="group etiquetas">
-                    <p>Etiquetas: </p>
-                    <ul>
-                        @foreach (string tag in Model.ExtraInfo.Tags)
-                        {
-                            if (Model.ExtraInfo.Tags.Last() == tag)
-                            {
-                                separador = "";
-                            }
-                            <li><a href="@ViewBag.Comunidad.Url/@Html.GetText("URLSEM", "PERSONASYORGANIZACIONES")/tag/@tag">@tag</a>@separador</li>
-                        }
-                    </ul>
-                </div>
+            <div class="group etiquetas">
+                <p>Etiquetas: </p>
+                <ul>
+                @foreach (string tag in Model.ExtraInfo.Tags)
+                {
+                    if (Model.ExtraInfo.Tags.Last() == tag)
+                    {
+                        separador = "";
+                    }
+                    <li><a href="@ViewBag.Comunidad.Url/@Html.GetText("URLSEM", "PERSONASYORGANIZACIONES")/tag/@tag">@tag</a>@separador</li>
+                }
+                </ul>
+            </div>
             }
         </div>
         <div id="accionesListado_@Model.Key.ToString()_@Guid.NewGuid()_@ViewBag.ProyectoID.ToString()" class="group acciones noGridView">
         </div>
     </div>
-                }
+}
+
+
+
+
+
+
+
 

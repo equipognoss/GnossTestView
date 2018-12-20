@@ -6,7 +6,7 @@
     UserIdentityModel IdentidadActual = Html.GetIdentidadActual();
     string nombreTipoPerfil = "";
 
-    string urlFoto = "theme/resources/persona-default.png";
+    string urlFoto = "../theme/resources/persona-default.png";
     if (string.IsNullOrEmpty(perfil.Foto))
     {
         if (perfil.TypeProfile == ProfileType.ProfessionalCorporate)
@@ -54,10 +54,10 @@
         <p>Ver</p>
         <ul class="pmd-sidebar-nav">
             <li class="liPerfil">
-                <a href="javascript: void(0);">Mi perfil</a>
+                <a href="@perfil.Url@Html.GetText("URLSEM", "EDITARPERFIL")">@Html.GetText("MENU", "EDITARPERFIL")</a>
             </li>
             <li class="liEspacio">
-                <a href="javascript: void(0);">Mi espacio personal</a>
+                <a href="@perfil.UrlViewProfile">@Html.GetText("MENU", "VERPERFIL")</a>
             </li>
             <li class="liContribuciones">
                 <a href="javascript: void(0);">Mis contribuciones</a>

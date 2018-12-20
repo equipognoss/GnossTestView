@@ -4,9 +4,12 @@
 
 <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/jquery.min.js?v=@Html.GetVersion()"></script>
 
-
+@if (Html.GetJSYCSSunificado().HasValue && Html.GetJSYCSSunificado().Value)
+{
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/js/unificado.js?v=@Html.GetVersion()"></script>
-
+}
+else
+{
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/jquery.ui.core.min.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/jquery.ui.datepicker.min.js?v=@Html.GetVersion()"></script>
 
@@ -20,17 +23,19 @@
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/jMsAjax.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/jquery.gnoss.utils.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/jquery.gnoss.apply.js?v=@Html.GetVersion()"></script>
+    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/jquery.autocomplete.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/jquery.gnoss.header.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/waypoints.min.js?v=@Html.GetVersion()"></script>
-
+   
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/MVC.FichaDocumento.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/MVC.FichaPerfil.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/MVC.Registro.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/MVC.Comun.js?v=@Html.GetVersion()"></script>
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/MVC.ComAdmin.js?v=@Html.GetVersion()"></script>
 
+
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/ckeditor/ckeditor.js?v=@Html.GetVersion()"></script>
-    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/ckeditor/adapters/jquery.js?v=@Html.GetVersion()"></script>
+    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/jquery.demo.js?v=@Html.GetVersion()"></script>
     <!-- BOOTSTRAP 4 + PROPELLER -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="@Html.GetBaseUrlStatic()/theme/libraries/bootstrap/bootstrap.min.js"></script>
@@ -39,7 +44,7 @@
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/theme/libraries/jquery.autocomplete.js"></script>
     <!-- PERSONALIZACION TEMA -->
     <script type="text/javascript" src="@Html.GetBaseUrlStatic()/theme/theme.js"></script>
-
+}
 
 @{ 
     string idioma = Html.GetUtilIdiomas().LanguageCode;
@@ -69,7 +74,7 @@
 
 @if (Comunidad != null && Comunidad.VersionJS.HasValue)
 {       
-    <script type="text/javascript" src="@Html.GetBaseUrlContent()/imagenes/proyectos/personalizacion/@Comunidad.Key.ToString()@Html.GetStyleVersion()/community.js?v=@Comunidad.VersionJS"></script>    
+    @*<script type="text/javascript" src="@Html.GetBaseUrlContent()/imagenes/proyectos/personalizacion/@Comunidad.Key.ToString()@Html.GetStyleVersion()/community.js?v=@Comunidad.VersionJS"></script>*@    
 }
 @if (Comunidad != null && Comunidad.VersionJSAdmin.HasValue)
 {       
@@ -78,7 +83,7 @@
 
 @if (Html.GetGoogleAnalytics() != null)
 {
-    <script type="text/javascript">@Html.Raw(Html.GetGoogleAnalytics())</script>
+    @*<script type="text/javascript">@Html.Raw(Html.GetGoogleAnalytics())</script>*@
 }
 
 <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/jquery.autocomplete.js?v=@Html.GetVersion()"></script>

@@ -3,7 +3,7 @@
 @if (Model != null)
 {
     string id = "contact_" + Model.Key;
-
+    
     <div class="resource" id="@id">
         <div class="box description">
             <div class="group title">
@@ -50,10 +50,9 @@
                             <ul class="tags">
                                 @foreach (string grupoID in Model.ListGroups.Keys)
                                 {
-                                    <li id="@(Model.Key + "_" + grupoID)">
-                                        @Model.ListGroups[grupoID]
-                                    <a class="remove" onclick="EliminarGrupoDeContacto('@Model.Key','@grupoID')">Eliminar</a>
-                                </li>
+                                    <li id="@(Model.Key + "_" + grupoID)">@Model.ListGroups[grupoID]
+                                        <a class="remove" onclick="EliminarGrupoDeContacto('@Model.Key','@grupoID')">Eliminar</a>
+                                    </li>
                                 }
                             </ul>
                         </div>
@@ -70,10 +69,9 @@
                             <ul class="tags">
                                 @foreach (string memberID in Model.ListMembers.Keys)
                                 {
-                                    <li id="@(Model.Key + "_" + memberID)">
-                                        @Model.ListMembers[memberID]
-                                    <a class="remove" onclick="EliminarContactoDeGrupo('@Model.Key','@memberID')">Eliminar</a>
-                                </li>
+                                    <li id="@(Model.Key + "_" + memberID)">@Model.ListMembers[memberID]
+                                        <a class="remove" onclick="EliminarContactoDeGrupo('@Model.Key','@memberID')">Eliminar</a>
+                                    </li>
                                 }
                             </ul>
                         </div>
@@ -95,7 +93,7 @@
                     }
                     else
                     {
-                        <li><a onclick="AgregarContactosGrupo('@Model.Key');">Agregar miembros al grupo</a></li>
+                        <li><a onclick="AgregarContactosGrupo('@Model.Key');" >Agregar miembros al grupo</a></li>
                     }
                 </ul>
             </div>
@@ -120,18 +118,18 @@
                                     <p>
                                         <input type="text" class="finderSectionText autocompletar ac_input" id="input_@Model.Key" autocomplete="off" />
                                         @{
-                                            string members = "";
-                                            if (Model.ListMembers != null)
-                                            {
-                                                foreach (string memberID in Model.ListMembers.Keys)
-                                                {
-                                                    members += memberID + ",";
-                                                }
-                                            }
+                            string members = "";
+                            if (Model.ListMembers != null)
+                            {
+                                foreach (string memberID in Model.ListMembers.Keys)
+                                {
+                                    members += memberID + ",";
+                                }
+                            }
                                         }
                                         <input type="text" value="@members" style="display: none" id="input_@(Model.Key)_hack" />
                                         @{
-                                            string accionAceptar = "AgregarTodosContactosAGrupos('" + Model.Key + "')";
+                            string accionAceptar = "AgregarTodosContactosAGrupos('" + Model.Key + "')";
                                         }
                                         <input type="button" value="Aceptar" onclick="@accionAceptar" id="botonAceptar_@Model.Key" />
                                     </p>
@@ -139,41 +137,48 @@
                                     <p></p>
                                 </fieldset>
                             </fieldset>
-                                            }
-                                            else
-                                            {
-                                                <fieldset class="finderUtils" id="divContactos_@Model.Key">
-                                                    <p>Añade tus grupos</p>
-                                                    <fieldset id="divAutocompletar_@Model.Key">
-                                                        <p>
-                                                            <input type="text" class="finderSectionText autocompletar ac_input" id="input_@Model.Key" autocomplete="off" />
-                                                            @{
-                                                                string groups = "";
-                                                                if (Model.ListGroups != null)
-                                                                {
-                                                                    foreach (string groupsID in Model.ListGroups.Keys)
-                                                                    {
-                                                                        groups += groupsID + ",";
-                                                                    }
-                                                                }
-                                                            }
-                                                            <input type="text" value="@groups" style="display: none" id="input_@(Model.Key)_hack" />
-                                                            @{
-                                                                string accionAceptar = "AgregarTodosGruposAContactos('" + Model.Key + "')";
-                                                            }
-                                                            <input type="button" value="Aceptar" onclick="@accionAceptar" id="botonAceptar_@Model.Key" />
-                                                        </p>
-                                                        <div class="filterSpace" id="divResultados_@Model.Key"></div>
-                                                        <p></p>
-                                                    </fieldset>
-                                                </fieldset>
-
-                                                                }
+                        }
+                        else
+                        {
+                            <fieldset class="finderUtils" id="divContactos_@Model.Key">
+                                <p>Añade tus grupos</p>
+                                <fieldset id="divAutocompletar_@Model.Key">
+                                    <p>
+                                        <input type="text" class="finderSectionText autocompletar ac_input" id="input_@Model.Key" autocomplete="off" />
+                                         @{
+                            string groups = "";
+                            if (Model.ListGroups != null)
+                            {
+                                foreach (string groupsID in Model.ListGroups.Keys)
+                                {
+                                    groups += groupsID + ",";
+                                }
+                            }
+                                        }
+                                        <input type="text" value="@groups" style="display: none" id="input_@(Model.Key)_hack" /> 
+                                        @{
+                            string accionAceptar = "AgregarTodosGruposAContactos('" + Model.Key + "')";
+                                        }
+                                        <input type="button" value="Aceptar" onclick="@accionAceptar" id="botonAceptar_@Model.Key" />
+                                    </p>
+                                    <div class="filterSpace" id="divResultados_@Model.Key"></div>
+                                    <p></p>
+                                </fieldset>
+                            </fieldset>
+                            
+                        }
                     </div>
                     <p class="cerrar"><a onclick="CerrarPanelAccion('desplegable_@Model.Key')" title="cerrar formulario">cerrar x</a></p>
                 </div>
             </div>
         </div>
     </div>
-                                                                }
+}
+
+
+
+
+
+
+
 

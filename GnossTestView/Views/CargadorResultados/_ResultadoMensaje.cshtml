@@ -21,9 +21,9 @@
                     </p>
                 </div>
             </div>
-
+            
             <div class="group utils-2">
-                @if (Model.Sender != null)
+                @if(Model.Sender != null)
                 {
                     <div class="mensajeUsuariosDe etiquetas">
                         <p>
@@ -38,11 +38,11 @@
                             <li><a title="@nombreRemitente" href="@urlRemitente">@Html.AcortarTexto(nombreRemitente, 15)</a></li>
                         </ul>
                         <ul class="nocompact">
-                            <li><a title="@nombreRemitente" href="@urlRemitente">@nombreRemitente</a></li>
+                            <li><a  title="@nombreRemitente" href="@urlRemitente">@nombreRemitente</a></li>
                         </ul>
                     </div>
-                            }
-
+                }
+                
                 @if (Model.Receivers.Count > 0 || Model.ReceiversGroup.Count > 0)
                 {
                     <div class="mensajeUsuariosPara etiquetas nocompact">
@@ -50,22 +50,21 @@
                             Para:
                         </p>
 
-                        @*                        <ul class="compact">
-                                <li><a title="@nombreReceptor" href="@urlReceptor">@Html.AcortarTexto(nombreReceptor , 15)</a></li>
-                            </ul>*@
+@*                        <ul class="compact">
+                            <li><a title="@nombreReceptor" href="@urlReceptor">@Html.AcortarTexto(nombreReceptor , 15)</a></li>
+                        </ul>*@
                         <ul class="nocompact">
                             @foreach (GroupCardModel destinatarioGrupo in Model.ReceiversGroup)
                             {
                                 if (string.IsNullOrEmpty(destinatarioGrupo.UrlGroup))
-                                {
+                                { 
                                     <li>@destinatarioGrupo.CompleteName</li>
                                 }
-                                else
-                                {
+                                else{
                                     <li><a title="@destinatarioGrupo.CompleteName" href="@destinatarioGrupo.UrlGroup">@destinatarioGrupo.CompleteName</a></li>
                                 }
                             }
-                            @foreach (ProfileModel destinatario in Model.Receivers)
+                            @foreach(ProfileModel destinatario in Model.Receivers)
                             {
                                 string nombreDestinatario = Html.ObtenerNombrePerfil(destinatario);
                                 string urlDestinatario = Html.ObtenerUrlPerfil(destinatario);
@@ -76,8 +75,8 @@
                 }
                 <div class="mensajeFecha">
                     <p>
-                        @{
-                            string fecha = Model.ShippingDate.ToString("dd.MM.yy") + " " + Html.GetText("BANDEJAENTRADA", "ENVIADOALAS") + Model.ShippingDate.ToString("HH:mm");
+                        @{  
+    string fecha = Model.ShippingDate.ToString("dd.MM.yy") + " " + Html.GetText("BANDEJAENTRADA", "ENVIADOALAS") + Model.ShippingDate.ToString("HH:mm");
                         }
                         @fecha
                     </p>
@@ -88,7 +87,7 @@
                     Acciones:
                 </p>
                 <ul>
-                    @if (Model.Received)
+                    @if(Model.Received)
                     {
                         <li><a class="inlineActionResource" href="@Model.Url.Replace("?mensaje", "?responder&mensaje")">@Html.GetText("CORREO", "RESPONDERMENSAJESINTEXTOMENSAJE")</a></li>
                         <li><a class="inlineActionResource" href="@Model.Url.Replace("?mensaje", "?responderATodos&mensaje")">@Html.GetText("CORREO", "REENVIARMENSAJEATODOS")</a></li>
@@ -98,5 +97,12 @@
             </div>
         </div>
     </div>
-                            }
+}
+
+
+
+
+
+
+
 

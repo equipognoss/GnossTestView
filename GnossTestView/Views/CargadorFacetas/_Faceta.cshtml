@@ -6,7 +6,7 @@
     {
         claveFacetaSinObjetoConocimiento = claveFacetaSinObjetoConocimiento.Substring(claveFacetaSinObjetoConocimiento.IndexOf(";") + 1);
     }
-
+    
     if (Model.ThesaurusID != Guid.Empty)
     {
         string tesauroID = "";
@@ -23,7 +23,7 @@
                 <span class="faceta-title">@Model.Name</span>
                 @Html.PartialView("_CajaBusqueda", Model)
                 <div class="section">
-                    @if (Model.AutocompleteBehaviour == AutocompleteBehaviours.Default)
+                    @if(Model.AutocompleteBehaviour == AutocompleteBehaviours.Default)
                     {
                         <ul class="listadoFacetas">
                             @foreach (FacetItemModel item in Model.FacetItemList)
@@ -33,7 +33,7 @@
                         </ul>
                     }
 
-                    @if (Model.SeeMore)
+                    @if(Model.SeeMore)
                     {
                         <p class="moreResults">
                             <a class="verMasFaceta" href="#" rel="@claveFacetaSinObjetoConocimiento|@Model.Key">@Html.GetText("COMBUSQUEDAAVANZADA", "VERMAS")</a>
@@ -46,7 +46,7 @@
     else
     {
         string noCollapse = "";
-        string ulClass = "";
+        string ulClass = "listadoFacetas";
         if (Model.Key == "rdf_type")
         {
             noCollapse = "noCollapse";
@@ -59,13 +59,13 @@
         {
             ulClass = "listadoFacetas";
         }
-
+        
         string contenidoOut = "out_" + Model.Key;
         string contenidoIn = "in_" + Model.Key;
-
-        if (Model.FacetGrouped)
+        
+        if(Model.FacetGrouped)
         {
-
+    
             @functions
             {
                 public string obtenerNombreSemFaceta(FacetItemModel itemFaceta)
@@ -78,28 +78,28 @@
                     return nombreSem;
                 }
             }
-
+            
             string auxAgrupado = "";
             FacetItemModel itemSeleccionado = Model.FacetItemList.Find(item => item.Selected == true);
             if (itemSeleccionado != null)
             {
                 auxAgrupado = "in_" + obtenerNombreSemFaceta(itemSeleccionado);
             }
-
-            <div id="@contenidoOut" class="listadoAgrupado" @(auxAgrupado != "" ? "aux=" + auxAgrupado : "")>
-
-                @if (Model.GroupedGroups != null && Model.GroupedGroups.Count > 0)
+            
+            <div id="@contenidoOut" class="listadoAgrupado" @(auxAgrupado != ""?"aux=" + auxAgrupado:"")>  
+                
+                @if(Model.GroupedGroups != null && Model.GroupedGroups.Count > 0)
                 {
                     <ul class="oculto">
-                        @foreach (string grupo in Model.GroupedGroups.Keys)
+                    @foreach(string grupo in Model.GroupedGroups.Keys)
+                    {
+                        string classGroup = "";
+                        foreach(string tipo in Model.GroupedGroups[grupo])
                         {
-                            string classGroup = "";
-                            foreach (string tipo in Model.GroupedGroups[grupo])
-                            {
-                                classGroup += " in_" + tipo;
-                            }
-                            <li><a class="@classGroup">@grupo</a></li>
+                            classGroup += " in_" + tipo;
                         }
+                        <li><a class="@classGroup">@grupo</a></li>
+                    }
                     </ul>
                 }
 
@@ -107,35 +107,35 @@
                 {
                     <div id="in_@obtenerNombreSemFaceta(item)">
                         <a rel="nofollow" href="@item.Filter" class="faceta grupo" name="@item.Name" title="@item.Tittle">@item.Tittle (@item.Number)</a>
-                    </div>
+                    </div>           
                 }
             </div>
         }
         else
         {
-            <div id="@contenidoOut">
-                <div id="@contenidoIn">
-                    <div class="box @noCollapse" id="@Model.Key">
-                        <span class="faceta-title">@Model.Name</span>
-                        @Html.PartialView("_CajaBusqueda", Model)
-                        @if (Model.AutocompleteBehaviour == AutocompleteBehaviours.Default)
-                        {
-                            <ul class="@ulClass">
-                                @foreach (FacetItemModel item in Model.FacetItemList)
+        <div id="@contenidoOut">
+            <div id="@contenidoIn">
+                <div class="box @noCollapse" id="@Model.Key">
+                    <span class="faceta-title">@Model.Name</span>
+                    @Html.PartialView("_CajaBusqueda", Model)
+                    @if(Model.AutocompleteBehaviour == AutocompleteBehaviours.Default)
+                    {
+                        <ul class="@ulClass">
+                            @foreach (FacetItemModel item in Model.FacetItemList)
                             {
-                                    @Html.PartialView("_ItemFaceta", item)
-                                }
-                            </ul>
-                        }
-                        @if (Model.SeeMore)
-                        {
-                            <p class="moreResults">
-                                <a class="verMasFaceta" href="#" rel="@claveFacetaSinObjetoConocimiento|@Model.Key">@Html.GetText("COMBUSQUEDAAVANZADA", "VERMAS")</a>
-                            </p>
-                        }
-                    </div>
+                                @Html.PartialView("_ItemFaceta", item)               
+                            }
+                        </ul>
+                    }
+                    @if(Model.SeeMore)
+                    {
+                        <p class="moreResults">
+                            <a class="verMasFaceta" href="#" rel="@claveFacetaSinObjetoConocimiento|@Model.Key">@Html.GetText("COMBUSQUEDAAVANZADA", "VERMAS")</a>
+                        </p>
+                    }
                 </div>
             </div>
+        </div>
         }
     }
 }

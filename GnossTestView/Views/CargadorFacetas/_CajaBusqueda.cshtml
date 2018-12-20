@@ -11,7 +11,7 @@
 else if (Model.SearchBoxType.Equals(SearchBoxType.FromToRank))
 {
     <div class="facetedSearchBox fechaDesdeHasta">
-        <label for="@inputID1" class="botonBuscarFaceta">@Model.Name</label>
+        <label for="@inputID1" class="botonBuscarFaceta"><span class="textofaceta">@Model.Name</span></label>
         <input title="@Model.Name" type="text" placeholder="@Html.GetText("METABUSCADOR", "DESDE")" name="@inputID1" class="filtroFaceta ac_input" id="@inputID1" />
         <input title="@Model.Name" type="text" placeholder="@Html.GetText("METABUSCADOR", "HASTA")" name="@inputID2" class="filtroFaceta ac_input" id="@inputID2" />
         <a name="@Model.FacetKey" class="searchButton"></a>
@@ -20,7 +20,7 @@ else if (Model.SearchBoxType.Equals(SearchBoxType.FromToRank))
 else if (Model.SearchBoxType.Equals(SearchBoxType.FromRank))
 {
     <div class="facetedSearchBox fechaDesdeHasta">
-        <label for="@inputID1" class="botonBuscarFaceta">@Model.Name</label>
+        <label for="@inputID1" class="botonBuscarFaceta"><span class="textofaceta">@Model.Name</span></label>
         <input title="@Model.Name" type="text" placeholder="@Html.GetText("METABUSCADOR", "DESDE")" name="@Model.FacetKey" class="filtroFaceta ac_input solo" id="@inputID1" />
         <input title="@Model.Name" type="hidden" placeholder="@Html.GetText("METABUSCADOR", "HASTA")" name="@Model.FacetKey" class="filtroFaceta ac_input" id="@inputID2" />
         <a name="@Model.FacetKey" class="searchButton"></a>
@@ -29,7 +29,7 @@ else if (Model.SearchBoxType.Equals(SearchBoxType.FromRank))
 else if (Model.SearchBoxType.Equals(SearchBoxType.ToRank))
 {
     <div class="facetedSearchBox fechaDesdeHasta">
-        <label for="@inputID1" class="botonBuscarFaceta">@Model.Name</label>
+        <label for="@inputID1" class="botonBuscarFaceta"><span class="textofaceta">@Model.Name</span></label>
         <input title="@Model.Name" type="hidden" placeholder="@Html.GetText("METABUSCADOR", "DESDE")" name="@Model.FacetKey" class="filtroFaceta ac_input" id="@inputID1" />
         <input title="@Model.Name" type="text" placeholder="@Html.GetText("METABUSCADOR", "HASTA")" name="@Model.FacetKey" class="filtroFaceta ac_input solo" id="@inputID2" />
         <a name="@Model.FacetKey" class="searchButton"></a>
@@ -38,7 +38,7 @@ else if (Model.SearchBoxType.Equals(SearchBoxType.ToRank))
 else if (Model.SearchBoxType.Equals(SearchBoxType.FromToDates))
 {
     <div class="facetedSearchBox fechaDesdeHasta">
-        <label for="@inputID1" class="botonBuscarFaceta">@Model.Name</label>
+        <label for="@inputID1" class="botonBuscarFaceta"><span class="textofaceta">@Model.Name</span></label>
         <input title="@Model.Name" type="text" class="filtroFacetaFecha ac_input" placeholder="@Html.GetText("METABUSCADOR", "DESDE")" onchange="ComprobarFechas(this, this, 2);" name="@inputID1" id="@inputID1" />
         <input title="@Model.Name" type="text" class="filtroFacetaFecha ac_input" placeholder="@Html.GetText("METABUSCADOR", "HASTA")" onchange="ComprobarFechas(this, this, 2);" name="@inputID2" id="@inputID2" />
         <a name="@Model.FacetKey" class="searchButton"></a>
@@ -63,24 +63,24 @@ else if (Model.SearchBoxType.Equals(SearchBoxType.TreeList))
     <div style="height:20px;">
         <p>
             @{
-                string cambioTipoPresentacion = Model.FacetKey + "_Lista";
+    string cambioTipoPresentacion = Model.FacetKey + "_Lista";
             }
 
             <a onclick="VerFaceta('@cambioTipoPresentacion', '@Model.Key');" style="display: inline; float:right;">@Html.GetText("TESAURO", "LISTA")</a>
             <span style="float:right;">@Html.GetText("TESAURO", "ARBOL") | </span>
         </p>
     </div>
-                }
-                else if (Model.SearchBoxType.Equals(SearchBoxType.ListTree))
-                {
-                    <div style="height:20px;">
-                        <p>
-                            @{
-                                string cambioTipoPresentacion = Model.FacetKey + "_Arbol";
-                            }
+}
+else if (Model.SearchBoxType.Equals(SearchBoxType.ListTree))
+{
+    <div style="height:20px;">
+        <p>
+            @{
+    string cambioTipoPresentacion = Model.FacetKey + "_Arbol";
+            }
 
-                            <span style=" float:right;">@Html.GetText("TESAURO", "LISTA")</span>
-                            <a onclick="VerFaceta('@cambioTipoPresentacion', '@Model.Key');" style="display: inline;float:right;">@Html.GetText("TESAURO", "ARBOL") | </a>
-                        </p>
-                    </div>
-                                }
+            <span style=" float:right;">@Html.GetText("TESAURO", "LISTA")</span>
+            <a onclick="VerFaceta('@cambioTipoPresentacion', '@Model.Key');" style="display: inline;float:right;">@Html.GetText("TESAURO", "ARBOL") | </a>
+        </p>
+    </div>
+}

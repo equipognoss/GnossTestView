@@ -20,7 +20,7 @@
                     }
                 }
 
-                <h2 class="@classTitulo"><a href="@Model.CompletCardLink" property="dcterms:title" content="@Model.Title">@Model.Title</a></h2>
+                <h2  class="@classTitulo"><a href="@Model.CompletCardLink" property="dcterms:title" content="@Model.Title">@Model.Title</a></h2>
                 <div class="@claseContenedor">
                     @if (!string.IsNullOrEmpty(Model.UrlPreview))
                     {
@@ -36,9 +36,9 @@
                 {
                     if (!string.IsNullOrEmpty(Model.ViewSettings.InfoExtraContext))
                     {
-                        <div class="group body">
-                            @MvcHtmlString.Create(Model.ViewSettings.InfoExtraContext)
-                        </div>
+                    <div class="group body">
+                        @MvcHtmlString.Create(Model.ViewSettings.InfoExtraContext)
+                    </div>
                     }
                 }
                 @if (Model.Actions != null && Model.Actions.UnLinkUp)
@@ -76,8 +76,8 @@
                                 <legend>¿Deseas desvincular del documento actual el recurso?</legend>
                                 <p>
                                     @{
-                                        string funcionDesVincularAceptar = "AccionRecurso_DesVincular_Aceptar('" + Model.ListActions.UrlUnLinkResource + "','" + Model.ListActions.UrlLoadLinkedResources + "', '" + HttpContext.Current.Request.RequestContext.RouteData.Values["docID"] + "', '" + Model.Key + "')";
-                                        string funcionDesVincularCancelar = "CerrarPanelAccion('despAccionRec_" + Model.Key + "')";
+                string funcionDesVincularAceptar = "AccionRecurso_DesVincular_Aceptar('" + Model.ListActions.UrlUnLinkResource + "','" + Model.ListActions.UrlLoadLinkedResources + "', '" + HttpContext.Current.Request.RequestContext.RouteData.Values["docID"] + "', '" + Model.Key + "')";
+                string funcionDesVincularCancelar = "CerrarPanelAccion('despAccionRec_" + Model.Key + "')";
                                     }
                                     <input type="button" onclick="@funcionDesVincularAceptar" value="Sí" />
                                     <input type="button" onclick="@funcionDesVincularCancelar" value="No" />
@@ -88,7 +88,7 @@
                             <a onclick="CerrarPanelAccion('despAccionRec_@Model.Key')" title="cerrar formulario">cerrar x</a>
                         </p>
                     </div>
-                </div>
+                </div>	
             }
         </div>
     </div>
