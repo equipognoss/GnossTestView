@@ -1,4 +1,4 @@
-﻿@model ResourceViewModel
+@model ResourceViewModel
 @{
     ResourceModel FichaDocumento = Model.Resource;
     CommunityModel Comunidad = Html.GetComunidad();
@@ -24,7 +24,7 @@
     }
 
     string url = Html.GetUrlContext(FichaDocumento.CompletCardLink, FichaDocumento.Key, Html.GetComunidad().ShortName);
-
+    
     bool PresentacionNoSocial = Comunidad.ProyectType == CommunityModel.TypeProyect.CatalogoNoSocial || Comunidad.ProyectType == CommunityModel.TypeProyect.CatalogoNoSocialConUnTipoDeRecurso;
 }
 
@@ -54,13 +54,13 @@
                     <div>
                         <div class="group utils-1 noUltVer">
                             <img src="@Html.GetBaseUrlStatic()/img/comunidades/icoNoVigilado.gif" />
-                            <p>@Html.Raw(Html.GetText("PERFILBASERECURSOSFICHA", "NOULTIMAVERSION", Html.GetUrlPagina().Replace(FichaDocumento.Key.ToString(), FichaDocumento.LastVersion.ToString())))</p>
-                        </div>
+                            <p>@Html.Raw(Html.GetText("PERFILBASERECURSOSFICHA", "NOULTIMAVERSION", Html.GetUrlPagina().Replace(FichaDocumento.Key.ToString(), FichaDocumento.LastVersion.ToString())))</p>      
+	                    </div>
                     </div>
                 }
 
                 string claseItem = "resource";
-
+                
                 if (FichaDocumento.IsDraft)
                 {
                     claseItem += " resourceDraft";
@@ -114,7 +114,7 @@
                                     <span>tipo de documento</span>
                                     @if (FichaDocumento.Private)
                                     {
-                                        <span class="privado">documento privado</span>
+                                    <span class="privado">documento privado</span>
                                     }
                                     @if (string.IsNullOrEmpty(FichaDocumento.UrlDocument))
                                     {
@@ -129,7 +129,7 @@
                                         }
 
                                         if (FichaDocumento.OpenInNewWindow)
-                                        {
+                                        {                                        
                                             <a target="_blank" href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.RdfTypeName</a>
                                         }
                                         else
@@ -139,39 +139,42 @@
                                     }
                                 </p>
                             </div>
-                                    }
+                        }
 
                         @if (FichaDocumento.SocialNetworks != null && FichaDocumento.SocialNetworks.Count > 0)
                         {
                             <div class="group redesSocialesCompartir iconsRedesSociales">
                                 <ul class="art_social">
                                     @{
-                                        int numRedSocial = 0;
-                                        foreach (string RedSocial in FichaDocumento.SocialNetworks.Keys)
-                                        {
-                                            string clase = RedSocial.ToLower();
-                                            if (numRedSocial < 3)
-                                            {
-                                                clase += " big";
-                                            }
-                                            <li class="@clase">
-                                                <a href="#" title="@RedSocial"
-                                                   @foreach (string atributo in FichaDocumento.SocialNetworks[RedSocial].Keys) { @Html.Raw(atributo.Replace("onclick", "clickJS") + "=\"" + FichaDocumento.SocialNetworks[RedSocial][atributo] + "\" ") ; }>@RedSocial</a>
-                                            </li>
-    numRedSocial++;
-}
+                            int numRedSocial = 0;
+                            foreach (string RedSocial in FichaDocumento.SocialNetworks.Keys)
+                            {
+                                string clase = RedSocial.ToLower();
+                                if (numRedSocial < 3)
+                                {
+                                    clase += " big";
+                                }
+                                            <li class="@clase"><a href="#" title="@RedSocial" 
+                                                @foreach (string atributo in FichaDocumento.SocialNetworks[RedSocial].Keys)
+                                                {
+                                                    @Html.Raw(atributo.Replace("onclick", "clickJS") + "=\"" + FichaDocumento.SocialNetworks[RedSocial][atributo] + "\" ");
+                                                }
+                                                
+                                            >@RedSocial</a></li>
+                                                numRedSocial++;
+                            }
                                     }
                                 </ul>
                             </div>
-                                        }
-
+                        }
+                             
                         @if (Model.Resource.Publisher != null)
-                        {
+                        {           	
                             <div class="group author">
                                 <p id="panelPublicador">
                                     @Html.PartialView("_FichaPublicador", FichaDocumento)
-                                </p>
-                                <p class="publicacion enCajaAuthor" style="display:none" content="@FichaDocumento.PublishDate.ToString("yyyy-MM-ddTHH:mm:ss%K")" property="dcterms:created">@FichaDocumento.PublishDate.ToString("d.M.yyyy")</p>
+	                            </p>
+	                            <p class="publicacion enCajaAuthor" style="display:none" content="@FichaDocumento.PublishDate.ToString("yyyy-MM-ddTHH:mm:ss%K")" property="dcterms:created">@FichaDocumento.PublishDate.ToString("d.M.yyyy")</p>
                             </div>
                         }
 
@@ -181,18 +184,18 @@
                             {
                                 <div id="panUtils1" class="group utils-1 js-activado">
                                     <p class="info"><strong>@Html.GetText("PERFILBASERECURSOSFICHA", "ACERCADEESTERECURSO")</strong></p>
-                                    @{
-                                        string textoVisitas = Html.GetText("LISTARECURSOS", "VISITAS");
-                                        if (FichaDocumento.NameImage == "video" || FichaDocumento.NameImage == "audio")
-                                        {
-                                            textoVisitas = Html.GetText("LISTARECURSOS", "REPRODUCCIONES");
-                                        }
+                                @{
+                                string textoVisitas = Html.GetText("LISTARECURSOS", "VISITAS");
+                                if (FichaDocumento.NameImage == "video" || FichaDocumento.NameImage == "audio")
+                                {
+                                    textoVisitas = Html.GetText("LISTARECURSOS", "REPRODUCCIONES");
+                                }
                                     }
                                     @if (!Model.HideWebsiteVisits)
                                     {
                                         <p class="visitas"><span class="literal">@textoVisitas </span><strong>@FichaDocumento.NumVisits</strong></p>
                                     }
-
+                                
                                     @if (FichaDocumento.Votes != null && FichaDocumento.AllowVotes)
                                     {
                                         @Html.PartialView("_FichaVotos", FichaDocumento.Votes)
@@ -208,12 +211,12 @@
                                         </div>
                                     }
                                 </div>
-                                            }
-                                        }
-
+                            }
+                        }
+                        
                         @if (!PresentacionNoSocial || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor || Model.Resource.Actions.Edit)
                         {
-                            @Html.PartialView("_FichaAccionesMenu", Model)
+						    @Html.PartialView("_FichaAccionesMenu", Model)
                         }
 
                         <script type="text/javascript">
@@ -221,25 +224,22 @@
 
                             $(document).ready(function () {
                                 MontarFechas();
-
+                                
                                 cargarGadgets();
                             });
 
                             function cargarGadgets() {
                                 var gadgets = "";
-                                var numGadgets = 0;
                                 //Contextos
                                 $('#divContPanGadgets div.group.resources:empty').each(function () {
-                                    if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
+                                    if ($(this).attr("id") != undefined && $(this).attr("id") != "") {
                                         gadgets += $(this).attr("id") + ",";
-                                        numGadgets++;
                                     }
                                 });
                                 //Componentes CMS
                                 $('#divContPanGadgets div.group.cmscomponent:empty').each(function () {
-                                    if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
+                                    if ($(this).attr("id") != undefined && $(this).attr("id") != "") {
                                         gadgets += $(this).attr("id") + ",";
-                                        numGadgets++;
                                     }
                                 });
 
@@ -263,8 +263,8 @@
                                             }
                                         }
                                         $.each(gadgets.split(','), function (index, id) {
-                                            if (id.trim() != '' && $('#' + id.trim(), $('#divContPanGadgets')).length > 0 && $('#' + id.trim(), $('#divContPanGadgets')).html().trim() == '') {
-                                                $('#' + id.trim(), $('#divContPanGadgets')).remove();
+                                            if (id.trim() != '') {
+                                                $('#divContPanGadgets').find("#" + id.trim()).remove();
                                             }
                                         });
 
@@ -279,13 +279,13 @@
                             @if (FichaDocumento.Graphs.Count > 0)
                             {
                                 @:var urlPaginaCallBackGrafos = '@FichaDocumento.ListActions.UrlCallbackGraph';
-
+                                                                
                                 Guid docID = FichaDocumento.Key;
                                 string titulo = FichaDocumento.Title.Replace("'", "\\'");
                                 Guid proyID = Comunidad.Key;
                                 string UrlIntragnoss = Model.UrlIntragnoss;
 
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/arbor.js?v=" + Html.GetVersion());
+                                Html.GetListaJS().Add(Html.GetBaseUrl() + "/jsweb/arbor.js?v=" + Html.GetVersion());
                                 Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/grafo.gnoss.js?v=" + Html.GetVersion());
                                 Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/jquery.qtip.min.js?v=" + Html.GetVersion());
                                 Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/css/jquery.qtip.min.css?v=" + Html.GetVersion());
@@ -296,9 +296,9 @@
                                     //@Html.Raw(" var dataPost = {callback: 'peticionajaxrelacionesgrafoficharec',urlintragnoss: '" + UrlIntragnoss + "',proyectoID: '" + proyID + "', documentoID: '" + docID + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
                                     @Html.Raw(" var dataPost" + count + " = {urlintragnoss: '" + UrlIntragnoss + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
 
-                                                                                                                                                                                                                                                                                     //@Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); $.post('" + Html.GetUrlPagina() + "', dataPost, FinTraerDatosGrafoAJAX);});");
+                                                                                                                                                                                                                                                                                     //@Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); $.post('" + Html.GetUrlPagina() + "', dataPost, FinTraerDatosGrafoAJAX);});"); 
                                     @Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); GnossPeticionAjax('" + FichaDocumento.ListActions.UrlLoadGraph + "', dataPost" + count + ", true).done(function(data){FinTraerDatosGrafoAJAX(data)});});");
-
+                                                                                                                             
                                     count++;
                                 }
                             }
@@ -324,14 +324,14 @@
                         @Html.PartialView("_FichaCategorias", FichaDocumento)
 
                         @Html.PartialView("_FichaEtiquetas", FichaDocumento)
-
+                                        
                         @if (FichaDocumento.Version > 0)
                         {
                             <div class="group version">
-                                <p>
-                                    @Html.GetText("LISTARECURSOS", "VERSIONES")@FichaDocumento.Version
-                                </p>
-                            </div>
+				                <p>
+				                    @Html.GetText("LISTARECURSOS", "VERSIONES")@FichaDocumento.Version
+				                </p> 
+			                </div>
                         }
 
                         @if (!Model.HideSharedCommunities)
@@ -340,14 +340,14 @@
                                 @Html.PartialView("_FichaCompartidos", FichaDocumento)
                             </div>
                         }
-
+                        
                         @if (FichaDocumento.TypeDocument == ResourceModel.DocumentType.Newsletter)
                         {
                             <div class="group newsletter">
-                                <p>
-                                    <a href="@FichaDocumento.UrlSearch?gnoss:hastipodoc=11">@Html.GetText("PERFILBASERECURSOSFICHA", "VERTODASNEWSLETTERS")</a>
-                                </p>
-                            </div>
+				                <p>
+				                    <a href="@FichaDocumento.UrlSearch?gnoss:hastipodoc=11" >@Html.GetText("PERFILBASERECURSOSFICHA", "VERTODASNEWSLETTERS")</a>
+				                </p> 
+			                </div>
                         }
 
                         @if (FichaDocumento.Licence != "")
@@ -361,13 +361,37 @@
             </div>
         </div>
     </div>
+	
+    @{
+        SemanticResourceModel semCmsModel = Model.SemanticFrom;
+        if (semCmsModel != null)
+        {
+            SemanticPropertyModel propProfesorID = semCmsModel.GetPropertyByPath("http://onto.educa.jccm.es/crfp#gnossUser");
+            if (propProfesorID != null && propProfesorID.PropertyValues != null && propProfesorID.PropertyValues.Count > 0)
+            {
+                string valor = propProfesorID.PropertyValues[0].Value;
+                string nombreProp = propProfesorID.OntologyPropInfo.LabelTitle;
+
+                <div class="oculto" id="ProfesorID">@valor.ToUpper()</div>
+            }
+            else if (propProfesorID.OntologyPropInfo.EntitySelector != null && propProfesorID.OntologyPropInfo.EntitySelector.LinkedResources != null && propProfesorID.OntologyPropInfo.EntitySelector.LinkedResources.Count > 0)
+            {
+                Guid valor = propProfesorID.OntologyPropInfo.EntitySelector.LinkedResources[0].Key;
+                string nombreProp = propProfesorID.OntologyPropInfo.EntitySelector.LinkedResources[0].Title;
+
+                <div class="oculto" id="ProfesorID">@valor.ToString().ToUpper()</div>
+			}
+		}
+	}
+	
+	
     @if (FichaDocumento.Comments != null)
     {
         <div class="resource">
             <div class="box comments" id="comments">
                 <div>
                     <div>
-                        <p class="what"><strong><span id="numComentarios">@FichaDocumento.NumComments</span>&nbsp;@(FichaDocumento.NumComments == 1 ? Html.GetText("COMMON", "COMENTARIO").ToLower() : Html.GetText("COMMON", "COMENTARIOS").ToLower())</strong></p>
+                        <p class="what"><strong><span id="numComentarios">@FichaDocumento.NumComments</span> @Html.GetText("COMMON", "COMENTARIOS")</strong></p>
                         @if (!IdentidadActual.IsGuestIdentity)
                         {
                             if (FichaDocumento.AllowComments)
@@ -375,33 +399,33 @@
                                 Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/ckeditor.js?v=" + Html.GetVersion());
                                 Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/adapters/jquery.js?v=" + Html.GetVersion());
                                 <div id="add-comment">
-                                    <div class="comment-content">
-                                        <fieldset class="mediumLabels">
-                                            <legend>
-                                                @Html.GetText("PERFILBASERECURSOSFICHA", "PUBLICARCOMENTARIO")
-                                            </legend>
+	                                <div class="comment-content">
+		                                <fieldset class="mediumLabels">
+			                                <legend>
+				                                @Html.GetText("PERFILBASERECURSOSFICHA", "PUBLICARCOMENTARIO")
+			                                </legend>
                                             <p>
                                                 <textarea cols="20" rows="2" id="txtNuevoComentario_@FichaDocumento.Key" class="cke comentarios"></textarea>
                                             </p>
                                             <p id="error_@FichaDocumento.Key" class="error"></p>
                                             @{
-                                                string funcionComentario_CrearComentario = "Comentario_CrearComentario('" + FichaDocumento.ListActions.UrlCreateComment + "', '" + FichaDocumento.Key + "');";
+                                string funcionComentario_CrearComentario = "Comentario_CrearComentario('" + FichaDocumento.ListActions.UrlCreateComment + "', '" + FichaDocumento.Key + "');"; 
                                             }
                                             <input type="button" class="text medium sendComment" value="@Html.GetText("COMMON", "ENVIAR")" onclick="@funcionComentario_CrearComentario" />
                                             @*<p></p>*@
-                                        </fieldset>
-                                    </div>
+		                                </fieldset>
+	                                </div>
                                 </div>
-                                                }
-                                                else
-                                                {
-                                                    <label><span>@Html.GetText("CONTROLESDOCUMENTACION", "COMENTARIOSBLOQUEADOS")</span></label>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <p>@Html.GetText("CONTROLESDOCUMENTACION", "QUIERESCOMENTAR") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "HAZTEMIEMBRO")">@Html.GetText("COMMON", "REGISTRARSE")</a> @Html.GetText("PERFIL", "VISITANTEPERFILO") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "LOGIN")">@Html.GetText("COMINICIOLOGIN", "INICIASESION")</a></p>
-                                                }
+                            }
+                            else
+                            {
+                                <label><span>@Html.GetText("CONTROLESDOCUMENTACION", "COMENTARIOSBLOQUEADOS")</span></label>
+                            }
+                        }
+                        else
+                        {
+                            <p>@Html.GetText("CONTROLESDOCUMENTACION", "QUIERESCOMENTAR") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "HAZTEMIEMBRO")">@Html.GetText("COMMON", "REGISTRARSE")</a> @Html.GetText("PERFIL", "VISITANTEPERFILO") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "LOGIN")">@Html.GetText("COMINICIOLOGIN", "INICIASESION")</a></p>
+                        }
                         <div id="panComentarios">
                             @foreach (CommentModel comentario in FichaDocumento.Comments)
                             {
@@ -414,7 +438,7 @@
             </div>
             <input type="hidden" value="@Html.GetText("FREEBASE", "AVISOLEGAL")" class="inpt_avisoLegal" />
         </div>
-                                                }
+    }
 </div>
 <div id="col01">
     <div id="panVinculadosInt">
@@ -447,6 +471,6 @@ $(document).ready(function () {
 
 </script>
 
-<script type="text/javascript">
+ <script type="text/javascript">
      @Html.Raw(Html.GetJSExtra());
-</script>
+ </script>

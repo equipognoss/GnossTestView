@@ -4,28 +4,13 @@
     CommunityModel Comunidad = Html.GetComunidad();
     UserIdentityModel IdentidadActual = Html.GetIdentidadActual();
 
-    if (Comunidad.IsCatalog)
-    {
-        Html.SetBodyClass("layout03 fichaComunidad fichaCatalogo comGnoss");
-    }
-    else if (FichaDocumento.TypeDocument == ResourceModel.DocumentType.Semantico)
-    {
-        Html.SetBodyClass("layout03 fichaComunidad fichaRecurso fichaCatalogo comGnoss");
-    }
-    else
-    {
-        Html.SetBodyClass("layout03 fichaComunidad fichaRecurso comGnoss");
-    }
-
-    if (FichaDocumento.TypeDocument == ResourceModel.DocumentType.Semantico)
-    {
-        Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/formsemactic.js?v=" + Html.GetVersion());
-        Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/cssNuevo/formsemactic.css?v=" + Html.GetVersion());
-    }
+    Html.SetBodyClass("layout03 fichaComunidad fichaRecurso fichaCatalogo comGnoss");
 
     string url = Html.GetUrlContext(FichaDocumento.CompletCardLink, FichaDocumento.Key, Html.GetComunidad().ShortName);
+    
+    SemanticResourceModel semCmsModel = Model.SemanticFrom;
 
-    bool PresentacionNoSocial = Comunidad.ProyectType == CommunityModel.TypeProyect.CatalogoNoSocial || Comunidad.ProyectType == CommunityModel.TypeProyect.CatalogoNoSocialConUnTipoDeRecurso;
+    Recurso accionFormativa = new Recurso(semCmsModel);
 }
 
 @section breadcrumb{
@@ -70,100 +55,91 @@
                 <div class="box description">
                     <div class="wrapDescription">
 
-                        @if (Model.SemanticFrom != null && Model.SemanticFrom.SemCmsDrawOverMenu)
-                        {
-                            @Html.PartialView("../Shared/SemCms/_GeneradorSemCms", Model.SemanticFrom);
-                        }
 
-                        @if (Model.SemanticFrom == null || !Model.SemanticFrom.HideResourceTitle)
-                        {
-                            <div class="group title">
-                                <h1 property="dcterms:title" content="@FichaDocumento.Title">
-                                    @if (string.IsNullOrEmpty(FichaDocumento.UrlDocument))
+                        <div class="group title">
+                            <h1 property="dcterms:title" content="@FichaDocumento.Title">
+                                @if (string.IsNullOrEmpty(FichaDocumento.UrlDocument))
+                                {
+                                    @FichaDocumento.Title
+                                }
+                                else
+                                {
+                                    string claseEnviarAccGogAnac = "";
+                                    if (FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.Imagen || FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.FicheroServidor)
                                     {
-                                        @FichaDocumento.Title
+                                        claseEnviarAccGogAnac = "class=\"linkDescargaFichero\"";
+                                    }
+
+                                    if (FichaDocumento.OpenInNewWindow)
+                                    {
+                                        <a target="_blank" title="@Html.GetText("PERFILBASE", "ABREVENTANANUEVA")" href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.Title</a>
                                     }
                                     else
                                     {
-                                        string claseEnviarAccGogAnac = "";
-                                        if (FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.Imagen || FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.FicheroServidor)
-                                        {
-                                            claseEnviarAccGogAnac = "class=\"linkDescargaFichero\"";
-                                        }
-
-                                        if (FichaDocumento.OpenInNewWindow)
-                                        {
-                                            <a target="_blank" title="@Html.GetText("PERFILBASE", "ABREVENTANANUEVA")" href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.Title</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.Title</a>
-                                        }
-                                    }
-                                </h1>
-
-                                @{
-                                    string privado = "";
-                                    if (FichaDocumento.Private)
-                                    {
-                                        privado = "privado";
+                                        <a href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.Title</a>
                                     }
                                 }
+                            </h1>
 
-                                <p class="resourceType @(FichaDocumento.TypeDocument == ResourceModel.DocumentType.Semantico ? "semantico " + FichaDocumento.RdfType : FichaDocumento.NameImage)  @privado">
-                                    <span>tipo de documento</span>
-                                    @if (FichaDocumento.Private)
+                            @{
+                                string privado = "";
+                                if (FichaDocumento.Private)
+                                {
+                                    privado = "privado";
+                                }
+                            }
+
+                            <p class="resourceType @(FichaDocumento.TypeDocument == ResourceModel.DocumentType.Semantico ? "semantico " + FichaDocumento.RdfType : FichaDocumento.NameImage)  @privado">
+                                <span>tipo de documento</span>
+                                @if (FichaDocumento.Private)
+                                {
+                                    <span class="privado">documento privado</span>
+                                }
+                                @if (string.IsNullOrEmpty(FichaDocumento.UrlDocument))
+                                {
+                                    <a>@FichaDocumento.RdfTypeName</a>
+                                }
+                                else
+                                {
+                                    string claseEnviarAccGogAnac = "";
+                                    if (FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.Imagen || FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.FicheroServidor)
                                     {
-                                        <span class="privado">documento privado</span>
+                                        claseEnviarAccGogAnac = "class=\"linkDescargaFichero\"";
                                     }
-                                    @if (string.IsNullOrEmpty(FichaDocumento.UrlDocument))
+
+                                    if (FichaDocumento.OpenInNewWindow)
                                     {
-                                        <a>@FichaDocumento.RdfTypeName</a>
+                                        <a target="_blank" href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.RdfTypeName</a>
                                     }
                                     else
                                     {
-                                        string claseEnviarAccGogAnac = "";
-                                        if (FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.Imagen || FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.FicheroServidor)
-                                        {
-                                            claseEnviarAccGogAnac = "class=\"linkDescargaFichero\"";
-                                        }
-
-                                        if (FichaDocumento.OpenInNewWindow)
-                                        {
-                                            <a target="_blank" href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.RdfTypeName</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.RdfTypeName</a>
-                                        }
+                                        <a href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.RdfTypeName</a>
                                     }
-                                </p>
-                            </div>
-                                    }
+                                }
+                            </p>
+                        </div>
 
                         @if (FichaDocumento.SocialNetworks != null && FichaDocumento.SocialNetworks.Count > 0)
                         {
+                            int numRedSocial = 0;
                             <div class="group redesSocialesCompartir iconsRedesSociales">
                                 <ul class="art_social">
-                                    @{
-                                        int numRedSocial = 0;
-                                        foreach (string RedSocial in FichaDocumento.SocialNetworks.Keys)
+                                    @foreach (string RedSocial in FichaDocumento.SocialNetworks.Keys)
+                                    {
+                                        string clase = RedSocial.ToLower();
+                                        if (numRedSocial < 3)
                                         {
-                                            string clase = RedSocial.ToLower();
-                                            if (numRedSocial < 3)
-                                            {
-                                                clase += " big";
-                                            }
-                                            <li class="@clase">
-                                                <a href="#" title="@RedSocial"
-                                                   @foreach (string atributo in FichaDocumento.SocialNetworks[RedSocial].Keys) { @Html.Raw(atributo.Replace("onclick", "clickJS") + "=\"" + FichaDocumento.SocialNetworks[RedSocial][atributo] + "\" ") ; }>@RedSocial</a>
-                                            </li>
-    numRedSocial++;
-}
+                                            clase += " big";
+                                        }
+                                        <li class="@clase">
+                                            <a href="#" title="@RedSocial"
+                                                @foreach (string atributo in FichaDocumento.SocialNetworks[RedSocial].Keys) { @Html.Raw(atributo.Replace("onclick", "clickJS") + "=\"" + FichaDocumento.SocialNetworks[RedSocial][atributo] + "\" ")  ; }>@RedSocial</a>
+                                        </li>
+                                        numRedSocial++;
                                     }
                                 </ul>
                             </div>
-                                        }
+                        }
 
                         @if (Model.Resource.Publisher != null)
                         {
@@ -177,41 +153,39 @@
 
                         @if (!Model.HideUtilsResource)
                         {
-                            if (!PresentacionNoSocial)
-                            {
-                                <div id="panUtils1" class="group utils-1 js-activado">
-                                    <p class="info"><strong>@Html.GetText("PERFILBASERECURSOSFICHA", "ACERCADEESTERECURSO")</strong></p>
-                                    @{
-                                        string textoVisitas = Html.GetText("LISTARECURSOS", "VISITAS");
-                                        if (FichaDocumento.NameImage == "video" || FichaDocumento.NameImage == "audio")
-                                        {
-                                            textoVisitas = Html.GetText("LISTARECURSOS", "REPRODUCCIONES");
-                                        }
-                                    }
-                                    @if (!Model.HideWebsiteVisits)
+                            <div id="panUtils1" class="group utils-1 js-activado">
+                                <p class="info"><strong>@Html.GetText("PERFILBASERECURSOSFICHA", "ACERCADEESTERECURSO")</strong></p>
+                                @{
+                                    string textoVisitas = Html.GetText("LISTARECURSOS", "VISITAS");
+                                    if (FichaDocumento.NameImage == "video" || FichaDocumento.NameImage == "audio")
                                     {
-                                        <p class="visitas"><span class="literal">@textoVisitas </span><strong>@FichaDocumento.NumVisits</strong></p>
+                                        textoVisitas = Html.GetText("LISTARECURSOS", "REPRODUCCIONES");
                                     }
+                                }
+                                @if (!Model.HideWebsiteVisits)
+                                {
+                                    <p class="visitas"><span class="literal">@textoVisitas </span><strong>@FichaDocumento.NumVisits</strong></p>
+                                }
 
-                                    @if (FichaDocumento.Votes != null && FichaDocumento.AllowVotes)
-                                    {
-                                        @Html.PartialView("_FichaVotos", FichaDocumento.Votes)
-                                    }
+                                @if (FichaDocumento.Votes != null && FichaDocumento.AllowVotes)
+                                {
+                                    @Html.PartialView("_FichaVotos", FichaDocumento.Votes)
+                                }
 
-                                    @if (FichaDocumento.Certification.Key != Guid.Empty)
-                                    {
-                                        <div id="contCertificado">
-                                            <p class="certificado">
-                                                @Html.GetText("PERFILBASERECURSOSFICHA", "RECURSOCERTIFICADO"):
-                                                <strong>@MvcHtmlString.Create(FichaDocumento.Certification.Value)</strong>
-                                            </p>
-                                        </div>
-                                    }
-                                </div>
-                                            }
-                                        }
+                                @if (FichaDocumento.Certification.Key != Guid.Empty)
+                                {
+                                    <div id="contCertificado">
+                                        <p class="certificado">
+                                            @Html.GetText("PERFILBASERECURSOSFICHA", "RECURSOCERTIFICADO"):
+                                            <strong>@MvcHtmlString.Create(FichaDocumento.Certification.Value)</strong>
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        }
+                                        
 
-                        @if (!PresentacionNoSocial || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor || Model.Resource.Actions.Edit)
+                        @if (IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor || Model.Resource.Actions.Edit)
                         {
                             @Html.PartialView("_FichaAccionesMenu", Model)
                         }
@@ -250,9 +224,9 @@
                                     }
 
                                     $.post('@Html.GetUrlContext((string)ViewBag.UrlPagina, FichaDocumento.Key, Html.GetComunidad().ShortName)', dataPostGadgets, function (data) {
-                                        if(typeof data != "undefined" && data != ""){
+                                        if (typeof data != "undefined" && data != "") {
                                             for (var i in data) {
-                                                try{
+                                                try {
                                                     if (data[i].updateTargetId.indexOf("FichaGadget_") == 0) {
                                                         var panID = data[i].updateTargetId.substr(12);
                                                         var htmlGadget = data[i].html;
@@ -262,12 +236,12 @@
                                                         { $('#divContPanGadgets').find("#" + panID).replaceWith(htmlGadget); }
                                                     }
                                                 }
-                                                catch(err){}
+                                                catch (err) { }
                                             }
                                         }
                                         $.each(gadgets.split(','), function (index, id) {
-                                        if (id.trim() != '' && $('#' + id.trim(), $('#divContPanGadgets')).length > 0 && $('#' + id.trim(), $('#divContPanGadgets')).html().trim() == '')
-                                        { $('#' + id.trim(), $('#divContPanGadgets')).remove(); }
+                                            if (id.trim() != '' && $('#' + id.trim(), $('#divContPanGadgets')).length > 0 && $('#' + id.trim(), $('#divContPanGadgets')).html().trim() == '')
+                                            { $('#' + id.trim(), $('#divContPanGadgets')).remove(); }
                                         });
 
                                         cargarGadgets();
@@ -278,44 +252,158 @@
                                     CompletadaCargaContextos();
                                 }
                             }
-
-                            @if (FichaDocumento.Graphs.Count > 0)
-                            {
-                                @:var urlPaginaCallBackGrafos = '@FichaDocumento.ListActions.UrlCallbackGraph';
-
-                                Guid docID = FichaDocumento.Key;
-                                string titulo = FichaDocumento.Title.Replace("'", "\\'");
-                                Guid proyID = Comunidad.Key;
-                                string UrlIntragnoss = Model.UrlIntragnoss;
-
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/arbor.js?v=" + Html.GetVersion());
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/grafo.gnoss.js?v=" + Html.GetVersion());
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/jquery.qtip.min.js?v=" + Html.GetVersion());
-                                Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/css/jquery.qtip.min.css?v=" + Html.GetVersion());
-
-                                int count = 1;
-                                foreach (ResourceModel.GrafoRecurso grafo in FichaDocumento.Graphs)
-                                {
-                                    //@Html.Raw(" var dataPost = {callback: 'peticionajaxrelacionesgrafoficharec',urlintragnoss: '" + UrlIntragnoss + "',proyectoID: '" + proyID + "', documentoID: '" + docID + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
-                                    @Html.Raw(" var dataPost" + count + " = {urlintragnoss: '" + UrlIntragnoss + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
-
-                                                                                                                                                                                                                                                                                     //@Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); $.post('" + Html.GetUrlPagina() + "', dataPost, FinTraerDatosGrafoAJAX);});");
-                                    @Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); GnossPeticionAjax('" + FichaDocumento.ListActions.UrlLoadGraph + "', dataPost" + count + ", true).done(function(data){FinTraerDatosGrafoAJAX(data)});});");
-
-                                    count++;
-                                }
-                            }
                         </script>
 
-                        @if (FichaDocumento.TypeDocument != ResourceModel.DocumentType.Semantico)
-                        {
-                            @Html.PartialView("_FichaDescripcion", FichaDocumento)
-                        }
+                        <div>
+                            <div class="infoBasica">
+                                <h2>Información básica</h2>
+                                <div>
+                                    <div rel="emlo:teachingType">
+                                        <strong>Modo de impartición:</strong>
+                                        <span property="dc:description">@accionFormativa.teachingType</span>
+                                    </div>
+                                    <div rel="emlo:scope">
+                                        <strong>Ámbito:</strong>
+                                        <span property="dc:description">@accionFormativa.scope</span>
+                                    </div>
+                                    <div rel="emlo:timing">
+                                        <strong>Temporalización:</strong>
+                                        <span property="dc:description">@accionFormativa.timing</span>
+                                    </div>
+                                    <div rel="emlo:orgCenter">
+                                        <strong>Centro organizador:</strong>
+                                        <span property="dc:description">@accionFormativa.orgCenter</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="convocatorias">
+                                <h2>Convocatorias</h2>
+                                <div>
+                                    <div rel="mlo:specifies">
+                                        <a href="@accionFormativa.specifiesUrl" property="dc:title">@accionFormativa.specifies</a>
+                                        <div>
+                                            <strong>Fecha inicio:</strong>
+                                            <span property="mlo:start">08/05/2018</span>
+                                        </div>
+                                        <div>
+                                            <strong>Fecha fin:</strong>
+                                            <span property="emlo:endCallDate">22/05/2018</span>
+                                        </div>
+                                        <div>
+                                            <strong>Tutores:</strong>
+                                            <span >Oscar Rodríguez López</span>
+                                        </div>
+                                            <div class="propSelEnt propSelEnt_endCallDate">
+                                                <div class="edit edit_endCallDate">
+                                                    <strong class="lb lb_endCallDate">Fecha fin:</strong>
+                                                    <span class="values">
+                                                        <span class="value" property="emlo:endCallDate">22/05/2018</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="propSelEnt propSelEnt_tutor">
+                                                <div class="cont cont_tutor" rel="emlo:tutor">
+                                                    <strong class="lb lb_tutor">Tutores:</strong>
+                                                    <div>
+                                                        <span class="values">
+                                                            <span class="value">Oscar Rodríguez López</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="propSelEnt propSelEnt_person">
+                                                <div class="cont cont_person" rel="emlo:person">
+                                                    <strong class="lb lb_person">Participantes de la convocatoria:</strong>
+                                                    <div class="contSelEnt contSelEnt_person">
+                                                        <div class="propSelEnt propSelEnt_name">
+                                                            <div class="edit edit_name">
+                                                                <span class="values">
+                                                                    <span class="value" property="foaf:name">DIANA LAHOZ ESCUDERO</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="contSelEnt contSelEnt_person">
+                                                        <div class="propSelEnt propSelEnt_name">
+                                                            <div class="edit edit_name">
+                                                                <span class="values">
+                                                                    <span class="value" property="foaf:name">LUIS GIL PIQUERAS</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="contSelEnt contSelEnt_person">
+                                                        <div class="propSelEnt propSelEnt_name">
+                                                            <div class="edit edit_name">
+                                                                <span class="values">
+                                                                    <span class="value" property="foaf:name">EVA SERRANO IMEDIO</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="contSelEnt contSelEnt_person">
+                                                        <div class="propSelEnt propSelEnt_name">
+                                                            <div class="edit edit_name">
+                                                                <span class="values">
+                                                                    <span class="value" property="foaf:name">RAQUEL LÓPEZ MORATALLA</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="propSelEnt propSelEnt_availableSeats">
+                                                <div class="edit edit_availableSeats">
+                                                    <strong class="lb lb_availableSeats">Plazas libres:</strong>
+                                                    <span class="values">
+                                                        <span class="value" property="emlo:availableSeats">6</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="propSelEnt propSelEnt_activationDate">
+                                                <div class="edit edit_activationDate">
+                                                    <strong class="lb lb_activationDate">Fecha hora activación formulario opinión:</strong>
+                                                    <span class="values">
+                                                        <span class="value" property="emlo:activationDate">09/05/2018 00:00:00</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="propSelEnt propSelEnt_desactivationDate">
+                                                <div class="edit edit_desactivationDate">
+                                                    <strong class="lb lb_desactivationDate">Fecha hora desactivación formulario opinión:</strong>
+                                                    <span class="values">
+                                                        <span class="value" property="emlo:desactivationDate">17/05/2018 12:00:00</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="propSelEnt propSelEnt_endCloseDate">
+                                                <div class="edit edit_endCloseDate">
+                                                    <strong class="lb lb_endCloseDate">Fecha de fin del cierre de AF:</strong>
+                                                    <span class="values">
+                                                        <span class="value" property="emlo:endCloseDate">06/06/2018</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="propSelEnt propSelEnt_center">
+                                                <div class="cont cont_center" rel="emlo:center">
+                                                    <strong class="lb lb_center">Centro de celebración:</strong>
+                                                    <div class="contSelEnt contSelEnt_center">
+                                                        <div class="propSelEnt propSelEnt_description">
+                                                            <div class="edit edit_description">
+                                                                <span class="values">
+                                                                    <span class="value" property="dc:description">ASOCIACIÓN DE VECINOS LA CANDELARIA (TOLEDO)</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        @if (Model.SemanticFrom != null && !Model.SemanticFrom.SemCmsDrawOverMenu)
-                        {
-                            @Html.PartialView("../Shared/SemCms/_GeneradorSemCms", Model.SemanticFrom);
-                        }
 
                         @if (!Model.HideUtilsResource)
                         {
@@ -337,21 +425,9 @@
                             </div>
                         }
 
-                        @if (!Model.HideSharedCommunities)
-                        {
-                            <div class="group compartida" id="divCompartido">
-                                @Html.PartialView("_FichaCompartidos", FichaDocumento)
-                            </div>
-                        }
-
-                        @if (FichaDocumento.TypeDocument == ResourceModel.DocumentType.Newsletter)
-                        {
-                            <div class="group newsletter">
-                                <p>
-                                    <a href="@FichaDocumento.UrlSearch?gnoss:hastipodoc=11">@Html.GetText("PERFILBASERECURSOSFICHA", "VERTODASNEWSLETTERS")</a>
-                                </p>
-                            </div>
-                        }
+                        <div class="group compartida" id="divCompartido">
+                            @Html.PartialView("_FichaCompartidos", FichaDocumento)
+                        </div>
 
                         @if (FichaDocumento.Licence != "")
                         {
@@ -395,16 +471,16 @@
                                         </fieldset>
                                     </div>
                                 </div>
-                                                }
-                                                else
-                                                {
-                                                    <label><span>@Html.GetText("CONTROLESDOCUMENTACION", "COMENTARIOSBLOQUEADOS")</span></label>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <p>@Html.GetText("CONTROLESDOCUMENTACION", "QUIERESCOMENTAR") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "HAZTEMIEMBRO")">@Html.GetText("COMMON", "REGISTRARSE")</a> @Html.GetText("PERFIL", "VISITANTEPERFILO") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "LOGIN")">@Html.GetText("COMINICIOLOGIN", "INICIASESION")</a></p>
-                                                }
+                            }
+                            else
+                            {
+                                <label><span>@Html.GetText("CONTROLESDOCUMENTACION", "COMENTARIOSBLOQUEADOS")</span></label>
+                            }
+                        }
+                        else
+                        {
+                            <p>@Html.GetText("CONTROLESDOCUMENTACION", "QUIERESCOMENTAR") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "HAZTEMIEMBRO")">@Html.GetText("COMMON", "REGISTRARSE")</a> @Html.GetText("PERFIL", "VISITANTEPERFILO") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "LOGIN")">@Html.GetText("COMINICIOLOGIN", "INICIASESION")</a></p>
+                        }
                         <div id="panComentarios">
                             @foreach (CommentModel comentario in FichaDocumento.Comments)
                             {
@@ -417,7 +493,7 @@
             </div>
             <input type="hidden" value="@Html.GetText("FREEBASE", "AVISOLEGAL")" class="inpt_avisoLegal" />
         </div>
-                                                }
+    }
 </div>
 <div id="col01">
     <div id="panVinculadosInt">
@@ -434,22 +510,45 @@
     }
 </div>
 
-@if (Model.SemanticFrom != null && Model.SemanticFrom.MapAgregated)
-{
-    <div class="listado-mapa">
-        <div id="listing-preview-map"></div>
-    </div>
-}
-
-
 <script language="javascript" type="text/javascript">
-
-$(document).ready(function () {
-    MontarFechaCliente();
-});
-
+    $(document).ready(function () {
+        MontarFechaCliente();
+    });
 </script>
 
 <script type="text/javascript">
-     @Html.Raw(Html.GetJSExtra());
+    @Html.Raw(Html.GetJSExtra());
 </script>
+
+
+@functions
+{
+    public class Recurso
+    {
+
+        public Recurso(SemanticResourceModel pSemCmsModel)
+        {
+            string mlo = "http://purl.org/net/mlo/";
+            string crfp = "http://onto.educa.jccm.es/crfp#";
+            string emlo = "http://onto.educa.jccm.es/emlo#";
+            string dc = "http://purl.org/dc/elements/1.1/";
+
+            this.teachingType = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "teachingType@@@" + dc + "description");
+            this.scope = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "scope@@@" + dc + "description");
+            this.timing = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "timing@@@" + dc + "description");
+            this.orgCenter = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "orgCenter@@@" + dc + "description");
+
+            this.specifies = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + dc + "title");
+            this.specifiesUrl = pSemCmsModel.GetPropertyByPath(mlo + "specifies").PropertyValues[0].RelatedEntity.Properties[0].PropertyValues[0].DownloadUrl;
+        }
+
+        public string teachingType { get; set; }
+        public string scope { get; set; }
+        public string timing { get; set; }
+        public string orgCenter { get; set; }
+
+        public string specifies { get; set; }
+        public string specifiesUrl { get; set; }
+
+    }
+}
