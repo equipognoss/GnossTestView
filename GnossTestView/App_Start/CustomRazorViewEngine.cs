@@ -14,6 +14,7 @@ namespace GnossTestView.App_Start
 
             base.ViewLocationFormats = new string[] {
                 "~/Views/{1}/{0}.cshtml",
+                "~/GenericViews/{1}/{0}.cshtml"
             };
 
             DirectoryInfo directorioVistas = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views"));
@@ -22,18 +23,23 @@ namespace GnossTestView.App_Start
             List<string> partialViewLocationFormats = new List<string>() {
                 "~/Views/{1}/{0}.cshtml",
                 "~/Views/Shared/{0}.cshtml",
-                "~/Views/CMSPagina/{0}.cshtml"
+                "~/Views/CMSPagina/{0}.cshtml",
+                "~/GenericViews/{1}/{0}.cshtml",
+                "~/GenericViews/Shared/{0}.cshtml",
+                "~/GenericViews/CMSPagina/{0}.cshtml"
             };
 
             foreach (DirectoryInfo directorio in directoriosVistas)
             {
                 partialViewLocationFormats.Add($"~/Views/{directorio.Name}/{{0}}.cshtml");
+                partialViewLocationFormats.Add($"~/GenericViews/{directorio.Name}/{{0}}.cshtml");
             }
 
             base.PartialViewLocationFormats = partialViewLocationFormats.ToArray();
 
             base.MasterLocationFormats = new string[] {
-                "~/Views/Shared/{0}.cshtml"
+                "~/Views/Shared/{0}.cshtml",
+                "~/GenericViews/Shared/{0}.cshtml"
             };
 
             base.FileExtensions = new string[] {

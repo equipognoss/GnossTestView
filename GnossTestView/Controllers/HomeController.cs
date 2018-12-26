@@ -26,7 +26,7 @@ namespace GnossTestView.Controllers
 
         public ActionResult Index()
         {
-            return View("~/Views/GnossTestView/AskURL.cshtml");
+            return View("~/GenericViews/GnossTestView/AskURL.cshtml");
         }
 
         public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password)
@@ -36,16 +36,13 @@ namespace GnossTestView.Controllers
                 return View("~/Views/GnossTestView/AskURL.cshtml");
             }
 
-
             // Comprobamos si existe o no el json en App_Data, o si el usuario quiere recargar la página
             string fileName = url.Substring(url.IndexOf('/', url.IndexOf("//") + 2)).Trim('/');
             fileName = fileName.Replace('?','-');
             fileName = fileName.Replace('&', '-');
             fileName = fileName.Replace('=', '-');
-            //string jsonURL = $"~/App_Data/{url.Replace("http://localhost:56680/", "")}.txt"; // cambiar o solo http://
-            string jsonURL = $"~/App_Data/{fileName}.txt"; // cambiar o solo http://
+            string jsonURL = $"~/App_Data/{fileName}.txt";
             string responseFromServer;
-            bool ficheroLeido = false;
 
             if(submit == "Recargar página" || !System.IO.File.Exists(Server.MapPath(jsonURL)))
             {
@@ -61,7 +58,6 @@ namespace GnossTestView.Controllers
                     string base64Auth = System.Convert.ToBase64String(plainTextBytes);
                     myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Basic {base64Auth}");
                 }
-
 
                 myHttpWebRequest.CookieContainer = new CookieContainer();
                 if (!string.IsNullOrEmpty(sessionID))
@@ -96,7 +92,6 @@ namespace GnossTestView.Controllers
             else
             {
                 responseFromServer = System.IO.File.ReadAllText(Server.MapPath(jsonURL));
-                ficheroLeido = true;
             }
 
             // Dividimos el json obtenido, la primera string para el modelo y la segunda para el ViewBag 
@@ -108,7 +103,6 @@ namespace GnossTestView.Controllers
                 jsonViewData = divideJson[1];
             }
             
-
             // Deserializamos ViewData
             JsonSerializerSettings jsonSerializerSettingsVB = new JsonSerializerSettings
             {
@@ -123,7 +117,6 @@ namespace GnossTestView.Controllers
                     ViewData.Add(item, ViewDataDeserializado[item]);
                 }
             }
-
 
             // Obtenemos tipo del modelo
             int from = jsonModel.IndexOf(TYPE_JSON);
@@ -155,41 +148,19 @@ namespace GnossTestView.Controllers
                     AutenticationModel modelAM = (AutenticationModel)DeserializeObject(jsonModel);
                     return View("~/Views/Registro/Index.cshtml", modelAM);
                 case "ResourceViewModel":
-                    
-                    if (ficheroLeido == false)
-                    {
-                        //jsonModel = ChangeIdJson(jsonModel);
-
-                        // volvemos a formar el fichero, pero con los ids cambiados para guardarlo
-                        responseFromServer =  jsonModel + "{ComienzoJsonViewData}" + jsonViewData;
-                        FileInfo file = new FileInfo(Server.MapPath(jsonURL)); 
-                        file.Directory.Create();
-                        System.IO.File.WriteAllText(file.FullName, responseFromServer);
-                    }
-
-                    // Asignación de propiedades estáticas (NamespaceOntologia y UrlOntología también pierden su valor)
-                    //GestionOWL.URLIntragnoss = "http://didactalia.net/";  
-
-                    //// Deserializamos ResourceViewModel
-                    //JsonSerializerSettings jsonSerializerSettingsRM = new JsonSerializerSettings
-                    //{
-                    //    ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-                    //    ObjectCreationHandling = ObjectCreationHandling.Replace,
-                    //    ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
-                    //    PreserveReferencesHandling = PreserveReferencesHandling.All,
-                    //    TypeNameHandling = TypeNameHandling.All
-                    //};
-                    //ResourceViewModel modelRM = JsonConvert.DeserializeObject<ResourceViewModel>(jsonModel, jsonSerializerSettingsRM);
-
                     MemoryStream mStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(jsonModel));
                     BinaryFormatter deserializer = new BinaryFormatter();
                     ResourceViewModel modelRM = (ResourceViewModel)deserializer.Deserialize(mStream);
 
                     // Comprobamos si el modelo contiene RdfType y mostramos la vista correspondiente
                     string rdfType = modelRM.Resource.RdfType;
-                    if (!String.IsNullOrEmpty(rdfType))
+                    if (!string.IsNullOrEmpty(rdfType))
                     {
-                        return View($"~/Views/FichaRecurso/{rdfType}.cshtml", modelRM);
+                        string viewName = $"~/Views/FichaRecurso/{rdfType}.cshtml";
+                        if (System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
+                        {
+                            return View(viewName, modelRM);
+                        }
                     }
                     return View("~/Views/FichaRecurso/Index.cshtml", modelRM);
                 case "ProfilePageViewModel":
@@ -229,6 +200,12 @@ namespace GnossTestView.Controllers
         protected override ViewResult View(string viewName, string masterName, object model)
         {
             ViewBag.ViewPath = viewName.Substring(0, viewName.LastIndexOf('/'));
+
+            if(!System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
+            {
+                viewName = viewName.Replace("/Views/", "/GenericViews/");
+            }
+
             return base.View(viewName, masterName, model);
         }
 

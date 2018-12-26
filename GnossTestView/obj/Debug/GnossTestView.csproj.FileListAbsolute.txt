@@ -102,3 +102,9 @@ C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\bin\es\Syste
 C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\obj\Debug\GnossTestView.csprojResolveAssemblyReference.cache
 C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\obj\Debug\GnossTestView.dll
 C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\obj\Debug\GnossTestView.pdb
+C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\bin\Views\FichaRecurso\LearningOpportunitySpecification.cshtml
+C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\bin\Views\FichaRecurso\Person.cshtml
+C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\bin\Views\FichaRecurso\EducationalResource.cshtml
+C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\bin\Views\FichaRecurso\LearningOpportunitySummary.cshtml
+C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\bin\Views\Shared\Head\_FicherosJavascript.cshtml
+C:\GNOSS\Proyectos\CompiladorVistas2\GnossTestView_V2\GnossTestView\bin\Views\Shared\Head\_HojasDeEstilo.cshtml

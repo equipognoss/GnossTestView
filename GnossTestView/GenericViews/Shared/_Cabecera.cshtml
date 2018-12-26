@@ -48,7 +48,7 @@
                                 </a>
                                 <@(!Html.GetPintarH1().HasValue || Html.GetPintarH1().Value ? "/h1" : "/div")>
 
-                                    @if (!Comunidad.IsCatalog)
+                                    @*@if (!Comunidad.IsCatalog)
                                     {
                                         <p class="small">
                                             <span>
@@ -106,7 +106,7 @@
                                                 }
                                             }
                                         </p>
-                                    }
+                                    }*@
                         </div>
                     }
                 </div>
@@ -198,21 +198,21 @@
                     }
                     else if (!IdentidadActual.IsGuestUser)
                     {
-                        string urlFoto = "../theme/resources/persona-default.png";
+                        string urlFoto = "";
                         if (string.IsNullOrEmpty(perfil.Foto))
                         {
-                            if (perfil.TypeProfile == ProfileType.ProfessionalCorporate)
-                            {
-                                urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesOrganizaciones + "/" + "anonimo_peque.png";
-                            }
-                            else
-                            {
-                                urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesPersonas + "/" + "anonimo_peque.png";
-                            }
+                            //if (perfil.TypeProfile == ProfileType.ProfessionalCorporate)
+                            //{
+                            //    urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesOrganizaciones + "/" + "anonimo_peque.png";
+                            //}
+                            //else
+                            //{
+                            //    urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesPersonas + "/" + "anonimo_peque.png";
+                            //}
                         }
                         else
                         {
-                            urlFoto = @Html.GetBaseUrlContent() + perfil.Foto;
+                            urlFoto = Html.GetBaseUrlContent() + perfil.Foto;
                         }
                        <div class="conectado">
                         <ul>
@@ -224,7 +224,7 @@
                             <li class="usuario">
                                 <div class="img-usuario">
                                     <a href="javascript: void(0);" data-target="menuLateralUsuario" data-placement="right" data-position="slidepush" class="pmd-sidebar-toggle">
-                                        <span style="background: url(@urlFoto) no-repeat center"></span>
+                                        <span @Html.Raw(string.IsNullOrEmpty(urlFoto) ? "" : "style=\"background: url(@urlFoto) no-repeat center\"")></span>
                                     </a>
                                 </div>
                                 <span class="novedades" id="infoNumSuscriopciones">6<span class="indentado">nuevos</span></span>
