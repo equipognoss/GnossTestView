@@ -224,7 +224,7 @@
                             <li class="usuario">
                                 <div class="img-usuario">
                                     <a href="javascript: void(0);" data-target="menuLateralUsuario" data-placement="right" data-position="slidepush" class="pmd-sidebar-toggle">
-                                        <span @Html.Raw(string.IsNullOrEmpty(urlFoto) ? "" : "style=\"background: url(@urlFoto) no-repeat center\"")></span>
+                                        <span @Html.Raw(string.IsNullOrEmpty(urlFoto) ? "" : "style=\"background: url(" + urlFoto + ") no-repeat center\"")></span>
                                     </a>
                                 </div>
                                 <span class="novedades" id="infoNumSuscriopciones">6<span class="indentado">nuevos</span></span>
