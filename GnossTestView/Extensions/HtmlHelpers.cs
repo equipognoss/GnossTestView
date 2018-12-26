@@ -187,7 +187,7 @@ namespace GnossTestView.Extensions
             else
             {
                 string partialPath = htmlHelper.ViewBag.ViewPath;
-                if (partialPath.Equals("~/Views/FichaRecurso") && (partialViewName.StartsWith("SemCms/_") || partialViewName.StartsWith("ControlesMVC/")))
+                if ((partialPath.Equals("~/Views/FichaRecurso") && (partialViewName.StartsWith("SemCms/_")) || partialViewName.StartsWith("ControlesMVC/")))
                 {
                     partialPath = "~/Views/Shared";
                 }
