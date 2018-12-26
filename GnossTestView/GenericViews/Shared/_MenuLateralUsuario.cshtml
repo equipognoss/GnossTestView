@@ -6,17 +6,17 @@
     UserIdentityModel IdentidadActual = Html.GetIdentidadActual();
     string nombreTipoPerfil = "";
 
-    string urlFoto = "../theme/resources/persona-default.png";
+    string urlFoto = "";
     if (string.IsNullOrEmpty(perfil.Foto))
     {
-        if (perfil.TypeProfile == ProfileType.ProfessionalCorporate)
-        {
-            urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesOrganizaciones + "/" + "anonimo_peque.png";
-        }
-        else
-        {
-            urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesPersonas + "/" + "anonimo_peque.png";
-        }
+        //if (perfil.TypeProfile == ProfileType.ProfessionalCorporate)
+        //{
+        //    urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesOrganizaciones + "/" + "anonimo_peque.png";
+        //}
+        //else
+        //{
+        //    urlFoto = "/" + Es.Riam.Util.UtilArchivos.ContentImagenes + "/" + Es.Riam.Util.UtilArchivos.ContentImagenesPersonas + "/" + "anonimo_peque.png";
+        //}
     }
     else
     {
@@ -31,7 +31,7 @@
     <div class="header">
         <div class="wrap-header">
             <div class="img-usuario">
-                <span style="background: url() no-repeat center"></span>
+                <span @Html.Raw(string.IsNullOrEmpty(urlFoto) ? "" : "style=\"background: url(" + urlFoto + ") no-repeat center\"")></span>
             </div>
             <div class="info-usuario">
                 <p class="nombre">Usuario Usuario</p>
