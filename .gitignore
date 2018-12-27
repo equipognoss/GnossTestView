@@ -25,7 +25,6 @@ bld/
 [Ll]og/
 App_Data/
 packages/
-Views/
 
 # Visual Studio 2015 cache/options directory
 .vs/
