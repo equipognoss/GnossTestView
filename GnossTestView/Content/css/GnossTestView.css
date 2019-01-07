@@ -16,3 +16,10 @@ textarea {
     max-width: 280px;
 }
 
+input#URL{
+    width: 100%;
+    max-width:750px;
+}
+input[type=text]#SessionID{
+    width: 100%;
+}

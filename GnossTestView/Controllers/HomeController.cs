@@ -17,34 +17,108 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Data.SQLite;
 
 namespace GnossTestView.Controllers
 {
     public class HomeController : Controller
     {
         private const string TYPE_JSON = "$type\":\"";
-
+        
         public ActionResult Index()
         {
+            ViewBag.Browser = GetBrowser();
             return View("~/GenericViews/GnossTestView/AskURL.cshtml");
         }
 
         public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password)
         {
-            if(String.IsNullOrEmpty(url))
+            ViewBag.Browser = GetBrowser();
+
+            string responseFromServer = null;
+            string jsonModel = null;
+
+            if (!string.IsNullOrEmpty(url))
+            {
+                responseFromServer = GetData(url, submit, sessionID, user, password);
+            }
+
+            if(string.IsNullOrEmpty(responseFromServer))
             {
                 return View("~/Views/GnossTestView/AskURL.cshtml");
             }
+            else
+            {
+                jsonModel = GetJson(responseFromServer);
+            }
 
-            // Comprobamos si existe o no el json en App_Data, o si el usuario quiere recargar la página
-            string fileName = url.Substring(url.IndexOf('/', url.IndexOf("//") + 2)).Trim('/');
-            fileName = fileName.Replace('?','-');
+            return GetView(jsonModel);
+        }
+
+        private ActionResult GetView(string jsonModel)
+        {
+            string controllerName = (string)ViewData["ControllerName"];
+            string actionName = (string)ViewData["ActionName"];
+
+            string modelType = "undefined";
+
+            if (!string.IsNullOrEmpty(controllerName))
+            {
+                modelType = GetModelType(jsonModel);
+
+                if (modelType.Equals("ResourceViewModel") && controllerName.Equals("FichaRecurso"))
+                {
+                    MemoryStream mStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(jsonModel));
+                    BinaryFormatter deserializer = new BinaryFormatter();
+                    ResourceViewModel modelRM = (ResourceViewModel)deserializer.Deserialize(mStream);
+
+                    // Comprobamos si el modelo contiene RdfType y mostramos la vista correspondiente
+                    string rdfType = modelRM.Resource.RdfType;
+                    if (!string.IsNullOrEmpty(rdfType))
+                    {
+                        string viewName = $"~/Views/FichaRecurso/{rdfType}.cshtml";
+                        if (System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
+                        {
+                            return View(viewName, modelRM);
+                        }
+                    }
+                    return View("~/Views/FichaRecurso/Index.cshtml", modelRM);
+                }
+                else
+                {
+                    if (controllerName.Equals("HomeComunidad") && modelType.Equals("CMSBlock")) { controllerName = "CMSPagina"; }
+                    if (modelType.Equals("Error404ViewModel")) { controllerName = "Error"; actionName = "Error404"; }
+
+                    string view = $"~/Views/{controllerName}/{actionName}.cshtml";
+
+                    if (System.IO.File.Exists(AppContext.BaseDirectory + view.Replace("~/Views/", "GenericViews/")))
+                    {
+                        Type type = (Type.GetType(modelType));
+                        return View(view, DeserializeObject(jsonModel, type));
+                    }
+                }
+            }
+
+            ViewBag.ErrorAskURL = $"No se ha podido pintar la página de tipo '{controllerName}/{actionName}' con el Modelo de tipo '{modelType}'";
+            return View("~/Views/GnossTestView/AskURL.cshtml");
+        }
+
+        private string GetFileName(string pUrl)
+        {
+            string fileName = pUrl.Substring(pUrl.IndexOf('/', pUrl.IndexOf("//") + 2)).Trim('/');
+            fileName = fileName.Replace('?', '-');
             fileName = fileName.Replace('&', '-');
             fileName = fileName.Replace('=', '-');
-            string jsonURL = $"~/App_Data/{fileName}.txt";
+            return $"~/App_Data/{fileName}.txt";
+        }
+        
+        private string GetData(string url, string submit, string sessionID, string user, string password)
+        {
+            string jsonURL = GetFileName(url);
+
             string responseFromServer;
 
-            if(submit == "Recargar página" || !System.IO.File.Exists(Server.MapPath(jsonURL)))
+            if (submit == "Recargar página" || !System.IO.File.Exists(Server.MapPath(jsonURL)))
             {
                 HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -52,15 +126,37 @@ namespace GnossTestView.Controllers
                 myHttpWebRequest.Accept = "application/json";
                 myHttpWebRequest.Timeout = 100000000;
 
-                if (!string.IsNullOrEmpty(user))
+                if (ViewBag.Browser == "chrome" && !string.IsNullOrEmpty(user))
+                {
+                    if (user == "true")
+                    {
+                        string strHost = new Uri(url).Host;
+                        KeyValuePair<string, string> userAutentication = GetLoginData_Chrome(strHost);
+
+                        if (userAutentication.Key != "")
+                        {
+                            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{userAutentication.Key}:{userAutentication.Value}");
+                            string base64Auth = System.Convert.ToBase64String(plainTextBytes);
+                            myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Basic {base64Auth}");
+                        }
+                    }
+                }
+                else if (!string.IsNullOrEmpty(user))
                 {
                     var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{user}:{password}");
                     string base64Auth = System.Convert.ToBase64String(plainTextBytes);
                     myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Basic {base64Auth}");
-                }
+                }              
 
                 myHttpWebRequest.CookieContainer = new CookieContainer();
-                if (!string.IsNullOrEmpty(sessionID))
+                if (ViewBag.Browser == "chrome" && !string.IsNullOrEmpty(sessionID) )
+                {
+                    if (sessionID == "true")
+                    {
+                        myHttpWebRequest.CookieContainer.Add(GetSessionIDCookie(url));
+                    }
+                }
+                else if (!string.IsNullOrEmpty(sessionID))
                 {
                     myHttpWebRequest.CookieContainer.Add(new Cookie("ASP.NET_SessionId", sessionID, "/", myHttpWebRequest.RequestUri.Host));
                 }
@@ -86,7 +182,7 @@ namespace GnossTestView.Controllers
                 {
                     string error = ex.Message;
                     ViewBag.ErrorAskURL = error;
-                    return View("~/Views/GnossTestView/AskURL.cshtml");
+                    responseFromServer = null;
                 }
             }
             else
@@ -94,22 +190,74 @@ namespace GnossTestView.Controllers
                 responseFromServer = System.IO.File.ReadAllText(Server.MapPath(jsonURL));
             }
 
+            return responseFromServer;
+        }
+
+        private string GetBrowser()
+        {
+            string browser = Request.Browser.Browser.ToLower();
+
+            if (browser.Equals("chrome") && Request.UserAgent.IndexOf("Edge") > -1)
+            {
+                browser = "edge";
+            }
+
+            if (string.IsNullOrEmpty(Request.Params["__utmc"]))
+            {
+                browser += "_private";
+            }
+            return browser;
+        }
+
+        private Cookie GetSessionIDCookie(string url)
+        {
+            string strHost = new Uri(url).Host;
+
+            string SESSION_ID = "ASP.NET_SessionId";
+            string cookieValue = string.Empty;
+
+            string browser = GetBrowser();
+
+            switch (browser)
+            {
+                case "chrome":
+                    cookieValue = GetCookie_Chrome(strHost, SESSION_ID);
+                    break;
+                //case "firefox":
+                //    cookieValue = GetCookie_FireFox(strHost, SESSION_ID);
+                //    break;
+                //case "edge":
+                //    cookieValue = GetCookie_Edge(strHost, SESSION_ID);
+                //    break;
+                //case "internetexplorer":
+                //    cookieValue = GetCookie_InternetExplorer(strHost, SESSION_ID);
+                //    break;
+                //case "opera":
+                //    cookieValue = GetCookie_Chrome(strHost, SESSION_ID);
+                //    break;
+            }
+
+            return new Cookie(SESSION_ID, cookieValue, "/", strHost);
+        }
+
+        private string GetJson(string responseFromServer)
+        {
             // Dividimos el json obtenido, la primera string para el modelo y la segunda para el ViewBag 
             string[] divideJson = responseFromServer.Split(new string[] { "{ComienzoJsonViewData}" }, StringSplitOptions.None);
             string jsonModel = divideJson[0];
-            string jsonViewData="";
+            string jsonViewData = "";
             if (divideJson.Length > 1)
             {
                 jsonViewData = divideJson[1];
             }
-            
+
             // Deserializamos ViewData
-            JsonSerializerSettings jsonSerializerSettingsVB = new JsonSerializerSettings
+            JsonSerializerSettings jsonSerializerSettingsSimple = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All,
                 TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             };
-            ViewDataDictionary ViewDataDeserializado = JsonConvert.DeserializeObject<ViewDataDictionary>(jsonViewData, jsonSerializerSettingsVB);
+            ViewDataDictionary ViewDataDeserializado = JsonConvert.DeserializeObject<ViewDataDictionary>(jsonViewData, jsonSerializerSettingsSimple);
             if (ViewDataDeserializado != null)
             {
                 foreach (string item in ViewDataDeserializado.Keys)
@@ -118,7 +266,12 @@ namespace GnossTestView.Controllers
                 }
             }
 
-            // Obtenemos tipo del modelo
+            return jsonModel;
+        }
+
+        private string GetModelType(string jsonModel)
+        {
+            //// Obtenemos tipo del modelo
             int from = jsonModel.IndexOf(TYPE_JSON);
             string modelType = "";
             if (from >= 0)
@@ -135,62 +288,7 @@ namespace GnossTestView.Controllers
             {
                 modelType = "ResourceViewModel";
             }
-
-            switch (modelType) 
-            {
-                case "CMSBlock":
-                    List<CMSBlock> modelCB = (List<CMSBlock>)DeserializeObject(jsonModel);
-                    return View("~/Views/CMSPagina/Index.cshtml", modelCB);
-                case "SearchViewModel":
-                    SearchViewModel modelSM = (SearchViewModel)DeserializeObject(jsonModel);
-                    return View("~/Views/Busqueda/Index.cshtml", modelSM);
-                case "AutenticationModel":
-                    AutenticationModel modelAM = (AutenticationModel)DeserializeObject(jsonModel);
-                    return View("~/Views/Registro/Index.cshtml", modelAM);
-                case "ResourceViewModel":
-                    MemoryStream mStream = new MemoryStream(ASCIIEncoding.Default.GetBytes(jsonModel));
-                    BinaryFormatter deserializer = new BinaryFormatter();
-                    ResourceViewModel modelRM = (ResourceViewModel)deserializer.Deserialize(mStream);
-
-                    // Comprobamos si el modelo contiene RdfType y mostramos la vista correspondiente
-                    string rdfType = modelRM.Resource.RdfType;
-                    if (!string.IsNullOrEmpty(rdfType))
-                    {
-                        string viewName = $"~/Views/FichaRecurso/{rdfType}.cshtml";
-                        if (System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
-                        {
-                            return View(viewName, modelRM);
-                        }
-                    }
-                    return View("~/Views/FichaRecurso/Index.cshtml", modelRM);
-                case "ProfilePageViewModel":
-                    ProfilePageViewModel modelProfile = (ProfilePageViewModel)DeserializeObject(jsonModel);
-                    return View("~/Views/FichaPerfil/Index.cshtml", modelProfile);
-                case "OlvidePasswordViewModel":
-                    OlvidePasswordViewModel modelOlvidePass = (OlvidePasswordViewModel)DeserializeObject(jsonModel);
-                    return View("~/Views/OlvidePassword/Index.cshtml", modelOlvidePass);
-                case "bool":
-                    bool listadoMensajeModel = (bool)DeserializeObject(jsonModel);
-                    return View("~/Views/BandejaMensajes/Listado.cshtml", listadoMensajeModel);
-                case "MessageModel":
-                    MessageModel mensajeModel = (MessageModel)DeserializeObject(jsonModel);
-                    if (url.EndsWith("?nuevo"))
-                    {
-                        return View("~/Views/BandejaMensajes/EdicionMensaje.cshtml", mensajeModel);
-                    }
-                    else
-                    {
-                        return View("~/Views/BandejaMensajes/Mensaje.cshtml", mensajeModel);
-                    }
-                case "Error404ViewModel":
-                    return View("~/Views/Error/Error404.cshtml", (Error404ViewModel)DeserializeObject(jsonModel));
-                default:
-                    //Type type = (Type.GetType(modelType));
-                    //return View("~/Views/" + ViewData["ControllerName"] + "/Index.cshtml", DeserializeObject(jsonModel, type));
-
-                    ViewBag.ErrorAskURL = "No se ha podido pintar la página de tipo '" + ViewData["ControllerName"] + "' con el Modelo de tipo '" + modelType + "'";
-                    return View("~/Views/GnossTestView/AskURL.cshtml");
-            }
+            return modelType;
         }
 
         /// <summary>
@@ -212,76 +310,151 @@ namespace GnossTestView.Controllers
         /// <summary>
         /// Obtenemos un objeto deserializado con las opciones de deserialización PreserveReferencesHandling.Objects y TypeNameHandling.All
         /// </summary>
-        private object DeserializeObject(string json)
-        {
-            JsonSerializerSettings jsonSerializerSettingsSM = new JsonSerializerSettings
-            {
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-                TypeNameHandling = TypeNameHandling.All
-            };
-            return JsonConvert.DeserializeObject(json, jsonSerializerSettingsSM);
-        }
-
-        /// <summary>
-        /// Obtenemos un objeto deserializado con las opciones de deserialización PreserveReferencesHandling.Objects y TypeNameHandling.All
-        /// </summary>
         private object DeserializeObject(string json, Type type)
         {
-            JsonSerializerSettings jsonSerializerSettingsSM = new JsonSerializerSettings
+            JsonSerializerSettings jsonSerializerSettingsObject = new JsonSerializerSettings
             {
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 TypeNameHandling = TypeNameHandling.All
             };
-            return JsonConvert.DeserializeObject(json, type, jsonSerializerSettingsSM);
+
+            return JsonConvert.DeserializeObject(json, type, jsonSerializerSettingsObject);
         }
 
-        /// <summary>
-        /// Cambia los ids repetidos del json pasado como parámetro
-        /// </summary>
-        private string ChangeIdJson(string json)
+        private static string GetChromeCookiePath()
         {
-            string pattern = @"(""\$id"":)("")(\d+)("")";
-            Regex rg = new Regex(pattern);
-            MatchCollection matchCollectionID = rg.Matches(json);
-            string stringID = matchCollectionID[matchCollectionID.Count - 1].Value;
-            string stringFinalID = Regex.Match(stringID, @"\d+").Value;
-            int finalID = Int32.Parse(stringFinalID);
+            string s = Environment.GetFolderPath(
+                Environment.SpecialFolder.LocalApplicationData);
+            s += @"\Google\Chrome\User Data\Default\cookies";
 
-            int newNumber = finalID + 1;
-            int desplazar = 0;
-            int nthOccurance;
-            int desplazamiento = 0;
-            int cont = 0;
-            int ids = 0;
-
-            //Stopwatch timer = Stopwatch.StartNew();
-
-            while (ids <= finalID)
+            if (!System.IO.File.Exists(s))
             {
-                MatchCollection matchCollection = Regex.Matches(json, Regex.Escape("\"$id\":\"" + ids + "\""));
-                cont = matchCollection.Count;
+                return string.Empty;
+            }
+            else
+            {
+                FileInfo file = new FileInfo(s);
+                string newFileName = Path.GetTempPath() + "Chrome_cookies" + DateTime.Now.ToString("yyyyMMddhhmmssffff");
 
-                if (cont >= 2)
+                file.CopyTo(newFileName);
+                return newFileName;
+            }
+        }
+
+        private static string GetChromeLoginDataPath()
+        {
+            string s = Environment.GetFolderPath(
+                Environment.SpecialFolder.LocalApplicationData);
+            s += @"\Google\Chrome\User Data\Default\Login Data";
+
+            if (!System.IO.File.Exists(s))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                FileInfo file = new FileInfo(s);
+                string newFileName = Path.GetTempPath() + "Chrome_Login Data" + DateTime.Now.ToString("yyyyMMddhhmmssffff");
+
+                file.CopyTo(newFileName);
+                return newFileName;
+            }
+        }
+
+        private static string GetCookie_Chrome(string strHost, string strField)
+        {
+            string cookieValue = string.Empty;
+            string strPath = GetChromeCookiePath();
+
+            if (string.Empty == strPath)
+                return string.Empty;
+
+            try
+            {
+                string strDb = "Data Source=" + strPath + ";pooling=false";
+
+                using (SQLiteConnection conn = new SQLiteConnection(strDb))
                 {
-                    desplazamiento = 0;
-                    desplazar = ((int)Math.Log10(newNumber) + 1) - ((int)Math.Log10(ids) + 1);
-
-                    for (nthOccurance = 2; cont >= nthOccurance; nthOccurance++)
+                    using (SQLiteCommand cmd = conn.CreateCommand())
                     {
-                        Match match = matchCollection[nthOccurance - 1];
-                        json = json.Remove(match.Index + desplazamiento, match.Length).Insert(match.Index + desplazamiento, "\"$id\":\"" + newNumber + "\"");
-                        newNumber++;
-                        desplazamiento += desplazar;
+                        cmd.CommandText = "SELECT encrypted_value FROM cookies WHERE (host_key = '" + strHost + "' OR host_key = '." + strHost + "') " + 
+                           " AND name LIKE '%" + strField + "%';";
+
+                        conn.Open();
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+
+                            while (reader.Read())
+                            {
+                                var encryptedValue = (byte[])reader[0];
+                                var decryptedValue = System.Security.Cryptography.ProtectedData.Unprotect(encryptedValue, null, System.Security.Cryptography.DataProtectionScope.CurrentUser);
+                                cookieValue = Encoding.ASCII.GetString(decryptedValue);
+
+                                if (!cookieValue.Equals(string.Empty))
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        conn.Close();
                     }
                 }
-                ids++;
+            }
+            finally
+            {
+                System.IO.File.Delete(strPath);
             }
 
-            //timer.Stop();
-            //TimeSpan timespan = timer.Elapsed;
-            //System.Diagnostics.Debug.WriteLine(String.Format("{0:00}:{1:00}:{2:00}", timespan.Minutes, timespan.Seconds, timespan.Milliseconds / 10));
-
-            return json;
+            return cookieValue;
         }
+
+
+        private KeyValuePair<string, string> GetLoginData_Chrome(string strHost)
+        {
+            KeyValuePair<string, string> userValue = new KeyValuePair<string, string>("", "");
+            string strPath = GetChromeLoginDataPath();
+
+            if (string.Empty == strPath)
+                return userValue;
+
+            try
+            {
+                string strDb = "Data Source=" + strPath + ";pooling=false";
+
+                using (SQLiteConnection conn = new SQLiteConnection(strDb))
+                {
+                    using (SQLiteCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SELECT username_value, password_value FROM logins WHERE origin_url LIKE '%://" +  strHost + "%' AND action_url = '';";
+
+                        conn.Open();
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+
+                            while (reader.Read())
+                            {
+                                var userName = reader.GetString(0);
+                                var encryptedValue = (byte[])reader[1];
+                                var decryptedValue = System.Security.Cryptography.ProtectedData.Unprotect(encryptedValue, null, System.Security.Cryptography.DataProtectionScope.CurrentUser);
+                                userValue = new KeyValuePair<string, string>(userName, Encoding.ASCII.GetString(decryptedValue)) ;
+
+                                if (!userName.Equals(string.Empty))
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        conn.Close();
+                    }
+                }
+            }
+            finally
+            {
+                System.IO.File.Delete(strPath);
+            }
+
+            return userValue;
+        }
+
     }
 }
