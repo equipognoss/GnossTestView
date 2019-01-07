@@ -215,98 +215,98 @@
                         {
                             @Html.PartialView("_FichaAccionesMenu", Model)
                         }
+                        @section javascript{
+                            <script type="text/javascript">
+                                var urlActionSemCms = '@FichaDocumento.ListActions.UrlActionSemCms';
 
-                        <script type="text/javascript">
-                            var urlActionSemCms = '@FichaDocumento.ListActions.UrlActionSemCms';
+                                $(document).ready(function () {
+                                    MontarFechas();
 
-                            $(document).ready(function () {
-                                MontarFechas();
-
-                                cargarGadgets();
-                            });
-
-                            function cargarGadgets() {
-                                var gadgets = "";
-                                var numGadgets = 0;
-                                //Contextos
-                                $('#divContPanGadgets div.group.resources:empty').each(function () {
-                                    if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
-                                        gadgets += $(this).attr("id") + ",";
-                                        numGadgets++;
-                                    }
-                                });
-                                //Componentes CMS
-                                $('#divContPanGadgets div.group.cmscomponent:empty').each(function () {
-                                    if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
-                                        gadgets += $(this).attr("id") + ",";
-                                        numGadgets++;
-                                    }
+                                    cargarGadgets();
                                 });
 
-                                if (gadgets != "") {
-                                    var dataPostGadgets = {
-                                        callback: "CargarGadgets",
-                                        gadgetsID: gadgets
-                                    }
-
-                                    $.post('@Html.GetUrlContext((string)ViewBag.UrlPagina, FichaDocumento.Key, Html.GetComunidad().ShortName)', dataPostGadgets, function (data) {
-                                        if(typeof data != "undefined" && data != ""){
-                                            for (var i in data) {
-                                                try{
-                                                    if (data[i].updateTargetId.indexOf("FichaGadget_") == 0) {
-                                                        var panID = data[i].updateTargetId.substr(12);
-                                                        var htmlGadget = data[i].html;
-                                                        if (htmlGadget == "")
-                                                        { $('#divContPanGadgets').find("#" + panID).remove(); }
-                                                        else
-                                                        { $('#divContPanGadgets').find("#" + panID).replaceWith(htmlGadget); }
-                                                    }
-                                                }
-                                                catch(err){}
-                                            }
+                                function cargarGadgets() {
+                                    var gadgets = "";
+                                    var numGadgets = 0;
+                                    //Contextos
+                                    $('#divContPanGadgets div.group.resources:empty').each(function () {
+                                        if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
+                                            gadgets += $(this).attr("id") + ",";
+                                            numGadgets++;
                                         }
-                                        $.each(gadgets.split(','), function (index, id) {
-                                        if (id.trim() != '' && $('#' + id.trim(), $('#divContPanGadgets')).length > 0 && $('#' + id.trim(), $('#divContPanGadgets')).html().trim() == '')
-                                        { $('#' + id.trim(), $('#divContPanGadgets')).remove(); }
-                                        });
-
-                                        cargarGadgets();
+                                    });
+                                    //Componentes CMS
+                                    $('#divContPanGadgets div.group.cmscomponent:empty').each(function () {
+                                        if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
+                                            gadgets += $(this).attr("id") + ",";
+                                            numGadgets++;
+                                        }
                                     });
 
+                                    if (gadgets != "") {
+                                        var dataPostGadgets = {
+                                            callback: "CargarGadgets",
+                                            gadgetsID: gadgets
+                                        }
+
+                                        $.post('@Html.GetUrlContext((string)ViewBag.UrlPagina, FichaDocumento.Key, Html.GetComunidad().ShortName)', dataPostGadgets, function (data) {
+                                            if(typeof data != "undefined" && data != ""){
+                                                for (var i in data) {
+                                                    try{
+                                                        if (data[i].updateTargetId.indexOf("FichaGadget_") == 0) {
+                                                            var panID = data[i].updateTargetId.substr(12);
+                                                            var htmlGadget = data[i].html;
+                                                            if (htmlGadget == "")
+                                                            { $('#divContPanGadgets').find("#" + panID).remove(); }
+                                                            else
+                                                            { $('#divContPanGadgets').find("#" + panID).replaceWith(htmlGadget); }
+                                                        }
+                                                    }
+                                                    catch(err){}
+                                                }
+                                            }
+                                            $.each(gadgets.split(','), function (index, id) {
+                                            if (id.trim() != '' && $('#' + id.trim(), $('#divContPanGadgets')).length > 0 && $('#' + id.trim(), $('#divContPanGadgets')).html().trim() == '')
+                                            { $('#' + id.trim(), $('#divContPanGadgets')).remove(); }
+                                            });
+
+                                            cargarGadgets();
+                                        });
+
+                                    }
+                                    else {
+                                        CompletadaCargaContextos();
+                                    }
                                 }
-                                else {
-                                    CompletadaCargaContextos();
-                                }
-                            }
 
-                            @if (FichaDocumento.Graphs.Count > 0)
-                            {
-                                @:var urlPaginaCallBackGrafos = '@FichaDocumento.ListActions.UrlCallbackGraph';
-
-                                Guid docID = FichaDocumento.Key;
-                                string titulo = FichaDocumento.Title.Replace("'", "\\'");
-                                Guid proyID = Comunidad.Key;
-                                string UrlIntragnoss = Model.UrlIntragnoss;
-
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/arbor.js?v=" + Html.GetVersion());
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/grafo.gnoss.js?v=" + Html.GetVersion());
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/jquery.qtip.min.js?v=" + Html.GetVersion());
-                                Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/css/jquery.qtip.min.css?v=" + Html.GetVersion());
-
-                                int count = 1;
-                                foreach (ResourceModel.GrafoRecurso grafo in FichaDocumento.Graphs)
+                                @if (FichaDocumento.Graphs.Count > 0)
                                 {
-                                    //@Html.Raw(" var dataPost = {callback: 'peticionajaxrelacionesgrafoficharec',urlintragnoss: '" + UrlIntragnoss + "',proyectoID: '" + proyID + "', documentoID: '" + docID + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
-                                    @Html.Raw(" var dataPost" + count + " = {urlintragnoss: '" + UrlIntragnoss + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
+                                    @:var urlPaginaCallBackGrafos = '@FichaDocumento.ListActions.UrlCallbackGraph';
 
-                                                                                                                                                                                                                                                                                     //@Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); $.post('" + Html.GetUrlPagina() + "', dataPost, FinTraerDatosGrafoAJAX);});");
-                                    @Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); GnossPeticionAjax('" + FichaDocumento.ListActions.UrlLoadGraph + "', dataPost" + count + ", true).done(function(data){FinTraerDatosGrafoAJAX(data)});});");
+                                    Guid docID = FichaDocumento.Key;
+                                    string titulo = FichaDocumento.Title.Replace("'", "\\'");
+                                    Guid proyID = Comunidad.Key;
+                                    string UrlIntragnoss = Model.UrlIntragnoss;
 
-                                    count++;
+                                    Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/arbor.js?v=" + Html.GetVersion());
+                                    Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/grafo.gnoss.js?v=" + Html.GetVersion());
+                                    Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/js/jquery.qtip.min.js?v=" + Html.GetVersion());
+                                    Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/jsNuevo/grafos/css/jquery.qtip.min.css?v=" + Html.GetVersion());
+
+                                    int count = 1;
+                                    foreach (ResourceModel.GrafoRecurso grafo in FichaDocumento.Graphs)
+                                    {
+                                        //@Html.Raw(" var dataPost = {callback: 'peticionajaxrelacionesgrafoficharec',urlintragnoss: '" + UrlIntragnoss + "',proyectoID: '" + proyID + "', documentoID: '" + docID + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
+                                        @Html.Raw(" var dataPost" + count + " = {urlintragnoss: '" + UrlIntragnoss + "', propEnlace: '" + grafo.PropEnlace + "', nodosLimiteNivel: 30,extra: '" + grafo.Extra + "', idioma: $('input.inpt_Idioma').val(), tipoRecurso: '" + grafo.TipoRecurso + "'};");
+
+                                                                                                                                                                                                                                                                                         //@Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); $.post('" + Html.GetUrlPagina() + "', dataPost, FinTraerDatosGrafoAJAX);});");
+                                        @Html.Raw(" $(function(){MontarGrafoFicRec('" + docID + "', '" + titulo + "', '" + proyID + "', '" + grafo.PropEnlace + "', 30, '" + UrlIntragnoss + "', '" + grafo.Extra + "', '" + grafo.UrlBusqueda + "', '" + grafo.TipoRecurso + "'); GnossPeticionAjax('" + FichaDocumento.ListActions.UrlLoadGraph + "', dataPost" + count + ", true).done(function(data){FinTraerDatosGrafoAJAX(data)});});");
+
+                                        count++;
+                                    }
                                 }
-                            }
                         </script>
-
+                        }
                         @if (FichaDocumento.TypeDocument != ResourceModel.DocumentType.Semantico)
                         {
                             @Html.PartialView("_FichaDescripcion", FichaDocumento)
