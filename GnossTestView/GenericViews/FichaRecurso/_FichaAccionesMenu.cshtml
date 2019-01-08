@@ -5,17 +5,10 @@
     ResourceModel.ActionsModel acciones = fichaRecurso.Actions;
 }
 
-<div id="divGroupAccionesRec">
-    <div id="customAboutResource" class="customAboutResource">
-        <div class="group acciones resourceTools">
+
+       
             <p></p>
             <ul class="principal">
-                @*
-                //Codigo para el botón de reportar un problema
-                <li class="opReportPage">
-                    <a class="oReportPage" onclick="DesplegarAccionMVC('@fichaRecurso.ListActions.UrlLoadActionReportPage', this, 'despAccionRec_@fichaRecurso.Key', '');">@Html.GetText("PERFILBASERECURSOSFICHA", "REPORTAR_RECURSO_BOTON")</a>
-                </li>
-                *@
                 @if (acciones.AddToMyPersonalSpace)
                 {
                     string textoLinkMiEsp = Html.GetText("PERFILBASERECURSOSFICHA", "AGREGARABRPERSONAL");
@@ -176,9 +169,8 @@
                     </li>
                 }
             </ul>
-        </div>
-    </div>
-</div>	
+     
+
 
 <script type="text/javascript">
     $(document).ready(function () {

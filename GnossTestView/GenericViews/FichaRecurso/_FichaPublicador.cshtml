@@ -6,7 +6,7 @@
 
 @if (fichaPublicador != null)
 {
-    if (Model.Version > 0)
+    @*if (Model.Version > 0)
     {
         @Html.GetText("COMMON", "VERSIONADO") 
     }
@@ -17,13 +17,13 @@
     else
     {
         @Html.GetText("COMMON", "COMPARTIDO") 
-    }
+    }*@
 
     if (fichaPublicador.TypeProfile == ProfileType.Personal || fichaPublicador.TypeProfile == ProfileType.Teacher)
     {                        
         if(fichaPublicador.UrlFoto != null)
         {
-            <span id="imagenIconoPublicador" class="imagenIcono Persona">
+            <span class="imagen">
                 <a href="@fichaPublicador.UrlPerson">
                     <img alt="@fichaPublicador.NamePerson" src="@Html.GetBaseUrlContent()@fichaPublicador.UrlFoto" />
                 </a>
@@ -31,11 +31,10 @@
         }
         else
         {    
-            <span id="imagenIconoPublicador" class="imagenIcono personaSinImagen">
-                <a href="@fichaPublicador.UrlPerson"></a>
+            <span class="imagen">
             </span>
         }
-        <span class="by" id="spanByFichaRec" rel="sioc:has_creator">Por 
+        <span class="datos" id="spanByFichaRec" rel="sioc:has_creator"> 
             <a href="@fichaPublicador.UrlPerson" typeof="foaf:Person">
 				<span property="foaf:name">@fichaPublicador.NamePerson</span>
             </a>
@@ -57,10 +56,11 @@
                 <a href="@fichaPublicador.UrlPerson"></a>
             </span>
         }
-        <span class="by" id="spanByFichaRec" rel="sioc:has_creator">Por 
+        <span class="datos" id="spanByFichaRec" rel="sioc:has_creator"> 
             <a href="@fichaPublicador.UrlPerson" typeof="foaf:Person">
-                <span property="foaf:name">@fichaPublicador.NamePerson · @fichaPublicador.NameOrganization</span>
+                <span class="usuario" property="foaf:name">@fichaPublicador.NamePerson</span>
             </a>
+            <span class="comunidad">@fichaPublicador.NameOrganization</span>
         </span>
     }
     else if (fichaPublicador.TypeProfile == ProfileType.ProfessionalCorporate && !string.IsNullOrEmpty(fichaPublicador.NamePerson))

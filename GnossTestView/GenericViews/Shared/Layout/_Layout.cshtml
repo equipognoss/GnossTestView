@@ -81,7 +81,11 @@
     }
 
     @Html.PartialView("../Shared/Head/_HojasDeEstilo")
-
+    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/jquery.min.js?v=@Html.GetVersion()"></script>
+    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/ejemplosUso.js?v=@Html.GetVersion()"></script>
+    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/WS.js?v=@Html.GetVersion()"></script>
+    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/global.js?v=@Html.GetVersion()"></script>
+    <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsUnificar/jMsAjax.js?v=@Html.GetVersion()"></script>
     @if (Html.GetBusquedasXml() != null)
     {
         foreach (string busqeda in Html.GetBusquedasXml())
@@ -89,7 +93,7 @@
         <link rel="search" type="application/opensearchdescription+xml" href="@busqeda" />
         }
     }
-
+    
     @if(Comunidad != null && Comunidad.ProjectExtraHTMLList != null)
     {
         @Html.PartialView("../Shared/ProyectoElementoHTML", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.EndHead).ToList());
@@ -135,7 +139,7 @@
 
     @Html.PartialView("../Shared/_Cabecera")
     @Html.PartialView("../Shared/_MenuLateralPrincipal")
-
+   
 
     <main role="main">
         <div class="container">
@@ -220,8 +224,8 @@
     </main>
 
     @Html.PartialView("../Shared/_Pie")
-
     @Html.PartialView("../Shared/Head/_FicherosJavascript")
+
 
     <script type="text/javascript">
         $(document).ready(function () {

@@ -3,9 +3,9 @@
 @if (Model.Tags != null && Model.Tags.Count>0)
 {
 	<div class="group etiquetas">
-		<p>
+		<strong>
 			@Html.GetText("COMMON", "ETIQUETAS"): 
-		</p> 
+		</strong> 
         <ul class="listTags">
             @foreach (string etiqueta in Model.Tags)
             {

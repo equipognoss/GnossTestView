@@ -112,7 +112,7 @@
                 </div>
                 <div class="col col02">
                     <div id="buscador" class="buscador">
-                        <form method="post" id="formBuscador" action="http://prered.gnoss.com/comunidad/nextweb/">
+                        <form method="post" id="formBuscador" action="@Request.Url.AbsoluteUri">
                             <div class="fieldsetGroup searchGroup">
                                 <div id="selector" style=""><p class="seleccionado"><a href="#">Toda la comunidad</a><span></span></p><div id="opciones"><ul><li><a href="#" rel="0">Todo GNOSS</a></li><li><a href="#" rel="1">Toda la comunidad</a></li><li><a href="#" rel="2">Recursos</a></li><li><a href="#" rel="3">Debates</a></li><li><a href="#" rel="4">Preguntas</a></li><li><a href="#" rel="5">Encuestas</a></li><li><a href="#" rel="6">Personas y organizaciones</a></li><li><a href="#" rel="7">Prueba juan</a></li></ul></div></div>
                                 <div id="selector">
@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="fieldsetGroup ambitoBusqueda">
-                                    <select class="ddlCategorias custom" id="ddlCategorias">
+                                    @*<select class="ddlCategorias custom" id="ddlCategorias">
                                         <option value="MyGNOSSMeta">Todo GNOSS</option>
                                         <option value="ef805a49-b5bf-4a21-9348-c965bbbc1420" selected="selected">Toda la comunidad</option>
                                         <option value="db6fdb1b-b432-4f77-99cc-8544f51c671d">Recursos</option>
@@ -152,10 +152,41 @@
                                     <input type="hidden" value="oa_e6899cb6-7a3f-45a2-abe2-dbe2636cc7d6@Preguntas" class="inpt_OrigenAutocompletar">
                                     <input type="hidden" value="oa_cf775922-d947-4839-8336-eb96c95a6d27@Encuestas" class="inpt_OrigenAutocompletar">
                                     <input type="hidden" value="oa_e37cc965-dd27-4ace-a0d1-2c7a4eef9efa@PerYOrg" class="inpt_OrigenAutocompletar">
-                                    <input type="hidden" value="oa_6de64614-ff24-46cb-8db8-4767ac43b6a3@pruebajuan@en|||" class="inpt_OrigenAutocompletar">
+                                    <input type="hidden" value="oa_6de64614-ff24-46cb-8db8-4767ac43b6a3@pruebajuan@en|||" class="inpt_OrigenAutocompletar">*@
+                                    <select class="ddlCategorias custom" id="ddlCategorias">
+                                        @foreach (HeaderModel.SearchHeaderModel.SearchSelectComboModel combo in cabecera.Searcher.ListSelectCombo)
+                                        {
+                                            if (combo.Selected)
+                                            {
+                                                <option value="@combo.ID" selected="selected">@combo.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@combo.ID">@combo.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                    @foreach (HeaderModel.SearchHeaderModel.SearchSelectComboModel combo in cabecera.Searcher.ListSelectCombo)
+                                    {
+                                        <input type="hidden" value="ub_@combo.ID@Html.Raw("@")@combo.Url" class="inpt_tipo_busqueda" />
+                                    }
+                                    @foreach (HeaderModel.SearchHeaderModel.SearchSelectComboModel combo in cabecera.Searcher.ListSelectCombo)
+                                    {
+                                        if (!string.IsNullOrEmpty(combo.Autocomplete))
+                                        {
+                                            <input type="hidden" value="oa_@combo.ID@Html.Raw("@")@combo.Autocomplete" class="inpt_OrigenAutocompletar" />
+                                        }
+                                        if (!string.IsNullOrEmpty(combo.FacetAutocomplete))
+                                        {
+                                            <input type="hidden" value="fa_@combo.ID@Html.Raw("@")@combo.FacetAutocomplete" class="inpt_FacetasAutocompletar" />
+                                        }
+                                    }
+
+
+
                                 </div>
                                 <div class="textoBusquedaPrincipalInput">
-                                    <input type="text" id="txtBusquedaPrincipal" class="text txtBusqueda autocompletar ac_input defaultText" placeholder="Busca entre 4634 recursos" autocomplete="off" style="width: 109px;" value="">
+                                    <input type="text" id="txtBusquedaPrincipal" class="text txtBusqueda autocompletar ac_input defaultText" placeholder="Busca " autocomplete="off" style="width: 109px;" value="">
                                     <input type="button" title="Encontrar" class="encontrar" id="btnBuscarPrincipal">
                                     <span class="botonSearch">
                                         <i class="material-icons">search</i>
@@ -234,10 +265,54 @@
                     }
                 </div>
             </div>
+            @if (ViewBag.PermisosPaginas != null)
+            {
+                @Html.PartialView("_MenuAdministracion")
+            }
+            else if (Comunidad.Key != ProyectoAD.MetaProyecto && (!Html.GetOcultarMenusComunidad().HasValue || !Html.GetOcultarMenusComunidad().Value))
+            {
             <div class="row row-menu">
                 <div class="col">
                     <ul>
-                        <li>
+                        @helper PintarPestanya(CommunityModel.TabModel pPestanya, bool pPintarEnlaces)
+                        {
+                            if (pPestanya.Visible)
+                            {
+
+                                     if (pPestanya.SubTab != null && pPestanya.SubTab.Count > 0)
+                                     {
+                                        <li class="parent">
+                                            <a href="javascript: void(0)">@pPestanya.Name</a>
+                                            <ul>
+                                                @foreach (CommunityModel.TabModel pPestanyaInt in pPestanya.SubTab)
+                                                {
+                                                    @PintarPestanya(pPestanyaInt, pPintarEnlaces);
+                                                }
+                                            </ul>
+                                        </li>
+                                     }
+                                     else
+                                     {
+                                        <li>
+                                        <a @Html.Raw(pPintarEnlaces ? "href=\"" + pPestanya.Url + "\"" : " disabled=\"disabled\"") @Html.Raw(pPestanya.OpenInNewWindow ? "target=\"_blank\"" : "")>@pPestanya.Name</a>
+                                        </li>
+                                      }
+                                 
+                            }
+                        }
+                        @{
+                            bool pintarEnlaces = true;
+                            if (IdentidadActual.IsGuestIdentity && (Comunidad.ProjectState == CommunityModel.StateProject.Definition || Comunidad.ProjectState == CommunityModel.StateProject.Close || Comunidad.ProjectState == CommunityModel.StateProject.CloseTemporaly))
+                            {
+                                pintarEnlaces = false;
+                            }
+
+                            foreach (CommunityModel.TabModel pPestanya in Comunidad.Tabs)
+                            {
+                                @PintarPestanya(pPestanya, pintarEnlaces);
+                            }
+                        }
+                        @*<li>
                             <a href="javascript: void(0)">Home</a>
                         </li>
                         <li class="parent">
@@ -270,10 +345,11 @@
                         </li>
                         <li>
                             <a href="javascript: void(0)">Personas</a>
-                        </li>
+                        </li>*@
                     </ul>
                 </div>
             </div>
+            }
         </div>
        
     </header>
