@@ -245,8 +245,16 @@
                         {
                             urlFoto = Html.GetBaseUrlContent() + perfil.Foto;
                         }
+                        
                        <div class="conectado">
                         <ul>
+                            @if (Comunidad != null && (IdentidadActual.IsProyectAdmin || (Comunidad.ProjectState != CommunityModel.StateProject.Close && Comunidad.ProjectState != CommunityModel.StateProject.CloseTemporaly && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || !IdentidadActual.IsGuestIdentity))))
+                            {
+                                if (Comunidad.Key != ProyectoAD.MetaProyecto && (!IdentidadActual.IsGuestIdentity || (Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocial && Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocialConUnTipoDeRecurso)) && (!Html.GetOcultarMenusComunidad().HasValue || !Html.GetOcultarMenusComunidad().Value))
+                                {
+                                    @Html.PartialView("../Shared/_PanelQueHacer")
+                                }
+                            }
                             <li class="comunidades">
                                 <a href="javascript: void(0);" data-target="menuLateralComunidades" data-placement="right" data-position="slidepush" class="pmd-sidebar-toggle">
                                     <span class="material-icons">vpn_lock</span>
@@ -258,7 +266,7 @@
                                         <span @Html.Raw(string.IsNullOrEmpty(urlFoto) ? "" : "style=\"background: url(" + urlFoto + ") no-repeat center\"")></span>
                                     </a>
                                 </div>
-                                <span class="novedades" id="infoNumSuscriopciones">6<span class="indentado">nuevos</span></span>
+                                <span class="novedades" id="infoNumSuscriopciones">0<span class="indentado">nuevos</span></span>
                             </li>
                         </ul>
                     </div>

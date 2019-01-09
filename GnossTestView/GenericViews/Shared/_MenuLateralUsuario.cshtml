@@ -47,6 +47,8 @@
         <ul class="pmd-sidebar-nav ulAvisos">
             <li class="liMensajes nuevos">
                 <a title="@Html.GetText("MENU", "BANDEJAMEN")" href="@perfil.Url@Html.GetText("URLSEM", "MENSAJES")">@Html.GetText("MENU", "BANDEJAMEN")</a> <span>2 nuevos</span>
+                <span style="display: none;" class="novedades" id="infoNumMensajes"><span class="indentado">nuevos</span></span>
+                <span style="display: none" class="avisos" id="infNumMensajesSinLeer"><span class="indentado">sin leer</span></span>
             </li>
             <li class="liNotificaciones nuevos">
                 <a href="javascript: void(0);">Notificaciones</a> <span>6 nuevos</span>
@@ -94,7 +96,7 @@
                                 <span>@perfilPersonal.Name</span>
                             </a>
                             <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent" id="infoNov_@perfilPersonal.Key">
-                                0<span>nuevos</span>
+                                0<span class="indentadoIdentidades">nuevos</span>
                             </span>
                         </li>
                         contadorPerfilesPerfil++;
@@ -115,8 +117,8 @@
                                 }*@
                                 <span>@perfilProfesor.Name</span>
                             </a>
-                            <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent" id="infoNov_@perfilProfesor.Key">
-                                0<span class="indentado">nuevos</span>
+                            <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent alertasIdentidades" id="infoNov_@perfilProfesor.Key">
+                                0<span class="indentadoIdentidades">nuevos</span>
                             </span>
                         </li>
                         contadorPerfilesPerfil++;
@@ -139,8 +141,8 @@
                             }*@
                             <span>@perfilActual.Name</span>
                         </a>
-                        <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent" id="infoNov_@perfilActual.Key">
-                            <span class="indentado">nuevos</span>
+                        <span style="display: none;" title="nuevos" class="novedades novPerfilOtraIdent alertasIdentidades" id="infoNov_@perfilActual.Key">
+                            <span class="indentadoIdentidades">nuevos</span>
                         </span>
                     </li>
                     contadorPerfilesPerfil++;

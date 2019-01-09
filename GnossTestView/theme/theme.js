@@ -467,6 +467,7 @@ var buscarCabecera = {
     init: function () {
         this.config();
         this.mascara();
+        this.cabeceraListado();
         return;
     },
     config: function () {
@@ -493,6 +494,83 @@ var buscarCabecera = {
             $('#buscador .ac_results').css('display', 'none');
 
         });
+
+        return;
+    },
+    cabeceraListado: function () {
+
+        var localBody = this.body;
+        var header = this.body.find('header');
+        var txtBusPrincipalInput = header.find('.textoBusquedaPrincipalInput');
+        var cabeceraLis = this.body.find('.cabecera-listados');
+        var botonBuscar = cabeceraLis.find('.botonBuscar');
+
+        botonBuscar.bind('click', function (e) {
+            txtBusPrincipalInput.addClass('busqueda-activa');
+            localBody.addClass('buscando');
+        });
+
+        return;
+    }
+};
+
+var enlaceRecursoFicha = {
+    init: function () {
+        this.config();
+        this.comportamiento();
+        return;
+    },
+    config: function () {
+        this.body = body;
+        return;
+    },
+    comportamiento: function () {
+
+        var accionesRecurso = this.body.find('.acciones-recurso');
+        var galeria = this.body.find('#galeria');
+        var enlaceRecurso = galeria.find('.enlace-recurso');
+        var tipo = enlaceRecurso.data('tipo');
+
+        var opcionesDefecto = {
+            selector: '.enlace-recurso'
+        };
+
+        switch (tipo) {
+            case 'video':
+                var lanzador = accionesRecurso.find('.ampliar');
+                var aux = {};
+                break;
+            case 'enlace':
+                var lanzador = accionesRecurso.find('.enlace');
+                var aux = {
+                    iframeMaxWidth: '80%'
+                };
+                break;
+            case 'pdf':
+                var lanzador = accionesRecurso.find('.ampliar');
+                var aux = {
+                    iframeMaxWidth: '80%'
+                };
+                break;
+            case 'imagen':
+                var lanzador = accionesRecurso.find('.ampliar');
+                var aux = {};
+                break;
+            case '':
+                break;
+
+        }
+
+        var opciones = $.extend(opcionesDefecto, aux);
+
+        galeria.lightGallery(opciones);
+
+        if (lanzador != undefined) {
+            lanzador.on('click', function (e) {
+                e.preventDefault();
+                enlaceRecurso.trigger('click');
+            });
+        }
 
         return;
     }
@@ -522,6 +600,8 @@ $(function () {
         cambioVistaListado.init();
         comportamientoFacetas.init();
         customizarModalResultados.init();
+    } else if (body.hasClass('fichaRecurso')) {
+        enlaceRecursoFicha.init();
     }
 
 });

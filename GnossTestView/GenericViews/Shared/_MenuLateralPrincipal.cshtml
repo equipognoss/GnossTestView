@@ -107,10 +107,13 @@
                             }
                 </div>
             }
+            @if (Comunidad.ProjectState != CommunityModel.StateProject.Definition || !IdentidadActual.IsGuestIdentity)
+            {   
             <div class="datos-comunidad">
-                <p>28000 <span>Recursos</span></p>
-                <p>240 <span>Usuarios</span></p>
+                <p>@Comunidad.NumberOfResources <span>@Html.GetText("COMMON", "RECURSOS")</span></p>
+                <p>@(Comunidad.NumberOfPerson + Comunidad.NumberOfOrganizations)<span> @Html.GetText("COMMON", "PERSONASYORGANIZACIONES") </span><p>
             </div>
+            }
         </div>
         <span class="material-icons cerrar">close</span>
     </div>

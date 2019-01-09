@@ -7,6 +7,8 @@
     string recursoImagen = "resourceImagen";
     string recursoVideo = "fichaVideo";
     string recursoPDF = "fichaPdf";
+    string recursoHipervinculo = "fichaEnlace";
+    string recursoAdjunto = "fichaDescargable";
     if (FichaDocumento.NameImage.Equals("pdf"))
     {
         recurso = "fichaPdf";
@@ -18,8 +20,26 @@
     else if (FichaDocumento.NameImage.Equals("Video") || FichaDocumento.NameImage.Equals("video"))
     {
         recurso = recursoVideo;
+    }else if (FichaDocumento.NameImage.Equals("digital"))
+    {
+        recurso = recursoAdjunto;
     }
-
+    else if (FichaDocumento.NameImage.Equals("hipervinculo"))
+    {
+        recurso = recursoHipervinculo;
+    }
+    else if (FichaDocumento.NameImage.Equals("presentacion"))
+    {
+        recurso = recursoAdjunto;
+    }
+    else if (FichaDocumento.NameImage.Equals("zip"))
+    {
+        recurso = recursoAdjunto;
+    }
+    else if (FichaDocumento.NameImage.Equals("xls"))
+    {
+        recurso = recursoAdjunto;
+    }
 
 
 
