@@ -2,7 +2,7 @@
 
 @if (Model is GadgetHtmlModel)
 {
-    <div class="group @Model.ClassName">
+    <div class="wrap">
         @if (!Html.GetOcultarPersonalizacion())
         {
             <h2>@Model.Title</h2>
@@ -15,7 +15,7 @@ else if (Model is GadgetResourceListModel)
     GadgetResourceListModel gadgetListado = (GadgetResourceListModel)Model;
     if (gadgetListado.Resources == null || gadgetListado.Resources.Count == 0)
     {
-        <div class="group resources grupoPaginado gruppoGadget @Model.ClassName" id="@gadgetListado.Key" style="display:none"></div>
+        <div class="wrap" id="@gadgetListado.Key" style="display:none"></div>
     }
     else
     {
@@ -26,7 +26,7 @@ else if (Model is GadgetResourceListModel)
             claseGadget = "group resources encuestas ultimaEncuesta";
         }
 
-        <div class="@claseGadget @Model.ClassName" id="@gadgetListado.Key">
+        <div class="wrap" id="@gadgetListado.Key">
             <div class="group-title">
                 <h2>@Model.Title</h2>
             </div>
@@ -41,10 +41,10 @@ else if (Model is GadgetResourceListModel)
                 <div class="paginadorSiguienteAnterior">
                     <ul>
                         <li id="btnAnterior_@Model.Key" class="anterior desactivado">
-                            <a onclick="paginadorGadget_Anterior('@Html.GetUrlPagina()', '@gadgetListado.Key')"></a>
+                            <a onclick="paginadorGadget_Anterior('@Html.GetUrlPagina()', '@gadgetListado.Key')">anterior</a>
                         </li>
                         <li id="btnSiguiente_@Model.Key" class="@classSiguiente">
-                            <a onclick="paginadorGadget_Siguiente('@Html.GetUrlPagina()', '@gadgetListado.Key')"></a>
+                            <a onclick="paginadorGadget_Siguiente('@Html.GetUrlPagina()', '@gadgetListado.Key')">siguiente</a>
                         </li>
                     </ul>
                 </div>

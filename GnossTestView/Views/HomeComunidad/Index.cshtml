@@ -20,7 +20,7 @@
 }
 @if(Comunidad.ProjectState != CommunityModel.StateProject.Definition || !IdentidadActual.IsGuestIdentity)
 {
-    <div id="col01">
+    @*<div id="col01">
         <div id="resumenActivity">
             <div class="supertitle">
                 <p><strong>@Html.GetText("COMMON", "COMUNIDAD")</strong></p>
@@ -115,8 +115,8 @@
                 </div>
             </div>
         }
-    </div>
-    <div id="col02">
+    </div>*@
+    <div id="col02" class="col col-12 col-md-8">
         <div class="supertitle">
             <h2>
                 <span>@Html.GetText("CONTROLESLIVE", "TITULOCONTROLEVENTOS")</span>
@@ -143,10 +143,10 @@
             </div>
         </div>
     </div>
-    <div id="col03">
+    <div id="col03" class="col col-12 col-md-4">
         @if (Model.Gadgets != null && Model.Gadgets.Count > 0)
         {
-            <div id="divContPanGadgets">
+            <div class="contexto" id="divContPanGadgets">
                 @foreach (GadgetModel gadget in ((List<GadgetModel>)Model.Gadgets).OrderBy(gadget => gadget.Order))
                 {
                     @Html.PartialView("ControlesMVC/_FichaGadget", gadget)

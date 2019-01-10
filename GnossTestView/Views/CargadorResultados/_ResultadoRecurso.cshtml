@@ -7,8 +7,19 @@
     string recursoPDF = "resource-pdf";
 
     string resoourceType = recursoDocumento;
+    if (Model.TypeDocument.ToString().Equals("pdf") || Model.TypeDocument.ToString().Equals("Pdf"))
+    {
+        resoourceType = recursoPDF;
+    }else if (Model.TypeDocument.ToString().Equals("Imagen")|| Model.TypeDocument.ToString().Equals("imagen"))
+    {
+        resoourceType = recursoImagen;
+    }else if (Model.TypeDocument.ToString().Equals("Video") || Model.TypeDocument.ToString().Equals("video"))
+    {
+        resoourceType = recursoVideo;
+    }
+    
     <div id="resource_@Model.Key" typeof="sioc_t:Item" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:sioc_t="http://rdfs.org/sioc/types#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sioc="http://rdfs.org/sioc/ns#" class="resource" >
-        <article class="resource @recursoDocumento">
+        <article class="resource @resoourceType">
             <div class="wrap">
                 <div class="row01">
                     <div class="col01">

@@ -107,57 +107,51 @@
                             }
                 </div>
             }
+            @if (Comunidad.ProjectState != CommunityModel.StateProject.Definition || !IdentidadActual.IsGuestIdentity)
+            {   
             <div class="datos-comunidad">
-                <p>28000 <span>Recursos</span></p>
-                <p>240 <span>Usuarios</span></p>
+                <p>@Comunidad.NumberOfResources <span>@Html.GetText("COMMON", "RECURSOS")</span></p>
+                <p>@(Comunidad.NumberOfPerson + Comunidad.NumberOfOrganizations)<span> @Html.GetText("COMMON", "PERSONASYORGANIZACIONES") </span><p>
             </div>
+            }
         </div>
         <span class="material-icons cerrar">close</span>
     </div>
+    @if (!IdentidadActual.IsGuestUser)
+    {
+        <div class="body">
+            <p>Comunidades</p>
+            <ul class="pmd-sidebar-nav ulComunidades">
+                @{
 
-    <div class="body">
-        <p>Comunidades</p>
-        <ul class="pmd-sidebar-nav ulComunidades">
-            <li class="privada activa">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Privada</a>
-            </li>
-            <li class="publica">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Pública</a>
-            </li>
-            <li class="privada">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Privada</a>
-            </li>
-            <li class="publica">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Pública</a>
-            </li>
-            <li class="privada">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Privada</a>
-            </li>
-            <li class="publica">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Pública</a>
-            </li>
-            <li class="privada">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Privada</a>
-            </li>
-            <li class="publica">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Pública</a>
-            </li>
-            <li class="privada">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Privada</a>
-            </li>
-            <li class="publica">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Pública</a>
-            </li>
-            <li class="privada">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Privada</a>
-            </li>
-            <li class="publica">
-                <a href="javascript: void(0);">Personalización de comunidades GNOSS Pública</a>
-            </li>
-            <li class="ver-todas">
-                <a href="javascript: void(0);" data-target="menuLateralComunidadesEcosistema" data-placement="left" data-position="slidepush" class="pmd-sidebar-toggle">Ver todas</a>
-            </li>
-        </ul>
-    </div>
+                    List<UserProfileModel.ProfileCommunitiesModel> masUsados = perfil.Communities.OrderByDescending(comunidadPerfil => comunidadPerfil.NumberOfConnections).Take(10).ToList();
+
+                    foreach (UserProfileModel.ProfileCommunitiesModel comunidadPerfil in masUsados.OrderBy(comunidadPerfil => comunidadPerfil.Name))
+                    {
+                        string clase = "publica";
+                        if (comunidadPerfil.Type == 1 || comunidadPerfil.Type == 3) { clase = "privada"; }
+                        <li class="@clase"><a href="@comunidadPerfil.Url" title="@comunidadPerfil.Name"><span class="icono"></span>@Html.AcortarTexto(comunidadPerfil.Name, 29)</a></li>
+                    }
+                }
+            </ul>
+            @if (perfil.Communities.Count > 10)
+            {
+                <ul class="pmd-sidebar-nav ulComunidades listadoAmpliado" style="display: none;">
+                    @foreach (UserProfileModel.ProfileCommunitiesModel comunidadPerfil in (perfil.Communities).OrderBy(comunidadPerfil => comunidadPerfil.Name))
+                    {
+                        string clase = "publica";
+                        if (comunidadPerfil.Type == 1 || comunidadPerfil.Type == 3) { clase = "privada"; }
+                        <li class="@clase"><a href="@comunidadPerfil.Url" title="@comunidadPerfil.Name"><span class="icono"></span>@Html.AcortarTexto(comunidadPerfil.Name, 28)</a></li>
+                    }
+                </ul>
+                <p class="mostrarListadoAmpliado"><a rel="Contraer -">@Html.GetText("MENU", "AMPLIAR")</a></p>
+                <p style="display: none;" class="mostrarListadoTodos"><a href="@perfil.Url@Html.GetText("URLSEM", "MISCOMUNIDADES")">@Html.GetText("INICIO", "VERTODOS")</a></p>
+            }
+
+                @*<li class="ver-todas">
+                <a href="javascript: void(0);" data-target="menuLateralIdentidades" data-placement="right" data-position="slidepush" class="pmd-sidebar-toggle">Ver todas</a>
+            </li>*@
+</div>
+     }
 </aside>
 }
