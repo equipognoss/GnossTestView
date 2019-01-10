@@ -72,7 +72,7 @@
                                 }
                                 @if (Model.Actions.Reply)
                                 {
-                                    string funcionComentario_ResponderComentario = "Comentario_ResponderComentario('" + Model.Actions.UrlReply + "', '" + Model.Key + "');";
+                                    string funcionComentario_ResponderComentario = "Comentario_ResponderComentario_V2('" + Model.Actions.UrlReply + "', '" + Model.Key + "');";
                                     <li class="opLabel">
                                         <a style="cursor:pointer;" onclick="@funcionComentario_ResponderComentario">@Html.GetText("CONTROLESDOCUMENTACION", "RESPONDER")</a>
                                     </li>
