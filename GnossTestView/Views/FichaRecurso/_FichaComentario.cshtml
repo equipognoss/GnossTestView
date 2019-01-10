@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        @if (!IdentidadActual.IsGuestIdentity)
+        @*@if (!IdentidadActual.IsGuestIdentity)
         {
             <div class="group utils-1">
                 @if(Model.Votes != null)
@@ -121,7 +121,7 @@
 			    </p>
                 }
 		    </div>
-        }
+        }*@
         <div class="body-comentario comment-content" property="sioc:content">
 			@MvcHtmlString.Create(Model.Title)
 		</div>

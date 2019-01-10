@@ -364,33 +364,7 @@
             
             if (!IdentidadActual.IsGuestIdentity)
             {
-                if (FichaDocumento.AllowComments)
-                {
-                    Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/ckeditor.js?v=" + Html.GetVersion());
-                    Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/adapters/jquery.js?v=" + Html.GetVersion());
-                    <div id="add-comment">
-                        <div class="comment-content">
-                            <fieldset class="mediumLabels">
-                                <legend>
-                                    @Html.GetText("PERFILBASERECURSOSFICHA", "PUBLICARCOMENTARIO")
-                                </legend>
-                                <p>
-                                    <textarea cols="20" rows="2" id="txtNuevoComentario_@FichaDocumento.Key" class="cke comentarios"></textarea>
-                                </p>
-                                <p id="error_@FichaDocumento.Key" class="error"></p>
-                                @{
-                                    string funcionComentario_CrearComentario = "Comentario_CrearComentario('" + FichaDocumento.ListActions.UrlCreateComment + "', '" + FichaDocumento.Key + "');";
-                                }
-                                <input type="button" class="btn btn-primary" value="@Html.GetText("COMMON", "ENVIAR")" onclick="@funcionComentario_CrearComentario" />
-                                @*<p></p>*@
-                            </fieldset>
-                        </div>
-                    </div>
-                                    }
-                                    else
-                                    {
-                                        <label><span>@Html.GetText("CONTROLESDOCUMENTACION", "COMENTARIOSBLOQUEADOS")</span></label>
-                                        }
+                
                                     }
                                     else
                                     {
@@ -399,6 +373,32 @@
 
                                     <div class="comentarios-recurso" id="comments">
                                         <div class="h2-container"><h2>@(FichaDocumento.NumComments == 1 ? Html.GetText("COMMON", "COMENTARIO").ToLower() : Html.GetText("COMMON", "COMENTARIOS").ToLower())</h2><span id="numComentarios">@FichaDocumento.NumComments</span></div>
+                                        @if (FichaDocumento.AllowComments)
+                                        {
+                                            Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/ckeditor.js?v=" + Html.GetVersion());
+                                            Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/adapters/jquery.js?v=" + Html.GetVersion());
+                                            <div class="escribir-comentario">
+                                                
+                                                <div class="publicador"></div>
+                                                <div class="escribe">
+                                                    <fieldset class="mediumLabels">
+                                                        <p>
+                                                            <textarea cols="20" rows="2" id="txtNuevoComentario_@FichaDocumento.Key" class="cke comentarios"></textarea>
+                                                        </p>
+                                                        <p id="error_@FichaDocumento.Key" class="error"></p>
+                                                        @{
+                                                            string funcionComentario_CrearComentario = "Comentario_CrearComentario('" + FichaDocumento.ListActions.UrlCreateComment + "', '" + FichaDocumento.Key + "');";
+                                                        }
+                                                        <input type="button" class="btn btn-primary" value="@Html.GetText("COMMON", "ENVIAR")" onclick="@funcionComentario_CrearComentario" />
+                                                        @*<p></p>*@
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                        <label><span>@Html.GetText("CONTROLESDOCUMENTACION", "COMENTARIOSBLOQUEADOS")</span></label>
+                                        }
                                         @foreach (CommentModel comentario in FichaDocumento.Comments)
                                            {
                                             @Html.PartialView("_FichaComentario", comentario)
