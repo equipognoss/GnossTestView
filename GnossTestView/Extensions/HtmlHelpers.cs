@@ -126,6 +126,11 @@ namespace GnossTestView.Extensions
             UtilTrazas.AgregarEntrada("HtmlHelpers.PartialView 1");
             CommunityModel Comunidad = htmlHelper.ViewBag.Comunidad;
 
+            if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))
+            {
+                partialViewName = partialViewName.Replace("/Views/", "/GenericViews/");
+            }
+
             if (TienePersonalizacion(htmlHelper))
             {
                 UtilTrazas.AgregarEntrada("TienePersonalizacion");
@@ -154,17 +159,26 @@ namespace GnossTestView.Extensions
             Guid guid;
             if (Guid.TryParse(partialViewName, out guid))
             {
-                var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "CMSPagina"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
-                if (files.Length > 0)
+                if(Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "CMSPagina")))
                 {
-                    string[] path = files[0].Split(new string[] { "\\Views" }, StringSplitOptions.RemoveEmptyEntries);
-                    partialViewName = $"/Views{path[1]}".Replace('\\', '/');
+                    var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "CMSPagina"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
+                    if (files.Length > 0)
+                    {
+                        string[] path = files[0].Split(new string[] { "\\Views" }, StringSplitOptions.RemoveEmptyEntries);
+                        partialViewName = $"/Views{path[1]}".Replace('\\', '/');
+                    }
+                    else
+                    {
+                        // TODO: Descargar los componentes del FTP correctamente
+                        return MvcHtmlString.Empty;
+                    }
                 }
                 else
                 {
                     // TODO: Descargar los componentes del FTP correctamente
                     return MvcHtmlString.Empty;
                 }
+
             }
             else if (htmlHelper.ViewBag.ViewPath.Contains("~/Views/Busqueda") && partialViewName.StartsWith("_Resultado"))
             {
@@ -173,12 +187,17 @@ namespace GnossTestView.Extensions
             else
             {
                 string partialPath = htmlHelper.ViewBag.ViewPath;
-                if (partialPath.Equals("~/Views/FichaRecurso") && (partialViewName.StartsWith("SemCms/_") || partialViewName.StartsWith("ControlesMVC/")))
+                if ((partialPath.Equals("~/Views/FichaRecurso") && (partialViewName.StartsWith("SemCms/_")) || partialViewName.StartsWith("ControlesMVC/")))
                 {
                     partialPath = "~/Views/Shared";
                 }
 
                 partialViewName = $"{partialPath}/{partialViewName}.cshtml";
+            }
+
+            if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))
+            {
+                partialViewName = partialViewName.Replace("/Views/", "/GenericViews/");
             }
 
             // necesario para encontrar la ruta, porque fichaRecurso también hace uso de la carpeta Shared
@@ -203,6 +222,10 @@ namespace GnossTestView.Extensions
             UtilTrazas.AgregarEntrada("HtmlHelpers.PartialView 2");
             CommunityModel Comunidad = htmlHelper.ViewBag.Comunidad;
 
+            if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))
+            {
+                partialViewName = partialViewName.Replace("/Views/", "/GenericViews/");
+            }
             // todo
             resultado = System.Web.Mvc.Html.PartialExtensions.Partial(htmlHelper, partialViewName, model, diccionario);
 

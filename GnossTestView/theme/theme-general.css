@@ -46,7 +46,7 @@
   .mas-opciones .toggle::after { content: '\E5D4'; font-family: var(--ff-material); font-size: 26px; color: var(--c-gris-3); cursor: pointer;  }
 
   .mas-opciones .opciones { position: absolute; top: 0; right: 0; width: 0; background: var(--c-blanco); border: 1px solid var(--c-gris-ef); z-index: 1; max-height: 0; overflow: hidden; transition: all .3s ease-in-out; text-align: left; }
-  .mas-opciones.open .opciones { width: 200px; max-height: 50vh; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+  .mas-opciones.open .opciones { width: 200px; max-height: max-content; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
 
   .mas-opciones .opciones .cerrar { display: block; text-align: right; }
   .mas-opciones .opciones .cerrar::after { content: '\E5CD'; font-family: var(--ff-material); font-size: 26px; color: var(--c-gris-3); cursor: pointer; }
@@ -57,6 +57,8 @@
   .mas-opciones .opciones ul li a { display: block; height: 40px; line-height: 40px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 15px; text-decoration: none; transition: background .3s ease-in-out; font-size: 14px; }
   .mas-opciones .opciones ul li a:hover { background: var(--c-gris-ef); }
 
+  .btn.btn-primary { background: var(--c-azul-1); border-color: var(--c-azul-1); color: #FFF; font-size: 14px; font-weight: 500; padding: 0 25px; height: 35px; line-height: 35px; text-transform: none; }
+  .btn.btn-primary:hover { background: var(--c-azul-3); border-color: var(--c-azul-3); }
   @media (max-width: 991px) {
 
   }

@@ -7,497 +7,513 @@
     Html.SetBodyClass("layout03 fichaComunidad fichaRecurso fichaCatalogo comGnoss");
 
     string url = Html.GetUrlContext(FichaDocumento.CompletCardLink, FichaDocumento.Key, Html.GetComunidad().ShortName);
-    
+
     SemanticResourceModel semCmsModel = Model.SemanticFrom;
 
     Recurso accionFormativa = new Recurso(semCmsModel);
 }
 
 
-<div id="col02">
-    <div>
-        @{
-            if (!FichaDocumento.LastVersion.Equals(FichaDocumento.Key))
-            {
-                <div>
-                    <div class="group utils-1 noUltVer">
-                        <img src="@Html.GetBaseUrlStatic()/img/comunidades/icoNoVigilado.gif" />
-                        <p>@Html.Raw(Html.GetText("PERFILBASERECURSOSFICHA", "NOULTIMAVERSION", Html.GetUrlPagina().Replace(FichaDocumento.Key.ToString(), FichaDocumento.LastVersion.ToString())))</p>
+<div class="col col-12 col-md-8">
+    <div class="wrap-col">
+
+        <div class="header-resource">
+            <div class="h1-container">
+                <p class="tipo">@accionFormativa.type @accionFormativa.teachingType</p>
+                <h1>@accionFormativa.title</h1>
+            </div>
+            <div class="mas-opciones">
+                <span class="toggle"></span>
+                <div class="opciones">
+                    <span class="cerrar"></span>
+                    <ul>
+                        <li>
+                            <a href="javascript: void(0);">Editar</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);">Vincular</a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);">......</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="detalles">
+            <div class="items columnas">
+                <div class="item">
+                    <div class="wrap">
+                        <strong>Estado</strong>
+                        <span>
+                            <span>@accionFormativa.currentStatus</span>
+                        </span>
                     </div>
                 </div>
-            }
-
-            string claseItem = "resource";
-
-            if (FichaDocumento.IsDraft)
-            {
-                claseItem += " resourceDraft";
-            }
-        }
-        <div typeof="sioc_t:Item" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:sioc_t="http://rdfs.org/sioc/types#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sioc="http://rdfs.org/sioc/ns#" class="@claseItem">
-            <div class="box description">
-                <div class="wrapDescription">
-                    <div class="group title">
-                        <h1 property="dcterms:title" content="@FichaDocumento.Title">
-                            @if (string.IsNullOrEmpty(FichaDocumento.UrlDocument))
-                            {
-                                @FichaDocumento.Title
-                            }
-                            else
-                            {
-                                string claseEnviarAccGogAnac = "";
-                                if (FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.Imagen || FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.FicheroServidor)
-                                {
-                                    claseEnviarAccGogAnac = "class=\"linkDescargaFichero\"";
-                                }
-
-                                if (FichaDocumento.OpenInNewWindow)
-                                {
-                                    <a target="_blank" title="@Html.GetText("PERFILBASE", "ABREVENTANANUEVA")" href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.Title</a>
-                                }
-                                else
-                                {
-                                    <a href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.Title</a>
-                                }
-                            }
-                        </h1>
-
-                        @{
-                            string privado = "";
-                            if (FichaDocumento.Private)
-                            {
-                                privado = "privado";
-                            }
-                        }
-
-                        <p class="resourceType @(FichaDocumento.TypeDocument == ResourceModel.DocumentType.Semantico ? "semantico " + FichaDocumento.RdfType : FichaDocumento.NameImage)  @privado">
-                            <span>tipo de documento</span>
-                            @if (FichaDocumento.Private)
-                            {
-                                <span class="privado">documento privado</span>
-                            }
-                            @if (string.IsNullOrEmpty(FichaDocumento.UrlDocument))
-                            {
-                                <a>@FichaDocumento.RdfTypeName</a>
-                            }
-                            else
-                            {
-                                string claseEnviarAccGogAnac = "";
-                                if (FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.Imagen || FichaDocumento.TypeDocument == Es.Riam.Gnoss.Web.MVC.Models.ResourceModel.DocumentType.FicheroServidor)
-                                {
-                                    claseEnviarAccGogAnac = "class=\"linkDescargaFichero\"";
-                                }
-
-                                if (FichaDocumento.OpenInNewWindow)
-                                {
-                                    <a target="_blank" href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.RdfTypeName</a>
-                                }
-                                else
-                                {
-                                    <a href="@FichaDocumento.UrlDocument" @Html.Raw(claseEnviarAccGogAnac)>@FichaDocumento.RdfTypeName</a>
-                                }
-                            }
-                        </p>
+                <div class="item">
+                    <div class="wrap">
+                        <strong>Eje formativo</strong>
+                        <span>
+                            <span>@accionFormativa.formativeAxis</span>
+                        </span>
                     </div>
+                </div>
+            </div>
+            <div class="acciones">
+                <a href="javascript: void(0);" class="btn btnPrincipal">Activar</a>
+                <a href="javascript: void(0);" class="btn">Duplicar</a>
+            </div>
+        </div>
 
-                    @if (FichaDocumento.SocialNetworks != null && FichaDocumento.SocialNetworks.Count > 0)
-                    {
-                        int numRedSocial = 0;
-                        <div class="group redesSocialesCompartir iconsRedesSociales">
-                            <ul class="art_social">
-                                @foreach (string RedSocial in FichaDocumento.SocialNetworks.Keys)
-                                {
-                                    string clase = RedSocial.ToLower();
-                                    if (numRedSocial < 3)
-                                    {
-                                        clase += " big";
-                                    }
-                                    <li class="@clase">
-                                        <a href="#" title="@RedSocial"
-                                            @foreach (string atributo in FichaDocumento.SocialNetworks[RedSocial].Keys) { @Html.Raw(atributo.Replace("onclick", "clickJS") + "=\"" + FichaDocumento.SocialNetworks[RedSocial][atributo] + "\" ")  ; }>@RedSocial</a>
-                                    </li>
-                                    numRedSocial++;
-                                }
+        <div class="grupo-desplegable grupo-resumen abierto">
+            <h2>Resumen</h2>
+            <div class="contenido">
+                <p>
+                    <img src="@FichaDocumento.UrlPreview" alt="" style="float: left; width: 50%; margin-right: 15px; margin-bottom: 15px;">
+                </p>
+
+                @Html.Raw(accionFormativa.description)
+
+            </div>
+        </div>
+
+        <div class="grupo-desplegable grupo-info-basica abierto">
+            <h2>Información básica</h2>
+            <div class="contenido">
+                <div class="items columnas">
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Entidad organizadora</strong>
+                            <span>@accionFormativa.orgCenter</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Modalidad</strong>
+                            <span>@accionFormativa.type</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Forma de inscripción</strong>
+                            <span>Distancia</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Línea formativa</strong>
+                            <span>F.P. como Identidad Social</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Ámbito</strong>
+                            <span>@accionFormativa.scope </span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Línea</strong>
+                            <span>Desarrollo de los procesos personalizadores de la educación</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Tutor</strong>
+                            <span>@accionFormativa.tutor</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Línea formativa</strong>
+                            <span>F.P. como Identidad Social</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Forma de impartición</strong>
+                            <span>@accionFormativa.teachingType </span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Línea formativa</strong>
+                            <span>F.P. como Identidad Social</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="items simple">
+                    <div class="item item-destinatarios">
+                        <div class="wrap">
+                            <strong>Destinatarios</strong>
+                            <p>
+                                Exclusivamente para docentes que prestan servicios en centros públicos y concertados de enseñanzas no universitarias de régimen general y de régimen especial en la Comunidad Autónoma de Castilla La Mancha.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item item-objetivos">
+                        <div class="wrap">
+                            <strong>Objetivos</strong>
+                            <p>
+                                Reflexionar sobre el marco pedagógico, institucional y personal como contexto para el desarrollo de metodologías activas de enseñanza
+                            </p>
+                            <ul>
+                                <li>
+                                    Conocer los principios de la enseñanza basada en proyectos en relación con distintas etapas, situaciones y materias educativas
+                                </li>
+                                <li>
+                                    Desarrollar estrategias de enseñanza vinculadas con el aprendizaje cooperativo, la socialización crítica y el uso de las TIC.
+                                </li>
+                                <li>
+                                    Diseñar proyectos de enseñanza y aprendizaje en ciclos de diseño reflexivo y cooperativo.
+                                </li>
+                                <li>
+                                    Enriquecer los mecanismos tradicionales de evaluación con propuestas alternativas como el uso de rubricas, los diarios de aprendizaje y el portafolios.
+                                </li>
                             </ul>
                         </div>
-                    }
-
-                    @if (Model.Resource.Publisher != null)
-                    {
-                        <div class="group author">
-                            <p id="panelPublicador">
-                                @Html.PartialView("_FichaPublicador", FichaDocumento)
-                            </p>
-                            <p class="publicacion enCajaAuthor" style="display:none" content="@FichaDocumento.PublishDate.ToString("yyyy-MM-ddTHH:mm:ss%K")" property="dcterms:created">@FichaDocumento.PublishDate.ToString("d.M.yyyy")</p>
-                        </div>
-                    }
-
-                    @if (!Model.HideUtilsResource)
-                    {
-                        <div id="panUtils1" class="group utils-1 js-activado">
-                            <p class="info"><strong>@Html.GetText("PERFILBASERECURSOSFICHA", "ACERCADEESTERECURSO")</strong></p>
-                            @{
-                                string textoVisitas = Html.GetText("LISTARECURSOS", "VISITAS");
-                                if (FichaDocumento.NameImage == "video" || FichaDocumento.NameImage == "audio")
-                                {
-                                    textoVisitas = Html.GetText("LISTARECURSOS", "REPRODUCCIONES");
-                                }
-                            }
-                            @if (!Model.HideWebsiteVisits)
-                            {
-                                <p class="visitas"><span class="literal">@textoVisitas </span><strong>@FichaDocumento.NumVisits</strong></p>
-                            }
-
-                            @if (FichaDocumento.Votes != null && FichaDocumento.AllowVotes)
-                            {
-                                @Html.PartialView("_FichaVotos", FichaDocumento.Votes)
-                            }
-
-                            @if (FichaDocumento.Certification.Key != Guid.Empty)
-                            {
-                                <div id="contCertificado">
-                                    <p class="certificado">
-                                        @Html.GetText("PERFILBASERECURSOSFICHA", "RECURSOCERTIFICADO"):
-                                        <strong>@MvcHtmlString.Create(FichaDocumento.Certification.Value)</strong>
-                                    </p>
-                                </div>
-                            }
-                        </div>
-                    }
-                                        
-
-                    @if (IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor || Model.Resource.Actions.Edit)
-                    {
-                        @Html.PartialView("_FichaAccionesMenu", Model)
-                    }
-
-                    <script type="text/javascript">
-                        var urlActionSemCms = '@FichaDocumento.ListActions.UrlActionSemCms';
-
-                        $(document).ready(function () {
-                            MontarFechas();
-
-                            cargarGadgets();
-                        });
-
-                        function cargarGadgets() {
-                            var gadgets = "";
-                            var numGadgets = 0;
-                            //Contextos
-                            $('#divContPanGadgets div.group.resources:empty').each(function () {
-                                if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
-                                    gadgets += $(this).attr("id") + ",";
-                                    numGadgets++;
-                                }
-                            });
-                            //Componentes CMS
-                            $('#divContPanGadgets div.group.cmscomponent:empty').each(function () {
-                                if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
-                                    gadgets += $(this).attr("id") + ",";
-                                    numGadgets++;
-                                }
-                            });
-
-                            if (gadgets != "") {
-                                var dataPostGadgets = {
-                                    callback: "CargarGadgets",
-                                    gadgetsID: gadgets
-                                }
-
-                                $.post('@Html.GetUrlContext((string)ViewBag.UrlPagina, FichaDocumento.Key, Html.GetComunidad().ShortName)', dataPostGadgets, function (data) {
-                                    if (typeof data != "undefined" && data != "") {
-                                        for (var i in data) {
-                                            try {
-                                                if (data[i].updateTargetId.indexOf("FichaGadget_") == 0) {
-                                                    var panID = data[i].updateTargetId.substr(12);
-                                                    var htmlGadget = data[i].html;
-                                                    if (htmlGadget == "")
-                                                    { $('#divContPanGadgets').find("#" + panID).remove(); }
-                                                    else
-                                                    { $('#divContPanGadgets').find("#" + panID).replaceWith(htmlGadget); }
-                                                }
-                                            }
-                                            catch (err) { }
-                                        }
-                                    }
-                                    $.each(gadgets.split(','), function (index, id) {
-                                        if (id.trim() != '' && $('#' + id.trim(), $('#divContPanGadgets')).length > 0 && $('#' + id.trim(), $('#divContPanGadgets')).html().trim() == '')
-                                        { $('#' + id.trim(), $('#divContPanGadgets')).remove(); }
-                                    });
-
-                                    cargarGadgets();
-                                });
-
-                            }
-                            else {
-                                CompletadaCargaContextos();
-                            }
-                        }
-                    </script>
-
-                    <div>
-                        <div class="infoBasica">
-                            <h2>Información básica</h2>
-                            <div>
-                                <div rel="emlo:teachingType">
-                                    <strong>Modo de impartición:</strong>
-                                    <span property="dc:description">@accionFormativa.teachingType</span>
-                                </div>
-                                <div rel="emlo:scope">
-                                    <strong>Ámbito:</strong>
-                                    <span property="dc:description">@accionFormativa.scope</span>
-                                </div>
-                                <div rel="emlo:timing">
-                                    <strong>Temporalización:</strong>
-                                    <span property="dc:description">@accionFormativa.timing</span>
-                                </div>
-                                <div rel="emlo:orgCenter">
-                                    <strong>Centro organizador:</strong>
-                                    <span property="dc:description">@accionFormativa.orgCenter</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="convocatorias">
-                            <h2>Convocatorias</h2>
-                            <div>
-                                <div rel="mlo:specifies">
-                                    <a href="@accionFormativa.specifiesUrl" property="dc:title">@accionFormativa.specifies</a>
-                                    <div>
-                                        <strong>Fecha inicio:</strong>
-                                        <span property="mlo:start">08/05/2018</span>
-                                    </div>
-                                    <div>
-                                        <strong>Fecha fin:</strong>
-                                        <span property="emlo:endCallDate">22/05/2018</span>
-                                    </div>
-                                    <div>
-                                        <strong>Tutores:</strong>
-                                        <span >Oscar Rodríguez López</span>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_endCallDate">
-                                        <div class="edit edit_endCallDate">
-                                            <strong class="lb lb_endCallDate">Fecha fin:</strong>
-                                            <span class="values">
-                                                <span class="value" property="emlo:endCallDate">22/05/2018</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_tutor">
-                                        <div class="cont cont_tutor" rel="emlo:tutor">
-                                            <strong class="lb lb_tutor">Tutores:</strong>
-                                            <div>
-                                                <span class="values">
-                                                    <span class="value">Oscar Rodríguez López</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_person">
-                                        <div class="cont cont_person" rel="emlo:person">
-                                            <strong class="lb lb_person">Participantes de la convocatoria:</strong>
-                                            <div class="contSelEnt contSelEnt_person">
-                                                <div class="propSelEnt propSelEnt_name">
-                                                    <div class="edit edit_name">
-                                                        <span class="values">
-                                                            <span class="value" property="foaf:name">DIANA LAHOZ ESCUDERO</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="contSelEnt contSelEnt_person">
-                                                <div class="propSelEnt propSelEnt_name">
-                                                    <div class="edit edit_name">
-                                                        <span class="values">
-                                                            <span class="value" property="foaf:name">LUIS GIL PIQUERAS</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="contSelEnt contSelEnt_person">
-                                                <div class="propSelEnt propSelEnt_name">
-                                                    <div class="edit edit_name">
-                                                        <span class="values">
-                                                            <span class="value" property="foaf:name">EVA SERRANO IMEDIO</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="contSelEnt contSelEnt_person">
-                                                <div class="propSelEnt propSelEnt_name">
-                                                    <div class="edit edit_name">
-                                                        <span class="values">
-                                                            <span class="value" property="foaf:name">RAQUEL LÓPEZ MORATALLA</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_availableSeats">
-                                        <div class="edit edit_availableSeats">
-                                            <strong class="lb lb_availableSeats">Plazas libres:</strong>
-                                            <span class="values">
-                                                <span class="value" property="emlo:availableSeats">6</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_activationDate">
-                                        <div class="edit edit_activationDate">
-                                            <strong class="lb lb_activationDate">Fecha hora activación formulario opinión:</strong>
-                                            <span class="values">
-                                                <span class="value" property="emlo:activationDate">09/05/2018 00:00:00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_desactivationDate">
-                                        <div class="edit edit_desactivationDate">
-                                            <strong class="lb lb_desactivationDate">Fecha hora desactivación formulario opinión:</strong>
-                                            <span class="values">
-                                                <span class="value" property="emlo:desactivationDate">17/05/2018 12:00:00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_endCloseDate">
-                                        <div class="edit edit_endCloseDate">
-                                            <strong class="lb lb_endCloseDate">Fecha de fin del cierre de AF:</strong>
-                                            <span class="values">
-                                                <span class="value" property="emlo:endCloseDate">06/06/2018</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="propSelEnt propSelEnt_center">
-                                        <div class="cont cont_center" rel="emlo:center">
-                                            <strong class="lb lb_center">Centro de celebración:</strong>
-                                            <div class="contSelEnt contSelEnt_center">
-                                                <div class="propSelEnt propSelEnt_description">
-                                                    <div class="edit edit_description">
-                                                        <span class="values">
-                                                            <span class="value" property="dc:description">ASOCIACIÓN DE VECINOS LA CANDELARIA (TOLEDO)</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-                    @if (!Model.HideUtilsResource)
-                    {
-                        <div class="group utils-2" id="contAutoresEditoresLectores">
-                            @Html.PartialView("_FichaAutoresEditoresLectores", FichaDocumento)
-                        </div>
-                    }
-
-                    @Html.PartialView("_FichaCategorias", FichaDocumento)
-
-                    @Html.PartialView("_FichaEtiquetas", FichaDocumento)
-
-                    @if (FichaDocumento.Version > 0)
-                    {
-                        <div class="group version">
-                            <p>
-                                @Html.GetText("LISTARECURSOS", "VERSIONES")@FichaDocumento.Version
-                            </p>
-                        </div>
-                    }
-
-                    <div class="group compartida" id="divCompartido">
-                        @Html.PartialView("_FichaCompartidos", FichaDocumento)
-                    </div>
-
-                    @if (FichaDocumento.Licence != "")
-                    {
-                        <div class="group license">
-                            <p class="licencia creativeCommonds">@Html.Raw(FichaDocumento.Licence)</p>
-                        </div>
-                    }
                 </div>
+            </div>
+        </div>
+
+        <div class="grupo-desplegable grupo-criterios-acreditacion abierto">
+            <h2>Criterios de acreditación</h2>
+            <div class="contenido">
+                <div class="items columnas">
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Número de horas</strong>
+                            <span>@accionFormativa.duration</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Número de créditos</strong>
+                            <span>@accionFormativa.credit</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Criterios de certificación</strong>
+                            <span>
+                                @accionFormativa.certificationCriteria
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grupo-desplegable grupo-convocatorias">
+            <h2>Convocatorias</h2>
+            <div class="contenido">
+                <p>Lorem ipsum</p>
+            </div>
+        </div>
+
+        <div class="grupo-desplegable grupo-plan-formacion">
+            <h2>Plan de formación</h2>
+            <div class="contenido">
+                <div class="items">
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Plan regional</strong>
+                            <span>
+                                <span>@accionFormativa.regionalPlan</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Línea formativa</strong>
+                            <span>
+                                <span>@accionFormativa.formativeAxis</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Plan anual</strong>
+                            <span>
+                                <span>@accionFormativa.annualPlan</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Línea</strong>
+                            <span>
+                                <span>@accionFormativa.line</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="wrap">
+                            <strong>Contenido</strong>
+                            <span>
+                                <span>@accionFormativa.content</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="listas">
+            <div class="autores">
+                <strong>Autores</strong>
+                <ul>
+                    <li>
+                        <a href="javascript: void(0);">Félix Tuesta - Equipo GNOSS</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="categorias">
+                <strong>Categorias</strong>
+                <ul>
+                    <li>
+                        <a href="javascript: void(0);">Centros Educativos de Madrid</a>,
+                        <a href="javascript: void(0);">Elementos a personalizar</a>,
+                        <a href="javascript: void(0);">Proyectos</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="etiquetas">
+                <strong>Etiquetas</strong>
+                <ul>
+                    <li>
+                        <a href="javascript: void(0);">Centros Educativos de Madrid</a>,
+                        <a href="javascript: void(0);">Elementos a personalizar</a>,
+                        <a href="javascript: void(0);">Proyectos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="comentarios-recurso">
+            <div class="h2-container">
+                <h2>Comentarios</h2>
+                <span>10</span>
+            </div>
+            <div class="comentario-recurso">
+                <div class="header-comentario">
+                    <div class="publicador">
+                        <span class="imagen"></span>
+                        <span class="datos">
+                            <a class="usuario" href="javascript: void(0);">Usuario publicador</a>
+                            <span class="comunidad">Personalización de comunidades</span>
+                        </span>
+                    </div>
+                    <div class="fecha">
+                        <p>8:00 18/10/2018</p>
+                    </div>
+                    <div class="mas-opciones">
+                        <span class="toggle"></span>
+                        <div class="opciones">
+                            <span class="cerrar"></span>
+                            <ul>
+                                <li>
+                                    <a href="javascript: void(0);">Editar</a>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);">Eliminar</a>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);">Responder</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-comentario">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</p>
+                </div>
+            </div>
+            <div class="acciones-comentario">
+                <a href="javascript: void(0);">Comentar</a>
             </div>
         </div>
     </div>
-    @if (FichaDocumento.Comments != null)
-    {
-        <div class="resource">
-            <div class="box comments" id="comments">
-                <div>
-                    <div>
-                        <p class="what"><strong><span id="numComentarios">@FichaDocumento.NumComments</span>&nbsp;@(FichaDocumento.NumComments == 1 ? Html.GetText("COMMON", "COMENTARIO").ToLower() : Html.GetText("COMMON", "COMENTARIOS").ToLower())</strong></p>
-                        @if (!IdentidadActual.IsGuestIdentity)
-                        {
-                            if (FichaDocumento.AllowComments)
-                            {
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/ckeditor.js?v=" + Html.GetVersion());
-                                Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/adapters/jquery.js?v=" + Html.GetVersion());
-                                <div id="add-comment">
-                                    <div class="comment-content">
-                                        <fieldset class="mediumLabels">
-                                            <legend>
-                                                @Html.GetText("PERFILBASERECURSOSFICHA", "PUBLICARCOMENTARIO")
-                                            </legend>
-                                            <p>
-                                                <textarea cols="20" rows="2" id="txtNuevoComentario_@FichaDocumento.Key" class="cke comentarios"></textarea>
-                                            </p>
-                                            <p id="error_@FichaDocumento.Key" class="error"></p>
-                                            @{
-                                                string funcionComentario_CrearComentario = "Comentario_CrearComentario('" + FichaDocumento.ListActions.UrlCreateComment + "', '" + FichaDocumento.Key + "');";
-                                            }
-                                            <input type="button" class="text medium sendComment" value="@Html.GetText("COMMON", "ENVIAR")" onclick="@funcionComentario_CrearComentario" />
-                                            @*<p></p>*@
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <label><span>@Html.GetText("CONTROLESDOCUMENTACION", "COMENTARIOSBLOQUEADOS")</span></label>
-                            }
-                        }
-                        else
-                        {
-                            <p>@Html.GetText("CONTROLESDOCUMENTACION", "QUIERESCOMENTAR") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "HAZTEMIEMBRO")">@Html.GetText("COMMON", "REGISTRARSE")</a> @Html.GetText("PERFIL", "VISITANTEPERFILO") <a href="@Comunidad.Url/@Html.GetText("URLSEM", "LOGIN")">@Html.GetText("COMINICIOLOGIN", "INICIASESION")</a></p>
-                        }
-                        <div id="panComentarios">
-                            @foreach (CommentModel comentario in FichaDocumento.Comments)
-                            {
-                                @Html.PartialView("_FichaComentario", comentario)
-                            }
-                        </div>
-                    </div>
-                    @*<div class="oculto comentariosDisponibles"></div>*@
-                </div>
-            </div>
-            <input type="hidden" value="@Html.GetText("FREEBASE", "AVISOLEGAL")" class="inpt_avisoLegal" />
-        </div>
-    }
 </div>
-<div id="col01">
-    <div id="panVinculadosInt">
-        @Html.PartialView("_FichaVinculados", FichaDocumento)
-    </div>
+<div class="col col-12 col-md-4" id="divContPanGadgets">
     @if (FichaDocumento.Gadgets != null && FichaDocumento.Gadgets.Count > 0)
     {
-        <div id="divContPanGadgets">
-            @foreach (GadgetModel gadget in ((List<GadgetModel>)FichaDocumento.Gadgets).OrderBy(gadget => gadget.Order))
-            {
-                @Html.PartialView("ControlesMVC/_FichaGadget", gadget)
-            }
-        </div>
+        foreach (GadgetModel gadget in ((List<GadgetModel>)FichaDocumento.Gadgets).OrderBy(gadget => gadget.Order))
+        {
+            @Html.PartialView("ControlesMVC/_FichaGadget", gadget)
+        }
     }
+    <div class="contexto contexto-relacionados">
+        <div class="wrap">
+            <h2>Acciones formativas relacionadas</h2>
+            <div class="resource-list">
+                <article class="resource resource-curso">
+                    <div class="imagen">
+                        <img src="https://via.placeholder.com/150" alt="">
+                    </div>
+                    <div class="contenido">
+                        <p class="tipo">Curso</p>
+                        <h3>
+                            <a href="javascript: void(0);">Diviértete con tus errores. Conecta con tu alumnado a través de la diversión (Edición 1)</a>
+                        </h3>
+                    </div>
+                </article>
+                <article class="resource resource-jornada">
+                    <div class="imagen">
+                        <img src="https://via.placeholder.com/150" alt="">
+                    </div>
+                    <div class="contenido">
+                        <p class="tipo">Jornada</p>
+                        <h3>
+                            <a href="javascript: void(0);">III jornadas Orienta y Acción (Edición 1)</a>
+                        </h3>
+                    </div>
+                </article>
+                <article class="resource resource-seminario">
+                    <div class="imagen">
+                        <img src="https://via.placeholder.com/150" alt="">
+                    </div>
+                    <div class="contenido">
+                        <p class="tipo">Seminario</p>
+                        <h3>
+                            <a href="javascript: void(0);">Gestión de conflictos y Mediación en el Aula (Edición 1)</a>
+                        </h3>
+                    </div>
+                </article>
+                <article class="resource resource-convocatoria">
+                    <div class="imagen">
+                        <img src="https://via.placeholder.com/150" alt="">
+                    </div>
+                    <div class="contenido">
+                        <p class="tipo">Convocatoria</p>
+                        <h3>
+                            <a href="javascript: void(0);">EDUK-ACCIÓN RESPONSABLE (Edición 1)</a>
+                        </h3>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>						
+    <div class="contexto contexto-relacionados destacado">
+        <div class="wrap">
+            <h2>Acciones formativas relacionadas</h2>
+            <div class="resource-list">
+                <article class="resource resource-grupo-trabajo">
+                    <div class="imagen">
+                        <img src="https://via.placeholder.com/150" alt="">
+                    </div>
+                    <div class="contenido">
+                        <p class="tipo">Grupo de trabajo</p>
+                        <h3>
+                            <a href="javascript: void(0);">Diviértete con tus errores. Conecta con tu alumnado a través de la diversión (Edición 1)</a>
+                        </h3>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>						
+    <div class="contexto contexto-relacionados convocatoria">
+        <div class="wrap">
+            <h2>Recursos relacionados por convocatoria</h2>
+            <div class="resource-list">
+                <article class="resource resource-pdf">
+                    <div class="contenido">
+                        <p class="tipo">PDF</p>
+                        <h3>
+                            <a href="javascript: void(0);">Aprendizaje Basado en Proyectos (ABP) Infantil y primaria</a>
+                        </h3>
+                    </div>
+                </article>
+                <article class="resource resource-imagen">
+                    <div class="contenido">
+                        <p class="tipo">IMAGEN</p>
+                        <h3>
+                            <a href="javascript: void(0);">Aprendizaje Basado en Proyectos (ABP) Infantil y primaria</a>
+                        </h3>
+                    </div>
+                </article>
+                <article class="resource resource-video">
+                    <div class="contenido">
+                        <p class="tipo">VIDEO</p>
+                        <h3>
+                            <a href="javascript: void(0);">Aprendizaje Basado en Proyectos (ABP) Infantil y primaria</a>
+                        </h3>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script language="javascript" type="text/javascript">
-    $(document).ready(function () {
-        MontarFechaCliente();
-    });
-</script>
 
+@section javascript
+{
 <script type="text/javascript">
-    @Html.Raw(Html.GetJSExtra());
-</script>
+    var urlActionSemCms = '@FichaDocumento.ListActions.UrlActionSemCms';
 
+    $(document).ready(function () {
+        MontarFechas();
+
+        cargarGadgets();
+    });
+
+    function cargarGadgets() {
+        var gadgets = "";
+        var numGadgets = 0;
+        //Contextos
+        $('#divContPanGadgets div.group.resources:empty').each(function () {
+            if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
+                gadgets += $(this).attr("id") + ",";
+                numGadgets++;
+            }
+        });
+        //Componentes CMS
+        $('#divContPanGadgets div.group.cmscomponent:empty').each(function () {
+            if (numGadgets < 3 && $(this).attr("id") != undefined && $(this).attr("id") != "") {
+                gadgets += $(this).attr("id") + ",";
+                numGadgets++;
+            }
+        });
+
+        if (gadgets != "") {
+            var dataPostGadgets = {
+                callback: "CargarGadgets",
+                gadgetsID: gadgets
+            }
+
+            $.post('@Html.GetUrlContext((string)ViewBag.UrlPagina, FichaDocumento.Key, Html.GetComunidad().ShortName)', dataPostGadgets, function (data) {
+                if(typeof data != "undefined" && data != ""){
+                    for (var i in data) {
+                        try{
+                            if (data[i].updateTargetId.indexOf("FichaGadget_") == 0) {
+                                var panID = data[i].updateTargetId.substr(12);
+                                var htmlGadget = data[i].html;
+                                if (htmlGadget == "")
+                                { $('#divContPanGadgets').find("#" + panID).remove(); }
+                                else
+                                { $('#divContPanGadgets').find("#" + panID).replaceWith(htmlGadget); }
+                            }
+                        }
+                        catch(err){}
+                    }
+                }
+                $.each(gadgets.split(','), function (index, id) {
+                if (id.trim() != '' && $('#' + id.trim(), $('#divContPanGadgets')).length > 0 && $('#' + id.trim(), $('#divContPanGadgets')).html().trim() == '')
+                { $('#' + id.trim(), $('#divContPanGadgets')).remove(); }
+                });
+
+                cargarGadgets();
+            });
+
+        }
+        else {
+            CompletadaCargaContextos();
+        }
+    }
+</script>
+}
 
 @functions
 {
@@ -511,22 +527,92 @@
             string emlo = "http://onto.educa.jccm.es/emlo#";
             string dc = "http://purl.org/dc/elements/1.1/";
 
+            this.title = pSemCmsModel.GetFirstValuePropertyByPath(dc + "title");
+            this.currentStatus = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "currentStatus");
+            this.formativeAxis = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "formativeAxis@@@" + dc + "description");
+            this.image = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "image");
+            this.description = pSemCmsModel.GetFirstValuePropertyByPath(dc + "description");
+            this.code = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "code");
+            this.type = pSemCmsModel.GetFirstValuePropertyByPath(dc + "type@@@" + dc + "description");
             this.teachingType = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "teachingType@@@" + dc + "description");
             this.scope = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "scope@@@" + dc + "description");
             this.timing = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "timing@@@" + dc + "description");
+            this.addressed = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "addressed");
+            this.objective = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "objective");
+            this.assessment = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "assessment");
+            this.prerequisite = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "prerequisite");
             this.orgCenter = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "orgCenter@@@" + dc + "description");
+            this.note = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "note");
+            this.duration = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "duration");
+            this.credit = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "credit");
+            this.certificationCriteria = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "certificationCriteria");
 
-            this.specifies = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + dc + "title");
+            this.specifiesTitle = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + dc + "title");
             this.specifiesUrl = pSemCmsModel.GetPropertyByPath(mlo + "specifies").PropertyValues[0].RelatedEntity.Properties[0].PropertyValues[0].DownloadUrl;
+            this.start = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + mlo + "start");
+            this.endCallDate = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "endCallDate");
+            this.tutor = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "tutor");
+            this.places = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + mlo + "places");
+            this.minimumParticipantNumber = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "minimumParticipantNumber");
+            this.startDateRequest = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "startDateRequest");
+            this.endDateRequest = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "endDateRequest");
+            this.provisionalListDate = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "provisionalListDate");
+            this.startDateClaim = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "startDateClaim");
+            this.endDateClaim = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "endDateClaim");
+            this.definitiveListDate = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "definitiveListDate");
+            this.availableSeats = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "availableSeats");
+            this.activationDate = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "activationDate");
+            this.desactivationDate = pSemCmsModel.GetFirstValuePropertyByPath(mlo + "specifies@@@" + emlo + "desactivationDate");
+            this.regionalPlan = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "regionalPlan@@@" + dc + "description");
+            this.annualPlan = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "annualPlan@@@" + dc + "description");
+            this.line = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "line@@@" + dc + "description");
+            this.content = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "content@@@" + dc + "description");
+            this.corp = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "specialityCorp@@@" + emlo + "corp@@@" + dc + "description");
+            this.speciality = pSemCmsModel.GetFirstValuePropertyByPath(emlo + "specialityCorp@@@" + emlo + "speciality@@@" + dc + "description");
+
         }
 
+        public string title { get; set; }
+        public string currentStatus { get; set; }
+        public string formativeAxis { get; set; }
+        public string image { get; set; }
+        public string description { get; set; }
+        public string code { get; set; }
+        public string type { get; set; }
         public string teachingType { get; set; }
         public string scope { get; set; }
         public string timing { get; set; }
+        public string addressed { get; set; }
+        public string objective { get; set; }
+        public string assessment { get; set; }
+        public string prerequisite { get; set; }
         public string orgCenter { get; set; }
-
-        public string specifies { get; set; }
+        public string note { get; set; }
+        public string duration { get; set; }
+        public string credit { get; set; }
+        public string certificationCriteria { get; set; }
+        public string specifiesTitle { get; set; }
         public string specifiesUrl { get; set; }
+        public string start { get; set; }
+        public string endCallDate { get; set; }
+        public string tutor { get; set; }
+        public string places { get; set; }
+        public string minimumParticipantNumber { get; set; }
+        public string startDateRequest { get; set; }
+        public string endDateRequest { get; set; }
+        public string provisionalListDate { get; set; }
+        public string startDateClaim { get; set; }
+        public string endDateClaim { get; set; }
+        public string definitiveListDate { get; set; }
+        public string availableSeats { get; set; }
+        public string activationDate { get; set; }
+        public string desactivationDate { get; set; }
+        public string regionalPlan { get; set; }
+        public string annualPlan { get; set; }
+        public string line { get; set; }
+        public string content { get; set; }
+        public string corp { get; set; }
+        public string speciality { get; set; }
 
     }
 }

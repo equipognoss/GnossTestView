@@ -74,5 +74,18 @@ else
     }
 }
 
+@if (Comunidad != null && Comunidad.VersionJS.HasValue)
+{       
+    @*<script type="text/javascript" src="@Html.GetBaseUrlContent()/imagenes/proyectos/personalizacion/@Comunidad.Key.ToString()@Html.GetStyleVersion()/community.js?v=@Comunidad.VersionJS"></script>*@    
+}
+@if (Comunidad != null && Comunidad.VersionJSAdmin.HasValue)
+{       
+    @*<script type="text/javascript" src="@Html.GetBaseUrlContent()/imagenes/proyectos/personalizacion/@Comunidad.Key.ToString()/admin.js?v=@Comunidad.VersionJSAdmin"></script>*@    
+}
+
+@if (Html.GetGoogleAnalytics() != null)
+{
+    @*<script type="text/javascript">@Html.Raw(Html.GetGoogleAnalytics())</script>*@
+}
 
 <script type="text/javascript" src="@Html.GetBaseUrlStatic()/jsNuevo/jquery.autocomplete.js?v=@Html.GetVersion()"></script>
