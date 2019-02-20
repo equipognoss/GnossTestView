@@ -27,11 +27,10 @@ else if (Model is GadgetResourceListModel)
         }
 
         <div class="wrap" id="@gadgetListado.Key">
-            <div class="group-title">
-                <h2>@Model.Title</h2>
-            </div>
 
-            @if (gadgetListado.ResourcesPagers != null)
+            <h2>@Model.Title</h2>
+
+            @*@if (gadgetListado.ResourcesPagers != null)
             {
                 string classSiguiente = "siguiente";
                 if (gadgetListado.ResourcesPagers.Count == 0)
@@ -48,7 +47,7 @@ else if (Model is GadgetResourceListModel)
                         </li>
                     </ul>
                 </div>
-            }
+            }*@
 
             <div class="contexto resource-list activo">
                 @foreach (ResourceModel ficha in gadgetListado.Resources)
@@ -57,7 +56,7 @@ else if (Model is GadgetResourceListModel)
                 }
             </div>
 
-            @if (gadgetListado.ResourcesPagers != null)
+            @*@if (gadgetListado.ResourcesPagers != null)
             {
                 <div class="contexto resource-list" style="display:none">
                     @foreach (ResourceModel ficha in ((GadgetResourceListModel)Model).ResourcesPagers)
@@ -73,7 +72,7 @@ else if (Model is GadgetResourceListModel)
                         <a href="@gadgetListado.UrlViewMore" target="_blank">@Html.GetText("COMBUSQUEDAAVANZADA", "VERMAS")</a>
                     </p>
                 </div>
-            }
+            }*@
         </div>
     }
 }
