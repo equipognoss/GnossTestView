@@ -106,12 +106,19 @@ namespace GnossTestView.Controllers
 
         private string GetFileName(string pUrl)
         {
-            string fileName = pUrl.Substring(pUrl.IndexOf('/', pUrl.IndexOf("//") + 2)).Trim('/');
-            fileName = fileName.Replace('?', '-');
-            fileName = fileName.Replace('&', '-');
-            fileName = fileName.Replace('=', '-');
-            fileName = fileName.Replace(':', '-');
-            fileName = fileName.Replace(';', '-');
+            string fileName = pUrl.Substring(pUrl.IndexOf("//") + 2).Trim('/');
+
+            if (fileName.Contains("/"))
+            {
+                fileName = pUrl.Substring(pUrl.IndexOf('/'));
+                fileName = fileName.Replace('?', '-');
+                fileName = fileName.Replace('&', '-');
+                fileName = fileName.Replace('=', '-');
+                fileName = fileName.Replace(':', '-');
+                fileName = fileName.Replace(';', '-');
+            }
+            if (string.IsNullOrEmpty(fileName)) { fileName = "home"; }
+
             return $"~/App_Data/{fileName}.txt";
         }
         
@@ -129,9 +136,9 @@ namespace GnossTestView.Controllers
                 myHttpWebRequest.Accept = "application/json";
                 myHttpWebRequest.Timeout = 100000000;
 
-                if (ViewBag.Browser == "chrome" && !string.IsNullOrEmpty(user))
+                if (!string.IsNullOrEmpty(user))
                 {
-                    if (user == "true")
+                    if (ViewBag.Browser == "chrome" && user == "true")
                     {
                         string strHost = new Uri(url).Host;
                         KeyValuePair<string, string> userAutentication = GetLoginData_Chrome(strHost);
@@ -143,25 +150,25 @@ namespace GnossTestView.Controllers
                             myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Basic {base64Auth}");
                         }
                     }
-                }
-                else if (!string.IsNullOrEmpty(user))
-                {
-                    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{user}:{password}");
-                    string base64Auth = System.Convert.ToBase64String(plainTextBytes);
+                    else if (!string.IsNullOrEmpty(user))
+                    {
+                        var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{user}:{password}");
+                        string base64Auth = System.Convert.ToBase64String(plainTextBytes);
                     myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Basic {base64Auth}");
-                }              
+                    }
+                }
 
                 myHttpWebRequest.CookieContainer = new CookieContainer();
-                if (ViewBag.Browser == "chrome" && !string.IsNullOrEmpty(sessionID) )
+                if (!string.IsNullOrEmpty(sessionID) )
                 {
-                    if (sessionID == "true")
+                    if (ViewBag.Browser == "chrome" && sessionID == "true")
                     {
                         myHttpWebRequest.CookieContainer.Add(GetSessionIDCookie(url));
                     }
-                }
-                else if (!string.IsNullOrEmpty(sessionID))
-                {
-                    myHttpWebRequest.CookieContainer.Add(new Cookie("ASP.NET_SessionId", sessionID, "/", myHttpWebRequest.RequestUri.Host));
+                    else
+                    {
+                        myHttpWebRequest.CookieContainer.Add(new Cookie("ASP.NET_SessionId", sessionID, "/", myHttpWebRequest.RequestUri.Host));
+                    }
                 }
 
                 try
