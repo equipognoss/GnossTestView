@@ -108,6 +108,12 @@
             <span class="tipo" title="@Html.GetText("AYUDACOMADMINPESTANYAS", "CLASECSSBODY")">@Html.GetText("COMADMINPESTANYAS", "CLASECSSBODY")</span>
             <input type="text" name="TabClassCSSBody" value="@pestanya.ClassCSSBody" />
         </p>
+
+        <p>
+            <span class="tipo" title="@Html.GetText("AYUDACOMADMINPESTANYAS", "METADESCRIPTION")">@Html.GetText("COMADMINPESTANYAS", "METADESCRIPTION")</span>
+            <input type="text" name="TabMetaDescription" value="@pestanya.MetaDescription" />
+        </p>
+
         <p>
             <span class="tipo" title="@Html.GetText("AYUDACOMADMINPESTANYAS", "VISIBLEMENU")">@Html.GetText("COMADMINPESTANYAS", "VISIBLEMENU")</span>
             <input type="checkbox" name="TabVisible" @(pestanya.Visible ? "checked" : "") />

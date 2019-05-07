@@ -7,9 +7,23 @@
 @if (Comunidad.Key != ProyectoAD.MetaProyecto && !IdentidadActual.IsExpelled)
 { 
 
-       @*if (IdentidadActual.IsGuestUser) 
+    <div class="columms" id="tools">
+        <div class="supertitle">
+            <p>
+            @if (Comunidad.IsCatalog)
+            {
+                <strong> </strong>
+            }
+            else
+            {
+                <strong>@Html.GetText("QUEPUEDOHACER", "QUEPUEDOHACER")</strong>
+            }
+            </p>
+        </div>
+
+        @if (IdentidadActual.IsGuestUser)
         {
-            
+            <ul class="options tools">
                 <li class="botonRegistro">
                     @if (Comunidad.AccessType == CommunityModel.TypeAccessProject.Restricted)
                     { 
@@ -20,7 +34,10 @@
                         <a href="@Comunidad.Url/@Html.GetText("URLSEM", "HAZTEMIEMBRO")">@Html.GetText("COMINICIOLOGIN", "REGISTRATEPARTICIPA")</a>
                     }
                 </li>
-            
+                <li class="link">
+                    <span>@Html.GetText("PERFIL", "VISITANTEPERFILO") </span><a href="@Comunidad.Url/@Html.GetText("URLSEM", "LOGIN")">@Html.GetText("COMINICIOLOGIN", "INICIASESION")</a>
+                </li>
+            </ul>
         }
         else if (IdentidadActual.IsGuestIdentity)
         {
@@ -64,49 +81,25 @@
                     }
                 </div>
             }
-        }*@
-        if(!IdentidadActual.IsGuestIdentity && !IdentidadActual.IsGuestUser)
+        }
+        else
         {
-            
-                if (Comunidad.ProjectState != CommunityModel.StateProject.Closing && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor))
+            <ul class="options tools">
+                @if (Comunidad.ProjectState != CommunityModel.StateProject.Closing && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor))
                 {
                     if (permisosComunidad.CreateWidget && !Comunidad.CompactedMenu)
                     {
-                    <li class="crear dropdown">
+                    <li class="crearWidget">
                         <a href="@Comunidad.Url/@Html.GetText("URLSEM", "OBJETOGNOSSBUSCADOR")">@Html.GetText("QUEPUEDOHACER", "CREARWIDGET")</a>
                     </li>
                     }
                     if (permisosComunidad.CreateResource || permisosComunidad.CreateQuestion || permisosComunidad.CreatePoll || permisosComunidad.CreateDebate)
                     {
-                    <li class="crear dropdown">
-                        <a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">@Html.GetText("QUEPUEDOHACER", "CREARRECURSO")</a>
-                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 45px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            @if (Comunidad.ProjectState != CommunityModel.StateProject.Closing && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor))
-                            {
-
-                            if (permisosComunidad.CreateResource)
-                            {
-                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRRECURSO")">@Html.GetText("QUEPUEDOHACER", "CREARRECURSO")</a>
-                            }
-                            if (permisosComunidad.CreateQuestion)
-                            {
-                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRPREGUNTA")/@Guid.NewGuid()/15">@Html.GetText("QUEPUEDOHACER", "CREAPREGUNTA")</a>
-                            }
-                            if (permisosComunidad.CreateDebate)
-                            {
-                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRENCUESTA")/@Guid.NewGuid()/16">@Html.GetText("QUEPUEDOHACER", "CREADEBATE")</a>
-                            }
-                            if (permisosComunidad.CreatePoll)
-                            {
-                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRDEBATE")/@Guid.NewGuid()/18">@Html.GetText("QUEPUEDOHACER", "CREAENCUESTA")</a>
-                            }
-
-
-                            }
-                        </div>
+                    <li class="crearRecurso">
+                        <a rel="manage maxinvitaciones" href="#create" class="hideShowPanel">@Html.GetText("QUEPUEDOHACER", "CREARRECURSO")</a>
                     </li>
                     }
-                    @*if (permisosComunidad.Invite && !Comunidad.CompactedMenu)
+                    if (permisosComunidad.Invite && !Comunidad.CompactedMenu)
                     {
                         string hrefInvitarMiembros = Comunidad.Url + "/" + Html.GetText("URLSEM", "INVITARACOMUNIDAD");
                         string classInvitarMiembros = "";
@@ -119,7 +112,7 @@
                     <li class="invitar">
                         <a href="@hrefInvitarMiembros" class="@classInvitarMiembros" rel="manage create">@Html.GetText("QUEPUEDOHACER", "INVITAAMIGOS")</a>
                     </li>
-                    }*@
+                    }
                 }
 @*                @if(permisosComunidad.EditBio)
                 {
@@ -127,7 +120,7 @@
                     <a href="@Comunidad.Url/@Html.GetText("URLSEM", "EDITARBIOS")">@Html.GetText("QUEPUEDOHACER", "EDITABIOGRAFIA")</a>
                 </li>
                 }*@
-                @*@if (Comunidad.ProjectState != CommunityModel.StateProject.Closing && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor))
+                @if (Comunidad.ProjectState != CommunityModel.StateProject.Closing && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor))
                 {
                     if (permisosComunidad.Subscribe && !Comunidad.CompactedMenu)
                     {
@@ -141,17 +134,202 @@
                 <li class="gestiona">
                     <a href="#manage" rel="create maxinvitaciones" class="hideShowPanel">@Html.GetText("QUEPUEDOHACER", "GESTIONA")</a>
                 </li>
-                }*@
+                }
+            </ul>
+            <div class="col-4">
+                @if (Comunidad.ProjectState != CommunityModel.StateProject.Closing && (Comunidad.ProjectState != CommunityModel.StateProject.Definition || IdentidadActual.IsProyectAdmin || IdentidadActual.IsProyectSupervisor))
+                {
+                <div id="create" class="box create">
+                    <strong>@Html.GetText("QUEPUEDOHACER", "CREARRECURSO")</strong>
+                    <ul>
+                        @if (permisosComunidad.CreateResource)
+                        {
+                        <li class="addRecurso">
+                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRRECURSO")">@Html.GetText("QUEPUEDOHACER", "CREARRECURSO")</a>
+                            @if(Html.GetControllerName() != "EditarRecurso" && permisosComunidad.DocumentPermissions.Count > 0){
+                                bool recursosGnossNoDisponibles = true;
+                                <ul style="display:none">
+                                @if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.Nota))
+                                {
+                                    recursosGnossNoDisponibles = true;
+                                    <li id="liNota">
+                                        <a id="linkNota">@Html.GetText("PERFILBASESUBIR", "NOTA")</a>
+                                    </li>
+                                }
+                                @if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.FicheroServidor))
+                                {
+                                    recursosGnossNoDisponibles = true;
+                                    <li id="liArchivo">
+                                        <a onclick="mostrarPanSubirRecurso('Archivo')">@Html.GetText("PERFILBASESUBIR", "NUEVOARCHIVO", "50")</a>
+                                        <div id="divArchivo" class="oculto">
+                                            <fieldset class="labels">
+                                                <p>
+                                                    <label id="lblSelecionaUnDoc">@Html.GetText("PERFILBASESUBIR", "NUEVOARCHIVO_T")</label>   
+                                                    <input type="file" id="fuExaminar" name="fuExaminar" />
+		                                        </p>
+		                                        <p>
+		                                            <input id="lbSiguienteArchivo" type="submit" value="@Html.GetText("PERFILBASESUBIR", "SIGUIENTE")" />
+		                                        </p>
+		                                    </fieldset>
+		                                </div>
+                                    </li>
+                                }
+                                @if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.Hipervinculo))
+                                {
+                                    recursosGnossNoDisponibles = true;
+                                    <li id="liURL">
+                                        <a onclick="mostrarPanSubirRecurso('URL')">@Html.GetText("PERFILBASESUBIR", "DIRECCIONURL")</a>
+                                        <div id="divURL" class="oculto">
+                                            <fieldset class="labels">
+                                                <p>
+                                                    <label id="lblIntroducirURL">@Html.GetText("PERFILBASESUBIR", "DIRECCIONURL_T")</label> 
+                                                    <input id="txtURLDoc" type="text" class="text big" onkeydown="if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {return false;}}" />
+		                                        </p>
+		                                        <p>
+	                                                <input id="lbSiguienteURL" type="button" value="@Html.GetText("PERFILBASESUBIR", "SIGUIENTE")" />            
+	                                            </p>
+	                                        </fieldset>
+                                        </div>		        
+                                    </li>
+                                }
+                                @*@if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.VideoBrightcove))
+                                {
+                                    recursosGnossNoDisponibles = true;
+                                    <li id="liBrightcove">
+                                        <a onclick="mostrarPanSubirRecurso('Brightcove');">@Html.GetText("PERFILBASESUBIR", "VIDEOBRIGHTCOVE")</a>
+                                        <div id="divBrightcove" class="oculto">                       
+                                            <fieldset class="labels">	
+                                                <p>	
+                                                    <label>@Html.GetText("PERFILBASESUBIR", "BRIGHTCOVE_T")</label>
+                                                    <iframe id="iframeBrightcove" srcAux="@Model.SrcIframeBrightcove" height="70px" width="800px" onloadAux="comprobarSubidaBrightcove()"></iframe>		         
+                                                </p>
+                                            </fieldset>
+		                                </div>
+                                    </li>
+                                }*@
+                                @*@if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.VideoTOP))
+                                {
+                                    recursosGnossNoDisponibles = true;
+                                    <li id="liTOP">
+                                        <a onclick="mostrarPanSubirRecurso('TOP');">@Html.GetText("PERFILBASESUBIR", "VIDEOTOP")</a>
+                                        <div id="divTOP" class="oculto">                       
+                                            <fieldset class="labels">	
+                                                <p>	
+                                                    <label>@Html.GetText("PERFILBASESUBIR", "TOP_T")</label>
+                                                    <iframe id="iframeTOP" srcAux="@Model.SrcIframeTOP" height="70px" width="800px" onloadAux="comprobarSubidaTOP()"></iframe>		         
+                                                </p>
+                                            </fieldset>
+		                                </div>
+                                    </li>
+                                }*@
+                                @if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.Wiki))
+                                {
+                                    recursosGnossNoDisponibles = true;
+                                    <li id="liWiki">
+                                        <a onclick="mostrarPanSubirRecurso('Wiki')">@Html.GetText("PERFILBASESUBIR", "ARTICULOWIKI")</a>
+                                        <div id="divWiki" class="oculto">
+                                            <fieldset class="labels">	
+                                                <p>	
+                                                    <label>@Html.GetText("PERFILBASESUBIR", "WIKI_T")</label>
+		                                            <input id="txtArticuloWiki" maxlength="1000" type="text" class="text big" onkeydown="if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {return false;}}"/>
+		                                        </p>
+		                                        <p>
+		                                            <input id="lbSiguienteWiki" type="button" value="@Html.GetText("PERFILBASESUBIR", "SIGUIENTE")" />	
+		                                        </p>
+		                                    </fieldset>
+		                                </div>
+                                    </li>	
+                                }
+                                @if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.ReferenciaADoc))
+                                {
+                                    recursosGnossNoDisponibles = true;
+                                    <li id="liReferenciaDoc">
+                                        <a onclick="mostrarPanSubirRecurso('Referencia')">@Html.GetText("PERFILBASESUBIR", "REFERENCIAADOC")</a>
+                                        <div id="divReferenciaDoc" class="oculto">
+                                            <fieldset class="labels">	
+                                                <p>	
+                                                    <label id="lblDescribaUbic">@Html.GetText("PERFILBASESUBIR", "REFERENCIAADOC_T")</label>
+		                                            <input id="txtUbicacionDoc" type="text" class="text big" onkeydown="if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {return false;}}" />  
+		                                        </p>
+		                                        <p>	
+	                                                <input id="lbSiguienteReferencia" type="button" value="@Html.GetText("PERFILBASESUBIR", "SIGUIENTE")" />	            
+	                                            </p>
+	                                        </fieldset>
+	                                    </div>	             
+                                    </li>
+                                }
+                                </ul>
+                                if (permisosComunidad.DocumentPermissions.Contains(ResourceModel.DocumentType.Semantico) && permisosComunidad.OntologyPermissionsNameUrls != null)
+                                {
+                                    string textoLblOnto = null;
+
+                                    if (recursosGnossNoDisponibles)
+                                    {
+                                        textoLblOnto = Html.GetText("PERFILBASESUBIR", "CREARDOCUMENTO");
+                                    }
+                                    else
+                                    {
+                                        textoLblOnto = Html.GetText("PERFILBASESUBIR", "OCREARDOCUMENTO");
+                                    }
             
-          
-               
-                @*@if (permisosComunidad.MaxMembersExceeded)
+                                    <div id="divContOnto" style="display:none">
+                                        <p>
+                                            <span>@textoLblOnto</span>
+                                        </p>
+                                        <div id="divOnto">
+	                                        <ul id="listadoOntologia">
+                                                @foreach (string nombreOnto in permisosComunidad.OntologyPermissionsNameUrls.Keys)
+                                                {
+                                                    if (!string.IsNullOrEmpty(permisosComunidad.OntologyPermissionsNameUrls[nombreOnto].Value))
+                                                    {
+                                                        string textoNombreOnto = nombreOnto + ": ";
+                                                        <li>@textoNombreOnto<a href="@permisosComunidad.OntologyPermissionsNameUrls[nombreOnto].Key">@Html.GetText("CREARDOCUMENTO", "SOLOUNO")</a> | <a href="@permisosComunidad.OntologyPermissionsNameUrls[nombreOnto].Value">@Html.GetText("CREARDOCUMENTO", "VARIOSALAVEZ")</a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><a href="@permisosComunidad.OntologyPermissionsNameUrls[nombreOnto].Key">@nombreOnto</a></li>
+                                                    }
+                                                }
+	                                        </ul>
+	                                    </div>
+                                    </div>	   
+                                }
+                                <script>
+                                    $(document).ready(function () {
+                                        InicializarSubirRecursoExt("@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRRECURSO")");
+                                    });
+                                </script>
+                            }
+                        </li>
+                        }
+                        @if (permisosComunidad.CreateQuestion)
+                        {
+                        <li class="addPregunta">
+                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRPREGUNTA")/@Guid.NewGuid()/15">@Html.GetText("QUEPUEDOHACER", "CREAPREGUNTA")</a>
+                        </li>
+                        }
+                        @if (permisosComunidad.CreateDebate)
+                        {
+                        <li class="addDebate">
+                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRENCUESTA")/@Guid.NewGuid()/16" >@Html.GetText("QUEPUEDOHACER", "CREADEBATE")</a>
+                        </li>
+                        }
+                        @if (permisosComunidad.CreatePoll)
+                        {
+                        <li class="addEncuesta">
+                            <a href="@Comunidad.Url/@Html.GetText("URLSEM", "SUBIRDEBATE")/@Guid.NewGuid()/18">@Html.GetText("QUEPUEDOHACER", "CREAENCUESTA")</a>
+                        </li>
+                        }
+                    </ul>
+                </div>
+                }
+                @if (permisosComunidad.MaxMembersExceeded)
                 {
                 <div id="maxinvitaciones" class="box ko maxinvitaciones">
                     <p><strong>@Html.GetText("QUEPUEDOHACER", "MAXINVITACIONES")</strong></p>
                 </div>
-                }*@
-                @*@if (Comunidad.GNOSSCommunity || IdentidadActual.IsProyectAdmin)
+                }
+                @if (Comunidad.GNOSSCommunity || IdentidadActual.IsProyectAdmin)
                 {
                 <div id="manage" class="box manage">
                     <strong>@Html.GetText("QUEPUEDOHACER", "GESTIONACOMUNIDAD")</strong>
@@ -161,14 +339,14 @@
                         <li>
                             <a href="@Comunidad.Url/@Html.GetText("URLSEM", "ADMINISTRARCOMUNIDADGENERAL")">@Html.GetText("QUEPUEDOHACER", "ADMINISTRARCOMUNIDAD")</a>
                         </li>
-                        }*@
+                        }
                         @*@if (permisosComunidad.ManageCMS)
                         { 
                         <li>
                             <a href="@Comunidad.Url/@Html.GetText("URLSEM", "ADMINISTRARCOMUNIDADCMS")" >@Html.GetText("COMADMINCMS", "ADMINISTRARCMS")</a>
                         </li>
                         }*@
-                        @*@if (permisosComunidad.CreateGroup)
+                        @if (permisosComunidad.CreateGroup)
                         { 
                         <li>
                             <a href="@Comunidad.Url/@Html.GetText("URLSEM", "GRUPOS")/@Html.GetText("URLSEM", "CREARGRUPO")" >@Html.GetText("GRUPO", "CREARGRUPO")</a>
@@ -212,10 +390,10 @@
                         }
                     </ul>
                 </div>
-                }*@
+                }
                 <!-- .box //-->
-          
+            </div>
         }
             <!-- .col-4 //-->
-    
+    </div>
 }

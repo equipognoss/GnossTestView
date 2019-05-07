@@ -3,18 +3,16 @@
 @{
     UserIdentityModel IdentidadActual = Html.GetIdentidadActual();    
 }
-<div rel="sioc:has_discussion" class="comentario-recurso" id="@Model.Key">@*comment*@
-	<div resource="@Html.GetUrlPagina()/comentario/@Model.Key" typeof="sioc_t:Comment" class="comentario-recurso" >
-        <div class="header-comentario">
-            <div class="publicador" rel="sioc:has_creator" about="@Html.GetUrlPagina()/comentario/@Model.Key">
+<div rel="sioc:has_discussion" class="comment" id="@Model.Key">
+	<div resource="@Html.GetUrlPagina()/comentario/@Model.Key" typeof="sioc_t:Comment">
+		<div class="group author">
+			<p rel="sioc:has_creator" about="@Html.GetUrlPagina()/comentario/@Model.Key">
                 @{
                     string nombrePublicador = Html.ObtenerNombrePerfil(Model.PublisherCard);
                     string urlPublicador = Html.ObtenerUrlPerfil(Model.PublisherCard);
-                    string nombrePub = Model.PublisherCard.NamePerson;
-                    string empresa = Model.PublisherCard.NameOrganization;
+                    
                     string classAnonimo = "";
-                    string urlFoto = null;
-                    if (Model.PublisherCard.UrlFoto == null)
+                    if (Model.PublisherCard.UrlFoto == null) 
                     {
                         if (Model.PublisherCard.TypeProfile == ProfileType.Personal || Model.PublisherCard.TypeProfile == ProfileType.Teacher || Model.PublisherCard.TypeProfile == ProfileType.ProfessionalPersonal)
                         {
@@ -24,64 +22,23 @@
                         {
                             classAnonimo = "organizacionSinImagen";
                         }
-                    }else
-                    {
-                        urlFoto = Html.GetBaseUrlContent() + Model.PublisherCard.UrlFoto;
                     }
                 }
                 <a href="@urlPublicador" class="userComment @classAnonimo">
-                    @if (string.IsNullOrEmpty(classAnonimo))
+                    @if(string.IsNullOrEmpty(classAnonimo))
                     {
-                        @*<img src="@Html.GetBaseUrlContent()@Model.PublisherCard.UrlFoto" alt="@nombrePublicador" />*@
+                        <img src="@Html.GetBaseUrlContent()@Model.PublisherCard.UrlFoto" alt="@nombrePublicador" />
                     }
                 </a>
-                <span class="imagen" @Html.Raw(string.IsNullOrEmpty(urlFoto) ? "" : "style=\"background: url(" + urlFoto + ") no-repeat center\"")></span>
-                <span class="datos">
-                    <a typeof="foaf:Person" href="@urlPublicador" class="usuario">
-                        @nombrePub
+                <span>
+                    <a typeof="foaf:Person" href="@urlPublicador">
+                        <span property="foaf:name">@nombrePublicador</span>
                     </a>
-                    <span class="comunidad">@empresa</span>
-                    @*<span class="by"> @Html.GetText("CONTROLESDOCUMENTACION", "HADICHO")</span>*@
+                    <span class="by"> @Html.GetText("CONTROLESDOCUMENTACION", "HADICHO")</span>
                 </span>
-            </div>
-
-            <div class="fecha" content="@Es.Riam.Gnoss.ExportarImportar.UtilImportarExportar.PasarFechaEnFormatoEstandar(Model.PublishDate)" property="dcterms:created">
-                <p> @Model.PublishDate.ToString("yyyy/MM/dd HH:mm")</p>
-            </div>
-            <div class="mas-opciones">
-                <span class="toggle">
-                </span>
-                <div class="opciones">
-                    <span class="cerrar"></span>
-                    @if (Model.Actions != null && !IdentidadActual.IsGuestIdentity)
-                    {
-                            <ul>
-                                @if (Model.Actions.Delete)
-                                {
-                                    string funcionComentario_EliminarComentario = "Comentario_EliminarComentario('" + Model.Actions.UrlDelete + "', '" + Model.Key + "');";
-                                    <li class="opLabel">
-                                        <a style="cursor:pointer;" onclick="@funcionComentario_EliminarComentario">@Html.GetText("CONTROLESDOCUMENTACION", "ELIMINAR")</a>
-                                    </li>
-                                }
-                                @if (Model.Actions.Edit)
-                                {
-                                    string funcionComentario_EditarComentario = "Comentario_EditarComentario('" + Model.Actions.UrlEdit + "', '" + Model.Key + "');";
-                                    <li class="opLabel">
-                                        <a style="cursor:pointer;" onclick="@funcionComentario_EditarComentario">@Html.GetText("CONTROLESDOCUMENTACION", "EDITAR")</a>
-                                    </li>
-                                }
-                                @if (Model.Actions.Reply)
-                                {
-                                    string funcionComentario_ResponderComentario = "Comentario_ResponderComentario('" + Model.Actions.UrlReply + "', '" + Model.Key + "');";
-                                    <li class="opLabel">
-                                        <a style="cursor:pointer;" onclick="@funcionComentario_ResponderComentario">@Html.GetText("CONTROLESDOCUMENTACION", "RESPONDER")</a>
-                                    </li>
-                                }
-                            </ul>
-                    }
-                </div>
-            </div>
-        </div>
+			</p>
+		</div>
+        <p class="fechaLive" content="@Es.Riam.Gnoss.ExportarImportar.UtilImportarExportar.PasarFechaEnFormatoEstandar(Model.PublishDate)" property="dcterms:created">@Model.PublishDate.ToString("yyyy/MM/dd HH:mm")</p>
         @if (!IdentidadActual.IsGuestIdentity)
         {
             <div class="group utils-1">
@@ -121,13 +78,43 @@
 			    </p>
                 }
 		    </div>
+            if (Model.Actions != null)
+            {
+                <div class="customAboutResource">
+			        <div class="group acciones resourceTools">
+				        <ul class="principal">
+                            @if(Model.Actions.Delete)
+                            {
+                                string funcionComentario_EliminarComentario = "Comentario_EliminarComentario('" + Model.Actions.UrlDelete + "', '" + Model.Key + "');"; 
+					            <li class="opLabel">
+                                    <a style="cursor:pointer;" onclick="@funcionComentario_EliminarComentario">@Html.GetText("CONTROLESDOCUMENTACION", "ELIMINAR")</a>
+					            </li>
+                            }
+                            @if (Model.Actions.Edit)
+                            {
+                                string funcionComentario_EditarComentario = "Comentario_EditarComentario('" + Model.Actions.UrlEdit + "', '" + Model.Key + "');"; 
+                                <li class="opLabel">
+                                    <a style="cursor:pointer;" onclick="@funcionComentario_EditarComentario">@Html.GetText("CONTROLESDOCUMENTACION", "EDITAR")</a>
+                                </li>
+                            }
+                            @if (Model.Actions.Reply)
+                            {
+                                string funcionComentario_ResponderComentario = "Comentario_ResponderComentario('" + Model.Actions.UrlReply + "', '" + Model.Key + "');"; 
+                                <li class="opLabel">
+                                    <a style="cursor:pointer;" onclick="@funcionComentario_ResponderComentario">@Html.GetText("CONTROLESDOCUMENTACION", "RESPONDER")</a>
+                                </li>
+                            }
+				        </ul>
+			        </div>
+		        </div>
+            }
         }
-        <div class="body-comentario comment-content" property="sioc:content">
+        <div class="comment-content" property="sioc:content">
 			@MvcHtmlString.Create(Model.Title)
 		</div>
         @if (Model.Replies.Count > 0)
         { 
-            <div id="respuesta" style="padding-left:40px">
+            <div id="respuesta">
                 @foreach (CommentModel comentarioHijo in Model.Replies)
                 { 
                      @Html.PartialView("_FichaComentario", comentarioHijo)

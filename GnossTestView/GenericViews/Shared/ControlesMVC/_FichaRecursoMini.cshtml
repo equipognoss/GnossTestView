@@ -7,27 +7,11 @@
         claseFicha += " conImagenAsociada";
         claseContenedor = "imagenAsociada";
     }
-
-    string recursoDocumento = "resource-documento";
-    string recursoImagen = "resource-imagen";
-    string recursoVideo = "resource-video";
-    string recursoPDF = "resource-pdf";
-
-    string resoourceType = recursoDocumento;
-    if (Model.TypeDocument.ToString().Equals("pdf") || Model.TypeDocument.ToString().Equals("Pdf"))
-    {
-        resoourceType = recursoPDF;
-    }
-    else if (Model.TypeDocument.ToString().Equals("Imagen") || Model.TypeDocument.ToString().Equals("imagen"))
-    {
-        resoourceType = recursoImagen;
-    }
-    else if (Model.TypeDocument.ToString().Equals("Video") || Model.TypeDocument.ToString().Equals("video"))
-    {
-        resoourceType = recursoVideo;
-    }
 }
-<article typeof="sioc_t:Item" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:sioc_t="http://rdfs.org/sioc/types#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sioc="http://rdfs.org/sioc/ns#" class="@claseFicha resource @resoourceType">
+<div typeof="sioc_t:Item" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:sioc_t="http://rdfs.org/sioc/types#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sioc="http://rdfs.org/sioc/ns#" class="@claseFicha">
+    <div class="box description">
+        <div class="wrapDescription">
+            <div class="group title">
                 @{
                     string classTitulo = "";
                     if (Model.TypeDocument == ResourceModel.DocumentType.Semantico)
@@ -37,7 +21,7 @@
                 }
 
                 <h3  class="@classTitulo"><a href="@Model.CompletCardLink" property="dcterms:title" content="@Model.Title">@Model.Title</a></h3>
-                @*<div class="@claseContenedor">
+                <div class="@claseContenedor">
                     @if (!string.IsNullOrEmpty(Model.UrlPreview))
                     {
                         <p>
@@ -47,8 +31,8 @@
                         </p>
                     }
                     <p class="resourceType @(Model.TypeDocument == ResourceModel.DocumentType.Semantico?"semantico " + Model.RdfType:Model.NameImage)"><span>tipo de documento</span><a href="@Model.CompletCardLink">@Model.RdfTypeName</a></p>
-                </div>*@
-                @*@if (Model.ViewSettings != null)
+                </div>
+                @if (Model.ViewSettings != null)
                 {
                     if (!string.IsNullOrEmpty(Model.ViewSettings.InfoExtraContext))
                     {
@@ -63,6 +47,7 @@
                         <a onclick="DesplegarPanelMVC('despAccionRec_@Model.Key');">Desvincular | x</a>
                     </p>
                 }
+            </div>
 
             @if (Model.TypeDocument == ResourceModel.DocumentType.Encuesta)
             {
@@ -104,5 +89,7 @@
                         </p>
                     </div>
                 </div>	
-            }*@
-</article>
+            }
+        </div>
+    </div>
+</div>

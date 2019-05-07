@@ -9,7 +9,7 @@
     <form id="formulario" action="javascript:void(0)" method="post">
         <div id="copiado" style="visibility:hidden">
             <select id="repositorios" style="display:block">
-                <option value="develop" selected>develop</option>
+                <option value="develop" selected>Develop</option>
             </select>
         </div>
     </form>
@@ -19,11 +19,19 @@ else
 {
     <form id="formulario" action="javascript:void(0)" method="post">
         <div id="copiado" style="display:block">
-            <p>Elige cual ha sido el entorno en el que has estado desarrollando.</p>
+            <p>Elige cual ha sido el entorno en el que has estado desarrollando. Si solo ha configurado un solo entorno solo podrá elegir el entorno de desarrollo</p>
             <select id="repositorios" onchange="entornosChange()">
-                <option value="develop" selected>develop</option>
-                <option value="release">release</option>
-                <option value="master">master</option>
+                <option value="develop" selected>Develop</option>
+                @if (!string.IsNullOrEmpty(Model.Release))
+                {
+                    <option value="release">Release</option>
+                }
+                @if (!string.IsNullOrEmpty(Model.Master))
+                {
+                    <option value="master">Master</option>
+                }
+                 
+                
             </select>
         </div>
         <br />
@@ -31,7 +39,11 @@ else
         <input type="button" class="guardarTodo" id="Crear" value="Crear" />
 
     </form>
+
 }
+
+<br />
+<span style="color:#FF0000" ;> Por favor para realizar la copia mucho mas rápida antes de iniciar la copia comprueba que en la carpeta de estilos no hay backups</span>
 
 
 

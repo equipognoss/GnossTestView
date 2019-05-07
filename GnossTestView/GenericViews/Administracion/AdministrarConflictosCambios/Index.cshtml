@@ -1,0 +1,299 @@
+﻿@model AdministrarFusionCambiosViewModel
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+@{
+    //Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/ckeditor.js?v=" + Html.GetVersion());
+    //Html.GetListaJS().Add(Html.GetBaseUrlStatic() + "/ckeditor/adapters/jquery.js?v=" + Html.GetVersion());
+    Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/cssNuevo/administracion.css?v=" + Html.GetVersion());
+    CommunityModel Comunidad = Html.GetComunidad();
+}
+<div class="content">
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <p>Ha ocurrido el siguiente error</p>
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Error</strong> @Model.Error
+        </div>
+    }
+    else
+    {
+        <div>En esta página puedes gestionar los conflictos que esta produciendo que no se pueda desplegar</div>
+        <br />
+
+        <div class="alert warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+            <strong>Si decides hacer una fusión se subirán todos los cambios hechos hasta el momento al repositorio.</strong>
+        </div>
+
+        <form id="formularioFusion" action="javascript:void(0)" method="post" enctype="multipart/form-data" class="wrap">
+            <div>
+                <span class="floatleft"> Estado archivo entorno actual</span>
+                <span class="floatright">Estado archivo en el repositorio</span>
+            </div>
+            <div id="textArea">
+                <textarea readonly class="floatleft" id="TextAreaLeft">@Model.ContenidoBD</textarea>
+                <textarea readonly class="floatright" id="TextAreaRight">@Model.ContenidoCambio</textarea>
+            </div>
+            <div>
+                <button type=button class="floatleftbutton" id="QuedarmeArchivoActual">Quedarme con este archivo</button>
+                <button type=button class="floatleftbutton" id="ArchivoEntornoActual">Descargar archivo</button>
+                <button type=button class="floatrightbutton" id="ArchivoEntornoCambio">Descargar archivo</button>
+                <button type=button class="floatrightbutton" id="QuedarmeArchivoCambio">Quedarme con este archivo</button>
+            </div>
+            <br />
+            <div class="wrap">
+                <span class="aligncenter">Subir archivo fusión:</span>
+                <input id="SubirArchivo" class="aligncenter" type="file" />
+            </div>
+            <br />
+            <div style="text-align:center">
+                <input class="guardarTodo" id="submitButton" type="submit" value="Guardar Cambios">
+            </div>
+            <button class="guardar" onclick="location.href='@Comunidad.Url/@Html.GetText("URLSEM", "ADMINISTRARLISTACONFLICTOS")'">Volver a lista de fusion</button> 
+        </form>
+    }
+</div>
+<style>
+    .alert {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+    }
+        .alert.warning {
+            background-color: #82849a;
+        }
+
+        .alert.success {
+            background-color: #4CAF50;
+        }
+
+    body {
+        scrollbar-face-color: #ff8c00;
+        scrollbar-track-color: #fff8dc;
+        scrollbar-arrow-color: #ffffff;
+        scrollbar-highlight-color: #fff8dc;
+        scrollbar-shadow-color: #d2691e;
+        scrollbar-3dlight-color: #ffebcd;
+        scrollbar-darkshadow-color: #8b0000;
+    }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .floatleftbutton {
+        float: left;
+        width: 24.38%;
+    }
+
+    .floatrightbutton {
+        float: right;
+        width: 24.38%;
+    }
+
+    .floatleft {
+        float: left;
+        width: 48%;
+    }
+
+    .floatright {
+        float: right;
+        width: 48%;
+    }
+
+    .aligncenter {
+        text-align: center;
+    }
+
+    .closebtn:hover {
+        color: black;
+    }
+
+    .wrap {
+        width: 100%;
+    }
+
+    textarea {
+        overflow-y: scroll;
+        height: 600px;
+    }
+</style>
+<script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+    reset = function (e) {
+        e.wrap('<form>').closest('form').get(0).reset();
+        e.unwrap();
+    }
+    $('#ArchivoEntornoActual').click(function () {
+        var nombre = getUrlParameter('FilePath');
+        var blob = new Blob([$('#TextAreaLeft')[0].value], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "Actual_" + nombre.split('\\').pop().split('/').pop());
+    });
+    $('#ArchivoEntornoCambio').click(function () {
+        var nombre = getUrlParameter('FilePath');
+        var blob = new Blob([$('#TextAreaRight')[0].value], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "Cambio_" + nombre.split('\\').pop().split('/').pop());
+    });
+    $('#QuedarmeArchivoCambio').click(function () {
+        if ($("#TextAreaRight").eq(0).css("font-weight") == 400) {
+            $("#TextAreaLeft").eq(0).css({ "background-color": "white", "font-weight": "normal" });
+            $("#TextAreaRight").eq(0).css({ "background-color": "rgba(144, 134, 194, 0.39)", "font-weight": "bold" });
+            $("#SubirArchivo").prop("disabled", true);
+            $("#QuedarmeArchivoCambio")[0].textContent = 'No quedarme con este archivo';
+            $("#QuedarmeArchivoActual")[0].textContent = 'Quedarme con este archivo';
+            reset($("#SubirArchivo"));
+
+        } else {
+            $("#TextAreaRight").eq(0).css({ "background-color": "white", "font-weight": "normal" });
+            $("#SubirArchivo").prop("disabled", false)
+            $("#QuedarmeArchivoCambio")[0].textContent = 'Quedarme con este archivo';
+        }
+
+    });
+    $('#QuedarmeArchivoActual').click(function () {
+        if ($("#TextAreaLeft").eq(0).css("font-weight") == 400) {
+            $("#TextAreaRight").eq(0).css({ "background-color": "white", "font-weight": "normal" });
+            $("#TextAreaLeft").eq(0).css({ "background-color": "rgba(144, 134, 194, 0.39)", "font-weight": "bold" });
+            $("#SubirArchivo").prop("disabled", true);
+            $("#QuedarmeArchivoActual")[0].textContent = 'No quedarme con este archivo';
+            $("#QuedarmeArchivoCambio")[0].textContent = 'Quedarme con este archivo';
+            reset($("#SubirArchivo"));
+        }
+        else {
+            $("#TextAreaLeft").eq(0).css({ "background-color": "white", "font-weight": "normal" });
+            $("#SubirArchivo").prop("disabled", false)
+            $("#QuedarmeArchivoActual")[0].textContent = 'Quedarme con este archivo';
+        }
+    });
+    var OperativaAcciones = {
+        init: function () {
+            this.engancharComportamiento();
+        },
+        mostrarGuardadoOK: function () {
+            $('#formularioFusion').after("</br> <div id=\"okGeneral\" class=\"ok general\"><span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span> La fusión se ha gestionado con éxito</div>");
+        },
+        mostrarErrorGuardado: function () {
+            if (!$("#errorSpam")[0]) {
+                $('#formularioFusion').after("</br> <div id=\"errorSpam\" class=\"alert\"><span class=\"closebtn\" onclick=\"this.parentElement.style.display='none';\">&times;</span>" + arguments[0] + "</div>");
+            } else {
+                $("#errorSpam")[0].childNodes[1].data = arguments[0];
+                $("#errorSpam")[0].style.display = "inherit";
+            }
+        },
+        ObtenerTipoFusion: function () {
+            if ($("#TextAreaLeft").val() !== "")
+            {
+                if ($("#TextAreaRight").val() !== "")
+                {
+                    //Una modificacion de un archivo existente en los dos entornos
+                    return 0;
+                }else{
+                    //En el entorno donde se ha generado el cambio se ha borrado el archivo
+                    return 1;
+                }
+            }else {
+                //En el entorno donde se ha generado el cambio se ha creado el archivo
+                return 2;
+            }
+        },
+        guardar: function () {
+            var that = this;
+            if ($("#TextAreaLeft").eq(0).css("font-weight") == 400 && $("#TextAreaRight").eq(0).css("font-weight") == 400 && $('#SubirArchivo').get(0).files.length === 0) {
+                that.mostrarErrorGuardado("No puedes guardar sin haber gestionado los cambios");
+            } else {
+                MostrarUpdateProgress();
+                var fd = new FormData();
+                fd.append("pFilePath", getUrlParameter('FilePath'));
+                fd.append("pEntorno", getUrlParameter('Entorno'));
+                fd.append("pFecha", getUrlParameter('Fecha'));
+                var urlPagina = [location.protocol, '//', location.host, location.pathname].join('');
+                if ($('#SubirArchivo').get(0).files.length != 0) {
+                    fd.append("pTipo", getUrlParameter('Tipo'));
+                    fd.append("pTipoFusion", that.ObtenerTipoFusion());
+                    fd.append("pFileInput", $("#SubirArchivo")[0].files[0]);
+                    urlPagina = urlPagina + '/SaveFile';
+                } else if ($("#TextAreaLeft").eq(0).css("font-weight") != 400) {
+                    fd.append("pTipo", getUrlParameter('Tipo'));
+                    fd.append("pTipoFusion", that.ObtenerTipoFusion());
+                    if ($("#TextAreaLeft").val()!=="")
+                    {
+                        fd.append("ptextArea", $("#TextAreaLeft").val());
+                    }else
+                    {
+                        fd.append("ptextArea", $("#TextAreaRight").val());
+                    }
+                    urlPagina = urlPagina + '/SaveArea';
+                } else {
+                    fd.append("pTipo", getUrlParameter('Tipo'));
+                    fd.append("pTipoFusion", that.ObtenerTipoFusion());
+                    if ($("#TextAreaRight").val()!=="")
+                    {
+                        fd.append("ptextArea", $("#TextAreaRight").val());
+                    }else
+                    {
+                        fd.append("ptextArea", $("#TextAreaLeft").val());
+                    }
+                    urlPagina = urlPagina + '/SaveArea';
+                }
+                GnossPeticionAjax(
+                urlPagina,
+                fd,
+                true
+                ).done(function (data) {
+                    that.mostrarGuardadoOK();
+                }).fail(function (data) {
+                    var error = data.split('|||');
+                    if (error)
+                    {
+                        that.mostrarErrorGuardado(error);
+                    } else {
+                        that.mostrarErrorGuardado("Error al gestionar la fusión, contacte con un administrador");
+                    }
+                }).always(function () {
+                    OcultarUpdateProgress();
+                });
+            }
+        },
+        engancharComportamiento: function () {
+            var that = this;
+            $('#submitButton').click(function () {
+                that.guardarTodoFusion();
+            });
+            return;
+        },
+        guardarTodoFusion: function () {
+            var that = this;
+            that.guardar();
+        }
+    }
+
+    $(document).ready(function () {
+        OperativaAcciones.init();
+    });
+
+
+</script>

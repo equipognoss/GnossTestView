@@ -1,4 +1,4 @@
-﻿@model AdministrarListaCambiosViewModel
+﻿@model AdministracionConflictosCambiosViewModel
 @using Es.Riam.Gnoss.Web.MVC.Models.IntegracionContinua;
 @{
     Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/cssNuevo/administracion.css?v=" + Html.GetVersion());
@@ -29,7 +29,7 @@ if (pModelo.Any())
                     <td>@TimeZone.CurrentTimeZone.ToLocalTime(KeyValue.Key)</td>
                     @if (pPintamosEnlace && cambioMasAntiguo.Key == KeyValue.Key)
                     {
-                        <td><a href="@Comunidad.Url/@Html.GetText("URLSEM", "ADMINISTRARFUSIONCAMBIO")?Entorno=@cambio.Entorno&Fecha=@KeyValue.Key.Ticks&Tipo=@cambio.Tipo&FilePath=@HttpUtility.UrlEncode(cambio.Path)">@cambio.NombreArchivo</a></td>
+                        <td><a href="@Comunidad.Url/@Html.GetText("URLSEM", "ADMINISTRARFUSIONCONFLICTOS")?Entorno=@cambio.Entorno&Fecha=@KeyValue.Key.Ticks&Tipo=@cambio.Tipo&FilePath=@HttpUtility.UrlEncode(cambio.Path)">@cambio.NombreArchivo</a></td>
                     }
                     else
                     {
@@ -53,29 +53,16 @@ if (pModelo.Any())
     }
     else
     {
-        if (!Model.DiccionarioCambios.Any())
+        if (!Model.DiccionarioConflictos.Any())
         {
             <p>No existe ningun cambio</p>
         }
         else
         {
-            @*<table class="tableSection">
-                @if (Model.Entorno==Model.EntornoRelease)
-                {
-                    @DibujarTabla(Model.DiccionarioCambios, true, "Tabla con los cambios que requieren fusión","Master")
-                }
-                else
-                {
-                    @DibujarTabla(Model.DiccionarioCambios.Where(x => x.Value.FirstOrDefault().Entorno==Model.EntornoRelease), true, "Tabla con los cambios que requieren fusión","Release")
-                }
-            </table>*@
-            if (Model.Entorno == Model.EntornoDevelop)
-            {
-                <table class="tableSection">
-                    @DibujarTabla(Model.DiccionarioCambios.Where(x => x.Value.FirstOrDefault().Entorno == Model.EntornoRelease), true, "Tabla con los cambios de Release", "Release")
-                    @DibujarTabla(Model.DiccionarioCambios.Where(x => x.Value.FirstOrDefault().Entorno==Model.EntornoMaster), true, "Tabla con los cambios de Master","Master")
-                </table>
-            }
+            <table class="tableSection">
+                    @DibujarTabla(Model.DiccionarioConflictos, true, "Tabla con los cambios que requieren fusión","Develop")
+            </table>
+            
 
         }
     }

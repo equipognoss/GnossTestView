@@ -3,7 +3,7 @@
     CommunityModel Comunidad = Html.GetComunidad();
 }
 
-<div id="footer" style="display:none">
+<div id="footer">
     @if (Comunidad != null)
     {
         if (string.IsNullOrEmpty(Comunidad.Copyright) && !Comunidad.IsCatalog)

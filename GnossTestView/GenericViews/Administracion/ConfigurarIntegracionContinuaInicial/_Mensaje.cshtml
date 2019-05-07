@@ -1,21 +1,12 @@
-﻿@{ 
+﻿@{
     CommunityModel Comunidad = Html.GetComunidad();
 }
 <form id="formulario" action="javascript:void(0)" method="post">
-    <p>Se ha creado toda la configuración inicial del proyecto.</p>
-    <p>Para continuar se tendra que logear en el repositorio escogido con las credenciales del usuario con el que se creo el repositorio.</p>
-    
-    <a href="@Html.Raw(Model.UrlLogin)" class="button">Loguearme en bitbucket</a>
-    <input type="button" onclick="cambia_de_pagina()" id="Log" value="Loguearme en bitbucket" />
-</form>
+    <p>Se ha almacenado toda la configuración inicial del proyecto.</p>
+    <p>Para continuar se tendra que logear en el repositorio escogido con las <strong>credenciales del usuario con el que se creo el repositorio.</strong></p>
 
-<script>
-    function cambia_de_pagina() {
-        var that = this;
-        alert("Gracias por visitar nuestra pagina")
-        location.href = "@Html.Raw(Model.UrlLogin)"
-    }
-</script>
+    <a href="@Html.Raw(Model.UrlLogin)" class="button">Loguearme en el repositorio</a>
+</form>
 
 <script>
     var OperativaAcciones = {
@@ -67,10 +58,9 @@
         width: 20%;
         margin-left: 10px;
     }
-    input[type=button]{
-        float:initial;
+
+    input[type=button] {
+        float: initial;
     }
-
 </style>
-
 

@@ -86,7 +86,8 @@ namespace GnossTestView.Controllers
                 }
                 else
                 {
-                    if (controllerName.Equals("HomeComunidad") && modelType.Equals("CMSBlock")) { controllerName = "CMSPagina"; }
+                    if (controllerName.Equals("HomeComunidad") && modelType.Equals("CMSBlock")) { controllerName = "CMSPagina"; actionName = "Index"; }
+                    if (controllerName.Equals("Busqueda")) { actionName = "Index"; }
                     if (modelType.Equals("Error404ViewModel")) { controllerName = "Error"; actionName = "Error404"; }
 
                     string view = $"~/Views/{controllerName}/{actionName}.cshtml";
@@ -109,6 +110,8 @@ namespace GnossTestView.Controllers
             fileName = fileName.Replace('?', '-');
             fileName = fileName.Replace('&', '-');
             fileName = fileName.Replace('=', '-');
+            fileName = fileName.Replace(':', '-');
+            fileName = fileName.Replace(';', '-');
             return $"~/App_Data/{fileName}.txt";
         }
         

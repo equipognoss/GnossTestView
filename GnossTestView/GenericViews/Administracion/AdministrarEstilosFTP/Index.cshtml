@@ -1,0 +1,12 @@
+﻿@model Es.Riam.Gnoss.Web.MVC.Models.Administracion.AdministrarEstilosFTPViewModel
+@{
+    Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/cssNuevo/administracion.css?v=" + Html.GetVersion());
+}
+<div class="content">
+    <h1>Estilos</h1>
+   <p>Para conectarse a la carpeta de Estilos es necesario conectarse por FTP con el <b>usuario</b> y <b>contraseña</b> que se ha logueado en esta comunidad, a esta <b>IP:</b>@Model.IP y al <b>Puerto:</b> @Model.Puerto</p>
+
+</div>
+<script type="text/javascript">
+    
+</script>

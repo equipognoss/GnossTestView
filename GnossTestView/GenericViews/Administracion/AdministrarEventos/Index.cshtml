@@ -28,9 +28,14 @@
                     <div class="visor" id="visorCopiar">
                         <p id="panCerrar"><a class="cerrar">cerrar [x]</a></p>
                         <p>Copia la ruta del evento y pégala en el navegador</p>
-                        <p id="panTextoCopiar"></p>
-                        <a id="btnCopiar" >Copiar</a>
+                        <p class="textoURL" id="panTextoCopiar"></p>
+                        <a id="btnCopiar">Copiar</a>
                         <p id="mensajeCopiado">¡ COPIADO !</p>
+                    </div>
+                    <div class="visor" id="visorRedirect">
+                        <p id="panCerrar"><a class="cerrar">cerrar [x]</a></p>
+                        <p>Url de redirección del evento</p>
+                        <p class="textoURL" id="panTextoRedirect"></p>
                     </div>
                     <table>
                         <thead>
@@ -42,6 +47,8 @@
                                 <th class="tipo">Tipo</th>
                                 <th class="miembros">Miembros</th>
                                 <th class="codigoEvento">Código evento</th>
+                                <th class="grupo">Grupo</th>
+                                <th class="urlRedirect">UrlRedirect</th>
                                 <th class="cms">CMS</th>
                                 <th class="activo">Activo</th>
                             </tr>
@@ -51,10 +58,7 @@
                             {
                                 <tr class="par" id="@evento.Key">
                                     <td class="editar">
-                                        @if (evento.NumMembers == 0)
-                                        {
-                                            <a href="@Html.GetComunidad().Url/@Html.GetText("URLSEM", "COMADMINCOMEVENTOS")/@evento.Key"><span class="action editar">Editar</span></a>
-                                        }
+                                        <a href="@Html.GetComunidad().Url/@Html.GetText("URLSEM", "COMADMINCOMEVENTOS")/@evento.Key"><span class="action editar">Editar</span></a>
                                     </td>
                                     <td class="eliminar">
                                         @if (evento.NumMembers == 0)
@@ -76,6 +80,13 @@
                                         }
                                         </td>
                                     <td class="codigoEvento" style="">@evento.InfoExtra</td>
+                                    <td class="grupo" style="">@evento.Group</td>
+                                    <td class="urlRedirect">
+                                        @if (!string.IsNullOrEmpty(evento.UrlRedirect))
+                                        {
+                                            <a aux="@evento.UrlRedirect">Ver url</a>
+                                        }
+                                    </td>
                                     <td>
                                         @if (Model.ListaComponentesCMS.ContainsKey(evento.ComponenteCMS))
                                         {
@@ -107,6 +118,15 @@
             })
         });
 
+        $('td.urlRedirect a').click(function () {
+            var panelVisor = $('#visorRedirect');
+            $('#panTextoRedirect', panelVisor).html($(this).attr('aux'));
+            panelVisor.css({
+                display: 'block',
+                top: ($(this).offset().top - 100) + 'px'
+            })
+        });
+
         $('#visorCopiar #btnCopiar').click(function () {
             var panelVisor = $('#visorCopiar');
             copiarAlPortapapeles('panTextoCopiar');
@@ -116,6 +136,11 @@
         $('#visorCopiar #panCerrar a').click(function () {
             var panelVisor = $('#visorCopiar');
             $('#mensajeCopiado').hide();
+            panelVisor.hide();
+        });
+
+        $('#visorRedirect #panCerrar a').click(function () {
+            var panelVisor = $('#visorRedirect');
             panelVisor.hide();
         });
 
@@ -180,7 +205,9 @@
             dataPost['evento.Name'] = $("#txtTitulonuevoEvento").val();
             dataPost['evento.Desciption'] = encodeURIComponent($("#txtContenidoNuevoEvento").val());
             dataPost['evento.Type'] = $("#ddlTipoNuevoEvento").val();
-            dataPost['evento.InfoExtra'] = $("#txtCodigoNuevoEvento").val();
+            dataPost['evento.InfoExtra'] = $("#txtCodigoNuevoEvento").val(); 
+            dataPost['evento.Group'] = $("#txtGrupoNuevoEvento").val();
+            dataPost['evento.UrlRedirect'] = $("#txtUrlRedirectNuevoEvento").val();
             dataPost['evento.ComponenteCMS'] = $("#cmbNuevoComponente").val();
 
             MostrarUpdateProgress();
@@ -226,10 +253,16 @@
 </script>
 
 <style>
-    #visorCopiar{
-        position: absolute; padding: 10px; width: 400px; background: #ddd; left: 300px; display: none;
+    .visor{
+        position: absolute; padding: 10px; width: 400px; background: #ddd; display: none;
     }
-    #visorCopiar #panTextoCopiar{
+    #visorCopiar{
+        left: 270px;
+    }
+    #visorRedirect{
+        left: 700px;
+    }
+    .visor .textoURL{
         cursor: text; 
         border: 1px solid #ccc; 
         padding: 10px; 
@@ -238,7 +271,10 @@
         float: left;
         height: 60px;
     }
-    #visorCopiar #btnCopiar {
+    #visorRedirect .textoURL{
+        width: 380px; 
+    }
+    .visor #btnCopiar {
         background: #ccc none repeat scroll 0 0;
         border: 1px solid #bbb;
         color: #444;
@@ -247,14 +283,14 @@
         position: relative;
         top: 30px;
     }
-    #visorCopiar #panCerrar{
+    .visor #panCerrar{
         height:20px;
     }
-    #visorCopiar #panCerrar a{
+    .visor #panCerrar a{
         float: right;
     }
      
-    #visorCopiar #mensajeCopiado{
+    .visor #mensajeCopiado{
         top: 50px; 
         left: 15px; 
         position: relative;

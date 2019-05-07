@@ -2,6 +2,10 @@
 
 @{
     Guid idTemp = Guid.NewGuid();
+    if (Model.AgrupacionID.HasValue)
+    {
+        idTemp = Model.AgrupacionID.Value;
+    }
     string nombreTipoFaceta = "";
 
     switch (Model.Type)
@@ -25,8 +29,8 @@
 
 }
 
-<li class="row" id="@idTemp" >
-    <span class="handle">:::</span>
+<li class="row facetas" id="@idTemp" >
+    <span class="handle facetas">:::</span>
 	<section class="header">
         <span class="nombreFaceta" aux="@Html.ObtenerTextoIdiomaUsuario(Model.Name)">@Html.ObtenerTextoIdiomaUsuario(Model.Name)</span><span class="tipoFaceta" >(@nombreTipoFaceta)</span>
         <span class="action eliminar">@Html.GetText("COMMON", "ELIMINAR")</span>
@@ -213,8 +217,16 @@
                     </select>
                 </p>
                 <p>
-                    <span class="tipo" title="@Html.GetText("AYUDACOMADMINFACETAS", "FILTROS")">@Html.GetText("COMADMINFACETAS", "FILTROS")</span>
-                    <input type="text" name="Filtros" value="@Model.Filtros" />
+                    @* Metodo anterior para guardar los filtros *@
+                    @*<span class="tipo" title="@Html.GetText("AYUDACOMADMINFACETAS", "FILTROS")">@Html.GetText("COMADMINFACETAS", "FILTROS")</span>
+                    <input type="text" name="Filtros" value="@Model.Filtros" />*@
+
+
+                    @Html.PartialView("_EdicionFiltro", @Model.ListaFiltrosFacetas)
+
+
+
+
                 </p>
                 <p>
                     <span class="tipo" title="@Html.GetText("AYUDACOMADMINFACETAS", "ORDEN")">@Html.GetText("COMADMINFACETAS", "ORDEN")</span>
@@ -246,7 +258,7 @@
 			</p>
             <p>
                 <span class="tipo" title="@Html.GetText("AYUDACOMADMINFACETAS", "COMPORTAMIENTOOR")">@Html.GetText("COMADMINFACETAS", "COMPORTAMIENTOOR")</span>
-                <input type="checkbox" name="ComportamientoOR" @(Model.ComportamientoOr ? "checked" : "") />
+                <input type="checkbox" class="ComportamientoOR" name="ComportamientoOR" @(Model.ComportamientoOr ? "checked" : "") />
             </p>
 			<p>
 				<span class="tipo" title="@Html.GetText("AYUDACOMADMINFACETAS", "OCULTAENFILTROS")">@Html.GetText("COMADMINFACETAS", "OCULTAENFILTROS")</span>
@@ -278,6 +290,11 @@
 				<span class="tipo" title="@Html.GetText("AYUDACOMADMINFACETAS", "CONDICION")">@Html.GetText("COMADMINFACETAS", "CONDICION")</span>
 				<input type="text" name="Condicion" value="@Model.Condicion" />
 			</p>
+
+            <p>
+                <span class="tipo" title="Faceta Inmutable">Inmutable</span>
+                <input type="checkbox" class="chkInmutable" name="chkInmutable" @(Model.Inmutable ? "checked" : "")/>
+            </p>
 		</div>
 	</section>
 </li>

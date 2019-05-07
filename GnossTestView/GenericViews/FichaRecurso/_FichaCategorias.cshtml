@@ -3,9 +3,9 @@
 @if (Model.Categories != null && Model.Categories.Count>0)
 {
 	<div class="group categorias" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
-		<strong>
+		<p>
 			@Html.GetText("COMMON", "CATEGORIAS"): 
-		</strong>
+		</p>
 		<ul id="listCat">
              @foreach (CategoryModel categoria in Model.Categories)
             {

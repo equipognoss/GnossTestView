@@ -9,12 +9,13 @@
 
     @if(Comunidad != null && Comunidad.ProjectExtraHTMLList != null)
     {
-        @Html.PartialView("../Shared/ProyectoElementoHTML", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.BeginHead).ToList());
+        @Html.PartialView("~/ViewsV1/Shared/ProyectoElementoHTML.cshtml", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.BeginHead).ToList());
     }
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    
+    @Html.PartialView("~/ViewsV1/Shared/Head/_Metas.cshtml")
+
     <title>@Html.GetTituloPagina()</title>
 
     <link id="IMGfavicon" rel="shortcut icon" type="image/ico" href="@Html.GetFavicon()" />
@@ -79,9 +80,9 @@
         }
     }
 
-    @Html.PartialView("../Shared/Head/_HojasDeEstilo")
+    @Html.PartialView("~/ViewsV1/Shared/Head/_HojasDeEstilo.cshtml")
 
-    @Html.PartialView("../Shared/Head/_FicherosJavascript")
+    @Html.PartialView("~/ViewsV1/Shared/Head/_FicherosJavascript.cshtml")
 
     @if (Html.GetBusquedasXml() != null)
     {
@@ -93,7 +94,7 @@
 
     @if(Comunidad != null && Comunidad.ProjectExtraHTMLList != null)
     {
-        @Html.PartialView("../Shared/ProyectoElementoHTML", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.EndHead).ToList());
+        @Html.PartialView("~/ViewsV1/Shared/ProyectoElementoHTML.cshtml", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.EndHead).ToList());
     }
 
 </head>
@@ -102,7 +103,7 @@
     
     @if(Comunidad != null && Comunidad.ProjectExtraHTMLList != null)
     {
-        @Html.PartialView("../Shared/ProyectoElementoHTML", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.BeginBody).ToList());
+        @Html.PartialView("~/ViewsV1/Shared/ProyectoElementoHTML.cshtml", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.BeginBody).ToList());
     }
 
     <form method="post" target="_blank" action="" name="formularioHidden" id="formularioHidden">
@@ -134,7 +135,7 @@
     </div>
     <div style="display: none; z-index: 1999; width: 100%; top: 0px; left: 0px; position: absolute; height: 2900px;" id="mascaraBlanca"></div>
 
-    @Html.PartialView("../Shared/_Cabecera")
+    @Html.PartialView("~/ViewsV1/Shared/_Cabecera.cshtml")
 
     <div id="wrap">
         <div id="page">
@@ -211,7 +212,7 @@
                 {
                     if (Comunidad.Key != ProyectoAD.MetaProyecto && (!IdentidadActual.IsGuestIdentity || (Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocial && Comunidad.ProyectType != CommunityModel.TypeProyect.CatalogoNoSocialConUnTipoDeRecurso)) && (!Html.GetOcultarMenusComunidad().HasValue || !Html.GetOcultarMenusComunidad().Value))
                     { 
-                        @Html.PartialView("../Shared/_PanelQueHacer")
+                        @Html.PartialView("~/ViewsV1/Shared/_PanelQueHacer.cshtml")
                     }
                 }
                 <div id="content">
@@ -221,7 +222,7 @@
         </div>
     </div>
 
-    @Html.PartialView("../Shared/_Pie")
+    @Html.PartialView("~/ViewsV1/Shared/_Pie.cshtml")
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -303,7 +304,7 @@
         }
         if (Comunidad.ProjectExtraHTMLList != null)
         {
-            @Html.PartialView("../Shared/ProyectoElementoHTML", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.EndBody).ToList());
+            @Html.PartialView("~/ViewsV1/Shared/ProyectoElementoHTML.cshtml", Comunidad.ProjectExtraHTMLList.Where(a => a.Ubication == UbicacionHtmlProyecto.EndBody).ToList());
         }
     }    
 </body>

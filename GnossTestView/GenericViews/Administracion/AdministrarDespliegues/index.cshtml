@@ -3,6 +3,27 @@
     Html.GetListaCSS().Add(Html.GetBaseUrlStatic() + "/cssNuevo/administracion.css?v=" + Html.GetVersion());
     CommunityModel Comunidad = Html.GetComunidad();
 }
+
+@functions
+{
+    string GetVersion(string version)
+    {
+        string valor = version;
+        string[] numeros = version.Split('.');
+        if (numeros.Length > 3)
+        {
+            if (numeros[3].Equals("3") || numeros[3].Equals("2"))
+            {
+                valor = version.Remove(version.Length - 2);
+            }
+        }
+        else
+        {
+            valor = version;
+        }
+        return valor;
+    }
+}
 <div class="content">
     <h1>Panel de control de despliegues</h1>
     <br />
@@ -20,7 +41,7 @@
     }
     else
     {
-        <div>Estás en la versión <b>@Model.VersionActualEntornoActual</b></div>
+        <div>Estás en la versión <b>@GetVersion(Model.VersionActualEntornoActual)</b></div>
         if (Model.EsDesplegable)
         {
             @Html.PartialView("_Desplegar")

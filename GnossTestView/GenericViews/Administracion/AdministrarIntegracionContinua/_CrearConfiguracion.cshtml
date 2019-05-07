@@ -1,11 +1,21 @@
-﻿@{ 
+﻿@{
     CommunityModel Comunidad = Html.GetComunidad();
 }
 <form id="formulario" action="javascript:void(0)" method="post">
-    
-    @if (string.IsNullOrEmpty(Model.Develop))
+
+    @if (string.IsNullOrEmpty(Model.Master) && string.IsNullOrEmpty(Model.Release))
     {
         <span> Elige cuantos <strong>entornos</strong> contiene el proyecto</span>
+
+        <select id="entornos" onchange="entornosChange()">
+            <option id="1" selected>1</option>
+            <option id="2">2</option>
+            <option id="3">3</option>
+        </select>
+    }
+    else if (string.IsNullOrEmpty(Model.Master))
+    {
+        <span>El entorno de <strong>Producción</strong> no esta configurado</span>
 
         <select id="entornos" onchange="entornosChange()">
             <option id="2" selected>2</option>
@@ -14,91 +24,195 @@
     }
     else
     {
-        <span>Al tener los entornos creado se pone por defecto los 3 entornos.</span>
+        <span>Al tener los entornos creado se pone por defecto los 3 <strong>entornos</strong>.</span>
 
         <select id="entornos">
-            <option id="3"selected>3</option>
+            <option id="3" selected>3</option>
         </select>
     }
-
+    <!-- -->
     <br />
     <br />
     <div>
-            <div id="nomEntornos">
-                <p>Para poder hacer el despliegue en todos los entornos, necesitamos conocer la URL del API de despliegues en cada entorno. </p>
-                <p>Para obtener esa url, tienes que acceder a la url /@Html.GetText("URLSEM", "ADMINISTRARINTEGRACIONCONTINUA")/@Html.GetText("URLSEM", "URLAPIDESPLIEGUES") de cada entorno. </p>
-                <p>Por ejemplo, en el entorno actual, la URL es: <a href="@Comunidad.Url/@Html.GetText("URLSEM", "ADMINISTRARINTEGRACIONCONTINUA")/@Html.GetText("URLSEM", "URLAPIDESPLIEGUES")">@Comunidad.Url/@Html.GetText("URLSEM", "ADMINISTRARINTEGRACIONCONTINUA")/@Html.GetText("URLSEM", "URLAPIDESPLIEGUES")</a></p>
-                
-                   @if (string.IsNullOrEmpty(Model.Develop))
-                   {
-                    <div id="Develop" style="display:none">
+        <div id="nomEntornos">
+            <p>Para poder hacer el despliegue en todos los entornos, necesitamos conocer la URL del API de despliegues en cada entorno. </p>
+            <p>Para obtener esa url, tienes que acceder a la url del API de Despliegues de cada entorno. </p>
+
+            @if (string.IsNullOrEmpty(Model.Develop))
+            {
+                <p>Por ejemplo, la URL seria: http://serviciospruebas.gnoss.net/despliegues/api </p>
+                    <div id="Develop">
                         <span>URL de <strong>Develop</strong></span><input type="text" id="TxtDevelop" value="@Model.Develop" />
                     </div>
-                   }
-                   else
-                   {
+            }
+            else
+            {
+                <p>Por ejemplo, en el entorno actual, la URL es: <a href="@Model.Develop">@Model.Develop</a></p>
                     <div id="Develop">
                         <span>URL de <strong>Develop</strong>: @Model.Develop</span><input type="hidden" id="TxtDevelop" value="@Model.Develop" />
                     </div>
-                   }           
-                   @if (string.IsNullOrEmpty(Model.Release))
-                   {
-                        <div id="Release">
-                            <span>URL de <strong>Release</strong></span><input type="text" id="TxtRelease" value="@Model.Release" />
-                        </div>
-                   }
-                   else
-                   {
-                        <div id="Release">
-                            <span>URL de <strong>Release</strong>: @Model.Release</span><input type="hidden" id="TxtRelease" value="@Model.Release" />
-                        </div>
-                   }  
-                   @if (string.IsNullOrEmpty(Model.Master))
-                   {
-                        <div id="Master">
-                            <span>URL de <strong>Master</strong></span><input type="text" id="TxtMaster" value="@Model.Master" />
-                        </div>
-                    }
-                   else
-                   {
-                        <div id="Master">
-                            <span>URL de <strong>Master</strong>: @Model.Master</span><input type="hidden" id="TxtMaster" value="@Model.Master" />
-                        </div>
-                    }                           
-            </div>
+            }
+            @if (string.IsNullOrEmpty(Model.Release))
+            {
+                <div id="Release" style="display:none">
+                    <span>URL de <strong>Release</strong></span><input type="text" id="TxtRelease" value="@Model.Release" />
+                </div>
+            }
+            else
+            {
+                <div id="Release">
+                    <span>URL de <strong>Release</strong>: @Model.Release</span><input type="hidden" id="TxtRelease" value="@Model.Release" />
+                </div>
+            }
+            @if (string.IsNullOrEmpty(Model.Master))
+            {
+                <div id="Master" style="display:none">
+                    <span>URL de <strong>Master</strong></span><input type="text" id="TxtMaster" value="@Model.Master" />
+                </div>
+            }
+            else
+            {
+                <div id="Master">
+                    <span>URL de <strong>Master</strong>: @Model.Master</span><input type="hidden" id="TxtMaster" value="@Model.Master" />
+                </div>
+            }
+        </div>
+        @{
+            string disabled = "";
+            if (Model.Iniciado)
+            {
+                disabled = "disabled";
+            }
+        }
+
+        @if (Model.Iniciado)
+        {
             <br />
+            <br />
+            <span>El repositorio ya esta iniciado y se ha subido al repositorio escogido por lo que solo se van a poder añadir los entornos de despliegues.</span>
+            <br />
+        }
+        
+        <br />
         <span> Elige que <strong>repositorio</strong> vas a utilizar</span>
-        <select id="repositorios" onchange="repositoriosChange()">
-            <option id="bitbucket" selected>bitbucket</option>
-            <option id="github">github</option>
-            <option id="bitbucketserver">bitbucketserver</option>
-        </select>
+        @if (string.IsNullOrEmpty(Model.Repositorio))
+        {
+            <select id="repositorios" onchange="repositoriosChange()">
+                <option id="bitbucket" selected>bitbucket</option>
+                <option id="github">github</option>
+                <option id="bitbucketserver">bitbucketserver</option>
+                <option id="gitlab">gitlab</option>
+            </select>
+        }
+        else
+        {
+            <select id="repositorios" onchange="repositoriosChange()" @Html.Raw(disabled)>
+                @if (Model.Repositorio.Equals("bitbucket"))
+                {
+                    <option id="bitbucket" selected>bitbucket</option>
+                    <option id="github">github</option>
+                    <option id="bitbucketserver">bitbucketserver</option>
+                    <option id="gitlab">gitlab</option>
+                }
+                else if (Model.Repositorio.Equals("github"))
+                {
+                    <option id="bitbucket">bitbucket</option>
+                    <option id="github" selected>github</option>
+                    <option id="bitbucketserver">bitbucketserver</option>
+                    <option id="gitlab">gitlab</option>
+                }
+                else if (Model.Repositorio.Equals("bitbucketserver"))
+                {
+                    <option id="bitbucket">bitbucket</option>
+                    <option id="github">github</option>
+                    <option id="bitbucketserver" selected>bitbucketserver</option>
+                    <option id="gitlab">gitlab</option>
+                }
+                else
+                {
+                    <option id="bitbucket">bitbucket</option>
+                    <option id="github">github</option>
+                    <option id="bitbucketserver">bitbucketserver</option>
+                    <option id="gitlab" selected>gitlab</option>
+                }
+            </select>
+        }
+
         <br />
         <br />
+        
         <div id="bitbucketGit">
             <p>Tenemos que crearnos una cuenta en las distintas opciones que os presentamos: Bitbucket, Github y BitbucketServer</p>
-            <p>Para elegir la ruta del repositorio tenemos que situarnos en la página principal y escoger la URL del proyecto terminado con.git</p>            
-            <div id="URLRepo">
-                <span>URL del <strong>Repositorio</strong></span><input type="text" id="TxtURL" value="" />
-            </div>
+            <p>Para elegir la ruta del repositorio tenemos que situarnos en la página principal y escoger la URL del proyecto terminado con.git</p>
+            <p>Es necesario que una vez creado el repositorio, se creen <strong>3 ramas, Develop, Release y Master</strong></p>
+            @if (!string.IsNullOrEmpty(Model.UrlRepo))
+            {
+                <div id="URLRepo">
+                    <span>URL del <strong>Repositorio</strong></span><input type="text" id="TxtURL" value="@Model.UrlRepo" @Html.Raw(disabled)/>
+                </div>
+            }
+            else
+            {
+                <div id="URLRepo">
+                    <span>URL del <strong>Repositorio</strong></span><input type="text" id="TxtURL" value="" />
+                </div>
+            }
+
+
             <br />
-            <p>Es necesario crear una autentificación OAuth para poder hacer la integración por lo que tenéis que crear una en los repositorios de: Bitbucket y Github</p>
-            <p>Tambien hay que configurar para que cuando se cree esta autentificación OAuth nos redirija a la página donde tenemos el api de integración continua.</p>
-            <div id="oAuth">
-                <span>Clave del <strong>Repositorio </strong></span><input type="text" id="TxtRepoClave" value=""/>
-                <br />
-                <span>Secret del <strong>Repositorio </strong></span><input type="text" id="TxtRepoSecret" value=""/>
-            </div>
+            <p>Es necesario crear una autentificación OAuth para poder hacer la integración por lo que tenéis que crear una en los repositorios de: Bitbucket, Github y GitLab, para ello es necesario ir a la configuración del repositorio y hacer una autorización para </p>
+            <p>Tambien hay que configurar para que cuando se cree esta autentificación OAuth nos redirija a la página donde tenemos el api de integración continua. Por ejemplo:
+            
+            @if (!string.IsNullOrEmpty(Model.URLAPIIntegracionContinua))
+            {
+                <strong>@Model.URLAPIIntegracionContinua/autorizacion/authorize</strong>
+            }
+            else
+            {
+                <strong>@Model.URLApiIntegracionContinua/integracionContinua/api/autorizacion/authorize</strong>
+            }
+            </p>
+            @if (!string.IsNullOrEmpty(Model.RepoClave) && !string.IsNullOrEmpty(Model.RepoSecret))
+            {
+                <div id="oAuth">
+                    <span>Clave del <strong>Repositorio </strong></span><input type="text" id="TxtRepoClave" value="@Model.RepoClave" @Html.Raw(disabled)/>
+                    <br />
+                    <span>Secret del <strong>Repositorio </strong></span><input type="text" id="TxtRepoSecret" value="@Model.RepoSecret" @Html.Raw(disabled) />
+                </div>
+            }
+            else
+            {
+                <div id="oAuth">
+                    <span>Clave del <strong>Repositorio </strong></span><input type="text" id="TxtRepoClave" value="" />
+                    <br />
+                    <span>Secret del <strong>Repositorio </strong></span><input type="text" id="TxtRepoSecret" value="" />
+                </div>
+            }
+
         </div>
         <span><strong>Es necesario ingresar la primera vez con el usuario que ha creado el repositorio.</strong></span>
         <br />
-        <div id="bitbucketServer" style="display:none">
-            <div id="Autenti">
-                <span><strong>Usuario</strong> de Repositorio</span><input type="text" id="TxtUser" value="" />
-                <br />
-                <span><strong>Contraseñas</strong> de Repositorio</span><input type="text" id="TxtPass" value="" />
+        @if (!string.IsNullOrEmpty(Model.Repositorio) && Model.Repositorio.Equals("bitbucketserver") && !string.IsNullOrEmpty(Model.User) && !string.IsNullOrEmpty(Model.Pass))
+        {
+            <div id="bitbucketServer" style="display:none">
+                <div id="Autenti">
+                    <span><strong>Usuario</strong> de Repositorio</span><input type="text" id="TxtUser" value="" />
+                    <br />
+                    <span><strong>Contraseñas</strong> de Repositorio</span><input type="text" id="TxtPass" value="" />
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div id="bitbucketServer" style="display:none">
+                <div id="Autenti">
+                    <span><strong>Usuario</strong> de Repositorio</span><input type="text" id="TxtUser" value="" />
+                    <br />
+                    <span><strong>Contraseñas</strong> de Repositorio</span><input type="text" id="TxtPass" value="" />
+                </div>
+            </div>
+        }
+
         <input type="button" class="guardarTodo" id="Crear" value="Crear" />
     </div>
 </form>
@@ -107,10 +221,17 @@
     function entornosChange() {
         var selected = $("#entornos").val();
         if (selected == 3) {
-            $('#Develop').show();
+            $('#Master').show();
+            $('#Release').show();
+        } else if (selected == 2) {
+            $('#Release').show();
+            $('#TxtMaster').val('');
+            $('#Master').hide();
         } else {
-            $('#TxtDevelop').val('');
-            $('#Develop').hide();
+            $('#TxtRelease').val('');
+            $('#Release').hide();
+            $('#TxtMaster').val('');
+            $('#Master').hide();
         }
     }
     function repositoriosChange() {
@@ -185,15 +306,19 @@
             var that = this;
             var selected = $('#entornos').val();
             var repositorios = $('#repositorios').val();
-            that.Options['Master'] = $("#TxtMaster").val();
-            that.Options['Release'] = $("#TxtRelease").val();
+            that.Options['Develop'] = $("#TxtDevelop").val();
             that.Options['RepoClave'] = $("#TxtRepoClave").val();
             that.Options['RepoSecret'] = $("#TxtRepoSecret").val();
             that.Options['URLRepo'] = $("#TxtURL").val();
             that.Options['Repositorio'] = repositorios;
             if (selected == 3) {
-                that.Options['Develop'] = $("#TxtDevelop").val();
+                that.Options['Master'] = $("#TxtMaster").val();
+                that.Options['Release'] = $("#TxtRelease").val();
+            } else if (selected == 2){
+                that.Options['Release'] = $("#TxtRelease").val();
             }
+
+
             if (repositorios == 'bitbucketserver') {
                 that.Options['User'] = $("#TxtUser").val();
                 that.Options['Pass'] = $("#TxtPass").val();
@@ -209,22 +334,34 @@
                     } else{
                         return false;
                     }
-                } else{
-                    if ($("#TxtRelease").val() == '' || $("#TxtMaster").val() == '' || $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '' || $("#TxtURL").val() == '' || $("#TxtUser").val() == '' || $("#TxtPass").val() == '') {
+                } else if (selected == 2){
+                    if ($("#TxtRelease").val() == '' || $("#TxtDevelop").val() == '' || $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '' || $("#TxtURL").val() == '' || $("#TxtUser").val() == '' || $("#TxtPass").val() == '') {
                         return true;
                     } else{
+                        return false;
+                    }
+                } else {
+                    if ($("#TxtDevelop").val() == '' ||  $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '' || $("#TxtURL").val() == '' || $("#TxtUser").val() == '' || $("#TxtPass").val() == '') {
+                        return true;
+                    } else {
                         return false;
                     }
                 }
             } else {
                 if (selected == 3) {
-                    if ($("#TxtDevelop").val() == '' || $("#TxtRelease").val() == '' || $("#TxtMaster").val() == '' || $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '' || $("#TxtURL").val() == '') {
+                    if ($("#TxtDevelop").val() == '' || $("#TxtRelease").val() == '' || $("#TxtMaster").val() == '' || $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (selected == 2) {
+                    if ($("#TxtRelease").val() == '' || $("#TxtDevelop").val() == '' || $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '' ) {
                         return true;
                     } else {
                         return false;
                     }
                 } else {
-                    if ($("#TxtRelease").val() == '' || $("#TxtMaster").val() == '' || $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '' || $("#TxtURL").val() == '') {
+                    if ($("#TxtDevelop").val() == '' ||  $("#TxtURL").val() == '' || $("#TxtRepoClave").val() == '' || $("#TxtRepoSecret").val() == '') {
                         return true;
                     } else {
                         return false;
@@ -242,10 +379,9 @@
         width: 20%;
         margin-left: 10px;
     }
-    input[type=button]{
-        float:initial;
+
+    input[type=button] {
+        float: initial;
     }
-
 </style>
-
 

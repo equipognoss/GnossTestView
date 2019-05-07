@@ -2,6 +2,44 @@
 @{
     int mostrar = Model.VersionesEntornoActual.Count < 5 ? Model.VersionesEntornoActual.Count : 5;
 }
+@functions
+{
+    string GetVersion(string version)
+    {
+        string valor = version;
+        string[] numeros = version.Split('.');
+        if (numeros.Length > 3)
+        {
+            if (numeros[3].Equals("3") || numeros[3].Equals("2"))
+            {
+                valor = version.Remove(version.Length - 2);
+            }
+        }
+        else
+        {
+            valor = version;
+        }
+        return valor;
+    }
+}
+
+@functions
+{
+    string GetEntorno(string entorno)
+    {
+        string valor = entorno;
+        if (entorno.Equals("release"))
+        {
+            valor = "Preproducción";
+        }
+        else if (entorno.Equals("master"))
+        {
+            valor = "Producción";
+        }
+        return valor;
+    }
+}
+
 @if (string.IsNullOrEmpty(Model.NombreEntornoSuperior))
 {
     <div>No es posible hacer despliegues desde Master</div>
@@ -10,12 +48,12 @@ else
 {
     <br />
     <div for="Desplegar">
-        Desplegar en @Model.NombreEntornoSuperior la versión
+        Desplegar en @GetEntorno(Model.NombreEntornoSuperior) la versión
         <select id="select">
-            <option value="@Model.VersionActualEntornoActual" selected>@Model.VersionActualEntornoActual</option>
+            <option value="@Model.VersionActualEntornoActual" selected>@GetVersion(Model.VersionActualEntornoActual)</option>
             @foreach (var version in Model.VersionesEntornoActual)
             {
-                <option value="@version.Value">@version.Value</option>
+                <option value="@version.Value">@GetVersion(version.Value)</option>
             }
         </select>
         <input type="button" name="Desplegar" placeholder="@Model.VersionActualEntornoActual" id="Desplegar" value="Desplegar">
@@ -29,7 +67,7 @@ else
             @foreach (KeyValuePair<DateTime, string> version in Model.VersionesEntornoActual.OrderByDescending(x => x.Key).Take(mostrar))
             {
                 <li>
-                    <div for="CambiarVersion">Version <b>@version.Value</b> creada el @version.Key <input type="button" name="CambiarVersion" placeholder="@version.Value" value="Cambiar Versión"></div>
+                    <div for="CambiarVersion">Version <b>@GetVersion(version.Value)</b> creada el @version.Key <input type="button" name="CambiarVersion" placeholder="@version.Value" value="Cambiar Versión"></div>
                 </li>
             }
         </ul>

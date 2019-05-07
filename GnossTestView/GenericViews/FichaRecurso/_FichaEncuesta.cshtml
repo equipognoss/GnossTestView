@@ -39,15 +39,15 @@
             string funcionAccionRecurso_Encuesta_Votar = "AccionRecurso_Encuesta_Votar('" + Model.CompletCardLink + "', '" + Model.Key + "')";
 		    <p>
 
-                <input type="button" onclick="@funcionAccionRecurso_Encuesta_Votar" class="submit" value="Enviar voto" />
+                <input type="button" onclick="@funcionAccionRecurso_Encuesta_Votar" class="btn btn-primary" value="Enviar voto" />
 		    </p>
          }
-        <p class="resumen">
+        @*<p class="resumen">
             <strong>@numVotos Votos</strong>
             @if (!Model.Poll.ViewPollResults)
             { 
                 <a onclick="AccionRecurso_Encuesta_VerResultados('@Model.CompletCardLink', '@Model.Key')">Ver resultados</a>
             }
-        </p>
+        </p>*@
 	</div>
 </fieldset>

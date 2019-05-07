@@ -12,9 +12,9 @@
     <div>
         <div class="box">
             <label>@Html.GetText("SUSCRIPCIONES", "DESEASRECIBIRNEWSLETTER")</label>
-            <input type="radio" onclick="recibirNewsletter_change('TRUE');" value="rbRecibirNewsletter" name="chkRecibirNewsletter" @(RecibirNewsletter?"checked=checked":"") />
+            <input type="radio" onclick="recibirNewsletter_change('TRUE');" value="rbRecibirNewsletter" name="chkRecibirNewsletter" id="chkRecibirNewsletter" @(RecibirNewsletter?"checked=checked":"") />
             <label for="chkRecibirNewsletter">@Html.GetText("COMMON", "SI")</label>
-            <input type="radio" onclick="recibirNewsletter_change('FALSE');" value="rbNoRecibirNewsletter" name="chkRecibirNewsletter" @(!RecibirNewsletter?"checked=checked":"") />
+            <input type="radio" onclick="recibirNewsletter_change('FALSE');" value="rbNoRecibirNewsletter" name="chkRecibirNewsletter" id="chkRecibirNewsletterNO" @(!RecibirNewsletter?"checked=checked":"") />
             <label for="chkRecibirNewsletterNO">@Html.GetText("COMMON", "NO")</label>
         </div>
         <div style="display: block" id="menssages">

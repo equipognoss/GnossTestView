@@ -3,7 +3,7 @@
 @if (Model.Authors != null && Model.Authors.Count > 0)
 {
     <div class="group categorias">
-        <strong>@Html.GetText("COMMON", "AUTORES"): </strong>
+        <p>@Html.GetText("COMMON", "AUTORES"): </p>
         @{
             int numAutores = 0;
         }
@@ -15,11 +15,9 @@
                     {
                         <text>,</text>
                     }
-                    <a href="@Model.Authors[autor]" property="dc:creator"><span>@autor</span></a>
+                    <a href="@Model.Authors[autor]" property="dc:creator">@autor</a>
                 </li>
-                
-                    numAutores++;
-                
+                numAutores++;
             }
         </ul>
     </div>
@@ -29,27 +27,23 @@
 {
     int numEditores = 0;
     <p id="parrafoEditores">
-        <strong>@Html.GetText("USUARIOS", "EDITORES"):</strong>
-        <ul>
-            @foreach (string editor in Model.Editors.Keys)
+        @Html.GetText("USUARIOS", "EDITORES"): 
+        @foreach (string editor in Model.Editors.Keys)
+        {
+            if (numEditores > 0)
             {
-                <li>
-                    @if (numEditores > 0)
-                    {
-                    <text>,</text>
-                    }
-                    @if (Model.Editors[editor] != "")
-                    {
-                    <a href="@Model.Editors[editor]"><span>@editor</span></a>
-                    }
-                    else
-                    {
-                    <span>@editor</span>
-                    }
-                    @{numEditores++;}
-                </li>
+                <text>,</text>
             }
-        </ul>
+            if (Model.Editors[editor] != "")
+            {
+                <a href="@Model.Editors[editor]">@editor</a>
+            }
+            else
+            {
+                <span>@editor</span>
+            }
+            numEditores++;
+        }
     </p>
 }
 
@@ -57,26 +51,22 @@
 {
     int numLectores = 0;
     <p id="parrafoLectores">
-        <strong>@Html.GetText("USUARIOS", "LECTORES"):</strong> 
-        <ul>
-            @foreach (string lector in Model.Readers.Keys)
+        @Html.GetText("USUARIOS", "LECTORES"): 
+        @foreach (string lector in Model.Readers.Keys)
+        {
+            if (numLectores > 0)
             {
-                <li>
-                    @if (numLectores > 0)
-                    {
-                    <text>,</text>
-                    }
-                    @if (Model.Readers[lector] != "")
-                    {
-                    <a href="@Model.Readers[lector]"><span>@lector</span></a>
-                    }
-                    else
-                    {
-                    <span>@lector</span>
-                    }
-                    @{numLectores++;}
-                </li>
+                <text>,</text>
             }
-        </ul>
+            if (Model.Readers[lector] != "")
+            {
+                <a href="@Model.Readers[lector]">@lector</a>
+            }
+            else
+            {
+                <span>@lector</span>
+            }
+            numLectores++;
+        }
     </p>
 }
