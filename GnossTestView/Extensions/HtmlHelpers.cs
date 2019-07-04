@@ -12,6 +12,9 @@ namespace GnossTestView.Extensions
 {
     public static class HtmlHelpers
     {
+        public static bool PintandoFacetas = false;
+        public static bool PintandoResultados = false;
+
         public static Dictionary<string, string> GetParametrosAplicacion(this HtmlHelper helper)
         {
             return helper.ViewBag.ParametrosAplicacion;
@@ -159,7 +162,7 @@ namespace GnossTestView.Extensions
             Guid guid;
             if (Guid.TryParse(partialViewName, out guid))
             {
-                if(Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "CMSPagina")))
+                if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "CMSPagina")))
                 {
                     var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "CMSPagina"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
                     if (files.Length > 0)
@@ -180,9 +183,27 @@ namespace GnossTestView.Extensions
                 }
 
             }
-            else if (htmlHelper.ViewBag.ViewPath.Contains("~/Views/Busqueda") && partialViewName.StartsWith("_Resultado"))
-            {
-                partialViewName = $"~/Views/CargadorResultados/{partialViewName}.cshtml";
+            else if (htmlHelper.ViewBag.ViewPath.Contains("~/Views/Busqueda"))
+            { 
+                if (partialViewName.Equals("../CargadorResultados/CargarResultados"))
+                {
+                    PintandoResultados = true;
+                    PintandoFacetas = false;
+                }
+                else if (partialViewName.Equals("../CargadorFacetas/CargarFacetas"))
+                {
+                    PintandoResultados = false;
+                    PintandoFacetas = true;
+                }
+
+                if (PintandoResultados)
+                {
+                    partialViewName = $"~/Views/CargadorResultados/{partialViewName}.cshtml";
+                }
+                else if (PintandoFacetas)
+                {
+                    partialViewName = $"~/Views/CargadorFacetas/{partialViewName}.cshtml";
+                }
             }
             else
             {

@@ -59,6 +59,7 @@ namespace GnossTestView.Controllers
         {
             string controllerName = (string)ViewData["ControllerName"];
             string actionName = (string)ViewData["ActionName"];
+            if(actionName == null) { actionName = "Index"; }
 
             string modelType = "undefined";
 
