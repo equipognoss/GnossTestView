@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link href="~/Areas/GnossTestView/Content/css/GnossTestView.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @*@Html.ActionLink("Gnoss Test View", "Index", "Home", new { area = "GnossTestView" }, new { @class = "navbar-brand home" })*@
+                <a class="navbar-brand" href="/AskURL"><span class="glyphicon">&#xe021;</span> Gnoss Test View</a>
+                <span class="navbar-brand"> - </span>
+                @*@Html.ActionLink("Cambiar Proyecto", "ChangeProyecto", "Home", new { area = "GnossTestView" }, new { @class = "navbar-brand" })*@
+                <a class="navbar-brand" href="/ChangeProyecto"><span class="glyphicon">&#xe019;</span> Cambiar Proyecto</a>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="~/Areas/GnossTestView/Content/js/bootstrap-checkbox.js"></script>
+    <script src="~/Areas/GnossTestView/Content/js/GnossTestView.js"></script>
+</body>
+</html>

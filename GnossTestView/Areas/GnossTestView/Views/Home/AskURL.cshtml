@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "AskURL";
+    Layout = "~/Areas/GnossTestView/Views/_LayoutAskUrl.cshtml";
+
+    string URL = "";
+
+    string SessionID = "";
+
+    bool ContentLocal = false;
+
+    string ErrorAskURL = "";
+
+    if (Session["URL"] != null)
+    {
+        URL = (string)Session["URL"];
+    }
+
+    if (Session["SessionID"] != null)
+    {
+        SessionID = (string)Session["SessionID"];
+    }
+
+    if (Session["ContentLocal"] != null)
+    {
+        ContentLocal = (bool)Session["ContentLocal"];
+    }
+
+    if (Session["ErrorAskURL"] != null)
+    {
+        ErrorAskURL = (string)Session["ErrorAskURL"];
+    }
+
+    Response.Headers.Add("Cache-Control", "no-cache, no-store");
+}
+
+<h2>Compilador de vistas del proyecto => <strong>@Session["Proyecto"]</strong></h2>
+
+@*@using (Html.BeginForm("LoadURL", "Home", FormMethod.Post))*@
+
+<div class="form">
+    <div class="form-horizontal">
+        <hr />
+        <h4>Url y sesión</h4>
+        <div class="form-group url">
+            <label for="URL" class="control-label col-md-3">Url: </label>
+            <div class="col-md-9">
+                <div class="textbox">
+                    @Html.TextBox("URL", URL)
+                </div>
+            </div>
+        </div>
+        <div class="form-group session">
+            <label for="SessionID" class="control-label col-md-3">SessionID: </label>
+            <div class="col-md-9">
+                <div class="textbox">
+                    @Html.TextBox("SessionID", SessionID)
+                </div>
+            </div>
+        </div>
+        <div class="form-group estilosPersonalizados">
+            <label for="contentLocal" class="control-label col-md-3">Usar estilos personalizados Local <i>Html.GetBaseUrlPersonalizacion()</i></label>
+            <div class="col-md-9">
+                <div class="textbox">
+                    @Html.CheckBox("contentLocal", ContentLocal)
+                </div>
+            </div>
+        </div>
+        <div class="form-group autentication">
+            <hr />
+            <h4><a data-toggle="collapse" href="#collapse1">Autenticación HTTP Básica<span class="glyphicon glyphicon-lock"></span><span class="caret"></span></a></h4>
+            <div class="panel-collapse collapse" id="collapse1">
+                <div class="form-group">
+                    <label for="User" class="control-label col-md-3">Usuario: </label>
+                    <div class="col-md-9">
+                        <div class="textbox">
+                            @Html.TextBox("User")
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div class="form-group">
+                    <label for="Password" class="control-label col-md-3">Password: </label>
+                    <div class="col-md-9">
+                        <div class="textbox">
+                            @Html.Password("Password")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group botones">
+            <div class="col-md-offset-3 col-md-9">
+                <input name="submit" id="cargar" type="button" value="Cargar" class="btn btn-default">
+                <input name="submit" id="reCargar" type="button" value="Recargar" class="btn btn-default">
+            </div>
+        </div>
+    </div>
+</div>
+
