@@ -1,5 +1,7 @@
 ﻿@{
-    string layoutView = "~/Views/Shared/Layout/_Layout.cshtml";
+    string rutaVistasPersonalizadas = ViewContext.Controller.ViewBag.rutaVistasPersonalizadas;
+
+    string layoutView = $"~/{rutaVistasPersonalizadas}/Shared/Layout/_Layout.cshtml";
     if (!System.IO.File.Exists(AppContext.BaseDirectory + layoutView.Replace("~/", "")))
     {
         layoutView = "~/GenericViews/Shared/Layout/_Layout.cshtml";

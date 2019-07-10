@@ -85,8 +85,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Bin\Microsoft.Exchange.WebServices.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SQLite, Version=1.0.109.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
@@ -101,6 +101,11 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.109.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -111,6 +116,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
       <Private>True</Private>
@@ -151,174 +164,69 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\bootstrap-theme.min.css">
+    <Content Include="Areas\GnossTestView\Content\css\GnossTestView.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\css\bootstrap.min.css">
+    <Content Include="Areas\GnossTestView\Content\js\bootstrap-checkbox.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\css\GnossTestView.css">
+    <Content Include="Areas\GnossTestView\Content\js\GnossTestView.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\js\bootstrap-checkbox.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\js\GnossTestView.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\js\jquery-3.3.1.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Areas\GnossTestView\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="GenericViews\CMSPagina\Index.cshtml" />
+    <Content Include="GenericViews\CMSPagina\_BloqueCMS.cshtml" />
+    <Content Include="GenericViews\CMSPagina\_ComponenteCMS.cshtml" />
     <Content Include="Global.asax" />
-    <Content Include="Libraries\Es.Riam.Gnoss.Web.MVC.Models.dll" />
-    <Content Include="Libraries\Es.Riam.Gnoss.Web.MVC.Models.XML" />
-    <Content Include="Libraries\Es.Riam.Interfaces.dll" />
-    <Content Include="Libraries\Es.Riam.Semantica.dll" />
-    <Content Include="Libraries\Es.Riam.Util.dll" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\FichaRecurso\LearningOpportunitySpecification.cshtml">
+    <Content Include="Areas\GnossTestView\Libraries\Es.Riam.Gnoss.Web.MVC.Models.dll" />
+    <Content Include="Areas\GnossTestView\Libraries\Es.Riam.Gnoss.Web.MVC.Models.XML" />
+    <Content Include="Areas\GnossTestView\Libraries\Es.Riam.Interfaces.dll" />
+    <Content Include="Areas\GnossTestView\Libraries\Es.Riam.Semantica.dll" />
+    <Content Include="Areas\GnossTestView\Libraries\Es.Riam.Util.dll" />
+    <Content Include="GenericViews\CMSPagina\ActividadReciente\_ActividadReciente.cshtml" />
+    <Content Include="GenericViews\CMSPagina\BuscadorSPARQL\_BuscadorSPARQL.cshtml" />
+    <Content Include="GenericViews\CMSPagina\Buscador\_Buscador.cshtml" />
+    <Content Include="GenericViews\CMSPagina\CajaBuscador\_CajaBuscador.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ConsultaSPARQL\_ConsultaSPARQL.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ConsultaSQLSERVER\_ConsultaSQLSERVER.cshtml" />
+    <Content Include="GenericViews\CMSPagina\DatosComunidad\_DatosComunidad.cshtml" />
+    <Content Include="GenericViews\CMSPagina\Destacado\_Destacado.cshtml" />
+    <Content Include="GenericViews\CMSPagina\EnvioCorreo\_EnvioCorreo.cshtml" />
+    <Content Include="GenericViews\CMSPagina\Faceta\_Faceta.cshtml" />
+    <Content Include="GenericViews\CMSPagina\FichaDescripcionDocumento\_FichaDescripcionDocumento.cshtml" />
+    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_Paginacion.cshtml" />
+    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_PestanyasHorizontales.cshtml" />
+    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_PestanyasPersonalizadas.cshtml" />
+    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_PestanyasVerticales.cshtml" />
+    <Content Include="GenericViews\CMSPagina\HTML\_HTML.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoProyectos\_ListadoProyectos.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_BreveConFoto.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_BreveConFotoAUnParrafo.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_Completa.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_DescripcionCompleta.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_Destacado.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_ListadoSinFoto.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_SoloIconoYTitulo.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_UltimosRecursos.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoDestacados.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoRecursosNormal.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoRecursosPaginacion.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoRecursosPestanyas.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ListadoUsuarios\_ListadoUsuarios.cshtml" />
+    <Content Include="GenericViews\CMSPagina\MasVistos\_MasVistos.cshtml" />
+    <Content Include="GenericViews\CMSPagina\Menu\_Menu.cshtml" />
+    <Content Include="GenericViews\CMSPagina\ResumenPerfil\_ResumenPerfil.cshtml" />
+    <Content Include="GenericViews\CMSPagina\Tesauro\_Tesauro.cshtml" />
+    <Content Include="GenericViews\CMSPagina\UsuariosRecomendados\_UsuariosRecomendados.cshtml" />
+    <Content Include="Config\Authorization.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\FichaRecurso\Person.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Areas\GnossTestView\Views\web.config" />
+    <Content Include="Areas\GnossTestView\Views\_LayoutAskUrl.cshtml" />
+    <Content Include="Areas\GnossTestView\Views\Home\AskProyecto.cshtml" />
+    <Content Include="Areas\GnossTestView\Views\Home\AskURL.cshtml" />
+    <Content Include="Areas\GnossTestView\Views\Home\Error.cshtml" />
     <None Include="Properties\PublishProfiles\Javi.pubxml" />
-    <Content Include="theme\libraries\bootstrap\bootstrap.min.css" />
-    <Content Include="theme\libraries\bootstrap\bootstrap.min.js" />
-    <Content Include="theme\libraries\jquery.autocomplete.js" />
-    <Content Include="theme\libraries\propeller\css\propeller.min.css" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Black-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Black-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Black-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-BlackItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-BlackItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-BlackItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Bold-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Bold-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Bold-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-BoldItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-BoldItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-BoldItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Italic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Italic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Italic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Light-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Light-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Light-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-LightItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-LightItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-LightItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Medium-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Medium-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Medium-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-MediumItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-MediumItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-MediumItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Regular-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Regular-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Regular-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Thin-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Thin-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-Thin-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-ThinItalic-webfont %281%29.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-ThinItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\Roboto-ThinItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Bold-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Bold-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Bold-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-BoldItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-BoldItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-BoldItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Italic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Italic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Italic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Light-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Light-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Light-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-LightItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-LightItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-LightItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Regular-webfont.eot" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Regular-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\fonts\roboto\RobotoCondensed-Regular-webfont.woff" />
-    <Content Include="theme\libraries\propeller\js\propeller.js" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Black-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Black-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Black-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-BlackItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-BlackItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-BlackItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Bold-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Bold-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Bold-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-BoldItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-BoldItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-BoldItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Italic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Italic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Italic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Light-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Light-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Light-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-LightItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-LightItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-LightItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Medium-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Medium-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Medium-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-MediumItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-MediumItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-MediumItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Regular-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Regular-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Regular-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Thin-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Thin-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-Thin-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-ThinItalic-webfont %281%29.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-ThinItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\Roboto-ThinItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Bold-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Bold-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Bold-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-BoldItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-BoldItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-BoldItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Italic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Italic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Italic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Light-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Light-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Light-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-LightItalic-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-LightItalic-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-LightItalic-webfont.woff" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Regular-webfont.eot" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Regular-webfont.ttf" />
-    <Content Include="theme\libraries\propeller\roboto\RobotoCondensed-Regular-webfont.woff" />
-    <Content Include="theme\resources\icos\icn-usuario.png" />
-    <Content Include="theme\resources\logo_gnoss.png" />
-    <Content Include="theme\resources\persona-default.png" />
-    <Content Include="theme\theme-autocompletar.css" />
-    <Content Include="theme\theme-buscador.css" />
-    <Content Include="theme\theme-cabecera.css" />
-    <Content Include="theme\theme-comunidades.css" />
-    <Content Include="theme\theme-contextos.css" />
-    <Content Include="theme\theme-facetas.css" />
-    <Content Include="theme\theme-fichas.css" />
-    <Content Include="theme\theme-filtros.css" />
-    <Content Include="theme\theme-general.css" />
-    <Content Include="theme\theme-listados.css" />
-    <Content Include="theme\theme-main.css" />
-    <Content Include="theme\theme-modales.css" />
-    <Content Include="theme\theme-paneles.css" />
-    <Content Include="theme\theme-resources.css" />
-    <Content Include="theme\theme.css" />
-    <Content Include="theme\theme.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -326,17 +234,18 @@
   <ItemGroup>
     <Compile Include="App_Start\CustomRazorViewEngine.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Extensions\TipoActividadReciente.cs" />
-    <Compile Include="Fake\Conexion.cs" />
-    <Compile Include="Fake\Error.cs" />
-    <Compile Include="Fake\GnossIdentity.cs" />
-    <Compile Include="Extensions\ProyectoAD.cs" />
-    <Compile Include="Extensions\GnossUrlsSemanticas.cs" />
-    <Compile Include="Extensions\HtmlHelpers.cs" />
-    <Compile Include="Extensions\UtilUsuario.cs" />
-    <Compile Include="Fake\Usuario.cs" />
-    <Compile Include="Fake\UtilImportarExportar.cs" />
+    <Compile Include="Areas\GnossTestView\Controllers\HomeController.cs" />
+    <Compile Include="Areas\GnossTestView\GnossTestViewAreaRegistration.cs" />
+    <Compile Include="Areas\GnossTestView\Extensions\TipoActividadReciente.cs" />
+    <Compile Include="Areas\GnossTestView\Fake\Conexion.cs" />
+    <Compile Include="Areas\GnossTestView\Fake\Error.cs" />
+    <Compile Include="Areas\GnossTestView\Fake\GnossIdentity.cs" />
+    <Compile Include="Areas\GnossTestView\Extensions\ProyectoAD.cs" />
+    <Compile Include="Areas\GnossTestView\Extensions\GnossUrlsSemanticas.cs" />
+    <Compile Include="Areas\GnossTestView\Extensions\HtmlHelpers.cs" />
+    <Compile Include="Areas\GnossTestView\Extensions\UtilUsuario.cs" />
+    <Compile Include="Areas\GnossTestView\Fake\Usuario.cs" />
+    <Compile Include="Areas\GnossTestView\Fake\UtilImportarExportar.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -348,10 +257,9 @@
     </Content>
     <Content Include="packages.config" />
     <Content Include="GenericViews\_ViewStart.cshtml" />
-    <Content Include="GenericViews\ExampleView.cshtml" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Areas\GnossTestView\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\GnossTestView\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Areas\GnossTestView\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="GenericViews\AbandonarComunidad\Index.cshtml" />
     <Content Include="GenericViews\AcercaDeComunidad\Index.cshtml" />
     <Content Include="GenericViews\AdminCatEspacioPersonal\Index.cshtml" />
@@ -483,43 +391,6 @@
     <Content Include="GenericViews\CambiarPasswordPeticion\NoUsuario.cshtml" />
     <Content Include="GenericViews\CambiarPassword\Index.cshtml" />
     <Content Include="GenericViews\CMSAdminMultimedia\Index.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ActividadReciente\_ActividadReciente.cshtml" />
-    <Content Include="GenericViews\CMSPagina\BuscadorSPARQL\_BuscadorSPARQL.cshtml" />
-    <Content Include="GenericViews\CMSPagina\Buscador\_Buscador.cshtml" />
-    <Content Include="GenericViews\CMSPagina\CajaBuscador\_CajaBuscador.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ConsultaSPARQL\_ConsultaSPARQL.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ConsultaSQLSERVER\_ConsultaSQLSERVER.cshtml" />
-    <Content Include="GenericViews\CMSPagina\DatosComunidad\_DatosComunidad.cshtml" />
-    <Content Include="GenericViews\CMSPagina\Destacado\_Destacado.cshtml" />
-    <Content Include="GenericViews\CMSPagina\EnvioCorreo\_EnvioCorreo.cshtml" />
-    <Content Include="GenericViews\CMSPagina\Faceta\_Faceta.cshtml" />
-    <Content Include="GenericViews\CMSPagina\FichaDescripcionDocumento\_FichaDescripcionDocumento.cshtml" />
-    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_Paginacion.cshtml" />
-    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_PestanyasHorizontales.cshtml" />
-    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_PestanyasPersonalizadas.cshtml" />
-    <Content Include="GenericViews\CMSPagina\GrupoComponentes\_PestanyasVerticales.cshtml" />
-    <Content Include="GenericViews\CMSPagina\Index.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoProyectos\_ListadoProyectos.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_BreveConFoto.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_BreveConFotoAUnParrafo.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_Completa.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_DescripcionCompleta.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_Destacado.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_ListadoSinFoto.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_SoloIconoYTitulo.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\_UltimosRecursos.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoDestacados.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoRecursosNormal.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoRecursosPaginacion.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\_ListadoRecursosPestanyas.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoUsuarios\_ListadoUsuarios.cshtml" />
-    <Content Include="GenericViews\CMSPagina\MasVistos\_MasVistos.cshtml" />
-    <Content Include="GenericViews\CMSPagina\Menu\_Menu.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ResumenPerfil\_ResumenPerfil.cshtml" />
-    <Content Include="GenericViews\CMSPagina\Tesauro\_Tesauro.cshtml" />
-    <Content Include="GenericViews\CMSPagina\UsuariosRecomendados\_UsuariosRecomendados.cshtml" />
-    <Content Include="GenericViews\CMSPagina\_BloqueCMS.cshtml" />
-    <Content Include="GenericViews\CMSPagina\_ComponenteCMS.cshtml" />
     <Content Include="GenericViews\ComAdminElemSemanticos\Index.cshtml" />
     <Content Include="GenericViews\ComAdminElemSemanticos\_AccionesTesSem.cshtml" />
     <Content Include="GenericViews\ComAdminElemSemanticos\_EditarEntSecInstancias.cshtml" />
@@ -671,11 +542,6 @@
     <Content Include="GenericViews\UsuariosOrganizacion\_Usuarios.cshtml" />
     <Content Include="GenericViews\Version\Index.cshtml" />
     <Content Include="GenericViews\Widget\Comunidad.cshtml" />
-    <Content Include="GenericViews\CMSPagina\HTML\_HTML_630ad0cf-78cb-42a3-9bfb-aeefca5c8a55.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\__d1f53bee-6e62-406a-95b0-caa71b4934d1_cc30f064-d1f1-4058-8604-706ade6ed7be.cshtml" />
-    <Content Include="GenericViews\CMSPagina\ListadoRecursos\Vistas\__040cfd3e-a55e-4916-b5b1-3747894cece8_28da1ff4-cff0-44ea-89df-5169ec8fd76d.cshtml" />
-    <Content Include="GenericViews\GnossTestView\AskURL.cshtml" />
-    <Content Include="GenericViews\GnossTestView\_LayoutAskUrl.cshtml" />
     <Content Include="GenericViews\CargadorResultados\_ResultadoBlog.cshtml" />
     <Content Include="GenericViews\CargadorResultados\_ResultadoComentario.cshtml" />
     <Content Include="GenericViews\CargadorResultados\_ResultadoComentarioContribuciones.cshtml" />
@@ -699,21 +565,10 @@
     <Content Include="GenericViews\CargadorFacetas\_ItemFaceta.cshtml" />
     <Content Include="GenericViews\CargadorFacetas\CargarFacetas.cshtml" />
     <Content Include="GenericViews\CargadorFacetas\LimpiarCache.cshtml" />
-    <Content Include="GenericViews\CMSPagina\HTML\_HTML.cshtml" />
     <Content Include="GenericViews\Shared\_MenuLateralPrincipal.cshtml" />
     <Content Include="GenericViews\Shared\_MenuLateralUsuario.cshtml" />
-    <Content Include="Views\FichaRecurso\EducationalResource.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\FichaRecurso\LearningOpportunitySummary.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\Shared\Head\_FicherosJavascript.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Views\Shared\Head\_HojasDeEstilo.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Views\web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -727,6 +582,7 @@
     <Folder Include="GenericViews\ConfigurarIntegracionContinuaInicial\" />
     <Folder Include="GenericViews\EditarPerfilNotificacion\" />
     <Folder Include="GenericViews\ProcesandoTareas\" />
+    <Folder Include="styles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

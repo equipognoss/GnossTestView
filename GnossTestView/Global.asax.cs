@@ -15,6 +15,8 @@ namespace GnossTestView
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            AreaRegistration.RegisterAllAreas();
+
             //Quitamos los motores de vistas y añadimos nuestro motor Razor personalizado
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomRazorViewEngine());
