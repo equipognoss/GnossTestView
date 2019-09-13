@@ -290,7 +290,6 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-*.config
-
+GnossTestView\Config\*
 GnossTestView\Views\*
 GnossTestView\styles\*
