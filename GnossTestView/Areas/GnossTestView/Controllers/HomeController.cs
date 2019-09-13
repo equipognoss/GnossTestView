@@ -222,34 +222,40 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
         private void SetAuthorization(string url, string user, string password)
         {
             string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Authorization.config";
+
+            XmlDocument docXml = new XmlDocument();
+
             if (System.IO.File.Exists(rutaConfig))
             {
-                XmlDocument docXml = new XmlDocument();
                 docXml.Load(rutaConfig);
-
-                XmlNode parentNode = docXml.SelectSingleNode("config");
-
-                XmlNode nodeProy = parentNode.SelectSingleNode($"proyecto[@url=\"{url}\"]");
-                if (nodeProy != null)
-                {
-                    parentNode.RemoveChild(nodeProy);
-                }
-
-                XmlElement newConfig = docXml.CreateElement("proyecto");
-                newConfig.SetAttribute("url", url);
-
-                XmlElement nodeUser = docXml.CreateElement("user");
-                nodeUser.InnerText = user;
-                newConfig.AppendChild(nodeUser);
-
-                XmlElement nodePass = docXml.CreateElement("pass");
-                nodePass.InnerText = password;
-                newConfig.AppendChild(nodePass);
-
-                parentNode.AppendChild(newConfig);
-
-                docXml.Save(rutaConfig);
             }
+            else
+            {
+                docXml.LoadXml("<config>  <proyecto url=\"default\"><user></user><pass></pass></proyecto></config>");
+            }
+            
+            XmlNode parentNode = docXml.SelectSingleNode("config");
+
+            XmlNode nodeProy = parentNode.SelectSingleNode($"proyecto[@url=\"{url}\"]");
+            if (nodeProy != null)
+            {
+                parentNode.RemoveChild(nodeProy);
+            }
+
+            XmlElement newConfig = docXml.CreateElement("proyecto");
+            newConfig.SetAttribute("url", url);
+
+            XmlElement nodeUser = docXml.CreateElement("user");
+            nodeUser.InnerText = user;
+            newConfig.AppendChild(nodeUser);
+
+            XmlElement nodePass = docXml.CreateElement("pass");
+            nodePass.InnerText = password;
+            newConfig.AppendChild(nodePass);
+
+            parentNode.AppendChild(newConfig);
+
+            docXml.Save(rutaConfig);
         }
     
         private KeyValuePair<string, string>? ObtenerAuthorizationConfig(string url)
