@@ -218,9 +218,6 @@
     <Content Include="GenericViews\CMSPagina\ResumenPerfil\_ResumenPerfil.cshtml" />
     <Content Include="GenericViews\CMSPagina\Tesauro\_Tesauro.cshtml" />
     <Content Include="GenericViews\CMSPagina\UsuariosRecomendados\_UsuariosRecomendados.cshtml" />
-    <Content Include="Config\Authorization.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Areas\GnossTestView\Views\web.config" />
     <Content Include="Areas\GnossTestView\Views\_LayoutAskUrl.cshtml" />
     <Content Include="Areas\GnossTestView\Views\Home\AskProyecto.cshtml" />
@@ -578,6 +575,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Config\" />
     <Folder Include="GenericViews\AdministrarIntegracionContinua\" />
     <Folder Include="GenericViews\ConfigurarIntegracionContinuaInicial\" />
     <Folder Include="GenericViews\EditarPerfilNotificacion\" />
