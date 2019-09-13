@@ -291,3 +291,6 @@ __pycache__/
 *.xsd.cs
 
 *.config
+
+GnossTestView\Views\*
+GnossTestView\styles\*
