@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "ERROR";
+    Layout = "";
+
+    string ErrorAskURL = "";
+
+    if (Session["ErrorAskURL"] != null)
+    {
+        ErrorAskURL = (string)Session["ErrorAskURL"];
+    }
+
+    Response.Headers.Add("Cache-Control", "no-cache, no-store");
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Error</h1>
+            <p>@ErrorAskURL</p>
+        </div>
+    </div>
+</body>
+</html>
