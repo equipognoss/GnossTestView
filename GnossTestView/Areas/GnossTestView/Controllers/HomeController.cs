@@ -70,11 +70,11 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password, bool contentLocal)
+        public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password, bool contentLocal, string proyectoSeleccionado)
         {
             try
             {
-                GestionarDatosSession(url, sessionID, user, password, contentLocal);
+                GestionarDatosSession(url, sessionID, ref user, ref password, contentLocal);
             }
             catch
             {
@@ -95,13 +95,13 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             }
             else
             {
-                jsonModel = GetJson(responseFromServer, contentLocal);
+                jsonModel = GetJson(responseFromServer, contentLocal, proyectoSeleccionado);
             }
 
-            return GetView(jsonModel);
+            return GetView(jsonModel, proyectoSeleccionado);
         }
 
-        private void GestionarDatosSession(string url, string sessionID, string user, string password, bool contentLocal)
+        private void GestionarDatosSession(string url, string sessionID, ref string user, ref string password, bool contentLocal)
         {
             Session.Remove("ErrorAskURL");
 
@@ -131,7 +131,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             }
         }
 
-        private ActionResult GetView(string jsonModel)
+        private ActionResult GetView(string jsonModel, string proyectoSeleccionado)
         {
             string controllerName = (string)ViewData["ControllerName"];
             string actionName = (string)ViewData["ActionName"];
@@ -139,7 +139,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             string modelType = "undefined";
 
-            string rutaVistasPersonalizadas = $"Views/{Session["Proyecto"]}";
+            string rutaVistasPersonalizadas = $"Views/{proyectoSeleccionado}";
 
             ViewBag.rutaVistasPersonalizadas = rutaVistasPersonalizadas;
 
@@ -334,7 +334,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             return responseFromServer;
         }
 
-        private string GetJson(string responseFromServer, bool contentLocal)
+        private string GetJson(string responseFromServer, bool contentLocal, string proyectoSeleccionado)
         {
             // Dividimos el json obtenido, la primera string para el modelo y la segunda para el ViewBag 
             string[] divideJson = responseFromServer.Split(new string[] { "{ComienzoJsonViewData}" }, StringSplitOptions.None);
@@ -358,7 +358,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 {
                     if (item.Equals("BaseUrlPersonalizacion") && contentLocal)
                     {
-                        ViewData.Add(item, $"styles/{Session["Proyecto"]}");
+                        ViewData.Add(item, $"styles/{proyectoSeleccionado}");
                     }
                     else
                     {

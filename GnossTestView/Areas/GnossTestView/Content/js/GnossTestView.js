@@ -22,10 +22,11 @@
         var user = $('input#User').val();
         var pass = $('input#Password').val();
         var contentLocal = $('input#contentLocal').is(':checked');
+        var proyectoSeleccionado = $('#proyectoSeleccionado').text();
         var submit = $(this).val();
         
         var urlIframe = location.protocol + '//' + location.host + '/LoadURL';
-        var srcIframe = urlIframe + "?URL=" + url + "&SessionID=" + sessionID + "&User=" + user + "&Password=" + pass + "&contentLocal=" + contentLocal + "&submit=" + submit
+        var srcIframe = urlIframe + "?URL=" + url + "&SessionID=" + sessionID + "&User=" + user + "&Password=" + pass + "&contentLocal=" + contentLocal + "&proyectoSeleccionado=" + proyectoSeleccionado + "&submit=" + submit
 
         body.append("<iframe id='iframeContenedor' src='" + srcIframe + "' />");
         
@@ -60,8 +61,8 @@ function fkey(e) {
                 $('#cargar').focus()
                 $("#cargar").trigger("click");
             }
-            event.preventDefault();
-            event.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
             return false;
         }
     }
