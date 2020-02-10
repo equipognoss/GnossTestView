@@ -114,16 +114,16 @@ namespace GnossTestView.Extensions
         {
             string rutaVistasPersonalizadas = htmlHelper.ViewBag.rutaVistasPersonalizadas;
 
-            string partialViewNameAux = $"~/{rutaVistasPersonalizadas}{partialViewName.Replace("..", "")}.cshtml";
+            string partialViewNameAux = $"~/{rutaVistasPersonalizadas}/Views{partialViewName.Replace("..", "")}.cshtml";
 
             if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewNameAux.Replace("~/", "")))
             {
                 string rutaVistasPersonalizadasEcosistema = htmlHelper.ViewBag.rutaVistasPersonalizadasEcosistema;
-                partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadas}/", $"/{rutaVistasPersonalizadasEcosistema}/");
+                partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadas}/Views/", $"/{rutaVistasPersonalizadasEcosistema}/Views/");
 
                 if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewNameAux.Replace("~/", "")))
                 {
-                    partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadasEcosistema}/", "/GenericViews/");
+                    partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadasEcosistema}/Views/", "/GenericViews/");
                 }
             }
             
@@ -132,7 +132,7 @@ namespace GnossTestView.Extensions
             return resultado;
         }
 
-        public static MvcHtmlString PartialView(this HtmlHelper htmlHelper, string partialViewName, Object model)
+        public static MvcHtmlString PartialView(this HtmlHelper htmlHelper, string partialViewName, object model)
         {
             MvcHtmlString resultado = null;
 
@@ -146,9 +146,9 @@ namespace GnossTestView.Extensions
             if (Guid.TryParse(partialViewName, out guid))
             {
                 bool vistaPersonalizadaEncontrada = false;
-                if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadas, "CMSPagina")))
+                if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadas, "CMS")))
                 {
-                    var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadas, "CMSPagina"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
+                    var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadas, "CMS"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
                     if (files.Length > 0)
                     {
                         string[] path = files[0].Split(new string[] { "\\Views" }, StringSplitOptions.RemoveEmptyEntries);
@@ -161,9 +161,9 @@ namespace GnossTestView.Extensions
                 {
                     string rutaVistasPersonalizadasEcosistema = htmlHelper.ViewBag.rutaVistasPersonalizadasEcosistema;
 
-                    if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadasEcosistema, "CMSPagina")))
+                    if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadasEcosistema, "CMS")))
                     {
-                        var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadasEcosistema, "CMSPagina"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
+                        var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadasEcosistema, "CMS"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
                         if (files.Length > 0)
                         {
                             string[] path = files[0].Split(new string[] { "\\Views" }, StringSplitOptions.RemoveEmptyEntries);
@@ -178,7 +178,7 @@ namespace GnossTestView.Extensions
                     return MvcHtmlString.Empty;
                 }
             }
-            else if (htmlHelper.ViewBag.ViewPath.Contains($"~/{rutaVistasPersonalizadas}/Busqueda"))
+            else if (htmlHelper.ViewBag.ViewPath.Contains($"~/{rutaVistasPersonalizadas}/Views/Busqueda"))
             { 
                 if (partialViewName.Equals("../CargadorResultados/CargarResultados"))
                 {
@@ -193,17 +193,17 @@ namespace GnossTestView.Extensions
 
                 if (PintandoResultados)
                 {
-                    partialViewName = $"~/{rutaVistasPersonalizadas}/CargadorResultados/{partialViewName}.cshtml";
+                    partialViewName = $"~/{rutaVistasPersonalizadas}/Views/CargadorResultados/{partialViewName}.cshtml";
                 }
                 else if (PintandoFacetas)
                 {
-                    partialViewName = $"~/{rutaVistasPersonalizadas}/CargadorFacetas/{partialViewName}.cshtml";
+                    partialViewName = $"~/{rutaVistasPersonalizadas}/Views/CargadorFacetas/{partialViewName}.cshtml";
                 }
             }
             else
             {
                 string partialPath = htmlHelper.ViewBag.ViewPath;
-                if ((partialPath.Equals("~/{rutaVistasPersonalizadas}/FichaRecurso") && (partialViewName.StartsWith("SemCms/_")) || partialViewName.StartsWith("ControlesMVC/")))
+                if ((partialPath.Equals($"~/{rutaVistasPersonalizadas}/FichaRecurso") && (partialViewName.StartsWith("SemCms/_")) || partialViewName.StartsWith("ControlesMVC/")))
                 {
                     partialPath = $"~/{rutaVistasPersonalizadas}/Shared";
                 }

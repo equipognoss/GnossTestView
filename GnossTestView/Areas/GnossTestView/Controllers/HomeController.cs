@@ -162,13 +162,13 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                     string rdfType = modelRM.Resource.RdfType;
                     if (!string.IsNullOrEmpty(rdfType))
                     {
-                        string viewName = $"~/{rutaVistasPersonalizadas}/FichaRecurso/{rdfType}.cshtml";
+                        string viewName = $"~/{rutaVistasPersonalizadas}/Recursos/{rdfType}.cshtml";
                         if (System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
                         {
                             return View(viewName, modelRM);
                         }
                     }
-                    return View($"~/{rutaVistasPersonalizadas}/FichaRecurso/Index.cshtml", modelRM);
+                    return View($"~/{rutaVistasPersonalizadas}/Views/FichaRecurso/Index.cshtml", modelRM);
                 }
                 else
                 {
@@ -176,9 +176,9 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                     if (controllerName.Equals("Busqueda")) { actionName = "Index"; }
                     if (modelType.Equals("Error404ViewModel")) { controllerName = "Error"; actionName = "Error404"; }
 
-                    string view = $"~/{rutaVistasPersonalizadas}/{controllerName}/{actionName}.cshtml";
+                    string view = $"~/{rutaVistasPersonalizadas}/Views/{controllerName}/{actionName}.cshtml";
 
-                    if (System.IO.File.Exists(AppContext.BaseDirectory + view.Replace($"~/{rutaVistasPersonalizadas}/", "GenericViews/")))
+                    if (System.IO.File.Exists(AppContext.BaseDirectory + view.Replace($"~/{rutaVistasPersonalizadas}/Views/", "GenericViews/")))
                     {
                         //Solamente pintamos la vista si existe una vista generica con esta ruta.
                         Type type = (Type.GetType(modelType));
@@ -430,11 +430,11 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 if (!System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
                 {
                     string rutaVistasPersonalizadasEcosistema = ViewBag.rutaVistasPersonalizadasEcosistema;
-                    viewName = viewName.Replace($"/{rutaVistasPersonalizadas}/", $"/{rutaVistasPersonalizadasEcosistema}/");
+                    viewName = viewName.Replace($"/{rutaVistasPersonalizadas}/Views/", $"/{rutaVistasPersonalizadasEcosistema}/Views/");
 
                     if (!System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
                     {
-                        viewName = viewName.Replace($"/{rutaVistasPersonalizadasEcosistema}/", "/GenericViews/");
+                        viewName = viewName.Replace($"/{rutaVistasPersonalizadasEcosistema}/Views/", "/GenericViews/");
                     }
                 }
             }

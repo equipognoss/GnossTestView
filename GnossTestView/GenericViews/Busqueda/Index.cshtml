@@ -236,7 +236,7 @@
                     <div id="panResultados">
                         @if (string.IsNullOrEmpty(htmlResultados) && Model.JSONResourceList != null)
                         {
-                            Html.PartialView("../CargadorResultados/CargarResultados", Model.JSONResourceList);
+                            @Html.PartialView("../CargadorResultados/CargarResultados", Model.JSONResourceList);
                         }
                         else
                         {
