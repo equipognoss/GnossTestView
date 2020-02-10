@@ -118,10 +118,15 @@ namespace GnossTestView.Extensions
 
             if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewNameAux.Replace("~/", "")))
             {
-                partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadas}/", "/GenericViews/");
+                string rutaVistasPersonalizadasEcosistema = htmlHelper.ViewBag.rutaVistasPersonalizadasEcosistema;
+                partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadas}/", $"/{rutaVistasPersonalizadasEcosistema}/");
+
+                if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewNameAux.Replace("~/", "")))
+                {
+                    partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadasEcosistema}/", "/GenericViews/");
+                }
             }
             
-
             MvcHtmlString resultado = System.Web.Mvc.Html.PartialExtensions.Partial(htmlHelper, partialViewNameAux);
             
             return resultado;
@@ -131,6 +136,8 @@ namespace GnossTestView.Extensions
         {
             MvcHtmlString resultado = null;
 
+            UtilTrazas.AgregarEntrada("HtmlHelpers.PartialView 2");
+
             string rutaVistasPersonalizadas = htmlHelper.ViewBag.rutaVistasPersonalizadas;
 
             string partialViewNameOld = partialViewName;
@@ -138,6 +145,7 @@ namespace GnossTestView.Extensions
             Guid guid;
             if (Guid.TryParse(partialViewName, out guid))
             {
+                bool vistaPersonalizadaEncontrada = false;
                 if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadas, "CMSPagina")))
                 {
                     var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadas, "CMSPagina"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
@@ -145,19 +153,30 @@ namespace GnossTestView.Extensions
                     {
                         string[] path = files[0].Split(new string[] { "\\Views" }, StringSplitOptions.RemoveEmptyEntries);
                         partialViewName = $"/Views{path[1]}".Replace('\\', '/');
-                    }
-                    else
-                    {
-                        // TODO: Descargar los componentes del FTP correctamente
-                        return MvcHtmlString.Empty;
+                        vistaPersonalizadaEncontrada = true;
                     }
                 }
-                else
+                
+                if(!vistaPersonalizadaEncontrada)
                 {
-                    // TODO: Descargar los componentes del FTP correctamente
+                    string rutaVistasPersonalizadasEcosistema = htmlHelper.ViewBag.rutaVistasPersonalizadasEcosistema;
+
+                    if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadasEcosistema, "CMSPagina")))
+                    {
+                        var files = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadasEcosistema, "CMSPagina"), $"*{partialViewName}.cshtml", SearchOption.AllDirectories);
+                        if (files.Length > 0)
+                        {
+                            string[] path = files[0].Split(new string[] { "\\Views" }, StringSplitOptions.RemoveEmptyEntries);
+                            partialViewName = $"/Views{path[1]}".Replace('\\', '/');
+                            vistaPersonalizadaEncontrada = true;
+                        }
+                    }
+                }
+                if(!vistaPersonalizadaEncontrada)
+                {
+                    // No se ha encontrado la vista ni en la carpeta del proyecto ni en la del ecosistema
                     return MvcHtmlString.Empty;
                 }
-
             }
             else if (htmlHelper.ViewBag.ViewPath.Contains($"~/{rutaVistasPersonalizadas}/Busqueda"))
             { 
@@ -194,13 +213,18 @@ namespace GnossTestView.Extensions
 
             if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))
             {
-                partialViewName = partialViewName.Replace($"/{rutaVistasPersonalizadas}/", "/GenericViews/");
+                string rutaVistasPersonalizadasEcosistema = htmlHelper.ViewBag.rutaVistasPersonalizadasEcosistema;
+                partialViewName = partialViewName.Replace($"/{rutaVistasPersonalizadas}/", $"/{rutaVistasPersonalizadasEcosistema}/");
+
+                if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))
+                {
+                    partialViewName = partialViewName.Replace($"/{rutaVistasPersonalizadasEcosistema}/", "/GenericViews/");
+                }
             }
 
             // necesario para encontrar la ruta, porque fichaRecurso también hace uso de la carpeta Shared
             try
             {
-
                 resultado = System.Web.Mvc.Html.PartialExtensions.Partial(htmlHelper, partialViewName, model);
             }
             catch (InvalidOperationException)
@@ -216,7 +240,7 @@ namespace GnossTestView.Extensions
         public static MvcHtmlString PartialView(this HtmlHelper htmlHelper, string partialViewName, object model, ViewDataDictionary diccionario)
         {
             MvcHtmlString resultado = null;
-            UtilTrazas.AgregarEntrada("HtmlHelpers.PartialView 2");
+            UtilTrazas.AgregarEntrada("HtmlHelpers.PartialView 3");
             CommunityModel Comunidad = htmlHelper.ViewBag.Comunidad;
 
             string rutaVistasPersonalizadas = htmlHelper.ViewBag.rutaVistasPersonalizadas;
@@ -228,7 +252,7 @@ namespace GnossTestView.Extensions
             // todo
             resultado = System.Web.Mvc.Html.PartialExtensions.Partial(htmlHelper, partialViewName, model, diccionario);
 
-            UtilTrazas.AgregarEntrada("Fin HtmlHelpers.PartialView 2");
+            UtilTrazas.AgregarEntrada("Fin HtmlHelpers.PartialView 3");
             return resultado;
         }
 

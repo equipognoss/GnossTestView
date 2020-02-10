@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
+using Es.Riam.Gnoss.Web.MVC.Models;
 
 namespace GnossTestView.Areas.GnossTestView.Controllers
 {
@@ -19,58 +20,58 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
         
         public ActionResult Index()
         {
-            if(Session["Proyecto"] == null)
-            {
-                string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
-                ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
+            //if(Session["Proyecto"] == null)
+            //{
+            //    string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
+            //    ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
 
-                return View("AskProyecto");
-            }
+            //    return View("AskProyecto");
+            //}
 
             return View("AskURL");
         }
-        public ActionResult ChangeProyecto()
-        {
-            string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
-            ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
+        //public ActionResult ChangeProyecto()
+        //{
+        //    string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
+        //    ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
 
-            return View("AskProyecto");                
-        }
+        //    return View("AskProyecto");                
+        //}
 
-        public ActionResult SelectProyecto(string proySelected, string newProy)
-        {
-            string[] proyectos = Directory.GetDirectories(AppContext.BaseDirectory + "Views");
-            if (proySelected != "newProy")
-            {
-                if (proyectos.Select(proy => proy.Split('\\').Last()).Contains(proySelected))
-                {
-                    Session.Add("Proyecto", proySelected);
-                }
-                else
-                {
-                    ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
-                    ViewBag.Error = "Selecciona un proyecto de la lista";
-                    return View("AskProyecto");
-                }
-            }
-            else
-            {
-                if (!string.IsNullOrEmpty(newProy) && IsValidDirName(newProy)){
-                    Directory.CreateDirectory(AppContext.BaseDirectory + "Views/" + newProy);
-                    Session.Add("Proyecto", newProy);
-                }
-                else
-                {
-                    ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
-                    ViewBag.Error = "El nombre no puedeser vacio ni contener caracteres especiales";
-                    return View("AskProyecto");
-                }
-            }
+        //public ActionResult SelectProyecto(string proySelected, string newProy)
+        //{
+        //    string[] proyectos = Directory.GetDirectories(AppContext.BaseDirectory + "Views");
+        //    if (proySelected != "newProy")
+        //    {
+        //        if (proyectos.Select(proy => proy.Split('\\').Last()).Contains(proySelected))
+        //        {
+        //            Session.Add("Proyecto", proySelected);
+        //        }
+        //        else
+        //        {
+        //            ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
+        //            ViewBag.Error = "Selecciona un proyecto de la lista";
+        //            return View("AskProyecto");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (!string.IsNullOrEmpty(newProy) && IsValidDirName(newProy)){
+        //            Directory.CreateDirectory(AppContext.BaseDirectory + "Views/" + newProy);
+        //            Session.Add("Proyecto", newProy);
+        //        }
+        //        else
+        //        {
+        //            ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
+        //            ViewBag.Error = "El nombre no puedeser vacio ni contener caracteres especiales";
+        //            return View("AskProyecto");
+        //        }
+        //    }
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
-        public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password, bool contentLocal, string proyectoSeleccionado)
+        public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password, bool contentLocal)
         {
             try
             {
@@ -89,13 +90,15 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 responseFromServer = GetData(url, submit, sessionID, user, password);
             }
 
-            if(string.IsNullOrEmpty(responseFromServer))
+            string proyectoSeleccionado;
+
+            if (string.IsNullOrEmpty(responseFromServer))
             {
                 return View("Error");
             }
             else
             {
-                jsonModel = GetJson(responseFromServer, contentLocal, proyectoSeleccionado);
+                jsonModel = GetJson(responseFromServer, contentLocal, out proyectoSeleccionado);
             }
 
             return GetView(jsonModel, proyectoSeleccionado);
@@ -140,8 +143,10 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             string modelType = "undefined";
 
             string rutaVistasPersonalizadas = $"Views/{proyectoSeleccionado}";
+            string rutaVistasPersonalizadasEcosistema = $"Views/ecosistema";
 
             ViewBag.rutaVistasPersonalizadas = rutaVistasPersonalizadas;
+            ViewBag.rutaVistasPersonalizadasEcosistema = rutaVistasPersonalizadasEcosistema;
 
             if (!string.IsNullOrEmpty(controllerName))
             {
@@ -175,6 +180,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
                     if (System.IO.File.Exists(AppContext.BaseDirectory + view.Replace($"~/{rutaVistasPersonalizadas}/", "GenericViews/")))
                     {
+                        //Solamente pintamos la vista si existe una vista generica con esta ruta.
                         Type type = (Type.GetType(modelType));
                         return View(view, DeserializeObject(jsonModel, type));
                     }
@@ -340,7 +346,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             return responseFromServer;
         }
 
-        private string GetJson(string responseFromServer, bool contentLocal, string proyectoSeleccionado)
+        private string GetJson(string responseFromServer, bool contentLocal, out string proyectoSeleccionado)
         {
             // Dividimos el json obtenido, la primera string para el modelo y la segunda para el ViewBag 
             string[] divideJson = responseFromServer.Split(new string[] { "{ComienzoJsonViewData}" }, StringSplitOptions.None);
@@ -358,6 +364,17 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
             };
             ViewDataDictionary ViewDataDeserializado = JsonConvert.DeserializeObject<ViewDataDictionary>(jsonViewData, jsonSerializerSettingsSimple);
+
+            object Comunidad = ViewDataDeserializado.FirstOrDefault(item => item.Key.Equals("Comunidad")).Value;
+            if(Comunidad != null)
+            {
+                proyectoSeleccionado = ((CommunityModel)Comunidad).ShortName;
+            }
+            else
+            {
+                proyectoSeleccionado = "ecosistema";
+            }
+
             if (ViewDataDeserializado != null)
             {
                 foreach (string item in ViewDataDeserializado.Keys)
@@ -412,7 +429,13 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
                 if (!System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
                 {
-                    viewName = viewName.Replace($"/{rutaVistasPersonalizadas}/", "/GenericViews/");
+                    string rutaVistasPersonalizadasEcosistema = ViewBag.rutaVistasPersonalizadasEcosistema;
+                    viewName = viewName.Replace($"/{rutaVistasPersonalizadas}/", $"/{rutaVistasPersonalizadasEcosistema}/");
+
+                    if (!System.IO.File.Exists(AppContext.BaseDirectory + viewName.Replace("~/", "")))
+                    {
+                        viewName = viewName.Replace($"/{rutaVistasPersonalizadasEcosistema}/", "/GenericViews/");
+                    }
                 }
             }
 

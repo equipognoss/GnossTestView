@@ -582,6 +582,7 @@
     <Folder Include="GenericViews\EditarPerfilNotificacion\" />
     <Folder Include="GenericViews\ProcesandoTareas\" />
     <Folder Include="styles\" />
+    <Folder Include="Views\ecosistema\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
