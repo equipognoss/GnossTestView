@@ -203,22 +203,29 @@ namespace GnossTestView.Extensions
             else
             {
                 string partialPath = htmlHelper.ViewBag.ViewPath;
-                if ((partialPath.Equals($"~/{rutaVistasPersonalizadas}/FichaRecurso") && (partialViewName.StartsWith("SemCms/_")) || partialViewName.StartsWith("ControlesMVC/")))
-                {
-                    partialPath = $"~/{rutaVistasPersonalizadas}/Shared";
-                }
 
-                partialViewName = $"{partialPath}/{partialViewName}.cshtml";
+                if (partialPath.Equals($"~/{rutaVistasPersonalizadas}/Views/FichaRecurso") || partialPath.Equals($"~/{rutaVistasPersonalizadas}/Recursos"))
+                {
+                    if (partialViewName.StartsWith("SemCms/_") || partialViewName.StartsWith("ControlesMVC/"))
+                    {
+                        partialPath = $"~/{rutaVistasPersonalizadas}/Views/Shared";
+                    }
+                    else
+                    {
+                        partialPath = $"~/{rutaVistasPersonalizadas}/Views/FichaRecurso";
+                    }
+                    partialViewName = $"{partialPath}/{partialViewName}.cshtml";
+                }
             }
 
             if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))
             {
                 string rutaVistasPersonalizadasEcosistema = htmlHelper.ViewBag.rutaVistasPersonalizadasEcosistema;
-                partialViewName = partialViewName.Replace($"/{rutaVistasPersonalizadas}/", $"/{rutaVistasPersonalizadasEcosistema}/");
+                partialViewName = partialViewName.Replace($"/{rutaVistasPersonalizadas}/Views/", $"/{rutaVistasPersonalizadasEcosistema}/Views/");
 
                 if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))
                 {
-                    partialViewName = partialViewName.Replace($"/{rutaVistasPersonalizadasEcosistema}/", "/GenericViews/");
+                    partialViewName = partialViewName.Replace($"/{rutaVistasPersonalizadasEcosistema}/Views/", "/GenericViews/");
                 }
             }
 
