@@ -24,13 +24,7 @@ input[type=text]#SessionID{
     width: 100%;
 }
 
-select#proySelected {
-    width: 100%;
-    max-width: 100%;
-    height: 35px;
-}
-
-input#newProy {
+input#apiDespliegues {
     max-width: 100%;
     width: 100%;
     height: 35px;

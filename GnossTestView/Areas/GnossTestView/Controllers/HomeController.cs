@@ -11,65 +11,37 @@ using System.Web.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
 using Es.Riam.Gnoss.Web.MVC.Models;
+using System.IO.Compression;
 
 namespace GnossTestView.Areas.GnossTestView.Controllers
 {
     public class HomeController : Controller
     {
         private const string TYPE_JSON = "$type\":\"";
-        
+
         public ActionResult Index()
         {
-            //if(Session["Proyecto"] == null)
-            //{
-            //    string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
-            //    ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
-
-            //    return View("AskProyecto");
-            //}
-
             return View("AskURL");
         }
-        //public ActionResult ChangeProyecto()
-        //{
-        //    string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
-        //    ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
 
-        //    return View("AskProyecto");                
-        //}
+        [HttpGet]
+        public ActionResult Configuration()
+        {
+            string urlApiDespliegues = GetConfiguration("urlApiDespliegues").TrimEnd('/');
 
-        //public ActionResult SelectProyecto(string proySelected, string newProy)
-        //{
-        //    string[] proyectos = Directory.GetDirectories(AppContext.BaseDirectory + "Views");
-        //    if (proySelected != "newProy")
-        //    {
-        //        if (proyectos.Select(proy => proy.Split('\\').Last()).Contains(proySelected))
-        //        {
-        //            Session.Add("Proyecto", proySelected);
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
-        //            ViewBag.Error = "Selecciona un proyecto de la lista";
-        //            return View("AskProyecto");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (!string.IsNullOrEmpty(newProy) && IsValidDirName(newProy)){
-        //            Directory.CreateDirectory(AppContext.BaseDirectory + "Views/" + newProy);
-        //            Session.Add("Proyecto", newProy);
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Proyectos = proyectos.Select(proy => proy.Split('\\').Last());
-        //            ViewBag.Error = "El nombre no puedeser vacio ni contener caracteres especiales";
-        //            return View("AskProyecto");
-        //        }
-        //    }
+            ViewBag.urlApiDespliegues = urlApiDespliegues;
 
-        //    return RedirectToAction("Index");
-        //}
+            return View("AskConfig");
+        }
+
+
+        [HttpPost]
+        public ActionResult SaveConfiguration()
+        {
+            SetConfiguracion("apiDespliegues", Request.Params["apiDespliegues"]);
+
+            return RedirectToAction("Index");
+        }
 
         public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password, bool contentLocal)
         {
@@ -101,7 +73,63 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 jsonModel = GetJson(responseFromServer, contentLocal, out proyectoSeleccionado);
             }
 
+            string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
+            if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\ecosistema"))
+            {
+                DescargarVistas("ecosistema");
+            }
+            if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\" + proyectoSeleccionado))
+            {
+                DescargarVistas(proyectoSeleccionado);
+            }
+
             return GetView(jsonModel, proyectoSeleccionado);
+        }
+
+        private void DescargarVistas(string proyecto)
+        {
+            string urlApiDespliegues = GetConfiguration("urlApiDespliegues").TrimEnd('/');
+
+            if (!string.IsNullOrWhiteSpace(urlApiDespliegues))
+            {
+                bool ecosistema = proyecto.Equals("ecosistema");
+                string nombreProy = proyecto;
+
+                if (ecosistema)
+                {
+                    nombreProy = "myGnoss";
+                }
+
+                // Construct HTTP request to get the logo
+                HttpWebRequest httpRequest = (HttpWebRequest)
+                    WebRequest.Create($"{urlApiDespliegues}/api/Vistas?ecosistema={ecosistema.ToString()}&nombreProy={nombreProy}");
+                httpRequest.Method = WebRequestMethods.Http.Get;
+
+                // Get back the HTTP response for web server
+                HttpWebResponse httpResponse
+                    = (HttpWebResponse)httpRequest.GetResponse();
+                Stream httpResponseStream = httpResponse.GetResponseStream();
+
+                // Define buffer and buffer size
+                int bufferSize = 1024;
+                byte[] buffer = new byte[bufferSize];
+                int bytesRead = 0;
+
+                // Read from response and write to file
+                FileStream fileStream = System.IO.File.Create($"vistas_{proyecto}.zip");
+                while ((bytesRead = httpResponseStream.Read(buffer, 0, bufferSize)) != 0)
+                {
+                    fileStream.Write(buffer, 0, bytesRead);
+                } // end while
+
+                fileStream.Close();
+
+                Directory.CreateDirectory($"{AppContext.BaseDirectory}Views/{proyecto}");
+
+                ZipFile.ExtractToDirectory(fileStream.Name, $"{AppContext.BaseDirectory}Views/{proyecto}", Encoding.ASCII);
+
+                System.IO.File.Delete(fileStream.Name);
+            }
         }
 
         private void GestionarDatosSession(string url, string sessionID, ref string user, ref string password, bool contentLocal)
@@ -110,7 +138,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             Session.Add("URL", url);
             Session.Add("SessionID", sessionID);
-            
+
             Session.Add("ContentLocal", contentLocal);
 
             string domainUri = "";
@@ -118,7 +146,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             {
                 domainUri = new Uri(url).Host;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Session["ErrorAskURL"] = "La url no es valida";
                 throw ex;
@@ -138,7 +166,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
         {
             string controllerName = (string)ViewData["ControllerName"];
             string actionName = (string)ViewData["ActionName"];
-            if(actionName == null) { actionName = "Index"; }
+            if (actionName == null) { actionName = "Index"; }
 
             string modelType = "undefined";
 
@@ -192,6 +220,55 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             return View("Error");
         }
 
+
+        private void SetConfiguracion(string key, string value)
+        {
+            string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Configuracion.config";
+
+            XmlDocument docXml = new XmlDocument();
+
+            if (System.IO.File.Exists(rutaConfig))
+            {
+                docXml.Load(rutaConfig);
+            }
+            else
+            {
+                docXml.LoadXml("<config></config>");
+            }
+
+            XmlNode parentNode = docXml.SelectSingleNode("config");
+
+            XmlNode node = parentNode.SelectSingleNode(key);
+            if (node != null)
+            {
+                parentNode.RemoveChild(node);
+            }
+
+            XmlElement newConfig = docXml.CreateElement(key);
+            newConfig.InnerText = value;
+
+            parentNode.AppendChild(newConfig);
+
+            docXml.Save(rutaConfig);
+        }
+
+        private string GetConfiguration(string key)
+        {
+            string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Configuracion.config";
+            if (System.IO.File.Exists(rutaConfig))
+            {
+                XmlDocument docXml = new XmlDocument();
+                docXml.Load(rutaConfig);
+
+                XmlNode nodeProy = docXml.SelectSingleNode($"config/{key}");
+                if (nodeProy != null)
+                {
+                    return nodeProy.InnerText;
+                }
+            }
+            return "";
+        }
+
         private string GetFileName(string pUrl)
         {
             string fileName = pUrl.Substring(pUrl.IndexOf("//") + 2).Trim('/');
@@ -218,7 +295,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 datosAuth = ObtenerAuthorizationConfig("default");
             }
 
-            if(datosAuth.HasValue)
+            if (datosAuth.HasValue)
             {
                 user = datosAuth.Value.Key;
                 password = datosAuth.Value.Value;
@@ -239,7 +316,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             {
                 docXml.LoadXml("<config>  <proyecto url=\"default\"><user></user><pass></pass></proyecto></config>");
             }
-            
+
             XmlNode parentNode = docXml.SelectSingleNode("config");
 
             XmlNode nodeProy = parentNode.SelectSingleNode($"proyecto[@url=\"{url}\"]");
@@ -263,7 +340,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             docXml.Save(rutaConfig);
         }
-    
+
         private KeyValuePair<string, string>? ObtenerAuthorizationConfig(string url)
         {
             string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Authorization.config";
@@ -278,7 +355,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                     XmlNode userNode = nodeProy.SelectSingleNode("user");
                     XmlNode passwordNode = nodeProy.SelectSingleNode("pass");
 
-                    if(userNode != null && passwordNode != null)
+                    if (userNode != null && passwordNode != null)
                     {
                         return new KeyValuePair<string, string>(userNode.InnerText, passwordNode.InnerText);
                     }
@@ -309,9 +386,9 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 }
 
                 myHttpWebRequest.CookieContainer = new CookieContainer();
-                if (!string.IsNullOrEmpty(sessionID) )
+                if (!string.IsNullOrEmpty(sessionID))
                 {
-                   myHttpWebRequest.CookieContainer.Add(new Cookie("ASP.NET_SessionId", sessionID, "/", myHttpWebRequest.RequestUri.Host));
+                    myHttpWebRequest.CookieContainer.Add(new Cookie("ASP.NET_SessionId", sessionID, "/", myHttpWebRequest.RequestUri.Host));
                 }
 
                 try
@@ -366,7 +443,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             ViewDataDictionary ViewDataDeserializado = JsonConvert.DeserializeObject<ViewDataDictionary>(jsonViewData, jsonSerializerSettingsSimple);
 
             object Comunidad = ViewDataDeserializado.FirstOrDefault(item => item.Key.Equals("Comunidad")).Value;
-            if(Comunidad != null)
+            if (Comunidad != null)
             {
                 proyectoSeleccionado = ((CommunityModel)Comunidad).ShortName;
             }

@@ -2,16 +2,6 @@
 
     $(':checkbox').checkboxpicker();
 
-    $('#proySelected').change(function () {
-        if ($(this).val() == 'newProy') {
-            $('#panNombreProy').show();
-        }
-        else {
-            $('#panNombreProy').hide();
-        }
-    });
-
-
     $('.form-group.botones input').click(function () {
         body.addClass("palco");
 
