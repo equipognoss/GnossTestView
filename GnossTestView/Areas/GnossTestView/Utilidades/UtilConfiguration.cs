@@ -158,6 +158,15 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
                     }
                 }
             }
+            if(!autorizationList.Any())
+            {
+                ConfigurationModel.AutorizationModel autorization = new ConfigurationModel.AutorizationModel();
+                autorization.url = "default";
+                autorization.user = "";
+                autorization.password = "";
+
+                autorizationList.Add(autorization);
+            }
 
             return autorizationList;
         }
