@@ -1,12 +1,17 @@
-﻿body {
+﻿/*body {
     padding-top: 50px;
     padding-bottom: 20px;
+}*/
+
+.btn-default {
+    border-color: #ccc;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 15px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -24,23 +29,76 @@ input[type=text]#SessionID{
     width: 100%;
 }
 
-input#apiDespliegues {
-    max-width: 100%;
+body.configuracion .form-group label{
+    text-align : left;
+}
+
+body.configuracion .form-group input[type=text]{
     width: 100%;
+    max-width: 100%;
+}
+
+body.configuracion .form-group label span.fa.fa-trash,
+body.configuracion .form-group label span.fa.fa-cloud-upload,
+body.configuracion .form-group label span.fa.fa-cloud-download {
+    padding-right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    top: 5px;
+}
+
+body.configuracion .form-group label span.fa.fa-trash.disabled{
+    color: lightgrey;
+    cursor: not-allowed;
+}
+
+body.configuracion .form-horizontal,
+body.configuracion .form-group  {
+    padding-left: 20px;
+}
+
+body.configuracion .form-group.save {
+    padding-top: 30px;
+}
+
+.modal .modal-title{
+        float: left;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal  button.btn.btn-primary .fa {
+    margin-right: 10px;
+}
+
+.modal .modal-body #userUpload{    
     height: 35px;
+    width: 100%;
+    padding: 0 5px;
+    max-width: 100%;
 }
 
 
-h4 a,
-h4 a:hover
-h4 a:focus {
+body .form-horizontal .form-group.estilosPersonalizados div.textbox .fa{
+    display: none;
+} 
+
+h3 a,
+h3 a:hover
+h3 a:focus {
     color: initial !important;
     text-decoration: none !important;
     outline: none !important;
 }
-span.glyphicon.glyphicon-lock {
+span.fa.fa-lock {
     padding: 0 5px;
 }
+
+.form-group input[type=text], .form-group input[type=password]{
+    height: 35px;
+    padding: 0 5px;
+}
+
 
 /* PALCO */
 
@@ -50,15 +108,15 @@ body.palco * {
     position: relative;
 }
 
-body.palco .navbar-inverse {
+body.palco .navbar-dark {
     background: none;
     border: none;
-    min-height: 35px;
-    height: 35px;
+    min-height: 40px;
+    height: 40px;
     width: 100px;
     max-width: 100px;
     float: left;
-    padding-left: 20px;
+    padding: 10px;
 }
 
 body.palco .navbar-header a.navbar-brand{
@@ -71,21 +129,22 @@ body.palco .navbar-header a.navbar-brand{
     max-height: 25px;
 }
 
-body.palco .navbar-header a, body.palco .navbar-header span {
+body.palco .navbar-header a, 
+body.palco .navbar-header span {
     display: inline !important;
     float: none;
     padding-bottom: 0;
 }
 
-body.palco .container.body-content {width: calc(100% - 100px);max-width: calc(100% - 100px);padding: 0;height: 40px;margin-top: 3px;}
+body.palco .container.body-content {width: calc(100% - 100px);max-width: calc(100% - 100px);padding: 0;height: 40px;border-bottom: 1px solid #343a40;}
 
 body.palco .container {}
 
-body.palco .navbar-inverse .container {
+body.palco .navbar-dark .container {
     padding: 0;
-    margin-top: 13px;
+    /* margin-top: 13px; */
     max-width : 100%;
-    max-height: 25px;
+    max-height: 35px;
 }
 
 body.palco {
@@ -98,15 +157,7 @@ body.palco {
 }
 
 body.palco h2 {
-    text-indent: -100000px;
-    float: left;
-    display: block !important;
-    width: 10%;
-    position: absolute;
-    height: 35px;
-    overflow: hidden;    
-    font-size: 20px;
-    padding: 10px 0;
+    display: none;
 }
 body.palco h2 strong {
     text-indent: 0;
@@ -118,7 +169,7 @@ input.btn.btn-default {
     float: left;
 }
 
-body.palco h4 {
+body.palco h3 {
     display: none !important;
 }
 
@@ -131,45 +182,49 @@ body.palco .form-group.botones {}
 body.palco .form, body.palco .form-horizontal {
     width: 100%;
     max-width: 100%;
+    height: 40px;
 }
 
 body.palco .form-horizontal .form-group {
     margin: 0;
-    min-height: 30px;
+    height: 40px;
 }
 
 body.palco .form-horizontal .form-group.url {
     width: 45%;
-    margin: 0;
-    min-height: 30px;
 }
 
 body.palco .form-horizontal .form-group.session {
     width: 20%;
-    margin: 0;
-    min-height: 30px;
 }
 
 
 body.palco .form-horizontal .form-group.estilosPersonalizados .control-label {
     display: none;
-    text-indent: -10000px;
-    float: left;
 }
 
 body.palco .form-horizontal .form-group.botones{
-    width: 175px;
+    width: 241px;
     float: right;
 }
 body.palco .form-horizontal .form-group.estilosPersonalizados{
-    width: 130px;
+    width: 160px;
+    top: -2px;
 }
 
-body.palco .form-horizontal .form-group.botones div,
-body.palco .form-horizontal .form-group.estilosPersonalizados div {
-    width: 100% !important;
+body.palco .form-horizontal .form-group.botones div {
+    width: 181px;
     padding: 0;
 }
+body.palco .form-horizontal .form-group.estilosPersonalizados div.textbox {
+    width: 125px;
+    height: 40px;
+}
+body.palco .form-horizontal .form-group.estilosPersonalizados div.textbox .fa{
+    display: inline;
+    top: 5px;
+    font-size: 25px;
+} 
 
 body.palco .textbox {
     width: 100%;
@@ -181,27 +236,46 @@ body.palco iframe {width:100%;height:100%;border:none;position: absolute !import
 body.palco .form-group.autentication {
     width: 50px;
     float: right;
-    padding: 10px;
+    padding: 7px 0;
 }
 
-body.palco .form-group.autentication h4 {
+body.palco .form-group.autentication h3 {
     display: block !important;
+    right: 10px;
 }
 
-body.palco .form-group.autentication h4 a {
-    text-indent: -100000px;
-    /* padding: 0 50px; */
+body.palco .form-group.autentication h3 a {
+    z-index: 999999;
+    width: 293px;
+    font-size: 25px;
+    text-indent: -10000000px;
 }
 
-body.palco h4 span.glyphicon.glyphicon-lock, body.palco h4 span.caret {
+body.palco h3 span.fa.fa-lock, 
+body.palco h3 span.caret {
     text-indent: 0;
     float: left;
 }
 
 
 body.palco .form-group.autentication .panel-collapse{
-    display:none;
+    width: 305px;
+    z-index: 99999;
+    float: right;
+    height: 229px;
+    background: lightgray;
+    border: 1px solid #343a40;
+    border-top: none;
+    border-right: none;
+    margin-top: 2px;
+    padding-top: 10px;
 }
+
+body.palco .form-group.autentication .panel-collapse input{
+    width: 100%
+}
+
+
 body.palco .form-group.autentication .panel-collapse.collapse.in {
     display:block !important;
     border: 1px solid grey;
@@ -233,10 +307,12 @@ body.palco .textbox input {
     max-width: 100%;
     border: 1px solid darkgrey;
     padding: 2px 5px;
+    height: 35px;
+    margin-top: 2px;
 }
 
 
-body.palco .navbar-header span.glyphicon {
+body.palco .navbar-header span.fa {
     text-indent: 0;
     float: left;
 }
@@ -266,21 +342,66 @@ body.palco .form-group.url .col-md-9 {
     width: calc(100% - 35px);
 }
 
-body.palco input.btn.btn-default {
+input.btn.btn-default {
     margin: 0 5px;
-}
-
-body.palco .form-group.estilosPersonalizados .btn-group:before {
-     content: '\e065';
-     display: inline-block;
-     float:left;
-     width: 35px;
-     font-family: 'Glyphicons Halflings';
-     height: 35px;
-     font-style: normal;
-     padding: 10px;
-}									  
+    background-color: white;
+}								  
 							 
  body.palco .form {
-    padding-left: 10%;
+    padding-left: 5px;
+    height: 40px;
+    max-height: 40px;
+}
+
+ body.palco .form-horizontal .form-group.estilosPersonalizados .btn-group a.btn, body.palco .form-horizontal .form-group.estilosPersonalizados .btn-group a.btn.btn-default {
+    height: 35px;
+    z-index: 99999;
+    top: -1px;
+}
+ body.palco .form-horizontal .form-group.estilosPersonalizados .btn-group a.btn.btn-default{
+    background-color: white;
+    border: 1px solid white;
+}
+
+input:focus, input.form-control:focus, a:focus, .btn:focus, a:hover, a:active {
+    outline:none !important;
+    outline-width: 0 !important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+body.palco.showBasicAuth .form-horizontal .form-group.botones {
+    top: 210px;
+    z-index: 99999;
+}
+
+body #authBasic h4 {
+    display:none;
+    padding-left: 17px;
+    padding-top: 6px;
+    padding-bottom: 10px;
+}
+
+body.palco.showBasicAuth #authBasic h4 {
+    display:block;
+}
+
+body.palco.showBasicAuth .form-group.autentication h3 a {
+    float: right;
+    text-indent: 0;
+}
+
+body.palco.showBasicAuth h3 span.fa.fa-lock {
+    float: initial;
+}
+
+.palco:not(.showBasicAuth)  .dropdown-toggle::after {float: left;margin-top: 7px;}
+
+body.palco.showBasicAuth .form-group.autentication h3 {
+    right: 0;
+}
+
+body.palco.showBasicAuth .form-group.autentication {
+    padding: 6px 0;
 }

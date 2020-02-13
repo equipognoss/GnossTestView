@@ -112,24 +112,7 @@ namespace GnossTestView.Extensions
 
         public static MvcHtmlString PartialView(this HtmlHelper htmlHelper, string partialViewName)
         {
-            string rutaVistasPersonalizadas = htmlHelper.ViewBag.rutaVistasPersonalizadas;
-
-            string partialViewNameAux = $"~/{rutaVistasPersonalizadas}/Views{partialViewName.Replace("..", "")}.cshtml";
-
-            if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewNameAux.Replace("~/", "")))
-            {
-                string rutaVistasPersonalizadasEcosistema = htmlHelper.ViewBag.rutaVistasPersonalizadasEcosistema;
-                partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadas}/Views/", $"/{rutaVistasPersonalizadasEcosistema}/Views/");
-
-                if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewNameAux.Replace("~/", "")))
-                {
-                    partialViewNameAux = partialViewNameAux.Replace($"/{rutaVistasPersonalizadasEcosistema}/Views/", "/GenericViews/");
-                }
-            }
-            
-            MvcHtmlString resultado = System.Web.Mvc.Html.PartialExtensions.Partial(htmlHelper, partialViewNameAux);
-            
-            return resultado;
+            return PartialView(htmlHelper, partialViewName, null);
         }
 
         public static MvcHtmlString PartialView(this HtmlHelper htmlHelper, string partialViewName, object model)
@@ -143,7 +126,11 @@ namespace GnossTestView.Extensions
             string partialViewNameOld = partialViewName;
 
             Guid guid;
-            if (Guid.TryParse(partialViewName, out guid))
+            if (partialViewName.StartsWith("../Shared/") || partialViewName.StartsWith("/Shared/"))
+            {
+                partialViewName = $"~/{rutaVistasPersonalizadas}/Views{partialViewName.Replace("..", "")}.cshtml";
+            }
+            else if (Guid.TryParse(partialViewName, out guid))
             {
                 bool vistaPersonalizadaEncontrada = false;
                 if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, rutaVistasPersonalizadas, "CMS")))
@@ -214,8 +201,9 @@ namespace GnossTestView.Extensions
                     {
                         partialPath = $"~/{rutaVistasPersonalizadas}/Views/FichaRecurso";
                     }
-                    partialViewName = $"{partialPath}/{partialViewName}.cshtml";
                 }
+                partialViewName = $"{partialPath}/{partialViewName}.cshtml";
+                
             }
 
             if (!System.IO.File.Exists(AppContext.BaseDirectory + partialViewName.Replace("~/", "")))

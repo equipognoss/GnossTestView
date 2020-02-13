@@ -223,8 +223,8 @@
     <Content Include="GenericViews\CMSPagina\UsuariosRecomendados\_UsuariosRecomendados.cshtml" />
     <Content Include="Areas\GnossTestView\Views\web.config" />
     <Content Include="Areas\GnossTestView\Views\_LayoutAskUrl.cshtml" />
-    <Content Include="Areas\GnossTestView\Views\Home\AskConfig.cshtml" />
-    <Content Include="Areas\GnossTestView\Views\Home\AskURL.cshtml" />
+    <Content Include="Areas\GnossTestView\Views\Configuration\Index.cshtml" />
+    <Content Include="Areas\GnossTestView\Views\Home\Index.cshtml" />
     <Content Include="Areas\GnossTestView\Views\Home\Error.cshtml" />
     <None Include="Properties\PublishProfiles\Javi.pubxml" />
     <Content Include="Web.config">
@@ -234,6 +234,7 @@
   <ItemGroup>
     <Compile Include="App_Start\CustomRazorViewEngine.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\GnossTestView\Controllers\ConfigurationController.cs" />
     <Compile Include="Areas\GnossTestView\Controllers\HomeController.cs" />
     <Compile Include="Areas\GnossTestView\GnossTestViewAreaRegistration.cs" />
     <Compile Include="Areas\GnossTestView\Extensions\TipoActividadReciente.cs" />
@@ -246,6 +247,11 @@
     <Compile Include="Areas\GnossTestView\Extensions\UtilUsuario.cs" />
     <Compile Include="Areas\GnossTestView\Fake\Usuario.cs" />
     <Compile Include="Areas\GnossTestView\Fake\UtilImportarExportar.cs" />
+    <Compile Include="Areas\GnossTestView\Model\ConfigurationModel.cs" />
+    <Compile Include="Areas\GnossTestView\Utilidades\UtilConfiguration.cs" />
+    <Compile Include="Areas\GnossTestView\Utilidades\UtilManageViews.cs" />
+    <Compile Include="Areas\GnossTestView\Utilidades\UtilPageCache.cs" />
+    <Compile Include="Areas\GnossTestView\Utilidades\UtilPageRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

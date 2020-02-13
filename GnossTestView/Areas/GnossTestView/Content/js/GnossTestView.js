@@ -4,6 +4,8 @@
 
     $('.form-group.botones input').click(function () {
         body.addClass("palco");
+        body.removeClass("showBasicAuth");
+        $('#authBasic').hide();
 
         $('iframe', body).remove();
 
@@ -22,6 +24,84 @@
         
         setTimeout(function () { engancharEvento(); }, 1000);
     });
+
+
+    $('body.configuracion .form-group label span.fa.fa-trash:not(".disabled")').click(function () {
+        $(this).closest('.form-group').remove();
+    });
+
+    $('body a.dropdown-toggle.authBasic').click(function () {
+        event.preventDefault();
+        $('body').toggleClass('showBasicAuth');
+        $('#authBasic').toggle();
+    });
+
+    $('#confirmationModal .modal-footer').on('click', '.btn-primary.download', function () {
+        var boton = $(this);
+        var modal = boton.closest('.modal');
+        var modalBody =  modal.find('.modal-body');
+        var proyecto = boton.attr("proyecto");
+        
+        boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
+        modal.find('.modal-footer .btn-secondary').hide();
+
+        $.post("/configuration/downloadViews", { proyectName: proyecto })
+          .done(function (status) {
+              if (status) {
+                  modalBody.append('<div class="alert alert-success" role="alert">Descarga correcta</div>');
+              }
+              else {
+                  modalBody.append('<div class="alert alert-danger" role="alert">Descarga fallida</div>');
+              }
+              modal.find('.modal-footer').hide();
+          });
+    });
+
+
+    $('#confirmationModal .modal-footer').on('click', '.btn-primary.upload', function () {
+        var boton = $(this);
+        var modal = boton.closest('.modal');
+        var modalBody = modal.find('.modal-body');
+        var proyecto = boton.attr("proyecto");
+        var userUpload = modalBody.find("#userUpload").val();
+
+        boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
+        modal.find('.modal-footer .btn-secondary').hide();
+
+        $.post("/configuration/uploadViews", { proyectName: proyecto, user: userUpload })
+          .done(function (status) {
+              if (status) {
+                  modalBody.append('<div class="alert alert-success" role="alert">  Simulacion OK</div>');
+              }
+              else {
+                  modalBody.append('<div class="alert alert-danger" role="alert"> Simulacion KO</div>');
+              }
+              modalBody.append('<div class="alert alert-warning" role="alert">TO-DO<br />NO SE HAN SUBIDO LOS CAMBIOS. FALTA EL DESARROLLO<br />' +
+                  'Cuidado con no sobreescribir los ficheros de \"TextosPersonalizadosPersonalizacion y CMS\"</div>');
+              modal.find('.modal-footer').hide();
+          });
+
+    });
+
+    $('#confirmationModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+
+        var title = button.data('title');
+        var proyecto = button.data('proyecto');
+        var action = button.attr("title");
+        var btnClass = button.attr("class");
+        var typeAction = btnClass.replace('fa fa-cloud-', '');
+
+        var modal = $(this);
+        modal.find('.modal-body .alert').remove();
+        modal.find('.modal-body').children().hide();
+        modal.find('.modal-body .' + typeAction).show();
+        modal.find('.modal-title').text(title + ' \'' + proyecto + '\'');
+
+        modal.find('.modal-footer').show();
+        modal.find('.modal-footer .btn-secondary').show();
+        modal.find('.modal-footer .btn-primary').attr('class', 'btn btn-primary ' + typeAction).attr('proyecto', proyecto).html("<span class='" + btnClass + "'></span>" + action);
+    })
 });
 
 function engancharEvento() {

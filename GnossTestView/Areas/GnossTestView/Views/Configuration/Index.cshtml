@@ -1,0 +1,103 @@
+﻿@model ConfigurationModel
+
+@{
+    ViewBag.Title = "Configuraciones";
+    Layout = "~/Areas/GnossTestView/Views/_LayoutAskUrl.cshtml";
+
+    Response.Headers.Add("Cache-Control", "no-cache, no-store");
+
+    ViewBag.BodyClass = "configuracion";
+}
+
+<h2>Configuraciones</h2>
+<hr />
+
+@using (Html.BeginForm("SaveConfiguration", "Home", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h3>Configuración general</h3>
+        <div class="form-group general row">
+            <label for="urlApiDespliegues" class="control-label col-md-2">API de despliegues</label>
+            <div class="col-md-10">
+                <div class="textbox">
+                    @Html.TextBox("urlApiDespliegues", Model.urlApiDespliegues, new { @autocomplete = "off" })
+                </div>
+            </div>
+        </div>
+
+        @if (Model.autorizacion.Count > 0)
+        {
+            int count = 0;
+            <h3>Configurar autorizaciones</h3>
+            foreach (ConfigurationModel.AutorizationModel autorization in Model.autorizacion)
+            {
+                <div class="form-group row">
+                    <label class="control-label col-md-4"><span class="fa fa-trash@(autorization.url.Equals("default") ? " disabled" : "")" title="Eliminar"></span>@autorization.url</label>
+                    @Html.Hidden($"autorizacion[{count}].url", autorization.user)
+                    <div class="col-md-4">
+                        <div class="textbox">
+                            @Html.TextBox($"autorizacion[{count}].name", autorization.user, new { @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="textbox">
+                            @Html.TextBox($"autorizacion[{count}].password", autorization.password, new { @autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                count++;
+            }
+        }
+
+        @if (Model.proyectos.Length > 0)
+        {
+            <h3>Administrar vistas de proyectos</h3>
+            foreach (string proyecto in Model.proyectos)
+            {
+                string nombreProy = proyecto.Split('\\').Last();
+                <div class="form-group row">
+                    <label class="control-label col-md-12">
+                        <span class="fa fa-cloud-upload" title="Subir vistas" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal" data-title="Confirmar subida de vistas" ></span>
+                        <span class="fa fa-cloud-download" title="Descargar vistas" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal" data-title="Confirmar descarga de vistas"></span>
+                        @nombreProy
+                    </label>
+                </div>
+            }
+        }
+
+        <div class="form-group save row">
+            <div class="col-md-10">
+                <input name="submit" type="submit" value="Guardar" class="btn btn-primary">
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="upload">
+                        Los cambios se subirán directamente a la comundad. ¿Estas seguro?<br />
+                        Introduce el login/email del usuario adminitrador para poder subir los cambios.<br />
+                        <input type="text" id="userUpload" placeholder="login/email del usuario adminitrador"/>
+                    </div>
+                    <div class="download">
+                        Tus archivos serán sobreescritos, pero te guardaremos una copia del contenido que tienes actualmente
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

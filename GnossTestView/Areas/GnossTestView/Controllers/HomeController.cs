@@ -1,53 +1,32 @@
 ﻿using Es.Riam.Gnoss.Web.MVC.Models.ViewModels;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml;
 using Es.Riam.Gnoss.Web.MVC.Models;
-using System.IO.Compression;
+using GnossTestView.Areas.GnossTestView.Utilidades;
 
 namespace GnossTestView.Areas.GnossTestView.Controllers
 {
     public class HomeController : Controller
     {
+
         private const string TYPE_JSON = "$type\":\"";
 
         public ActionResult Index()
         {
-            return View("AskURL");
-        }
-
-        [HttpGet]
-        public ActionResult Configuration()
-        {
-            string urlApiDespliegues = GetConfiguration("urlApiDespliegues").TrimEnd('/');
-
-            ViewBag.urlApiDespliegues = urlApiDespliegues;
-
-            return View("AskConfig");
-        }
-
-
-        [HttpPost]
-        public ActionResult SaveConfiguration()
-        {
-            SetConfiguracion("apiDespliegues", Request.Params["apiDespliegues"]);
-
-            return RedirectToAction("Index");
+            return View();
         }
 
         public ActionResult LoadURL(string url, string submit, string sessionID, string user, string password, bool contentLocal)
         {
             try
             {
-                GestionarDatosSession(url, sessionID, ref user, ref password, contentLocal);
+                GestionarDatosSession(url, ref user, ref password);
             }
             catch
             {
@@ -72,74 +51,24 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             {
                 jsonModel = GetJson(responseFromServer, contentLocal, out proyectoSeleccionado);
             }
+            
+            string[] proyectos = UtilManageViews.ObtenerProyectosVistas(); 
 
-            string[] proyectos = System.IO.Directory.GetDirectories(AppContext.BaseDirectory + "Views");
             if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\ecosistema"))
             {
-                DescargarVistas("ecosistema");
+                UtilManageViews.DescargarVistas("ecosistema");
             }
             if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\" + proyectoSeleccionado))
             {
-                DescargarVistas(proyectoSeleccionado);
+                UtilManageViews.DescargarVistas(proyectoSeleccionado);
             }
 
             return GetView(jsonModel, proyectoSeleccionado);
         }
 
-        private void DescargarVistas(string proyecto)
-        {
-            string urlApiDespliegues = GetConfiguration("urlApiDespliegues").TrimEnd('/');
-
-            if (!string.IsNullOrWhiteSpace(urlApiDespliegues))
-            {
-                bool ecosistema = proyecto.Equals("ecosistema");
-                string nombreProy = proyecto;
-
-                if (ecosistema)
-                {
-                    nombreProy = "myGnoss";
-                }
-
-                // Construct HTTP request to get the logo
-                HttpWebRequest httpRequest = (HttpWebRequest)
-                    WebRequest.Create($"{urlApiDespliegues}/api/Vistas?ecosistema={ecosistema.ToString()}&nombreProy={nombreProy}");
-                httpRequest.Method = WebRequestMethods.Http.Get;
-
-                // Get back the HTTP response for web server
-                HttpWebResponse httpResponse
-                    = (HttpWebResponse)httpRequest.GetResponse();
-                Stream httpResponseStream = httpResponse.GetResponseStream();
-
-                // Define buffer and buffer size
-                int bufferSize = 1024;
-                byte[] buffer = new byte[bufferSize];
-                int bytesRead = 0;
-
-                // Read from response and write to file
-                FileStream fileStream = System.IO.File.Create($"vistas_{proyecto}.zip");
-                while ((bytesRead = httpResponseStream.Read(buffer, 0, bufferSize)) != 0)
-                {
-                    fileStream.Write(buffer, 0, bytesRead);
-                } // end while
-
-                fileStream.Close();
-
-                Directory.CreateDirectory($"{AppContext.BaseDirectory}Views/{proyecto}");
-
-                ZipFile.ExtractToDirectory(fileStream.Name, $"{AppContext.BaseDirectory}Views/{proyecto}", Encoding.ASCII);
-
-                System.IO.File.Delete(fileStream.Name);
-            }
-        }
-
-        private void GestionarDatosSession(string url, string sessionID, ref string user, ref string password, bool contentLocal)
+        private void GestionarDatosSession(string url, ref string user, ref string password)
         {
             Session.Remove("ErrorAskURL");
-
-            Session.Add("URL", url);
-            Session.Add("SessionID", sessionID);
-
-            Session.Add("ContentLocal", contentLocal);
 
             string domainUri = "";
             try
@@ -154,11 +83,11 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             if (string.IsNullOrEmpty(user) && string.IsNullOrEmpty(password))
             {
-                GetAuthorization(domainUri, ref user, ref password);
+                UtilConfiguration.GetAuthorization(domainUri, ref user, ref password);
             }
             else
             {
-                SetAuthorization(domainUri, user, password);
+                UtilConfiguration.SetAuthorization(domainUri, user, password);
             }
         }
 
@@ -220,207 +149,27 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             return View("Error");
         }
 
-
-        private void SetConfiguracion(string key, string value)
-        {
-            string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Configuracion.config";
-
-            XmlDocument docXml = new XmlDocument();
-
-            if (System.IO.File.Exists(rutaConfig))
-            {
-                docXml.Load(rutaConfig);
-            }
-            else
-            {
-                docXml.LoadXml("<config></config>");
-            }
-
-            XmlNode parentNode = docXml.SelectSingleNode("config");
-
-            XmlNode node = parentNode.SelectSingleNode(key);
-            if (node != null)
-            {
-                parentNode.RemoveChild(node);
-            }
-
-            XmlElement newConfig = docXml.CreateElement(key);
-            newConfig.InnerText = value;
-
-            parentNode.AppendChild(newConfig);
-
-            docXml.Save(rutaConfig);
-        }
-
-        private string GetConfiguration(string key)
-        {
-            string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Configuracion.config";
-            if (System.IO.File.Exists(rutaConfig))
-            {
-                XmlDocument docXml = new XmlDocument();
-                docXml.Load(rutaConfig);
-
-                XmlNode nodeProy = docXml.SelectSingleNode($"config/{key}");
-                if (nodeProy != null)
-                {
-                    return nodeProy.InnerText;
-                }
-            }
-            return "";
-        }
-
-        private string GetFileName(string pUrl)
-        {
-            string fileName = pUrl.Substring(pUrl.IndexOf("//") + 2).Trim('/');
-
-            if (fileName.Contains("/"))
-            {
-                fileName = pUrl.Substring(pUrl.IndexOf('/'));
-                fileName = fileName.Replace('?', '-');
-                fileName = fileName.Replace('&', '-');
-                fileName = fileName.Replace('=', '-');
-                fileName = fileName.Replace(':', '-');
-                fileName = fileName.Replace(';', '-');
-            }
-            if (string.IsNullOrEmpty(fileName)) { fileName = "home"; }
-
-            return $"~/App_Data/{fileName}.txt";
-        }
-
-        private void GetAuthorization(string url, ref string user, ref string password)
-        {
-            KeyValuePair<string, string>? datosAuth = ObtenerAuthorizationConfig(url);
-            if (!datosAuth.HasValue)
-            {
-                datosAuth = ObtenerAuthorizationConfig("default");
-            }
-
-            if (datosAuth.HasValue)
-            {
-                user = datosAuth.Value.Key;
-                password = datosAuth.Value.Value;
-            }
-        }
-
-        private void SetAuthorization(string url, string user, string password)
-        {
-            string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Authorization.config";
-
-            XmlDocument docXml = new XmlDocument();
-
-            if (System.IO.File.Exists(rutaConfig))
-            {
-                docXml.Load(rutaConfig);
-            }
-            else
-            {
-                docXml.LoadXml("<config>  <proyecto url=\"default\"><user></user><pass></pass></proyecto></config>");
-            }
-
-            XmlNode parentNode = docXml.SelectSingleNode("config");
-
-            XmlNode nodeProy = parentNode.SelectSingleNode($"proyecto[@url=\"{url}\"]");
-            if (nodeProy != null)
-            {
-                parentNode.RemoveChild(nodeProy);
-            }
-
-            XmlElement newConfig = docXml.CreateElement("proyecto");
-            newConfig.SetAttribute("url", url);
-
-            XmlElement nodeUser = docXml.CreateElement("user");
-            nodeUser.InnerText = user;
-            newConfig.AppendChild(nodeUser);
-
-            XmlElement nodePass = docXml.CreateElement("pass");
-            nodePass.InnerText = password;
-            newConfig.AppendChild(nodePass);
-
-            parentNode.AppendChild(newConfig);
-
-            docXml.Save(rutaConfig);
-        }
-
-        private KeyValuePair<string, string>? ObtenerAuthorizationConfig(string url)
-        {
-            string rutaConfig = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Authorization.config";
-            if (System.IO.File.Exists(rutaConfig))
-            {
-                XmlDocument docXml = new XmlDocument();
-                docXml.Load(rutaConfig);
-
-                XmlNode nodeProy = docXml.SelectSingleNode($"config/proyecto[@url=\"{url}\"]");
-                if (nodeProy != null)
-                {
-                    XmlNode userNode = nodeProy.SelectSingleNode("user");
-                    XmlNode passwordNode = nodeProy.SelectSingleNode("pass");
-
-                    if (userNode != null && passwordNode != null)
-                    {
-                        return new KeyValuePair<string, string>(userNode.InnerText, passwordNode.InnerText);
-                    }
-                }
-            }
-            return null;
-        }
-
         private string GetData(string url, string submit, string sessionID, string user, string password)
         {
-            string jsonURL = GetFileName(url);
+            string cacheFileName = UtilPageCache.GetFileName(url);
 
-            string responseFromServer;
+            string pageResult;
 
-            if (submit == "Recargar" || !System.IO.File.Exists(Server.MapPath(jsonURL)))
+            if (submit == "Recargar" || !System.IO.File.Exists(cacheFileName))
             {
-                HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                pageResult = UtilPageRequest.GetRequest(url, user, password, sessionID);
 
-                // Cambiamos la propiedad 'Accept' para aceptar json
-                myHttpWebRequest.Accept = "application/json";
-                myHttpWebRequest.Timeout = 100000000;
-
-                if (!string.IsNullOrEmpty(user))
+                if(!string.IsNullOrWhiteSpace(pageResult))
                 {
-                    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{user}:{password}");
-                    string base64Auth = System.Convert.ToBase64String(plainTextBytes);
-                    myHttpWebRequest.Headers.Add(HttpRequestHeader.Authorization, $"Basic {base64Auth}");
-                }
-
-                myHttpWebRequest.CookieContainer = new CookieContainer();
-                if (!string.IsNullOrEmpty(sessionID))
-                {
-                    myHttpWebRequest.CookieContainer.Add(new Cookie("ASP.NET_SessionId", sessionID, "/", myHttpWebRequest.RequestUri.Host));
-                }
-
-                try
-                {
-                    HttpWebResponse myHttpWebResponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
-
-                    Stream dataStream = myHttpWebResponse.GetResponseStream();
-                    StreamReader reader = new StreamReader(dataStream);
-                    // Leemos el contenido de la respuesta
-                    responseFromServer = reader.ReadToEnd();
-                    reader.Close();
-                    dataStream.Close();
-                    myHttpWebResponse.Close();
-
-                    // Guardamos el json obtenido en App_Data
-                    FileInfo file = new FileInfo(Server.MapPath(jsonURL));
-                    file.Directory.Create();
-                    System.IO.File.WriteAllText(file.FullName, responseFromServer);
-                }
-                catch (Exception ex)
-                {
-                    string error = ex.Message;
-                    Session["ErrorAskURL"] = error;
-                    responseFromServer = null;
+                    UtilPageCache.SaveCacheFile(cacheFileName, pageResult);
                 }
             }
             else
             {
-                responseFromServer = System.IO.File.ReadAllText(Server.MapPath(jsonURL));
+                pageResult = System.IO.File.ReadAllText(cacheFileName);
             }
 
-            return responseFromServer;
+            return pageResult;
         }
 
         private string GetJson(string responseFromServer, bool contentLocal, out string proyectoSeleccionado)
@@ -532,7 +281,6 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             return JsonConvert.DeserializeObject(json, type, jsonSerializerSettingsObject);
         }
-
 
         public bool IsValidDirName(string dirName)
         {

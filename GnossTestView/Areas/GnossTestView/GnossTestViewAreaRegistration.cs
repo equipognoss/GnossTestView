@@ -14,29 +14,19 @@ namespace GnossTestView.Areas.GnossTestView
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            context.MapRoute(
-                "GnossTestView_askUrl",
-                "AskURL",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
 
             context.MapRoute(
-                "GnossTestView_home",
-                "home",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                "GnossTestView_LoadURL",
+                "LoadURL",
+                new { controller = "Home", action = "LoadURL" }
             );
 
             context.MapRoute(
                 "GnossTestView_default",
-                "{action}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                "{controller}/{action}",
+                new { controller = "Home", action = "Index" }
             );
 
-            context.MapRoute(
-                "GnossTestView_default2",
-                "GnossTestView/{action}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
         }
     }
 }
