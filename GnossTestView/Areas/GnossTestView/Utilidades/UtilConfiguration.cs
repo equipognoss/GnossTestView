@@ -166,11 +166,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
         {
             XmlDocument docXml = new XmlDocument();
 
-            if (System.IO.File.Exists(rutaAutorization))
-            {
-                docXml.Load(rutaAutorization);
-            }
-            else if (!autorizationList.Any(a => a.url.Equals("default")))
+            if (!autorizationList.Any(a => a.url.Equals("default")))
             {
                 docXml.LoadXml("<config>  <proyecto url=\"default\"><user></user><pass></pass></proyecto></config>");
             }
