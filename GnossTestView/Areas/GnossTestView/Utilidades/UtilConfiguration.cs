@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Xml;
+using System.Xml.XPath;
 
 namespace GnossTestView.Areas.GnossTestView.Utilidades
 {
@@ -28,17 +29,82 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
             XmlNode parentNode = docXml.SelectSingleNode("config");
 
             XmlNode node = parentNode.SelectSingleNode(key);
-            if (node != null)
-            {
-                parentNode.RemoveChild(node);
+            if (node == null)
+            { 
+                node = createXPath(docXml, key);
             }
-
-            XmlElement newConfig = docXml.CreateElement(key);
-            newConfig.InnerText = value;
-
-            parentNode.AppendChild(newConfig);
+            node.InnerText = value;
 
             docXml.Save(rutaConfiguration);
+        }
+
+        private static XmlNode createXPath(XmlDocument doc, string xpath)
+        {
+            XmlNode node = doc;
+            foreach (string part in xpath.Substring(1).Split('/'))
+            {
+                XmlNode nodeAux = node.SelectSingleNode(part);
+
+                if (nodeAux != null) { node = nodeAux; continue; }
+
+                if (part.StartsWith("@"))
+                {
+                    var anode = doc.CreateAttribute(part.Substring(1));
+                    node.Attributes.Append(anode);
+                    node = anode;
+                }
+                else
+                {
+                    string elName, attrib = null;
+                    if (part.Contains("["))
+                    {
+                        SplitOnce(part, "[", out elName, out attrib);
+                        if (!attrib.EndsWith("]")) throw new Exception("Unsupported XPath (missing ]): " + part);
+                        attrib = attrib.Substring(0, attrib.Length - 1);
+                    }
+                    else elName = part;
+
+                    XmlNode next = doc.CreateElement(elName);
+                    node.AppendChild(next);
+                    node = next;
+
+                    if (attrib != null)
+                    {
+                        if (!attrib.StartsWith("@")) throw new Exception("Unsupported XPath attrib (missing @): " + part);
+                        string name, value;
+                        SplitOnce(attrib.Substring(1), "='", out name, out value);
+                        if (string.IsNullOrEmpty(value) || !value.EndsWith("'")) throw new Exception("Unsupported XPath attrib: " + part);
+                        value = value.Substring(0, value.Length - 1);
+                        var anode = doc.CreateAttribute(name);
+                        anode.Value = value;
+                        node.Attributes.Append(anode);
+                    }
+                }
+            }
+            return node;
+        }
+
+        private static void SplitOnce(string value, string separator, out string part1, out string part2)
+        {
+            if (value != null)
+            {
+                int idx = value.IndexOf(separator);
+                if (idx >= 0)
+                {
+                    part1 = value.Substring(0, idx);
+                    part2 = value.Substring(idx + separator.Length);
+                }
+                else
+                {
+                    part1 = value;
+                    part2 = null;
+                }
+            }
+            else
+            {
+                part1 = "";
+                part2 = null;
+            }
         }
 
         internal static string GetConfiguration(string key)

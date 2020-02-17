@@ -42,7 +42,7 @@
         var modalBody =  modal.find('.modal-body');
         var proyecto = boton.attr("proyecto");
         
-        boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
+        boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Descargando...');
         modal.find('.modal-footer .btn-secondary').hide();
 
         $.post("/configuration/downloadViews", { proyectName: proyecto })
@@ -63,14 +63,17 @@
         var modal = boton.closest('.modal');
         var modalBody = modal.find('.modal-body');
         var proyecto = boton.attr("proyecto");
-        var userUpload = modalBody.find("#userUpload").val();
 
-        boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Loading...');
+        var userFTP = modalBody.find("#userFTP").val();
+        var passwordFTP = modalBody.find("#passwordFTP").val();
+
+        boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Subiendo...');
         modal.find('.modal-footer .btn-secondary').hide();
 
-        $.post("/configuration/uploadViews", { proyectName: proyecto, user: userUpload })
+        $.post("/configuration/uploadViews", { proyectName: proyecto, serverFTP: serverFTP, userFTP: userFTP, passwordFTP: passwordFTP, portFTP: portFTP })
           .done(function (status) {
               if (status) {
+                  modal
                   modalBody.append('<div class="alert alert-success" role="alert">  Simulacion OK</div>');
               }
               else {
@@ -96,13 +99,81 @@
         modal.find('.modal-body .alert').remove();
         modal.find('.modal-body').children().hide();
         modal.find('.modal-body .' + typeAction).show();
-        modal.find('.modal-title').text(title + ' \'' + proyecto + '\'');
+
+        if (typeAction == 'upload') {
+            modal.find('.modal-title').text("Confirmar subida de vistas y estilos de " + ' \'' + proyecto + '\'');
+
+            var parentButton = button.parent();
+            var userFTP = parentButton.find(".userFTP").val();
+            var passwordFTP = parentButton.find(".passwordFTP").val();
+
+            $("#userFTP").val(userFTP);
+            $("#passwordFTP").val(passwordFTP);
+        }
+        else {
+            modal.find('.modal-title').text("Confirmar descarga de vistas y estilos de " + ' \'' + proyecto + '\'');
+        }
 
         modal.find('.modal-footer').show();
         modal.find('.modal-footer .btn-secondary').show();
         modal.find('.modal-footer .btn-primary').attr('class', 'btn btn-primary ' + typeAction).attr('proyecto', proyecto).html("<span class='" + btnClass + "'></span>" + action);
     })
+
+
+    $("#configurationForm").submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+        var btnSubmit = $('button[type=submit]', form);
+        btnSubmit.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>  Guardando...');
+
+        var actionUrl = $(this).attr("action");
+        $.post(actionUrl, $(this).serialize(), function (status) {
+            $('.alert', form).remove();
+            if (status) {
+                form.append('<div class="alert alert-success" role="alert">Configuración guardada correctamente</div>');
+            }
+            else {
+                form.append('<div class="alert alert-danger" role="alert">Ha habido errores al guardar la configuración, intentalo otra vez</div>');
+            }
+            btnSubmit.html('Guardar');
+        });
+    });
+    toggleVerPassword.init();
 });
+
+var toggleVerPassword = {
+    init: function () {
+        this.config();
+        this.verPassword();
+        return;
+    },
+    config: function () {
+        this.body = body;
+        this.inputsPassword = this.body.find('input[type=password]');
+        this.inputsPassword.after('<a class="verPassword" href="javascript: void(0);"><span class="fa fa-eye-slash"></span></a>');
+        return;
+    },
+    verPassword: function () {
+        this.inputsPassword.next('a.verPassword').on('click', function () {
+            var btnPass = $(this);
+            var spanEye = $('span.fa', btnPass);
+            var inputPass = btnPass.prev('input');
+
+            if (inputPass.attr('type') === 'password') {
+                inputPass.attr('type', 'text');
+                spanEye.removeClass("fa-eye-slash");
+                spanEye.addClass("fa-eye");
+            } else {
+                inputPass.attr('type', 'password');
+                spanEye.removeClass("fa-eye");
+                spanEye.addClass("fa-eye-slash");
+            }
+
+        });
+
+        return;
+    }
+};
 
 function engancharEvento() {
     var iframe = document.getElementById("iframeContenedor");

@@ -56,11 +56,11 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\ecosistema"))
             {
-                UtilManageViews.DescargarVistas("ecosistema");
+                UtilManageViews.DescargarVistasInicial("ecosistema");
             }
             if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\" + proyectoSeleccionado))
             {
-                UtilManageViews.DescargarVistas(proyectoSeleccionado);
+                UtilManageViews.DescargarVistasInicial(proyectoSeleccionado);
             }
 
             return GetView(jsonModel, proyectoSeleccionado);
@@ -99,8 +99,8 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             string modelType = "undefined";
 
-            string rutaVistasPersonalizadas = $"Views/{proyectoSeleccionado}";
-            string rutaVistasPersonalizadasEcosistema = $"Views/ecosistema";
+            string rutaVistasPersonalizadas = $"Views/{proyectoSeleccionado}/Proyectos/{proyectoSeleccionado}/Vistas";
+            string rutaVistasPersonalizadasEcosistema = $"Views/ecosistema/Proyectos/mygnoss/Vistas";
 
             ViewBag.rutaVistasPersonalizadas = rutaVistasPersonalizadas;
             ViewBag.rutaVistasPersonalizadasEcosistema = rutaVistasPersonalizadasEcosistema;
@@ -207,7 +207,11 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 {
                     if (item.Equals("BaseUrlPersonalizacion") && contentLocal)
                     {
-                        ViewData.Add(item, $"styles/{proyectoSeleccionado}");
+                        ViewData.Add(item, $"styles/{proyectoSeleccionado}/Proyectos/{proyectoSeleccionado}/Estilos");
+                    }
+                    else if(item.Equals("BaseUrlPersonalizacionEcosistema") && contentLocal)
+                    {
+                        ViewData.Add(item, $"styles/ecosistema/Proyectos/Proyectos/Estilos");
                     }
                     else
                     {

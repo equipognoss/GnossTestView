@@ -29,11 +29,18 @@ input[type=text]#SessionID{
     width: 100%;
 }
 
+input + a.verPassword{
+    font-size: 22px;
+    position: absolute;
+    right: 22px;
+}
+
 body.configuracion .form-group label{
     text-align : left;
 }
 
-body.configuracion .form-group input[type=text]{
+body.configuracion .form-group input[type=text], 
+body.configuracion .form-group input[type=password]{
     width: 100%;
     max-width: 100%;
 }
@@ -59,6 +66,10 @@ body.configuracion .form-group  {
 
 body.configuracion .form-group.save {
     padding-top: 30px;
+}
+
+body.configuracion .upload .form-horizontal{
+    padding: 30px 40px 0 10px;
 }
 
 .modal .modal-title{
@@ -423,4 +434,17 @@ body.palco.showBasicAuth .form-group.autentication {
     top: 0;
     position: absolute;
     right: 0px;
+}
+
+body #authBasic input[type=text],
+body #authBasic input[type=password]{
+    width: 100%;
+    max-width: 100%
+}
+body.palco.showBasicAuth #authBasic .col-md-3{
+    width: 100%;
+    max-width: 100%
+}
+body.palco.showBasicAuth #authBasic .textbox{
+      padding-right: 10px;
 }

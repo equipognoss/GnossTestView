@@ -12,15 +12,41 @@
 <h2>Configuraciones</h2>
 <hr />
 
-@using (Html.BeginForm("SaveConfiguration", "Configuration", FormMethod.Post))
+@using (Html.BeginForm("SaveConfiguration", "Configuration", FormMethod.Post, new { id="configurationForm" }))
 {
     <div class="form-horizontal">
         <h3>Configuración general</h3>
         <div class="form-group general row">
-            <label for="urlApiDespliegues" class="control-label col-md-2">API de despliegues</label>
+            <label for="urlApiIntegracionEntornos" class="control-label col-md-2">API de Integracion de Entornos</label>
             <div class="col-md-10">
                 <div class="textbox">
-                    @Html.TextBox("urlApiDespliegues", Model.urlApiDespliegues, new { @autocomplete = "off" })
+                    @Html.TextBox("urlApiIntegracionEntornos", Model.urlApiIntegracionEntornos, new { @autocomplete = "off" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group general row">
+            <label class="control-label col-md-2">Datos de acceso de usuario root GitLab</label>
+            <div class="col-md-5">
+                <div class="textbox">
+                    @Html.TextBox("usuarioRootRepositorio.user", Model.usuarioRootRepositorio.user, new { @autocomplete = "off", @placeholder = "login" })
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="textbox">
+                    @Html.Password("usuarioRootRepositorio.password", Model.usuarioRootRepositorio.password, new { @placeholder = "password" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group general row">
+            <label class="control-label col-md-2">Datos del servidor FTP para la subida de vistas y estilos</label>
+            <div class="col-md-5">
+                <div class="textbox">
+                    @Html.TextBox("serverFtpUpload.server", Model.serverFtpUpload.server, new { @autocomplete = "off", @placeholder = "server" })
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="textbox">
+                    @Html.TextBox("serverFtpUpload.port", Model.serverFtpUpload.port, new { @autocomplete = "off", @placeholder = "port" })
                 </div>
             </div>
         </div>
@@ -36,12 +62,12 @@
                     @Html.Hidden($"autorizacion[{count}].url", autorization.url)
                     <div class="col-md-4">
                         <div class="textbox">
-                            @Html.TextBox($"autorizacion[{count}].user", autorization.user, new { @autocomplete = "off" })
+                            @Html.TextBox($"autorizacion[{count}].user", autorization.user, new { @autocomplete = "off", @placeholder = "user" })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="textbox">
-                            @Html.TextBox($"autorizacion[{count}].password", autorization.password, new { @autocomplete = "off" })
+                            @Html.Password($"autorizacion[{count}].password", autorization.password, new { @placeholder = "password" })
                         </div>
                     </div>
                 </div>
@@ -49,25 +75,35 @@
             }
         }
 
-        @if (Model.proyectos.Length > 0)
+        @if (Model.proyectos.Any())
         {
-            <h3>Administrar vistas de proyectos</h3>
-            foreach (string proyecto in Model.proyectos)
+            int count = 0;
+            <h3>Administrar vistas y estilos de proyectos</h3>
+            foreach (ConfigurationModel.ProyectoRamaModel proyecto in Model.proyectos)
             {
-                string nombreProy = proyecto.Split('\\').Last();
+                string nombreProy = proyecto.nombreCortoProyecto;
                 <div class="form-group row">
-                    <label class="control-label col-md-12">
-                        <span class="fa fa-cloud-upload" title="Subir vistas" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal" data-title="Confirmar subida de vistas" ></span>
-                        <span class="fa fa-cloud-download" title="Descargar vistas" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal" data-title="Confirmar descarga de vistas"></span>
+                    <label class="control-label col-md-4">
+                        <span class="fa fa-cloud-upload" title="Subir vistas y estilos" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal"></span>
+                        <span class="fa fa-cloud-download" title="Descargar vistas y estilos" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal"></span>
+                        @Html.Hidden($"proyecto[{count}].userFTP", proyecto.userFTP, new { @class = "userFTP" })
+                        @Html.Hidden($"proyecto[{count}].passwordFTP", proyecto.passwordFTP, new { @class = "passwordFTP" })
                         @nombreProy
                     </label>
+                    <label class="control-label col-md-4">
+                        @proyecto.rama
+                    </label>
+                    <label class="control-label col-md-4">
+                        @proyecto.userFTP
+                    </label>
                 </div>
+                count++;
             }
         }
 
         <div class="form-group save row">
             <div class="col-md-10">
-                <input name="submit" type="submit" value="Guardar" class="btn btn-primary">
+                <button name="submit" type="submit" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
@@ -82,12 +118,31 @@
                 </div>
                 <div class="modal-body">
                     <div class="upload">
-                        Los cambios se subirán directamente a la comundad. ¿Estas seguro?<br />
-                        Introduce el login/email del usuario adminitrador para poder subir los cambios.<br />
-                        <input type="text" id="userUpload" placeholder="login/email del usuario adminitrador"/>
+                        Los cambios se subirán a la comundad por FTP. ¿Estas seguro?<br />
+                        Introduce los datos del administrador para poder subir los cambios.<br />
+                        <div class="form-horizontal">
+                            <div class="form-group row">
+                                <label for="userFTP" class="control-label col-md-6">Nombre de usuario</label>
+                                <div class="col-md-6">
+                                    <div class="textbox">
+                                        @Html.TextBox("userFTP", "", new { @autocomplete = "off",  @placeholder = "Nombre de usuario" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="passwordFTP" class="control-label col-md-6">Password</label>
+                                <div class="col-md-6">
+                                    <div class="textbox">
+                                        @Html.Password("passwordFTP", "", new { @placeholder = "Password" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="download">
-                        Tus archivos serán sobreescritos, pero te guardaremos una copia del contenido que tienes actualmente
+                        Descargaremos los archivos del servidor y los fusionaremos con tus cambios.
+                        <br />
+                        Puede que tengas que resolver confiltos manualmente si varios usuarios habeis modificado los mismos ficheros.
                     </div>
                 </div>
                 <div class="modal-footer">
