@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Runtime.Serialization.Formatters.Binary;
 using Es.Riam.Gnoss.Web.MVC.Models;
 using GnossTestView.Areas.GnossTestView.Utilidades;
+using System.Collections.Generic;
 
 namespace GnossTestView.Areas.GnossTestView.Controllers
 {
@@ -19,6 +20,12 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
         public ActionResult Index()
         {
+            List<string> lastURLs = UtilConfiguration.GetAutocompleteData("url");
+            lastURLs.Reverse();
+
+            ViewBag.LastURLs = lastURLs;
+            ViewBag.LastSessionID = UtilConfiguration.GetAutocompleteData("sessionID");
+            
             return View();
         }
 
@@ -27,6 +34,23 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             try
             {
                 GestionarDatosSession(url, ref user, ref password);
+
+                if (sessionID != "")
+                {
+                    UtilConfiguration.SetAutocompleteData("sessionID", sessionID);
+                }
+
+                List<string> urlsAutocomplete = UtilConfiguration.GetAutocompleteData("url");
+                if(urlsAutocomplete.Contains(url))
+                {
+                    urlsAutocomplete.Remove(url);
+                }
+                else if (urlsAutocomplete.Count > 5) {
+                    urlsAutocomplete.RemoveAt(0);
+                }
+                urlsAutocomplete.Add(url);
+
+                UtilConfiguration.SetAutocompleteData("url", urlsAutocomplete);
             }
             catch
             {

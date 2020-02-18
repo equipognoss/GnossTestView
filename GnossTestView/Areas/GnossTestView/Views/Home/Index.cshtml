@@ -21,7 +21,16 @@
             <label for="URL" class="control-label col-md-3">Url: </label>
             <div class="col-md-9">
                 <div class="textbox">
-                    @Html.TextBox("URL", "", new { @autocomplete = "off" })
+                    @Html.TextBox("URL", "", new { @autocomplete = "off", @list = "lastURLs" })
+                    @if (ViewBag.LastURLs.Count > 0)
+                    {
+                        <datalist id="lastURLs">
+                            @foreach (string url in ViewBag.LastURLs)
+                            {
+                                <option>@url</option>
+                            }
+                        </datalist>
+                    }
                 </div>
             </div>
         </div>
@@ -29,7 +38,16 @@
             <label for="SessionID" class="control-label col-md-3">SessionID: </label>
             <div class="col-md-9">
                 <div class="textbox">
-                    @Html.TextBox("NETSessionID", "", new { @autocomplete = "off" })
+                    @Html.TextBox("SessionID", "", new { @autocomplete = "off", @list = "lastSessionID" })
+                    @if (ViewBag.LastSessionID.Count > 0)
+                    {
+                        <datalist id="lastSessionID">
+                            @foreach (string sessionID in ViewBag.LastSessionID)
+                            {
+                                <option>@sessionID</option>
+                            }
+                        </datalist>
+                    }
                 </div>
             </div>
         </div>

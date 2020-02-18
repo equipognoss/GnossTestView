@@ -12,6 +12,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
     {
         private static readonly string rutaAutorization = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Authorization.config";
         private static readonly string rutaConfiguration = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Configuration.config";
+        private static readonly string rutaAutocompleteData = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\AutocompleteData.config";
 
         internal static void SetConfiguracion(string key, string value)
         {
@@ -122,7 +123,6 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
             }
             return "";
         }
-
 
         internal static void GetAuthorization(string url, ref string user, ref string password)
         {
@@ -272,5 +272,60 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
             docXml.Save(rutaAutorization);
         }
 
+        internal static List<string> GetAutocompleteData(string key)
+        {
+            List<string> resultados = new List<string>();
+            if (System.IO.File.Exists(rutaAutocompleteData))
+            {
+                XmlDocument docXml = new XmlDocument();
+                docXml.Load(rutaAutocompleteData);
+
+                XmlNodeList nodeList = docXml.SelectNodes($"config/{key}");
+                foreach(XmlNode node in nodeList)
+                {
+                    resultados.Add(node.InnerText);
+                }
+            }
+            return resultados;
+        }
+
+        internal static void SetAutocompleteData(string key, string value)
+        {
+            List<string> values = new List<string>();
+            values.Add(value);
+            SetAutocompleteData(key, values);
+        }
+
+        internal static void SetAutocompleteData(string key, List<string> values)
+        {
+            XmlDocument docXml = new XmlDocument();
+
+            if (System.IO.File.Exists(rutaAutocompleteData))
+            {
+                docXml.Load(rutaAutocompleteData);
+            }
+            else
+            {
+                docXml.LoadXml("<config></config>");
+            }
+
+            XmlNode parentNode = docXml.SelectSingleNode("config");
+
+            XmlNodeList nodeList = parentNode.SelectNodes(key);
+            foreach (XmlNode node in nodeList)
+            {
+                parentNode.RemoveChild(node);
+            }
+
+            int order = 0;
+            foreach (string nodeValue in values)
+            {
+                XmlNode node = createXPath(docXml, $"/config/{key}[@order='{order}']");
+                node.InnerText = nodeValue;
+                order++;
+            }
+
+            docXml.Save(rutaAutocompleteData);
+        }
     }
 }

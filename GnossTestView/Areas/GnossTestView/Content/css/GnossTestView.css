@@ -118,6 +118,9 @@ body.palco * {
     display: inline-block;
     position: relative;
 }
+body.palco datalist {
+    display: none;
+}
 
 body.palco .navbar-dark {
     background: none;
