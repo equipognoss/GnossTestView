@@ -45,10 +45,11 @@
         boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Descargando...');
         modal.find('.modal-footer .btn-secondary').hide();
 
-        $.post("/configuration/downloadViews", { proyectName: proyecto })
+        $.post("/Configuration/DownloadProject", { proyectName: proyecto })
           .done(function (status) {
               if (status) {
                   modalBody.append('<div class="alert alert-success" role="alert">Descarga correcta</div>');
+
               }
               else {
                   modalBody.append('<div class="alert alert-danger" role="alert">Descarga fallida</div>');
@@ -70,17 +71,14 @@
         boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Subiendo...');
         modal.find('.modal-footer .btn-secondary').hide();
 
-        $.post("/configuration/uploadViews", { proyectName: proyecto, serverFTP: serverFTP, userFTP: userFTP, passwordFTP: passwordFTP, portFTP: portFTP })
+        $.post("/Configuration/UploadProject", { proyectName: proyecto, userFTP: userFTP, passwordFTP: passwordFTP })
           .done(function (status) {
               if (status) {
-                  modal
-                  modalBody.append('<div class="alert alert-success" role="alert">  Simulacion OK</div>');
+                  modalBody.append('<div class="alert alert-success" role="alert">Subida OK</div>');
               }
               else {
-                  modalBody.append('<div class="alert alert-danger" role="alert"> Simulacion KO</div>');
+                  modalBody.append('<div class="alert alert-danger" role="alert">Subida KO</div>');
               }
-              modalBody.append('<div class="alert alert-warning" role="alert">TO-DO<br />NO SE HAN SUBIDO LOS CAMBIOS. FALTA EL DESARROLLO<br />' +
-                  'Cuidado con no sobreescribir los ficheros de \"TextosPersonalizadosPersonalizacion y CMS\"</div>');
               modal.find('.modal-footer').hide();
           });
 
@@ -88,12 +86,15 @@
 
     $('#confirmationModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
+        if (button.hasClass('disabled')) {
+                $('#confirmationModal').modal('hide');
+                return false;
+        }
 
-        var title = button.data('title');
         var proyecto = button.data('proyecto');
         var action = button.attr("title");
         var btnClass = button.attr("class");
-        var typeAction = btnClass.replace('fa fa-cloud-', '');
+        var typeAction = btnClass.replace('fa fa-cloud-', '').trim();
 
         var modal = $(this);
         modal.find('.modal-body .alert').remove();
@@ -106,9 +107,12 @@
             var parentButton = button.parent();
             var userFTP = parentButton.find(".userFTP").val();
             var passwordFTP = parentButton.find(".passwordFTP").val();
+            var cambiosRepositorioLocal = parentButton.find(".cambios").val();
 
             $("#userFTP").val(userFTP);
             $("#passwordFTP").val(passwordFTP);
+
+            modal.find('.modal-body .' + typeAction).find('.panCambios .cambios').html(cambiosRepositorioLocal);
         }
         else {
             modal.find('.modal-title').text("Confirmar descarga de vistas y estilos de " + ' \'' + proyecto + '\'');
@@ -138,6 +142,15 @@
             btnSubmit.html('Guardar');
         });
     });
+
+    $('body.configuracion .form-group').on('click', 'span.fa.fa-cloud-upload.disabled', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    });
+     
+
+
     toggleVerPassword.init();
 });
 

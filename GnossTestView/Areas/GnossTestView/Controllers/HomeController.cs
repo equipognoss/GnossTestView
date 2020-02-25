@@ -76,15 +76,15 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 jsonModel = GetJson(responseFromServer, contentLocal, out proyectoSeleccionado);
             }
             
-            string[] proyectos = UtilManageViews.ObtenerProyectosVistas(); 
+            string[] proyectos = UtilGitFiles.ObtenerProyectosVistas(); 
 
             if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\ecosistema"))
             {
-                UtilManageViews.DescargarVistasInicial("ecosistema");
+                UtilGitFiles.DescargarVistasInicial("ecosistema");
             }
             if (!proyectos.Contains(AppContext.BaseDirectory + "Views\\" + proyectoSeleccionado))
             {
-                UtilManageViews.DescargarVistasInicial(proyectoSeleccionado);
+                UtilGitFiles.DescargarVistasInicial(proyectoSeleccionado);
             }
 
             return GetView(jsonModel, proyectoSeleccionado);

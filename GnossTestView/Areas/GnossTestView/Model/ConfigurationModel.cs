@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibGit2Sharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -42,6 +43,8 @@ namespace GnossTestView.Areas.GnossTestView.Model
             public string rama { get; set; }
             public string userFTP { get; set; }
             public string passwordFTP { get; set; }
+            public Dictionary<string, FileStatus> localChanges { get; set; }
+            public bool hasRemoteChanges { get; set; }
         }
     }
 }

@@ -258,7 +258,8 @@
     <Compile Include="Areas\GnossTestView\Fake\UtilImportarExportar.cs" />
     <Compile Include="Areas\GnossTestView\Model\ConfigurationModel.cs" />
     <Compile Include="Areas\GnossTestView\Utilidades\UtilConfiguration.cs" />
-    <Compile Include="Areas\GnossTestView\Utilidades\UtilManageViews.cs" />
+    <Compile Include="Areas\GnossTestView\Utilidades\UtilGitFiles.cs" />
+    <Compile Include="Areas\GnossTestView\Utilidades\UtilFtpFiles.cs" />
     <Compile Include="Areas\GnossTestView\Utilidades\UtilPageCache.cs" />
     <Compile Include="Areas\GnossTestView\Utilidades\UtilPageRequest.cs" />
     <Compile Include="Global.asax.cs">

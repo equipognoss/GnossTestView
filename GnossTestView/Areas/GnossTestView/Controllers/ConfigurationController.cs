@@ -26,18 +26,25 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             configuracion.autorizacion = UtilConfiguration.GetAuthorizationConfig();
 
             configuracion.proyectos = new List<ConfigurationModel.ProyectoRamaModel>();
-            string[] proyectos =  UtilManageViews.ObtenerProyectosVistas();
+            string[] proyectos =  UtilGitFiles.ObtenerProyectosVistas();
+
             foreach (string nombreProy in proyectos)
             {
                 ConfigurationModel.ProyectoRamaModel proyecto = new ConfigurationModel.ProyectoRamaModel();
                 proyecto.nombreCortoProyecto = nombreProy.Split('\\').Last();
-                proyecto.rama = UtilManageViews.ObrenerRamaRepositorioLocal(proyecto.nombreCortoProyecto);
+                proyecto.rama = UtilGitFiles.ObrenerRamaRepositorioLocal(proyecto.nombreCortoProyecto);
                 
                 proyecto.userFTP = UtilConfiguration.GetConfiguration($"proyectos/proyecto[@name=\'{proyecto.nombreCortoProyecto}\']/userFTP");
                 proyecto.passwordFTP = UtilConfiguration.GetConfiguration($"proyectos/proyecto[@name=\'{proyecto.nombreCortoProyecto}\']/passwordFTP");
 
+                proyecto.localChanges = UtilGitFiles.GetFilesWithChanges(proyecto.nombreCortoProyecto);
+
+                proyecto.hasRemoteChanges = UtilGitFiles.CheckServerChanges(proyecto.nombreCortoProyecto);
+
                 configuracion.proyectos.Add(proyecto);
             }
+
+
 
             return View(configuracion);
         }
@@ -59,13 +66,13 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
         }
 
         [HttpPost]
-        public ActionResult DownloadViews(string proyectName)
+        public ActionResult DownloadProject(string proyectName)
         {
-            string[] proyectos = UtilManageViews.ObtenerProyectosVistas();
+            string[] proyectos = UtilGitFiles.ObtenerProyectosVistas();
 
             if (proyectos.Contains(AppContext.BaseDirectory + "Views\\" + proyectName))
             {
-                UtilManageViews.DescargarVistas( proyectName);
+                UtilGitFiles.DescargarVistas(proyectName);
                 return Json(true);
             }
 
@@ -73,9 +80,9 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadViews(string proyectName, string userFTP, string passwordFTP)
+        public ActionResult UploadProject(string proyectName, string userFTP, string passwordFTP)
         {
-            string[] proyectos = UtilManageViews.ObtenerProyectosVistas();
+            string[] proyectos = UtilGitFiles.ObtenerProyectosVistas();
 
             if (proyectos.Contains(AppContext.BaseDirectory + "Views\\" + proyectName))
             {
@@ -86,7 +93,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 string port = UtilConfiguration.GetConfiguration("serverFtpUpload/port");
 
                 //No se pueden subir las vistas, la estructura del FTP es distinta a la de GIT y el compilador
-                //UtilManageViews.SubirVistas(proyectName, $"{server}/{port}", userFTP, passwordFTP);
+                UtilFtpFiles.SubirVistas(proyectName, $"{server}:{port}", userFTP, passwordFTP);
 
                 return Json(true);
             }

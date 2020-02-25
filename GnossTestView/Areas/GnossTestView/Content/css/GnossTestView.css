@@ -54,6 +54,12 @@ body.configuracion .form-group label span.fa.fa-cloud-download {
     top: 5px;
 }
 
+
+body.configuracion .form-group label span.fa.fa-cloud-upload.disabled{
+    color: lightgrey;
+    cursor: not-allowed;
+}
+
 body.configuracion .form-group label span.fa.fa-trash.disabled{
     color: lightgrey;
     cursor: not-allowed;
@@ -71,6 +77,30 @@ body.configuracion .form-group.save {
 body.configuracion .upload .form-horizontal{
     padding: 30px 40px 0 10px;
 }
+
+body.configuracion .upload .panCambios label{
+    font-weight: bold
+}
+
+body.configuracion .upload  span.ModifiedInWorkdir:before {
+    content: "\f05a";
+    color: red;
+    padding: 5px;
+}
+
+body.configuracion .upload  span.DeletedFromWorkdir:before {
+    content: "\f057";
+    color: red;
+    padding: 5px;
+}
+
+body.configuracion .upload  span.NewInWorkdir:before {
+    content: "\f055";
+    color: blue;
+    padding: 5px;
+}
+
+
 
 .modal .modal-title{
         float: left;
