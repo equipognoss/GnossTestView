@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace GnossTestView.Areas.GnossTestView.Utilidades
@@ -11,22 +13,46 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 
         internal static string GetFileName(string pUrl)
         {
-            string fileName = pUrl.Substring(pUrl.IndexOf("//") + 2).Trim('/');
+            //string fileName = pUrl.Substring(pUrl.IndexOf("//") + 2).Trim('/');
 
-            if (fileName.Contains("/"))
-            {
-                fileName = pUrl.Substring(pUrl.IndexOf('/'));
-                fileName = fileName.Replace('?', '-');
-                fileName = fileName.Replace('&', '-');
-                fileName = fileName.Replace('=', '-');
-                fileName = fileName.Replace(':', '-');
-                fileName = fileName.Replace(';', '-');
-            }
-            if (string.IsNullOrEmpty(fileName)) { fileName = "home"; }
+            //if (fileName.Contains("/"))
+            //{
+            //    fileName = pUrl.Substring(pUrl.IndexOf('/'));
+            //    fileName = fileName.Replace('?', '-');
+            //    fileName = fileName.Replace('&', '-');
+            //    fileName = fileName.Replace('=', '-');
+            //    fileName = fileName.Replace(':', '-');
+            //    fileName = fileName.Replace(';', '-');
+            //}
+            //if (string.IsNullOrEmpty(fileName)) { fileName = "home"; }
+
+            string fileName = GetMd5Hash(pUrl);
 
             return HttpContext.Current.Server.MapPath($"~/App_Data/{fileName}.txt");
         }
 
+        internal static string GetMd5Hash(string input)
+        {
+            using (MD5 md5Hash = MD5.Create())
+            {
+                // Convert the input string to a byte array and compute the hash.
+                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+                // Create a new Stringbuilder to collect the bytes
+                // and create a string.
+                StringBuilder sBuilder = new StringBuilder();
+
+                // Loop through each byte of the hashed data 
+                // and format each one as a hexadecimal string.
+                for (int i = 0; i < data.Length; i++)
+                {
+                    sBuilder.Append(data[i].ToString("x2"));
+                }
+
+                // Return the hexadecimal string.
+                return sBuilder.ToString();
+            }
+        }
 
         internal static void SaveCacheFile(string cacheFileName, string value)
         {
