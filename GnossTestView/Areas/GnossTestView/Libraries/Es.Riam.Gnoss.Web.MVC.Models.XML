@@ -1661,6 +1661,11 @@
             
             </summary>
         </member>
+        <member name="P:Es.Riam.Gnoss.Web.MVC.Models.Administracion.FacetaModel.AgrupacionID">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Es.Riam.Gnoss.Web.MVC.Models.Administracion.FacetaModel.ListaFiltrosFacetas">
             <summary>
             
@@ -4277,6 +4282,16 @@
             Página para añadir a Comunidad.
             </summary>
         </member>
+        <member name="F:Es.Riam.Gnoss.Web.MVC.Models.EditResourceModel.TypePageEditResource.CreateResourceComplete">
+            <summary>
+            Página de subir recurso completo.
+            </summary>
+        </member>
+        <member name="F:Es.Riam.Gnoss.Web.MVC.Models.EditResourceModel.TypePageEditResource.ModifyResourceComplete">
+            <summary>
+            Página de subir recurso completo.
+            </summary>
+        </member>
         <member name="T:Es.Riam.Gnoss.Web.MVC.Models.CreateResourceModel">
             <summary>
             Modelo para subir recurso.
@@ -4670,6 +4685,21 @@
         <member name="P:Es.Riam.Gnoss.Web.MVC.Models.ModifyResourceModel.TOPIframeSRC">
             <summary>
             URL SRC del iframe del vídeo / audio top
+            </summary>
+        </member>
+        <member name="P:Es.Riam.Gnoss.Web.MVC.Models.ModifyResourceModel.SubidaUnificada">
+            <summary>
+            Subida unificada
+            </summary>
+        </member>
+        <member name="P:Es.Riam.Gnoss.Web.MVC.Models.ModifyResourceModel.EdicionUnificada">
+            <summary>
+            Edicion unificada.
+            </summary>
+        </member>
+        <member name="P:Es.Riam.Gnoss.Web.MVC.Models.ModifyResourceModel.Vinculados">
+            <summary>
+            Lista de los recursos vinculados.
             </summary>
         </member>
         <member name="T:Es.Riam.Gnoss.Web.MVC.Models.DocumentEditionModel">
