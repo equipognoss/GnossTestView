@@ -6281,6 +6281,16 @@
             Email del usuario
             </summary>
         </member>
+        <member name="P:Es.Riam.Gnoss.Web.MVC.Models.AutenticationModel.EmailTutor">
+            <summary>
+            Email del tutor
+            </summary>
+        </member>
+        <member name="P:Es.Riam.Gnoss.Web.MVC.Models.AutenticationModel.LoginUsuario">
+            <summary>
+            Email del tutor
+            </summary>
+        </member>
         <member name="P:Es.Riam.Gnoss.Web.MVC.Models.AutenticationModel.Password">
             <summary>
             Contraseña del usuario
@@ -8214,6 +8224,11 @@
         <member name="P:Es.Riam.Gnoss.Web.MVC.Models.UserProfileModel.ProfileCommunitiesModel.EsRegistroObligatorio">
             <summary>
             Es comunidad de registro obligatorio
+            </summary>
+        </member>
+        <member name="P:Es.Riam.Gnoss.Web.MVC.Models.UserProfileModel.ProfileCommunitiesModel.ProyectType">
+            <summary>
+            Tipo de proyecto
             </summary>
         </member>
         <member name="T:Es.Riam.Gnoss.Web.MVC.Models.UserIdentityModel">
