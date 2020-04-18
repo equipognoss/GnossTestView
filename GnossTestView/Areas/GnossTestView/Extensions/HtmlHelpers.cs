@@ -130,6 +130,10 @@ namespace GnossTestView.Extensions
             {
                 partialViewName = $"~/{rutaVistasPersonalizadas}/Views{partialViewName.Replace("..", "")}.cshtml";
             }
+            else if (partialViewName.StartsWith("ControlesMVC/"))
+            {
+                partialViewName = $"~/{rutaVistasPersonalizadas}/Views/Shared/{partialViewName}.cshtml";
+            }
             else if (Guid.TryParse(partialViewName, out guid))
             {
                 bool vistaPersonalizadaEncontrada = false;

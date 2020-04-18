@@ -37,30 +37,23 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 
         internal static string ObrenerRamaRepositorioLocal(string proyecto)
         {
-            string rutaDirectorio = $"{AppContext.BaseDirectory}Views/{proyecto}\\.git\\refs\\heads";
+            string rutaDirectorio = $"{AppContext.BaseDirectory}Views/{proyecto}";
 
-            if (Directory.Exists(rutaDirectorio))
+            using (var repo = new Repository(rutaDirectorio))
             {
-                string[] filesRamas = Directory.GetFiles($"{rutaDirectorio}");
-
-                return filesRamas.First().Split('\\').Last();
+                return repo.Head.FriendlyName;
             }
-            return "";
         }
 
         private static string GetProyectRepository(string proyecto)
         {
             string repositorio = ""; //Pedirselo al api de integracioncontinua
 
-
-
             return repositorio;
         }
         private static string GetActualBranchRepository(string proyecto)
         {
             string ramaActual = ""; //Pedirselo al api de integracioncontinua
-
-           
 
             return ramaActual;
         }
@@ -83,24 +76,64 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 
             using (var repo = new Repository(rutaDirectorio))
             {
-                // Comprobar que la rama actual es la última
-                //string ramaActual = GetActualBranchRepository(proyecto);
-                //Branch rama = FindBranch(ramaActual, repo);
-
-                var fetchOptions = new FetchOptions()
+                try
                 {
-                    CredentialsProvider = Credential
-                };
+                    // Comprobar que la rama actual es la última
+                     string ramaActual = GetActualBranchRepository(proyecto);
+                     Branch rama = FindBranch(ramaActual, repo);
 
-                PullOptions options = new PullOptions();
-                options.FetchOptions = fetchOptions;
-                var signature = new LibGit2Sharp.Signature(
-                new Identity("MERGE_USER_NAME", "MERGE_USER_EMAIL"), DateTimeOffset.Now);
+                    var fetchOptions = new FetchOptions()
+                    {
+                        CredentialsProvider = Credential
+                    };
 
-                MergeResult merge = Commands.Pull(repo, signature, options);
+                    PullOptions options = new PullOptions();
+                    options.FetchOptions = fetchOptions;
+                    var signature = new LibGit2Sharp.Signature(
+                    new Identity("MERGE_USER_NAME", "MERGE_USER_EMAIL"), DateTimeOffset.Now);
+
+                    MergeResult merge = Commands.Pull(repo, signature, options);
+                }
+                catch(Exception ex)
+                {
+                    //repo.Info.WorkingDirectory
+                }
             }
         }
 
+        internal static void ActualizarUltimaRama(string proyecto)
+        {
+            string ramaActual = GetActualBranchRepository(proyecto);
+
+            string rutaDirectorio = $"{AppContext.BaseDirectory}Views/{proyecto}";
+
+            using (var repo = new Repository(rutaDirectorio))
+            {
+                Branch rama = FindBranch(ramaActual, repo);
+
+                if (rama == null)
+                {
+                    // Let's get a reference on the remote tracking branch...
+                    string trackedBranchName = "origin/" + ramaActual;
+                    Branch trackedBranch = repo.Branches[trackedBranchName];
+
+                    // ...and create a local branch pointing at the same Commit
+                    Branch branch = repo.CreateBranch(ramaActual, trackedBranch.Tip);
+
+
+                    // So, let's configure the local branch to track the remote one.
+                    rama = repo.Branches.Update(branch,
+                        b => b.TrackedBranch = trackedBranch.CanonicalName);
+                }
+
+                CheckoutOptions option = new CheckoutOptions();
+                option.CheckoutModifiers = CheckoutModifiers.None;
+
+                Commands.Checkout(repo, rama, option);
+                repo.Index.Write();
+            }
+        }
+        
         private static void ForkRespositorio(Uri pURL, string pPathDirectorio, string pNombreRama)
         {
             CloneOptions option = new CloneOptions();
@@ -155,8 +188,18 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
                 Commands.Fetch(repo, "origin", refSpecs, fetchOptions, logMessage);
 
                 Branch rama = FindBranch(ramaActual, repo);
-                return rama.TrackingDetails.BehindBy > 0;
+                return rama == null || rama.TrackingDetails.BehindBy > 0;
             }
         }
+
+        internal static bool CheckBranchChange(string proyecto)
+        {
+            string ramaRepositorio = GetActualBranchRepository(proyecto);
+
+            string ramaLocal = ObrenerRamaRepositorioLocal(proyecto);
+
+            return !ramaRepositorio.Equals(ramaLocal);
+        }
+        
     }
 }

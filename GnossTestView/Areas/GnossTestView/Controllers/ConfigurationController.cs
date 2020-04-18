@@ -39,12 +39,12 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
                 proyecto.localChanges = UtilGitFiles.GetFilesWithChanges(proyecto.nombreCortoProyecto);
 
-                proyecto.hasRemoteChanges = UtilGitFiles.CheckServerChanges(proyecto.nombreCortoProyecto);
+                proyecto.changeBranch = UtilGitFiles.CheckBranchChange(proyecto.nombreCortoProyecto);
+
+                proyecto.hasRemoteChanges = proyecto.changeBranch || UtilGitFiles.CheckServerChanges(proyecto.nombreCortoProyecto);
 
                 configuracion.proyectos.Add(proyecto);
             }
-
-
 
             return View(configuracion);
         }
@@ -63,6 +63,20 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
             UtilConfiguration.SetAuthorizationConfig(configuracion.autorizacion);
 
             return Json(true);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeBranch(string proyectName)
+        {
+            string[] proyectos = UtilGitFiles.ObtenerProyectosVistas();
+
+            if (proyectos.Contains(AppContext.BaseDirectory + "Views\\" + proyectName))
+            {
+                UtilGitFiles.ActualizarUltimaRama(proyectName);
+                return Json(true);
+            }
+
+            return Json(false);
         }
 
         [HttpPost]

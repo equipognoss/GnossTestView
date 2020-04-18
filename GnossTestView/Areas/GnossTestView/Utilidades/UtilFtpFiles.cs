@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace GnossTestView.Areas.GnossTestView.Utilidades
 {
-    public class UtilFtpFiles
+    internal static class UtilFtpFiles
     {
         internal static void SubirVistas(string proyectName, string serverURL, string userFTP, string passwordFTP)
         {
@@ -31,7 +31,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
             }
         }
 
-        private static string DeleteFileFTP(string fileName, string serverURL, string userFTP, string passwordFTP)
+        private static void DeleteFileFTP(string fileName, string serverURL, string userFTP, string passwordFTP)
         {
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create($"ftp://{serverURL}/{fileName}");
             request.Method = WebRequestMethods.Ftp.DeleteFile;
@@ -39,7 +39,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 
             using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
             {
-                return response.StatusDescription;
+                Console.WriteLine(response.StatusDescription);
             }
         }
 
@@ -68,7 +68,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
             }
             catch(Exception ex)
             {
-                
+                Console.WriteLine(ex.Message); 
             }
         }
         

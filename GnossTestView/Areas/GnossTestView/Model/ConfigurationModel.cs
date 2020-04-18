@@ -44,6 +44,7 @@ namespace GnossTestView.Areas.GnossTestView.Model
             public string userFTP { get; set; }
             public string passwordFTP { get; set; }
             public Dictionary<string, FileStatus> localChanges { get; set; }
+            public bool changeBranch { get; set; }
             public bool hasRemoteChanges { get; set; }
         }
     }

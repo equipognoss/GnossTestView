@@ -14,14 +14,15 @@
 
 <h2>Compilador de vistas</h2>
 <hr />
-<div class="form">
+
+<form class="form" autocomplete="off">
     <div class="form-horizontal">
         <h3>Url y sesión</h3>
         <div class="form-group url row">
             <label for="URL" class="control-label col-md-3">Url: </label>
             <div class="col-md-9">
                 <div class="textbox">
-                    @Html.TextBox("URL", "", new { @autocomplete = "no", @list = "lastURLs" })
+                    @Html.TextBox("URL", "", new { @list = "lastURLs" })
                     @if (ViewBag.LastURLs.Count > 0)
                     {
                         <datalist id="lastURLs">
@@ -38,7 +39,7 @@
             <label for="SessionID" class="control-label col-md-3">SessionID: </label>
             <div class="col-md-9">
                 <div class="textbox">
-                    @Html.TextBox("SessionID", "", new { @autocomplete = "no", @list = "lastSessionID" })
+                    @Html.TextBox("SessionID", "", new { @list = "lastSessionID" })
                     @if (ViewBag.LastSessionID.Count > 0)
                     {
                         <datalist id="lastSessionID">
@@ -70,7 +71,7 @@
                     <label for="User" class="control-label col-md-3">Usuario: </label>
                     <div class="col-md-3">
                         <div class="textbox">
-                            @Html.TextBox("User", "", new { @autocomplete = "no" })
+                            @Html.TextBox("User")
                         </div>
                     </div>
                 </div>
@@ -79,7 +80,7 @@
                     <label for="Password" class="control-label col-md-3">Password: </label>
                     <div class="col-md-3">
                         <div class="textbox">
-                            @Html.Password("Password", "", new { @autocomplete = "no" })
+                            @Html.Password("Password")
                         </div>
                     </div>
                 </div>
@@ -92,5 +93,5 @@
             </div>
         </div>
     </div>
-</div>
+</form>
 

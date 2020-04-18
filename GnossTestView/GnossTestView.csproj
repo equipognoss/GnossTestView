@@ -235,6 +235,7 @@
     <Content Include="Areas\GnossTestView\Views\Configuration\Index.cshtml" />
     <Content Include="Areas\GnossTestView\Views\Home\Index.cshtml" />
     <Content Include="Areas\GnossTestView\Views\Home\Error.cshtml" />
+    <Content Include="Areas\GnossTestView\Views\Configuration\_Proyectos.cshtml" />
     <None Include="Properties\PublishProfiles\Javi.pubxml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -585,7 +586,6 @@
     <Content Include="GenericViews\Shared\_MenuLateralUsuario.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\directorioprocesos\Proyectos\directorioprocesos\Vistas\Views\Shared\SemCms\_Entidad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -600,7 +600,6 @@
     <Folder Include="GenericViews\ConfigurarIntegracionContinuaInicial\" />
     <Folder Include="GenericViews\EditarPerfilNotificacion\" />
     <Folder Include="GenericViews\ProcesandoTareas\" />
-    <Folder Include="Views\ecosistema\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

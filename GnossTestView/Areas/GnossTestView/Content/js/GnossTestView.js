@@ -14,11 +14,10 @@
         var user = $('input#User').val();
         var pass = $('input#Password').val();
         var contentLocal = $('input#contentLocal').is(':checked');
-        var proyectoSeleccionado = $('#proyectoSeleccionado').text();
         var submit = $(this).val();
         
         var urlIframe = location.protocol + '//' + location.host + '/LoadURL';
-        var srcIframe = urlIframe + "?URL=" + url + "&SessionID=" + sessionID + "&User=" + user + "&Password=" + pass + "&contentLocal=" + contentLocal + "&proyectoSeleccionado=" + proyectoSeleccionado + "&submit=" + submit
+        var srcIframe = urlIframe + "?URL=" + url + "&SessionID=" + sessionID + "&User=" + user + "&Password=" + pass + "&contentLocal=" + contentLocal + "&submit=" + submit
 
         body.append("<iframe id='iframeContenedor' src='" + srcIframe + "' />");
         
@@ -36,26 +35,49 @@
         $('#authBasic').toggle();
     });
 
-    $('#confirmationModal .modal-footer').on('click', '.btn-primary.download', function () {
+    $('#confirmationModal .modal-footer').on('click', '.btn-primary.changeBranch', function () {
         var boton = $(this);
         var modal = boton.closest('.modal');
-        var modalBody =  modal.find('.modal-body');
+        var modalBody = modal.find('.modal-body');
         var proyecto = boton.attr("proyecto");
-        
+
         boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Descargando...');
         modal.find('.modal-footer .btn-secondary').hide();
 
-        $.post("/Configuration/DownloadProject", { proyectName: proyecto })
-          .done(function (status) {
-              if (status) {
-                  modalBody.append('<div class="alert alert-success" role="alert">Descarga correcta</div>');
+        $.post("/Configuration/ChangeBranch", { proyectName: proyecto })
+            .done(function (status) {
+                if (status) {
+                    modalBody.append('<div class="alert alert-success" role="alert">Descarga correcta</div>');
+                }
+                else {
+                    modalBody.append('<div class="alert alert-danger" role="alert">Descarga fallida</div>');
+                }
+                modal.find('.modal-footer').hide();
+            });
+    });
 
-              }
-              else {
-                  modalBody.append('<div class="alert alert-danger" role="alert">Descarga fallida</div>');
-              }
-              modal.find('.modal-footer').hide();
-          });
+    $('#confirmationModal .modal-footer').on('click', '.btn-primary.download', function () {
+        var boton = $(this);
+        var modal = boton.closest('.modal');
+        var modalBody = modal.find('.modal-body');
+        var proyecto = boton.attr("proyecto");
+
+        boton.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Descargando...');
+        modal.find('.modal-footer .btn-secondary').hide();
+
+
+        $.post("/Configuration/DownloadProject", { proyectName: proyecto })
+            .done(function (status) {
+                if (status) {
+                    modalBody.append('<div class="alert alert-success" role="alert">Descarga correcta</div>');
+                    $('.fa-cloud-upload[data-proyecto="' + proyecto + '"]').removeClass("disabled");
+                    $('.fa-cloud-download[data-proyecto="' + proyecto + '"]').addClass("no-changes");
+                }
+                else {
+                    modalBody.append('<div class="alert alert-danger" role="alert">Descarga fallida</div>');
+                }
+                modal.find('.modal-footer').hide();
+            });
     });
 
 
@@ -84,43 +106,54 @@
 
     });
 
+    var tituloModal = {
+        upload: 'Confirmar subida de vistas y estilos de ',
+        download: 'Confirmar descarga de vistas y estilos de ',
+        changeBranch: 'Confirmar cambio de rama de '
+    };
+
     $('#confirmationModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
-        if (button.hasClass('disabled')) {
+        if (button.hasClass('disabled') || button.hasClass('no-changes')) {
                 $('#confirmationModal').modal('hide');
                 return false;
         }
+        var parentButton = button.closest('.form-group');
 
-        var proyecto = button.data('proyecto');
-        var action = button.attr("title");
+        var proyecto = parentButton.attr('data-proy');
+
+        var titleAction = button.attr("title");
         var btnClass = button.attr("class");
-        var typeAction = btnClass.replace('fa fa-cloud-', '').trim();
+        var typeAction = button.data('action');
 
         var modal = $(this);
         modal.find('.modal-body .alert').remove();
         modal.find('.modal-body').children().hide();
         modal.find('.modal-body .' + typeAction).show();
 
-        if (typeAction == 'upload') {
-            modal.find('.modal-title').text("Confirmar subida de vistas y estilos de " + ' \'' + proyecto + '\'');
+        var panCambiosRepositorioLocal = modal.find('.modal-body .panCambios');
+        panCambiosRepositorioLocal.find('.cambios').html('');
+        panCambiosRepositorioLocal.hide();
 
-            var parentButton = button.parent();
+        if (typeAction == 'upload') {
             var userFTP = parentButton.find(".userFTP").val();
             var passwordFTP = parentButton.find(".passwordFTP").val();
-            var cambiosRepositorioLocal = parentButton.find(".cambios").val();
 
             $("#userFTP").val(userFTP);
             $("#passwordFTP").val(passwordFTP);
 
-            modal.find('.modal-body .' + typeAction).find('.panCambios .cambios').html(cambiosRepositorioLocal);
+            var cambios = parentButton.find(".cambios").val();
+            if (cambios != "") {
+                panCambiosRepositorioLocal.find('.cambios').html(cambios);
+                panCambiosRepositorioLocal.show();
+            }
         }
-        else {
-            modal.find('.modal-title').text("Confirmar descarga de vistas y estilos de " + ' \'' + proyecto + '\'');
-        }
+
+        modal.find('.modal-title').text(tituloModal[typeAction] + ' \'' + proyecto + '\'');
 
         modal.find('.modal-footer').show();
         modal.find('.modal-footer .btn-secondary').show();
-        modal.find('.modal-footer .btn-primary').attr('class', 'btn btn-primary ' + typeAction).attr('proyecto', proyecto).html("<span class='" + btnClass + "'></span>" + action);
+        modal.find('.modal-footer .btn-primary').attr('class', 'btn btn-primary ' + typeAction).attr('proyecto', proyecto).html("<span class='" + btnClass + "'></span>" + titleAction);
     })
 
 
@@ -149,8 +182,6 @@
         return false;
     });
      
-
-
     toggleVerPassword.init();
 });
 
@@ -181,9 +212,7 @@ var toggleVerPassword = {
                 spanEye.removeClass("fa-eye");
                 spanEye.addClass("fa-eye-slash");
             }
-
         });
-
         return;
     }
 };

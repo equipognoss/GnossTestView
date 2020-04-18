@@ -12,7 +12,7 @@
 <h2>Configuraciones</h2>
 <hr />
 
-@using (Html.BeginForm("SaveConfiguration", "Configuration", FormMethod.Post, new { id="configurationForm" }))
+@using (Html.BeginForm("SaveConfiguration", "Configuration", FormMethod.Post, new { id="configurationForm", @autocomplete = "off" }))
 {
     <div class="form-horizontal">
         <h3>Configuración general</h3>
@@ -20,7 +20,7 @@
             <label for="urlApiIntegracionEntornos" class="control-label col-md-2">API de Integracion de Entornos</label>
             <div class="col-md-10">
                 <div class="textbox">
-                    @Html.TextBox("urlApiIntegracionEntornos", Model.urlApiIntegracionEntornos, new { @autocomplete = "no" })
+                    @Html.TextBox("urlApiIntegracionEntornos", Model.urlApiIntegracionEntornos)
                 </div>
             </div>
         </div>
@@ -28,12 +28,12 @@
             <label class="control-label col-md-2">Datos de acceso de usuario root GitLab</label>
             <div class="col-md-5">
                 <div class="textbox">
-                    @Html.TextBox("usuarioRootRepositorio.user", Model.usuarioRootRepositorio.user, new { @autocomplete = "no", @placeholder = "login" })
+                    @Html.TextBox("usuarioRootRepositorio.user", Model.usuarioRootRepositorio.user, new {@placeholder = "login" })
                 </div>
             </div>
             <div class="col-md-5">
                 <div class="textbox">
-                    @Html.Password("usuarioRootRepositorio.password", Model.usuarioRootRepositorio.password, new { @autocomplete = "no", @placeholder = "password" })
+                    @Html.Password("usuarioRootRepositorio.password", Model.usuarioRootRepositorio.password, new {@placeholder = "password" })
                 </div>
             </div>
         </div>
@@ -41,12 +41,12 @@
             <label class="control-label col-md-2">Datos del servidor FTP para la subida de vistas y estilos</label>
             <div class="col-md-5">
                 <div class="textbox">
-                    @Html.TextBox("serverFtpUpload.server", Model.serverFtpUpload.server, new { @autocomplete = "no", @placeholder = "server" })
+                    @Html.TextBox("serverFtpUpload.server", Model.serverFtpUpload.server, new {@placeholder = "server" })
                 </div>
             </div>
             <div class="col-md-5">
                 <div class="textbox">
-                    @Html.TextBox("serverFtpUpload.port", Model.serverFtpUpload.port, new { @autocomplete = "no", @placeholder = "port" })
+                    @Html.TextBox("serverFtpUpload.port", Model.serverFtpUpload.port, new {@placeholder = "port" })
                 </div>
             </div>
         </div>
@@ -59,15 +59,15 @@
             {
                 <div class="form-group row">
                     <label class="control-label col-md-4"><span class="fa fa-trash@(autorization.url.Equals("default") ? " disabled" : "")" title="Eliminar"></span>@autorization.url</label>
-                    @Html.Hidden($"autorizacion[{count}].url", autorization.url, new { @autocomplete = "no" })
+                    @Html.Hidden($"autorizacion[{count}].url", autorization.url)
                     <div class="col-md-4">
                         <div class="textbox">
-                            @Html.TextBox($"autorizacion[{count}].user", autorization.user, new { @autocomplete = "no", @placeholder = "user" })
+                            @Html.TextBox($"autorizacion[{count}].user", autorization.user, new {@placeholder = "user" })
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="textbox">
-                            @Html.Password($"autorizacion[{count}].password", autorization.password, new { @autocomplete = "no", @placeholder = "password" })
+                            @Html.Password($"autorizacion[{count}].password", autorization.password, new {@placeholder = "password" })
                         </div>
                     </div>
                 </div>
@@ -75,40 +75,7 @@
             }
         }
 
-        @if (Model.proyectos.Any())
-        {
-            int count = 0;
-            <h3>Administrar vistas y estilos de proyectos</h3>
-            foreach (ConfigurationModel.ProyectoRamaModel proyecto in Model.proyectos)
-            {
-                string cambios = "";
-                foreach (string file in proyecto.localChanges.Keys)
-                {
-                    string status = proyecto.localChanges[file].ToString();
-                    string nameFile = file.Replace("Proyectos\\" + proyecto.nombreCortoProyecto + "\\", "");
-                    cambios += "<span class='fa " + status + "' title='" + status.Replace("InWorkdir", "").Replace("FromWorkdir", "") + "'>" + nameFile + "</span>";
-                }
-
-                string nombreProy = proyecto.nombreCortoProyecto;
-                <div class="form-group row">
-                    <label class="control-label col-md-4">
-                        <span class="fa fa-cloud-upload @(proyecto.hasRemoteChanges ? "disabled" : "")" title="Subir vistas y estilos" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal"></span>
-                        <span class="fa fa-cloud-download" title="Descargar vistas y estilos" data-toggle="modal" data-proyecto="@nombreProy" data-target="#confirmationModal"></span>
-                        @Html.Hidden($"proyecto[{count}].userFTP", proyecto.userFTP, new { @autocomplete = "no", @class = "userFTP" })
-                        @Html.Hidden($"proyecto[{count}].passwordFTP", proyecto.passwordFTP, new { @autocomplete = "no", @class = "passwordFTP" })
-                        @Html.Hidden($"proyecto[{count}].cambios", cambios, new { @autocomplete = "no", @class = "cambios" })
-                        @nombreProy
-                    </label>
-                    <label class="control-label col-md-4">
-                        @proyecto.rama
-                    </label>
-                    <label class="control-label col-md-4">
-                        @proyecto.userFTP
-                    </label>
-                </div>
-                count++;
-            }
-        }
+       @Html.Partial("_Proyectos")
 
         <div class="form-group save row">
             <div class="col-md-10">
@@ -134,7 +101,7 @@
                                 <label for="userFTP" class="control-label col-md-6">Nombre de usuario</label>
                                 <div class="col-md-6">
                                     <div class="textbox">
-                                        @Html.TextBox("userFTP", "", new { @autocomplete = "no",  @placeholder = "Nombre de usuario" })
+                                        @Html.TextBox("userFTP", "", new { @placeholder = "Nombre de usuario" })
                                     </div>
                                 </div>
                             </div>
@@ -142,13 +109,9 @@
                                 <label for="passwordFTP" class="control-label col-md-6">Password</label>
                                 <div class="col-md-6">
                                     <div class="textbox">
-                                        @Html.Password("passwordFTP", "", new { @autocomplete = "no", @placeholder = "Password" })
+                                        @Html.Password("passwordFTP", "", new {@placeholder = "Password" })
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group row panCambios">
-                                <label class="control-label col-md-12">Cambios en el repositorio local</label>
-                                <div class="col-md-12 cambios"></div>
                             </div>
                         </div>
                     </div>
@@ -156,6 +119,13 @@
                         Descargaremos los archivos del servidor y los fusionaremos con tus cambios.
                         <br />
                         Puede que tengas que resolver confiltos manualmente si varios usuarios habeis modificado los mismos ficheros.
+                    </div>
+                    <div class="changeBranch">
+                        Descargaremos los archivos de la última rama del servidor.
+                    </div>
+                    <div class="form-group row panCambios">
+                        <label>Cambios en el repositorio local</label>
+                        <div class="col-md-12 cambios"></div>
                     </div>
                 </div>
                 <div class="modal-footer">

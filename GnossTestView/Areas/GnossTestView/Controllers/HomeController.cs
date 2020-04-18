@@ -153,6 +153,7 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 }
                 else
                 {
+                    if (controllerName.Equals("BandejaMensajes") && modelType.Equals("ResultadoModel")) { actionName = "Listado"; }
                     if (controllerName.Equals("HomeComunidad") && modelType.Equals("CMSBlock")) { controllerName = "CMSPagina"; actionName = "Index"; }
                     if (controllerName.Equals("Busqueda")) { actionName = "Index"; }
                     if (modelType.Equals("Error404ViewModel")) { controllerName = "Error"; actionName = "Error404"; }
