@@ -123,8 +123,8 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
 
             string modelType = "undefined";
 
-            string rutaVistasPersonalizadas = $"Views/{proyectoSeleccionado}/Proyectos/{proyectoSeleccionado}/Vistas";
-            string rutaVistasPersonalizadasEcosistema = $"Views/ecosistema/Proyectos/mygnoss/Vistas";
+            string rutaVistasPersonalizadas = $"Views/{proyectoSeleccionado}/Vistas";
+            string rutaVistasPersonalizadasEcosistema = $"Views/ecosistema/Vistas";
 
             ViewBag.rutaVistasPersonalizadas = rutaVistasPersonalizadas;
             ViewBag.rutaVistasPersonalizadasEcosistema = rutaVistasPersonalizadasEcosistema;
