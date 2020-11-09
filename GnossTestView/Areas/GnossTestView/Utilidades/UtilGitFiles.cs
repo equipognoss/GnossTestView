@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Linq;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace GnossTestView.Areas.GnossTestView.Utilidades
 {
@@ -38,36 +39,131 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
         internal static string ObrenerRamaRepositorioLocal(string proyecto)
         {
             string rutaDirectorio = $"{AppContext.BaseDirectory}Views/{proyecto}";
-
-            using (var repo = new Repository(rutaDirectorio))
+            try
             {
-                return repo.Head.FriendlyName;
+                using (var repo = new Repository(rutaDirectorio))
+                {
+                    return repo.Head.FriendlyName;
+                }
+            }
+            catch (RepositoryNotFoundException ex)
+            {
+                return null;
             }
         }
 
         private static string GetProyectRepository(string proyecto)
         {
-            string repositorio = ""; //Pedirselo al api de integracioncontinua
+             //Pedirselo al api de integracioncontinua
 
-            return repositorio;
+            string urlRepo = UtilConfiguration.GetConfiguration("urlApiIntegracionEntornos");
+
+            string peticion = urlRepo + $"/config/urlrepo?pNombreCorto={proyecto}";
+            byte[] byteData = Encoding.UTF8.GetBytes("");
+            string urlEnvironment = JsonConvert.DeserializeObject<string>(WebRequest("POST", peticion, byteData));
+
+            return urlEnvironment;
         }
+
+       
         private static string GetActualBranchRepository(string proyecto)
         {
-            string ramaActual = ""; //Pedirselo al api de integracioncontinua
+            //Pedirselo al api de integracioncontinua
+
+            string urlRepo = UtilConfiguration.GetConfiguration("urlApiIntegracionEntornos");
+
+            string peticion = urlRepo + $"/config/rama?pNombreCorto={proyecto}";
+            byte[] byteData = Encoding.UTF8.GetBytes("");
+            string ramaActual = JsonConvert.DeserializeObject<string>(WebRequest("POST", peticion, byteData));
 
             return ramaActual;
+        }
+
+        public static string WebRequest(string httpMethod, string url, byte[] byteData)
+        {
+            HttpWebRequest webRequest = null;
+            string responseData = "";
+
+            webRequest = System.Net.WebRequest.Create(url) as HttpWebRequest;
+            webRequest.Method = httpMethod;
+            webRequest.ServicePoint.Expect100Continue = false;
+            webRequest.Timeout = 600000;
+            webRequest.ContentType = "application/x-www-form-urlencoded";
+
+            if (httpMethod == "POST")
+            {
+                webRequest.ContentLength = 0;
+
+                if (byteData != null)
+                {
+                    webRequest.ContentLength = byteData.Length;
+
+                    Stream dataStream = webRequest.GetRequestStream();
+                    dataStream.Write(byteData, 0, byteData.Length);
+                    dataStream.Close();
+                }
+            }
+            try
+            {
+                responseData = WebResponseGet(webRequest);
+            }
+            catch (WebException ex)
+            {
+                string message = url;
+                try
+                {
+                    StreamReader sr = new StreamReader(ex.Response.GetResponseStream());
+                    message += "\r\nError: " + sr.ReadToEnd();
+                }
+                catch { }
+
+                // Error reading the error response, throw the original exception
+                throw new Exception(message, ex);
+            }
+
+            webRequest = null;
+
+            return responseData;
+        }
+
+        /// <summary>
+        /// Make a http get request
+        /// </summary>
+        /// <param name="pWebRequest">HttpWebRequest object</param>
+        /// <returns>Server response</returns>
+        private static string WebResponseGet(HttpWebRequest pWebRequest)
+        {
+            StreamReader responseReader = null;
+            string responseData = "";
+
+            try
+            {
+                responseReader = new StreamReader(pWebRequest.GetResponse().GetResponseStream(), Encoding.UTF8);
+                responseData = responseReader.ReadToEnd();
+            }
+            finally
+            {
+                if (responseReader != null)
+                {
+                    responseReader.Close();
+                    responseReader = null;
+                }
+            }
+            return responseData;
         }
 
         internal static void DescargarVistasInicial(string proyecto)
         {
             string repositorio = GetProyectRepository(proyecto);
             string ramaActual = GetActualBranchRepository(proyecto);
+            if (!string.IsNullOrEmpty(ramaActual))
+            {
+                string rutaDirectorio = $"{AppContext.BaseDirectory}Views/{proyecto}";
 
-            string rutaDirectorio = $"{AppContext.BaseDirectory}Views/{proyecto}";
+                Directory.CreateDirectory(rutaDirectorio);
 
-            Directory.CreateDirectory(rutaDirectorio);
-
-            ForkRespositorio(new Uri(repositorio), rutaDirectorio, ramaActual);
+                ForkRespositorio(new Uri(repositorio), rutaDirectorio, ramaActual);
+            }
         }
 
         internal static void DescargarVistas(string proyecto)

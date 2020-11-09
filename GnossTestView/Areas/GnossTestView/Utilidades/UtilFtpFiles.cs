@@ -26,7 +26,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
                 }
                 else if (status.Equals(FileStatus.ModifiedInWorkdir) || status.Equals(FileStatus.NewInWorkdir))
                 {
-                    UploadFileFTP(cambio, serverURL, $"{AppContext.BaseDirectory}Views/{proyectName}", userFTP, passwordFTP);
+                    UploadFileFTP(cambio, serverURL, $"{AppContext.BaseDirectory}Views/{proyectName}", userFTP, passwordFTP, proyectName);
                 }
             }
         }
@@ -43,13 +43,13 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
             }
         }
 
-        private static void UploadFileFTP(string fileName, string serverURL, string repositoryUrl, string userFTP, string passwordFTP)
+        private static void UploadFileFTP(string fileName, string serverURL, string repositoryUrl, string userFTP, string passwordFTP, string proyectName)
         {
             try
             {
                 using (FileStream fs = File.Open($"{repositoryUrl}/{fileName}", FileMode.OpenOrCreate, FileAccess.Read))
                 {
-                    string urlFtp = $"ftp://{serverURL}/{fileName.Replace("Proyectos\\", "")}";
+                    string urlFtp = $"ftp://{serverURL}/{proyectName}/{fileName.Replace("Proyectos\\", "")}";
 
                     FtpWebRequest ftp = (FtpWebRequest)WebRequest.Create(urlFtp);
                     ftp.Credentials = new NetworkCredential(userFTP, passwordFTP);

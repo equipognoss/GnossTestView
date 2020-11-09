@@ -33,19 +33,20 @@ namespace GnossTestView.Areas.GnossTestView.Controllers
                 ConfigurationModel.ProyectoRamaModel proyecto = new ConfigurationModel.ProyectoRamaModel();
                 proyecto.nombreCortoProyecto = nombreProy.Split('\\').Last();
                 proyecto.rama = UtilGitFiles.ObrenerRamaRepositorioLocal(proyecto.nombreCortoProyecto);
-                
-                proyecto.userFTP = UtilConfiguration.GetConfiguration($"proyectos/proyecto[@name=\'{proyecto.nombreCortoProyecto}\']/userFTP");
-                proyecto.passwordFTP = UtilConfiguration.GetConfiguration($"proyectos/proyecto[@name=\'{proyecto.nombreCortoProyecto}\']/passwordFTP");
+                if (proyecto.rama != null)
+                {
+                    proyecto.userFTP = UtilConfiguration.GetConfiguration($"proyectos/proyecto[@name=\'{proyecto.nombreCortoProyecto}\']/userFTP");
+                    proyecto.passwordFTP = UtilConfiguration.GetConfiguration($"proyectos/proyecto[@name=\'{proyecto.nombreCortoProyecto}\']/passwordFTP");
 
-                proyecto.localChanges = UtilGitFiles.GetFilesWithChanges(proyecto.nombreCortoProyecto);
+                    proyecto.localChanges = UtilGitFiles.GetFilesWithChanges(proyecto.nombreCortoProyecto);
 
-                proyecto.changeBranch = UtilGitFiles.CheckBranchChange(proyecto.nombreCortoProyecto);
+                    proyecto.changeBranch = UtilGitFiles.CheckBranchChange(proyecto.nombreCortoProyecto);
 
-                proyecto.hasRemoteChanges = proyecto.changeBranch || UtilGitFiles.CheckServerChanges(proyecto.nombreCortoProyecto);
+                    proyecto.hasRemoteChanges = proyecto.changeBranch || UtilGitFiles.CheckServerChanges(proyecto.nombreCortoProyecto);
 
-                configuracion.proyectos.Add(proyecto);
+                    configuracion.proyectos.Add(proyecto);
+                }  
             }
-
             return View(configuracion);
         }
 
