@@ -405,7 +405,7 @@ namespace GnossTestView.Extensions
         /// <returns>El texto traducido</returns>
         public static string Translate(this HtmlHelper helper, string pTextoID, params string[] pParams)
         {
-            string resultado = helper.ViewBag.UtilIdiomas.GetTextoPersonalizado(pTextoID, pParams);
+            string resultado = helper.GetUtilIdiomas().GetTextoPersonalizado(pTextoID, pParams);
 
             if (string.IsNullOrEmpty(resultado))
             {
@@ -845,6 +845,22 @@ namespace GnossTestView.Extensions
                 return (int)helper.ViewBag.EdadMinimaRegistro;
             }
             return 0;
+        }
+        public static bool ComprobarPersonaEsMayorAnios(this HtmlHelper helper, DateTime fecha, int edad)
+        {
+            bool esMayor = true;
+
+            DateTime zeroTime = new DateTime(1, 1, 1);
+
+            TimeSpan span = DateTime.Now.Subtract(fecha);
+            // Because we start at year 1 for the Gregorian
+            // calendar, we must subtract a year here.
+            int years = (zeroTime + span).Year - 1;
+
+            esMayor = years >= edad;
+            
+
+            return esMayor;
         }
 
         public static Guid GetIdentidadMensajeID(this HtmlHelper helper)
