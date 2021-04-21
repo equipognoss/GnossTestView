@@ -1,6 +1,7 @@
 ﻿using GnossTestView.Areas.GnossTestView.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml;
@@ -10,33 +11,29 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 {
     public class UtilConfiguration
     {
-        private static readonly string rutaAutorization = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Authorization.config";
-        private static readonly string rutaConfiguration = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\Configuration.config";
-        private static readonly string rutaAutocompleteData = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config\\AutocompleteData.config";
+        private const string FILE_AUTHORIZATION = "Authorization.config";
+        private const string FILE_CONFIGURATION = "Configuration.config";
+        private const string FILE_AUTOCOMPLETE_DATA = "AutocompleteData.config";
+
+        private static readonly string configDirectory = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config";
+        private static readonly string rutaAutorization = $"{configDirectory}\\{FILE_AUTHORIZATION}";
+        private static readonly string rutaConfiguration = $"{configDirectory}\\{FILE_CONFIGURATION}";
+        private static readonly string rutaAutocompleteData = $"{configDirectory}\\{FILE_AUTOCOMPLETE_DATA}";
 
         internal static void SetConfiguracion(string key, string value)
         {
-            XmlDocument docXml = new XmlDocument();
-
-            if (System.IO.File.Exists(rutaConfiguration))
-            {
-                docXml.Load(rutaConfiguration);
-            }
-            else
-            {
-                docXml.LoadXml("<config></config>");
-            }
+            XmlDocument docXml = ReadOrCreateXmlDocument(configDirectory, FILE_CONFIGURATION);
 
             XmlNode parentNode = docXml.SelectSingleNode("config");
 
             XmlNode node = parentNode.SelectSingleNode(key);
             if (node == null)
-            { 
+            {
                 node = createXPath(docXml, key);
             }
             node.InnerText = value;
 
-            docXml.Save(rutaConfiguration);
+            SaveXmlDocument(docXml, configDirectory, FILE_CONFIGURATION);
         }
 
         private static XmlNode createXPath(XmlDocument doc, string xpath)
@@ -141,16 +138,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 
         internal static void SetAuthorization(string url, string user, string password)
         {
-            XmlDocument docXml = new XmlDocument();
-
-            if (System.IO.File.Exists(rutaAutorization))
-            {
-                docXml.Load(rutaAutorization);
-            }
-            else
-            {
-                docXml.LoadXml("<config>  <proyecto url=\"default\"><user></user><pass></pass></proyecto></config>");
-            }
+            XmlDocument docXml = ReadOrCreateXmlDocument(configDirectory, FILE_AUTHORIZATION);
 
             XmlNode parentNode = docXml.SelectSingleNode("config");
 
@@ -173,7 +161,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 
             parentNode.AppendChild(newConfig);
 
-            docXml.Save(rutaAutorization);
+            SaveXmlDocument(docXml,configDirectory,FILE_AUTHORIZATION);
         }
 
         internal static KeyValuePair<string, string>? ObtenerAuthorizationConfig(string url)
@@ -224,7 +212,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
                     }
                 }
             }
-            if(!autorizationList.Any())
+            if (!autorizationList.Any())
             {
                 ConfigurationModel.AutorizationModel autorization = new ConfigurationModel.AutorizationModel();
                 autorization.url = "default";
@@ -245,13 +233,13 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
             {
                 docXml.LoadXml("<config>  <proyecto url=\"default\"><user></user><pass></pass></proyecto></config>");
             }
-            else 
+            else
             {
                 docXml.LoadXml("<config></config>");
             }
 
             XmlNode parentNode = docXml.SelectSingleNode("config");
-            
+
 
             foreach (ConfigurationModel.AutorizationModel autorization in autorizationList)
             {
@@ -269,7 +257,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
                 parentNode.AppendChild(newConfig);
             }
 
-            docXml.Save(rutaAutorization);
+            SaveXmlDocument(docXml, configDirectory, FILE_AUTHORIZATION);
         }
 
         internal static List<string> GetAutocompleteData(string key)
@@ -281,7 +269,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
                 docXml.Load(rutaAutocompleteData);
 
                 XmlNodeList nodeList = docXml.SelectNodes($"config/{key}");
-                foreach(XmlNode node in nodeList)
+                foreach (XmlNode node in nodeList)
                 {
                     resultados.Add(node.InnerText);
                 }
@@ -298,16 +286,7 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
 
         internal static void SetAutocompleteData(string key, List<string> values)
         {
-            XmlDocument docXml = new XmlDocument();
-
-            if (System.IO.File.Exists(rutaAutocompleteData))
-            {
-                docXml.Load(rutaAutocompleteData);
-            }
-            else
-            {
-                docXml.LoadXml("<config></config>");
-            }
+            XmlDocument docXml = ReadOrCreateXmlDocument(configDirectory, FILE_AUTOCOMPLETE_DATA);
 
             XmlNode parentNode = docXml.SelectSingleNode("config");
 
@@ -325,7 +304,38 @@ namespace GnossTestView.Areas.GnossTestView.Utilidades
                 order++;
             }
 
-            docXml.Save(rutaAutocompleteData);
+            SaveXmlDocument(docXml, configDirectory, FILE_AUTOCOMPLETE_DATA);
         }
+
+        private static XmlDocument ReadOrCreateXmlDocument(string directory, string fileName)
+        {
+            XmlDocument docXml = new XmlDocument();
+
+            if (System.IO.File.Exists($"{directory}\\{fileName}"))
+            {
+                docXml.Load($"{directory}\\{fileName}");
+            }
+            else
+            {
+                docXml.LoadXml("<config></config>");
+            }
+
+            return docXml;
+        }
+        private static void SaveXmlDocument(XmlDocument document, string directory, string fileName)
+        {
+            CreateDirectoryIfNotExist(directory);
+            document.Save($"{directory}\\{fileName}");
+        }
+        private static void CreateDirectoryIfNotExist(string directory)
+        {
+            if (string.IsNullOrEmpty(directory) || string.IsNullOrWhiteSpace(directory) || Directory.Exists(directory))
+            {
+                return;
+            }
+
+            Directory.CreateDirectory(directory);
+        }
+
     }
 }
